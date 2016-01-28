@@ -1,7 +1,5 @@
 package widget.menu.menuitem;
 
-import org.eclipse.swt.SWT;
-
 import widget.menu.AMenu;
 
 public class SelectAll extends AMenuItem {
@@ -14,7 +12,7 @@ public class SelectAll extends AMenuItem {
 	public void initialize() {
 		System.out.println("Initialize SelectAllMenuItem");
 		setTitle("Select &All\tCtrl+A");
-    	super.setAccelerator(SWT.MOD1 + 'A');
+		super.setShortcut('A');
 	}
 
 	@Override

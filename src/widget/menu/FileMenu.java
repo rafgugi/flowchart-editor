@@ -1,6 +1,6 @@
 package widget.menu;
 
-import widget.menu.menuitem.SelectAll;
+import widget.menu.menuitem.New;
 
 public class FileMenu extends AMenu {
 
@@ -13,7 +13,7 @@ public class FileMenu extends AMenu {
 	public void initialize() {
 		System.out.println("Initialize FileMenu");
 		setTitle("File");
-		addItem(new SelectAll(this));
+		addItem(new New(this));
 	}
 
 }

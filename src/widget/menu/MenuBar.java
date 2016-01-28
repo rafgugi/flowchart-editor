@@ -32,6 +32,7 @@ public class MenuBar extends Menu implements IMenuBar {
 	public void initialize() {
 		System.out.println("Initialize MenuBar");
 		addItem(new FileMenu(this));
+		addItem(new EditMenu(this));
 	}
 
 	@Override

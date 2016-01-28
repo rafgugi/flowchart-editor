@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		Window window = Window.getInstance();
-        window.pack();
+		window.pack();
 		window.show();
 	}
 
