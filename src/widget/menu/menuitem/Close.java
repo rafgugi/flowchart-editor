@@ -4,24 +4,24 @@ import widget.Window;
 import widget.menu.AMenu;
 import widget.tab.Editor;
 
-public class New extends AMenuItem {
+public class Close extends AMenuItem {
 
-	public New(AMenu parent) {
+	public Close(AMenu parent) {
 		super(parent);
 	}
 
 	@Override
 	public void initialize() {
-		System.out.println("Initialize New");
-		setTitle("&New\t\tCtrl+N");
-		super.setShortcut('N');
+		System.out.println("Initialize Close");
+		setTitle("Close\t\tCtrl+W");
+		super.setShortcut('W');
 	}
 
 	@Override
 	public void execute() {
-		System.out.println("New");
+		System.out.println("Close");
 		Editor editor = (Editor) Window.getInstance().getEditor();
-		editor.newSubEditor();
+		editor.close();
 	}
 
 }

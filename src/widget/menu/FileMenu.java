@@ -1,6 +1,6 @@
 package widget.menu;
 
-import widget.menu.menuitem.New;
+import widget.menu.menuitem.*;
 
 public class FileMenu extends AMenu {
 
@@ -14,6 +14,7 @@ public class FileMenu extends AMenu {
 		System.out.println("Initialize FileMenu");
 		setTitle("File");
 		addItem(new New(this));
+		addItem(new Close(this));
 	}
 
 }

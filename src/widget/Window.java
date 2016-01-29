@@ -1,25 +1,28 @@
 package widget;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.TabFolder;
-import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
 
+import interfaces.IEditor;
 import interfaces.IMenuBar;
 import interfaces.IWindow;
 import widget.menu.MenuBar;
+import widget.tab.Editor;
 
 public class Window extends Shell implements IWindow {
-	
+
 	private IMenuBar menuBar;
+	private IEditor editor;
 	private static Window instance;
 
 	private Window() {
@@ -27,7 +30,7 @@ public class Window extends Shell implements IWindow {
 		System.out.println("Constructornya Window");
 		initialize();
 	}
-	
+
 	public static Window getInstance() {
 		if (instance == null) {
 			System.out.println("Bikin Window di Window.getInstance");
@@ -47,43 +50,58 @@ public class Window extends Shell implements IWindow {
 			}
 		}
 	}
-	
+
 	@Override
 	public void checkSubclass() {
 	}
 
 	@Override
 	public void initialize() {
+		setText("Window.java");
+
+		setBar(new MenuBar(this));
+
+		GridData gridData;
+
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 3;
 		this.setLayout(layout);
 
-		this.setText("Window.java");
-		this.setSize(250, 200);
-		
-		this.setBar(new MenuBar(this));
+		Group group = new Group(this, SWT.PUSH);
+		group.setText("Group text");
 
-//		RowLayout layout = new RowLayout();
-//		layout.marginLeft = 30;
-//		layout.marginTop = 30;
-//		layout.marginBottom = 150;
-//		layout.marginRight = 150;
-//		this.setLayout(layout);
-		
-		final TabFolder tabFolder = new TabFolder(this, SWT.PUSH);
-//		Rectangle clientArea = this.getClientArea();
-//		tabFolder.setLocation(clientArea.x, clientArea.y);
-//		tabFolder.setSize(100, 100);
-		for (int i = 1; i <= 5; i++) {
-			TabItem item = new TabItem(tabFolder, SWT.NONE);
-			item.setText("TabItem " + i);
-			final Canvas c = new Canvas(tabFolder, SWT.BORDER);
-			c.setSize(50, 50);
-//			Button button = new Button (tabFolder, SWT.PUSH);
-//			button.setText ("Page " + i);
-			item.setControl(c);
+		gridData = new GridData();
+		gridData.verticalAlignment = SWT.FILL;
+		gridData.verticalSpan = 2;
+		group.setLayoutData(gridData);
+
+		Display display = this.getDisplay();
+		Image image = new Image(display, 16, 16);
+		Color color = display.getSystemColor(SWT.COLOR_RED);
+		GC gc = new GC(image);
+		gc.setBackground(color);
+		gc.fillRectangle(image.getBounds());
+		gc.dispose();
+		ToolBar toolBar = new ToolBar(this, SWT.VERTICAL | SWT.BORDER);
+
+		gridData = new GridData();
+		gridData.verticalAlignment = SWT.FILL;
+		toolBar.setLayoutData(gridData);
+		for (int i = 0; i < 12; i++) {
+			int style = SWT.RADIO;
+			ToolItem item = new ToolItem(toolBar, style);
+			item.setImage(image);
 		}
-		tabFolder.pack ();
+		toolBar.pack();
+
+		setEditor(new Editor(this));
+
+		Group group2 = new Group(this, SWT.PUSH);
+		group2.setText("Group2 text");
+		gridData = new GridData();
+		gridData.horizontalSpan = 2;
+		gridData.horizontalAlignment = SWT.FILL;
+		group2.setLayoutData(gridData);
 	}
 
 	@Override
@@ -95,6 +113,16 @@ public class Window extends Shell implements IWindow {
 	public void setBar(IMenuBar bar) {
 		super.setMenuBar((Menu) bar);
 		this.menuBar = bar;
+	}
+
+	@Override
+	public IEditor getEditor() {
+		return editor;
+	}
+
+	@Override
+	public void setEditor(IEditor editor) {
+		this.editor = editor;
 	}
 
 	@Override
