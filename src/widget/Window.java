@@ -1,28 +1,26 @@
 package widget;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.ToolBar;
-import org.eclipse.swt.widgets.ToolItem;
 
 import interfaces.IEditor;
 import interfaces.IMenuBar;
+import interfaces.IToolStrip;
 import interfaces.IWindow;
 import widget.menu.MenuBar;
 import widget.tab.Editor;
+import widget.toolbar.ToolStrip;
 
 public class Window extends Shell implements IWindow {
 
 	private IMenuBar menuBar;
 	private IEditor editor;
+	private IToolStrip toolstrip;
 	private static Window instance;
 
 	private Window() {
@@ -42,6 +40,7 @@ public class Window extends Shell implements IWindow {
 		return instance;
 	}
 
+	@Override
 	public void show() {
 		super.open();
 		while (!super.isDisposed()) {
@@ -69,31 +68,12 @@ public class Window extends Shell implements IWindow {
 
 		Group group = new Group(this, SWT.PUSH);
 		group.setText("Group text");
-
 		gridData = new GridData();
 		gridData.verticalAlignment = SWT.FILL;
 		gridData.verticalSpan = 2;
 		group.setLayoutData(gridData);
-
-		Display display = this.getDisplay();
-		Image image = new Image(display, 16, 16);
-		Color color = display.getSystemColor(SWT.COLOR_RED);
-		GC gc = new GC(image);
-		gc.setBackground(color);
-		gc.fillRectangle(image.getBounds());
-		gc.dispose();
-		ToolBar toolBar = new ToolBar(this, SWT.VERTICAL | SWT.BORDER);
-
-		gridData = new GridData();
-		gridData.verticalAlignment = SWT.FILL;
-		toolBar.setLayoutData(gridData);
-		for (int i = 0; i < 12; i++) {
-			int style = SWT.RADIO;
-			ToolItem item = new ToolItem(toolBar, style);
-			item.setImage(image);
-		}
-		toolBar.pack();
-
+		
+		setToolStrip(new ToolStrip(this));
 		setEditor(new Editor(this));
 
 		Group group2 = new Group(this, SWT.PUSH);
@@ -102,6 +82,16 @@ public class Window extends Shell implements IWindow {
 		gridData.horizontalSpan = 2;
 		gridData.horizontalAlignment = SWT.FILL;
 		group2.setLayoutData(gridData);
+	}
+
+	@Override
+	public void setTitle(String name) {
+		this.setText(name);
+	}
+
+	@Override
+	public String getTitle() {
+		return this.getText();
 	}
 
 	@Override
@@ -126,12 +116,12 @@ public class Window extends Shell implements IWindow {
 	}
 
 	@Override
-	public void setTitle(String name) {
-		this.setText(name);
+	public IToolStrip getToolStrip() {
+		return toolstrip;
 	}
 
 	@Override
-	public String getTitle() {
-		return this.getText();
+	public void setToolStrip(IToolStrip toolstrip) {
+		this.toolstrip = toolstrip;
 	}
 }

@@ -1,26 +1,41 @@
 package widget.toolbar;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.ToolBar;
 
 import interfaces.ITool;
 import interfaces.IToolStrip;
 import widget.Window;
+import widget.toolbar.tools.Ellipse;
 
 public class ToolStrip extends ToolBar implements IToolStrip {
 
+	private List<ITool> tools;
+
 	public ToolStrip(Window parent, int style) {
 		super(parent, style);
-		// TODO Auto-generated constructor stub
+		tools = new ArrayList<>();
+		initialize();
 	}
-
-	private List<ITool> tools;
+	
+	public ToolStrip(Window parent) {
+		this(parent, SWT.BORDER | SWT.VERTICAL);
+	}
+	
 	@Override
 	public void initialize() {
-		// TODO Auto-generated method stub
-		
+		GridData gridData = new GridData();
+		gridData.verticalAlignment = SWT.FILL;
+		super.setLayoutData(gridData);
+		super.pack();
+		for (int i = 0; i < 10; i++) {
+			addTool(new Ellipse(this));
+		}
 	}
 
 	@Override

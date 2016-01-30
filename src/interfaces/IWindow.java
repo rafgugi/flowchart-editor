@@ -5,6 +5,9 @@ public interface IWindow extends IWidget {
 	public String getTitle();
 	public IMenuBar getBar();
 	public void setBar(IMenuBar bar);
-	IEditor getEditor();
-	void setEditor(IEditor editor);
+	public IEditor getEditor();
+	public void setEditor(IEditor editor);
+	public void show();
+	public void setToolStrip(IToolStrip toolstrip);
+	public IToolStrip getToolStrip();
 }
