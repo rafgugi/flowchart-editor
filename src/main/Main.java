@@ -1,11 +1,11 @@
 package main;
 
-import widget.Window;
+import widget.MainWindow;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Window window = Window.getInstance();
+		MainWindow window = MainWindow.getInstance();
 		window.pack();
 		window.show();
 	}

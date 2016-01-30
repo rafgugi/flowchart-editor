@@ -10,20 +10,20 @@ import org.eclipse.swt.widgets.ToolBar;
 
 import interfaces.ITool;
 import interfaces.IToolStrip;
-import widget.Window;
+import widget.MainWindow;
 import widget.toolbar.tools.Ellipse;
 
 public class ToolStrip extends ToolBar implements IToolStrip {
 
 	private List<ITool> tools;
 
-	public ToolStrip(Window parent, int style) {
+	public ToolStrip(MainWindow parent, int style) {
 		super(parent, style);
 		tools = new ArrayList<>();
 		initialize();
 	}
 	
-	public ToolStrip(Window parent) {
+	public ToolStrip(MainWindow parent) {
 		this(parent, SWT.BORDER | SWT.VERTICAL);
 	}
 	

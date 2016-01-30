@@ -1,10 +1,7 @@
 package widget;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Shell;
 
@@ -16,26 +13,21 @@ import widget.menu.MenuBar;
 import widget.tab.Editor;
 import widget.toolbar.ToolStrip;
 
-public class Window extends Shell implements IWindow {
+public class MainWindow extends Shell implements IWindow {
 
 	private IMenuBar menuBar;
 	private IEditor editor;
 	private IToolStrip toolstrip;
-	private static Window instance;
+	private static MainWindow instance;
 
-	private Window() {
+	private MainWindow() {
 		super(new Display());
-		System.out.println("Constructornya Window");
 		initialize();
 	}
 
-	public static Window getInstance() {
+	public static MainWindow getInstance() {
 		if (instance == null) {
-			System.out.println("Bikin Window di Window.getInstance");
-			instance = new Window();
-			if (instance == null) {
-				System.out.println("instance == null");
-			}
+			instance = new MainWindow();
 		}
 		return instance;
 	}
@@ -60,28 +52,12 @@ public class Window extends Shell implements IWindow {
 
 		setBar(new MenuBar(this));
 
-		GridData gridData;
-
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 3;
 		super.setLayout(layout);
 
-		Group group = new Group(this, SWT.PUSH);
-		group.setText("Group text");
-		gridData = new GridData();
-		gridData.verticalAlignment = SWT.FILL;
-		gridData.verticalSpan = 2;
-		group.setLayoutData(gridData);
-
 		setToolStrip(new ToolStrip(this));
 		setEditor(new Editor(this));
-
-		Group group2 = new Group(this, SWT.PUSH);
-		group2.setText("Group2 text");
-		gridData = new GridData();
-		gridData.horizontalSpan = 2;
-		gridData.horizontalAlignment = SWT.FILL;
-		group2.setLayoutData(gridData);
 	}
 
 	@Override

@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.Menu;
 import interfaces.IMenu;
 import interfaces.IMenuBar;
 import interfaces.IWindow;
-import widget.Window;
+import widget.MainWindow;
 
 public class MenuBar extends Menu implements IMenuBar {
 
@@ -17,7 +17,7 @@ public class MenuBar extends Menu implements IMenuBar {
 	private List<IMenu> menus;
 
 	public MenuBar(IWindow parent, int style) {
-		super((Window) parent, style);
+		super((MainWindow) parent, style);
 		parent.setBar(this);
 		menus = new ArrayList<IMenu>();
 		initialize();

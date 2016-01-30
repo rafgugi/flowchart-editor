@@ -10,7 +10,6 @@ public class SelectAll extends AMenuItem {
 
 	@Override
 	public void initialize() {
-		System.out.println("Initialize SelectAllMenuItem");
 		setTitle("Select &All\tCtrl+A");
 		super.setShortcut('A');
 	}

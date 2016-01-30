@@ -8,7 +8,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TabFolder;
 import interfaces.IEditor;
 import interfaces.ISubEditor;
-import widget.Window;
+import widget.MainWindow;
 
 /**
  * @author sg
@@ -18,13 +18,13 @@ public class Editor extends TabFolder implements IEditor {
 
 	private List<ISubEditor> subEditors;
 
-	public Editor(Window parent, int style) {
+	public Editor(MainWindow parent, int style) {
 		super(parent, style);
 		subEditors = new ArrayList<>();
 		this.initialize();
 	}
 
-	public Editor(Window parent) {
+	public Editor(MainWindow parent) {
 		this(parent, SWT.NONE);
 	}
 
@@ -61,7 +61,6 @@ public class Editor extends TabFolder implements IEditor {
 			throw new ArrayIndexOutOfBoundsException();
 		}
 		ISubEditor ans = subEditors.get(index);
-		System.out.println("Close index " + index + " (" + ans.getTitle() + ")");
 		return ans;
 	}
 
