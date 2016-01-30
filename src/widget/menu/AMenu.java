@@ -9,18 +9,17 @@ import org.eclipse.swt.widgets.MenuItem;
 import interfaces.IMenu;
 import interfaces.IMenuItem;
 
-public abstract class AMenu extends MenuItem implements IMenu {
+public abstract class AMenu extends Menu implements IMenu {
 
 	private String name;
 	private List<IMenuItem> menuItems;
-	private Menu dropDown;
+	private MenuItem menu;
 
 	public AMenu(MenuBar parent, int style) {
-		super(parent, style);
-		
-		dropDown = new Menu(parent.getShell(), SWT.DROP_DOWN);
-		super.setMenu(dropDown);
-		
+		super(parent.getShell(), SWT.DROP_DOWN);
+
+		menu = new MenuItem(parent, style);
+		menu.setMenu(this);
 		menuItems = new ArrayList<>();
 		initialize();
 	}
@@ -38,21 +37,13 @@ public abstract class AMenu extends MenuItem implements IMenu {
 	}
 
 	@Override
-	public List<IMenuItem> getItems() {
+	public List<IMenuItem> getMenuItems() {
 		return menuItems;
 	}
 
 	@Override
 	public void setItems(List<IMenuItem> items) {
 		this.menuItems = items;
-	}
-
-	public Menu getDropDown() {
-		return dropDown;
-	}
-
-	public void setDropDown(Menu dropDown) {
-		this.dropDown = dropDown;
 	}
 
 	@Override
@@ -63,7 +54,7 @@ public abstract class AMenu extends MenuItem implements IMenu {
 	@Override
 	public void setTitle(String name) {
 		this.name = name;
-		super.setText(name);
+		menu.setText(name);
 	}
 
 	@Override

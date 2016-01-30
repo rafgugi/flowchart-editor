@@ -3,7 +3,6 @@ package widget.menu.menuitem;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 
 import interfaces.IMenuItem;
@@ -13,14 +12,14 @@ public abstract class AMenuItem extends MenuItem implements IMenuItem, Listener 
 
 	private String name;
 
-	public AMenuItem(Menu parent, int style) {
+	public AMenuItem(AMenu parent, int style) {
 		super(parent, style);
 		initialize();
 		super.addListener(SWT.Selection, this);
 	}
 
 	public AMenuItem(AMenu parent) {
-		this(parent.getDropDown(), SWT.PUSH);
+		this(parent, SWT.PUSH);
 	}
 
 	@Override
@@ -33,7 +32,7 @@ public abstract class AMenuItem extends MenuItem implements IMenuItem, Listener 
 		super.setText(name);
 		this.name = name;
 	}
-	
+
 	public void setShortcut(char shortcut) {
 		super.setAccelerator(SWT.MOD1 + shortcut);
 	}
