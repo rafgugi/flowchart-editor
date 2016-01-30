@@ -56,7 +56,7 @@ public class Window extends Shell implements IWindow {
 
 	@Override
 	public void initialize() {
-		setText("Window.java");
+		setTitle("Window.java");
 
 		setBar(new MenuBar(this));
 
@@ -64,7 +64,7 @@ public class Window extends Shell implements IWindow {
 
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 3;
-		this.setLayout(layout);
+		super.setLayout(layout);
 
 		Group group = new Group(this, SWT.PUSH);
 		group.setText("Group text");
@@ -72,7 +72,7 @@ public class Window extends Shell implements IWindow {
 		gridData.verticalAlignment = SWT.FILL;
 		gridData.verticalSpan = 2;
 		group.setLayoutData(gridData);
-		
+
 		setToolStrip(new ToolStrip(this));
 		setEditor(new Editor(this));
 
@@ -86,12 +86,12 @@ public class Window extends Shell implements IWindow {
 
 	@Override
 	public void setTitle(String name) {
-		this.setText(name);
+		super.setText(name);
 	}
 
 	@Override
 	public String getTitle() {
-		return this.getText();
+		return super.getText();
 	}
 
 	@Override

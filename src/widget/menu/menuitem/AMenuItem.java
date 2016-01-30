@@ -16,7 +16,7 @@ public abstract class AMenuItem extends MenuItem implements IMenuItem, Listener 
 	public AMenuItem(Menu parent, int style) {
 		super(parent, style);
 		initialize();
-		this.addListener(SWT.Selection, this);
+		super.addListener(SWT.Selection, this);
 	}
 
 	public AMenuItem(AMenu parent) {
@@ -44,6 +44,6 @@ public abstract class AMenuItem extends MenuItem implements IMenuItem, Listener 
 
 	@Override
 	public void handleEvent(Event event) {
-		this.execute();
+		execute();
 	}
 }

@@ -22,7 +22,7 @@ public class SubEditor extends TabItem implements ISubEditor {
 	@Override
 	public void initialize() {
 		canvas = new Canvas(this.getParent(), SWT.BORDER);
-		this.setControl(canvas);
+		super.setControl(canvas);
 	}
 
 	@Override
@@ -37,12 +37,12 @@ public class SubEditor extends TabItem implements ISubEditor {
 	@Override
 	public void setTitle(String title) {
 		this.title = title;
-		this.setText(title);
+		super.setText(title);
 	}
 
 	@Override
 	public void close() {
-		this.dispose();
+		super.dispose();
 	}
 
 }

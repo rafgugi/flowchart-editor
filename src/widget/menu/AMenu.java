@@ -22,7 +22,6 @@ public abstract class AMenu extends MenuItem implements IMenu {
 		super.setMenu(dropDown);
 		
 		menuItems = new ArrayList<>();
-		System.out.println("Constructornya AMenu");
 		initialize();
 	}
 
@@ -35,7 +34,7 @@ public abstract class AMenu extends MenuItem implements IMenu {
 
 	@Override
 	public void addItem(IMenuItem item) {
-		this.menuItems.add(item);
+		menuItems.add(item);
 	}
 
 	@Override

@@ -10,12 +10,17 @@ import interfaces.IEditor;
 import interfaces.ISubEditor;
 import widget.Window;
 
+/**
+ * @author sg
+ *
+ */
 public class Editor extends TabFolder implements IEditor {
 
 	private List<ISubEditor> subEditors;
 
 	public Editor(Window parent, int style) {
 		super(parent, style);
+		subEditors = new ArrayList<>();
 		this.initialize();
 	}
 
@@ -29,10 +34,8 @@ public class Editor extends TabFolder implements IEditor {
 
 	@Override
 	public void initialize() {
-		subEditors = new ArrayList<>();
-
 		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
-		this.setLayoutData(gridData);
+		super.setLayoutData(gridData);
 
 		for (int i = 1; i <= 5; i++) {
 			newSubEditor();
@@ -54,6 +57,9 @@ public class Editor extends TabFolder implements IEditor {
 	@Override
 	public ISubEditor getActiveSubEditor() {
 		int index = this.getSelectionIndex();
+		if (index == -1) {
+			throw new ArrayIndexOutOfBoundsException();
+		}
 		ISubEditor ans = subEditors.get(index);
 		System.out.println("Close index " + index + " (" + ans.getTitle() + ")");
 		return ans;
@@ -65,9 +71,13 @@ public class Editor extends TabFolder implements IEditor {
 	}
 
 	public void close() {
-		ISubEditor subEditor = this.getActiveSubEditor();
-		subEditor.close();
-		subEditors.remove(subEditor);
+		try {
+			ISubEditor subEditor = getActiveSubEditor();
+			subEditor.close();
+			subEditors.remove(subEditor);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			System.out.println("Editor is empty");
+		}
 	}
 
 }

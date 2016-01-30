@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Decorations;
 import org.eclipse.swt.widgets.Menu;
 
 import interfaces.IMenu;
 import interfaces.IMenuBar;
 import interfaces.IWindow;
+import widget.Window;
 
 public class MenuBar extends Menu implements IMenuBar {
 
@@ -17,10 +17,9 @@ public class MenuBar extends Menu implements IMenuBar {
 	private List<IMenu> menus;
 
 	public MenuBar(IWindow parent, int style) {
-		super((Decorations) parent, style);
+		super((Window) parent, style);
 		parent.setBar(this);
 		menus = new ArrayList<IMenu>();
-		System.out.println("Constructornya MenuBar");
 		initialize();
 	}
 
@@ -30,7 +29,6 @@ public class MenuBar extends Menu implements IMenuBar {
 
 	@Override
 	public void initialize() {
-		System.out.println("Initialize MenuBar");
 		addItem(new FileMenu(this));
 		addItem(new EditMenu(this));
 	}

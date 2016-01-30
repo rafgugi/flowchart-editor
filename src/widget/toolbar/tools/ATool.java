@@ -21,7 +21,7 @@ public abstract class ATool extends ToolItem implements ITool, Listener {
 		super(parent, style);
 		iconFolder = "/resources/icons/"; 
 		initialize();
-		this.addListener(SWT.Selection, this);
+		super.addListener(SWT.Selection, this);
 	}
 	
 	public ATool(ToolStrip parent) {
@@ -44,7 +44,7 @@ public abstract class ATool extends ToolItem implements ITool, Listener {
 //		imageData.height = 20;
 //		imageData.width = 20;
 		Image image = new Image(display, imageData);
-		this.setImage(image);
+		super.setImage(image);
 	}
 	
 	@Override
