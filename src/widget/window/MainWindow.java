@@ -61,6 +61,7 @@ public class MainWindow extends Shell implements IWindow {
 		setEditor(new Editor(this));
 		
 		this.status = new StatusBar(this);
+		setStatus("No diagram yet.");
 	}
 
 	@Override

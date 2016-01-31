@@ -1,12 +1,12 @@
 package widget.menu.menuitem;
 
-import widget.MainWindow;
 import widget.menu.AMenu;
 import widget.tab.Editor;
+import widget.window.MainWindow;
 
-public class Close extends AMenuItem {
+public class CloseMenuItem extends AMenuItem {
 
-	public Close(AMenu parent) {
+	public CloseMenuItem(AMenu parent) {
 		super(parent);
 	}
 

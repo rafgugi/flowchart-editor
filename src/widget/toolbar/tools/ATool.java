@@ -1,6 +1,8 @@
 package widget.toolbar.tools;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Display;
@@ -10,8 +12,9 @@ import org.eclipse.swt.widgets.ToolItem;
 
 import interfaces.ITool;
 import widget.toolbar.ToolStrip;
+import widget.window.MainWindow;
 
-public abstract class ATool extends ToolItem implements ITool, Listener {
+public abstract class ATool extends ToolItem implements ITool, Listener, MouseListener {
 
 	private String iconName;
 	private String iconFolder;
@@ -25,7 +28,7 @@ public abstract class ATool extends ToolItem implements ITool, Listener {
 	}
 	
 	public ATool(ToolStrip parent) {
-		this(parent, SWT.RADIO);
+		this(parent, SWT.PUSH);
 	}
 
 	@Override
@@ -81,7 +84,23 @@ public abstract class ATool extends ToolItem implements ITool, Listener {
 
 	@Override
 	public void handleEvent(Event event) {
-		this.execute();
+		MainWindow.getInstance().getEditor().setActiveTool(this);
+		execute();
+	}
+
+	@Override
+	public void mouseDoubleClick(MouseEvent e) {
+//		System.out.println("Unimplemented mouseDoubleClick \n(" + e.toString() + ")");
+	}
+
+	@Override
+	public void mouseDown(MouseEvent e) {
+//		System.out.println("Unimplemented mouseDown \n(" + e.toString() + ")");
+	}
+
+	@Override
+	public void mouseUp(MouseEvent e) {
+//		System.out.println("Unimplemented mouseUp \n(" + e.toString() + ")");
 	}
 
 }

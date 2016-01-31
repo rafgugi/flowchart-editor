@@ -8,20 +8,18 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TabFolder;
 import interfaces.IEditor;
 import interfaces.ISubEditor;
-import widget.MainWindow;
+import interfaces.ITool;
+import widget.window.MainWindow;
 
-/**
- * @author sg
- *
- */
 public class Editor extends TabFolder implements IEditor {
 
 	private List<ISubEditor> subEditors;
+	private ITool tool;
 
 	public Editor(MainWindow parent, int style) {
 		super(parent, style);
 		subEditors = new ArrayList<>();
-		this.initialize();
+		initialize();
 	}
 
 	public Editor(MainWindow parent) {
@@ -35,10 +33,16 @@ public class Editor extends TabFolder implements IEditor {
 	@Override
 	public void initialize() {
 		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		gridData.minimumHeight = 320;
+		gridData.minimumWidth = 480;
 		super.setLayoutData(gridData);
-
-		for (int i = 1; i <= 5; i++) {
-			newSubEditor();
+		
+		ITool tool;
+		try {
+			tool = ((MainWindow)super.getParent()).getToolStrip().getTools().get(0);
+			setActiveTool(tool);
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("Tool belum ada");
 		}
 	}
 
@@ -69,14 +73,25 @@ public class Editor extends TabFolder implements IEditor {
 		return subEditors;
 	}
 
+	@Override
 	public void close() {
 		try {
 			ISubEditor subEditor = getActiveSubEditor();
 			subEditor.close();
 			subEditors.remove(subEditor);
 		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("Editor is empty");
+			MainWindow.getInstance().setStatus("Editor is empty");
 		}
+	}
+
+	@Override
+	public ITool getActiveTool() {
+		return tool;
+	}
+
+	@Override
+	public void setActiveTool(ITool tool) {
+		this.tool = tool;
 	}
 
 }

@@ -10,8 +10,8 @@ import org.eclipse.swt.widgets.ToolBar;
 
 import interfaces.ITool;
 import interfaces.IToolStrip;
-import widget.MainWindow;
-import widget.toolbar.tools.Ellipse;
+import widget.toolbar.tools.*;
+import widget.window.MainWindow;
 
 public class ToolStrip extends ToolBar implements IToolStrip {
 
@@ -22,20 +22,22 @@ public class ToolStrip extends ToolBar implements IToolStrip {
 		tools = new ArrayList<>();
 		initialize();
 	}
-	
+
 	public ToolStrip(MainWindow parent) {
 		this(parent, SWT.BORDER | SWT.VERTICAL);
 	}
-	
+
 	@Override
 	public void initialize() {
 		GridData gridData = new GridData();
 		gridData.verticalAlignment = SWT.FILL;
 		super.setLayoutData(gridData);
+		
+		addTool(new PointerTool(this));
+		addTool(new EllipseTool(this));
+		addTool(new RectangleTool(this));
+
 		super.pack();
-		for (int i = 0; i < 10; i++) {
-			addTool(new Ellipse(this));
-		}
 	}
 
 	@Override
@@ -67,5 +69,5 @@ public class ToolStrip extends ToolBar implements IToolStrip {
 	@Override
 	public void checkSubclass() {
 	}
-	
+
 }

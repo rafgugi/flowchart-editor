@@ -1,6 +1,6 @@
 package widget.menu;
 
-import widget.menu.menuitem.SelectAll;
+import widget.menu.menuitem.SelectAllMenuItem;
 
 public class EditMenu extends AMenu {
 
@@ -11,7 +11,7 @@ public class EditMenu extends AMenu {
 	@Override
 	public void initialize() {
 		setTitle("Edit");
-		addItem(new SelectAll(this));
+		addItem(new SelectAllMenuItem(this));
 	}
 
 }

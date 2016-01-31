@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.Menu;
 import interfaces.IMenu;
 import interfaces.IMenuBar;
 import interfaces.IWindow;
-import widget.MainWindow;
+import widget.window.MainWindow;
 
 public class MenuBar extends Menu implements IMenuBar {
 

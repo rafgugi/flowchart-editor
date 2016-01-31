@@ -11,8 +11,8 @@ public class FileMenu extends AMenu {
 	@Override
 	public void initialize() {
 		setTitle("File");
-		addItem(new New(this));
-		addItem(new Close(this));
+		addItem(new NewMenuItem(this));
+		addItem(new CloseMenuItem(this));
 	}
 
 }

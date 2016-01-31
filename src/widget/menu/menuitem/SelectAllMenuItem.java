@@ -1,10 +1,11 @@
 package widget.menu.menuitem;
 
 import widget.menu.AMenu;
+import widget.window.MainWindow;
 
-public class SelectAll extends AMenuItem {
+public class SelectAllMenuItem extends AMenuItem {
 
-	public SelectAll(AMenu parent) {
+	public SelectAllMenuItem(AMenu parent) {
 		super(parent);
 	}
 
@@ -16,7 +17,7 @@ public class SelectAll extends AMenuItem {
 
 	@Override
 	public void execute() {
-		System.out.println("Select All");
+		MainWindow.getInstance().setStatus("Select All");
 	}
 
 }

@@ -1,12 +1,12 @@
 package widget.menu.menuitem;
 
-import widget.MainWindow;
 import widget.menu.AMenu;
 import widget.tab.Editor;
+import widget.window.MainWindow;
 
-public class New extends AMenuItem {
+public class NewMenuItem extends AMenuItem {
 
-	public New(AMenu parent) {
+	public NewMenuItem(AMenu parent) {
 		super(parent);
 	}
 
