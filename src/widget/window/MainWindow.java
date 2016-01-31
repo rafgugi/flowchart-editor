@@ -1,4 +1,4 @@
-package widget;
+package widget.window;
 
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
@@ -19,6 +19,7 @@ public class MainWindow extends Shell implements IWindow {
 	private IEditor editor;
 	private IToolStrip toolstrip;
 	private static MainWindow instance;
+	private StatusBar status;
 
 	private MainWindow() {
 		super(new Display());
@@ -58,6 +59,8 @@ public class MainWindow extends Shell implements IWindow {
 
 		setToolStrip(new ToolStrip(this));
 		setEditor(new Editor(this));
+		
+		this.status = new StatusBar(this);
 	}
 
 	@Override
@@ -99,5 +102,9 @@ public class MainWindow extends Shell implements IWindow {
 	@Override
 	public void setToolStrip(IToolStrip toolstrip) {
 		this.toolstrip = toolstrip;
+	}
+	
+	public void setStatus(String status) {
+		this.status.setText(status);
 	}
 }

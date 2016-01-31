@@ -1,6 +1,6 @@
 package main;
 
-import widget.MainWindow;
+import widget.window.MainWindow;
 
 public class Main {
 
