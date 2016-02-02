@@ -38,3 +38,10 @@ local.properties
 
 # TeXlipse plugin
 .texlipse
+/nbproject/private/
+/build/
+
+#nambah. aku gatau ini perlu masukin ke git apa ga.
+/nbproject/
+build.xml
+manifest.mf
