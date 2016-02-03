@@ -14,10 +14,11 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ToolItem;
 
 import interfaces.ITool;
+import org.eclipse.swt.events.MouseMoveListener;
 import widget.toolbar.ToolStrip;
 import widget.window.MainWindow;
 
-public abstract class ATool extends ToolItem implements ITool, Listener, MouseListener, DragDetectListener {
+public abstract class ATool extends ToolItem implements ITool, Listener, MouseListener, DragDetectListener, MouseMoveListener {
 
 	private String iconName;
 	private String iconFolder;
@@ -112,7 +113,13 @@ public abstract class ATool extends ToolItem implements ITool, Listener, MouseLi
 		// System.out.println("Unimplemented dragDetected \n(" + e.toString() +
 		// ")");
 	}
-	
+
+	@Override
+	public void mouseMove(MouseEvent e) {
+		// System.out.println("Unimplemented mouseMove \n(" + e.toString() +
+		// ")");
+	}
+
 	protected ISubEditor getActiveSubEditor() {
 		return MainWindow.getInstance().getEditor().getActiveSubEditor();
 	}

@@ -34,6 +34,7 @@ public class RectangleTool extends ATool {
 	public void mouseDown(MouseEvent e) {
 		downTemp = e;
 		isDrag = false;
+		getActiveSubEditor().deselectAll();
 	}
 
 	@Override
@@ -42,6 +43,7 @@ public class RectangleTool extends ATool {
 			Point src = new Point(downTemp.x, downTemp.y);
 			Point dst = new Point(e.x, e.y);
 			IElement rect = new Rectangle(src, dst);
+			rect.select();
 			getActiveSubEditor().addElement(rect);
 		} else {
 			System.out.println("Drag to draw object.");

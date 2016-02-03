@@ -9,6 +9,7 @@ public interface IElement {
 	public int getWidth();
 	public void setHeight(int height);
 	public int getHeight();
+	public void setLocation(int x, int y);
 	public void select();
 	public void deselect();
 	public IDrawingState getState();
@@ -16,4 +17,5 @@ public interface IElement {
 	public void renderNormal();
 	public void renderEdit();
 	public boolean checkBoundary(int x, int y);
+	public boolean checkBoundary(int x1, int y1, int x2, int y2);
 }

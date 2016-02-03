@@ -13,4 +13,5 @@ public interface ISubEditor extends IWidget {
 	public void draw();
 	public void clearCanvas();
 	public void deselectAll();
+	public List<IElement> getSelectedElements();
 }

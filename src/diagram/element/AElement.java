@@ -81,6 +81,12 @@ public abstract class AElement implements IElement {
 	}
 	
 	@Override
+	public void setLocation(int x, int y) {
+		setX(x);
+		setY(y);
+	}
+	
+	@Override
 	public void select() {
 		state = EditState.getInstance();
 	}
@@ -98,6 +104,39 @@ public abstract class AElement implements IElement {
 	@Override
 	public void draw() {
 		state.draw(this);
+	}
+
+	@Override
+	public boolean checkBoundary(int x, int y) {
+		if (x < getX() || x > getX() + getWidth()) {
+			return false;
+		}
+		if (y < getY() || y > getY() + getWidth()) {
+			return false;
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean checkBoundary(int x1, int y1, int x2, int y2) {
+		int x = Math.min(x1, x2);
+		int y = Math.min(y1, y2);
+		int w = Math.abs(x1 - x2);
+		int h = Math.abs(y1 - y2);
+		
+		if (getX() < x || getX() > x + w) {
+			return false;
+		}
+		if (getY() < y || getY() > y + h) {
+			return false;
+		}
+		if (getX() + getWidth() < x || getX() + getWidth() > x + w) {
+			return false;
+		}
+		if (getY() + getHeight()< y || getY() + getHeight() > y + h) {
+			return false;
+		}
+		return true;
 	}
 	
 	public void createEditPoint(Point p) {

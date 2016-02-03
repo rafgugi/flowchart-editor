@@ -42,17 +42,6 @@ public class Rectangle extends AElement implements HasText {
 		
 		super.createEditPoint(points);
 	}
-
-	@Override
-	public boolean checkBoundary(int x, int y) {
-		if (x < super.x || x > super.x + super.width) {
-			return false;
-		}
-		if (y < super.y || y > super.y + super.height) {
-			return false;
-		}
-		return true;
-	}
 	
 	@Override
 	public void setText(String text) {
