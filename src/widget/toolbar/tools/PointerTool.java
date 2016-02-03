@@ -1,16 +1,20 @@
 package widget.toolbar.tools;
 
+import org.eclipse.swt.events.DragDetectEvent;
 import org.eclipse.swt.events.MouseEvent;
 
+import interfaces.IElement;
 import widget.toolbar.ToolStrip;
 import widget.window.MainWindow;
 
 public class PointerTool extends ATool {
 
+	private boolean isDrag;
+
 	public PointerTool(ToolStrip parent) {
 		super(parent);
 	}
-	
+
 	@Override
 	public void initialize() {
 		setIconName("pointer.png");
@@ -19,12 +23,32 @@ public class PointerTool extends ATool {
 
 	@Override
 	public void execute() {
-		MainWindow.getInstance().setStatus("Pointer tool clicked");
+		MainWindow.getInstance().setStatus("Pointer tool");
+	}
+
+	@Override
+	public void mouseDown(MouseEvent e) {
+		isDrag = false;
 	}
 
 	@Override
 	public void mouseUp(MouseEvent e) {
-		System.out.println("Pointer clicked at (" + e.x + ", " + e.y + ")");
+		if (!isDrag) {
+			IElement element = getActiveSubEditor().getElement(e.x, e.y);
+			if (element != null) {
+				// select this element
+			}
+		}
+	}
+
+	@Override
+	public void mouseDoubleClick(MouseEvent e) {
+		// subEditor.clear();
+	}
+
+	@Override
+	public void dragDetected(DragDetectEvent e) {
+		isDrag = true;
 	}
 
 }

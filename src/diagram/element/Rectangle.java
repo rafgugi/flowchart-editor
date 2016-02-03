@@ -4,7 +4,9 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
-public class Rectangle extends AElement {
+public class Rectangle extends AElement implements HasText {
+	
+	private String text;
 
 	public Rectangle(Point src, Point dst) {
 		super(src, dst);
@@ -19,6 +21,7 @@ public class Rectangle extends AElement {
 		gc.setBackground(white);
 		gc.drawRectangle(getX(), getY(), getWidth(), getHeight());
 		gc.fillRectangle(getX() + 1, getY() + 1, getWidth() - 1, getHeight() - 1);
+		gc.dispose();
 	}
 
 	@Override
@@ -30,6 +33,16 @@ public class Rectangle extends AElement {
 			return false;
 		}
 		return true;
+	}
+	
+	@Override
+	public void setText(String text) {
+		this.text = text;
+	}
+	
+	@Override
+	public String getText() {
+		return text;
 	}
 
 }

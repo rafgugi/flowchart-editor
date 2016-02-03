@@ -13,8 +13,13 @@ import org.eclipse.swt.widgets.TabItem;
 import diagram.element.AElement;
 import interfaces.IElement;
 import interfaces.ISubEditor;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.GC;
 
-public class SubEditor extends TabItem implements ISubEditor, MouseListener, DragDetectListener {
+public class SubEditor extends TabItem implements
+	ISubEditor, MouseListener, DragDetectListener, PaintListener {
 
 	private String title;
 	private Canvas canvas;
@@ -39,6 +44,7 @@ public class SubEditor extends TabItem implements ISubEditor, MouseListener, Dra
 
 		canvas.addMouseListener(this);
 		canvas.addDragDetectListener(this);
+		canvas.addPaintListener(this);
 	}
 
 	@Override
@@ -66,6 +72,23 @@ public class SubEditor extends TabItem implements ISubEditor, MouseListener, Dra
 		((AElement) element).setCanvas(canvas);
 		elements.add(element);
 		draw();
+	}
+
+	@Override
+	public void removeElement(IElement element) {
+		elements.remove(element);
+		draw();
+	}
+
+	@Override
+	public IElement getElement(int x, int y) {
+		IElement ans = null;
+		for (IElement element : elements) {
+			if (element.checkBoundary(x, y)) {
+				ans = element;
+			}
+		}
+		return ans;
 	}
 
 	@Override
@@ -99,10 +122,25 @@ public class SubEditor extends TabItem implements ISubEditor, MouseListener, Dra
 		((DragDetectListener) editor.getActiveTool()).dragDetected(e);
 	}
 
+	@Override
 	public void draw() {
+		clearCanvas();
 		for (IElement element : elements) {
 			element.draw();
 		}
+	}
+
+	@Override
+	public void clearCanvas() {
+		GC gc = new GC(canvas);
+		gc.setBackground(new Color(gc.getDevice(), 255, 255, 255));
+		gc.fillRectangle(0, 0, canvas.getSize().x, canvas.getSize().y);
+		gc.dispose();
+	}
+
+	@Override
+	public void paintControl(PaintEvent pe) {
+		draw();
 	}
 
 }

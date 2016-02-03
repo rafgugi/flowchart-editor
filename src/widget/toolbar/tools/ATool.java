@@ -1,5 +1,6 @@
 package widget.toolbar.tools;
 
+import interfaces.ISubEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DragDetectEvent;
 import org.eclipse.swt.events.DragDetectListener;
@@ -110,6 +111,10 @@ public abstract class ATool extends ToolItem implements ITool, Listener, MouseLi
 	public void dragDetected(DragDetectEvent e) {
 		// System.out.println("Unimplemented dragDetected \n(" + e.toString() +
 		// ")");
+	}
+	
+	protected ISubEditor getActiveSubEditor() {
+		return MainWindow.getInstance().getEditor().getActiveSubEditor();
 	}
 
 }

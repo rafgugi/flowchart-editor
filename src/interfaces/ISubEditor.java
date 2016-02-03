@@ -7,5 +7,9 @@ public interface ISubEditor extends IWidget {
 	public void setTitle(String name);
 	public void close();
 	public void addElement(IElement element);
+	public void removeElement(IElement element);
+	public IElement getElement(int x, int y);
 	public ArrayList<IElement> getElements(int x, int y);
+	public void draw();
+	public void clearCanvas();
 }
