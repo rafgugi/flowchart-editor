@@ -1,6 +1,6 @@
 package interfaces;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface ISubEditor extends IWidget {
 	public String getTitle();
@@ -9,7 +9,8 @@ public interface ISubEditor extends IWidget {
 	public void addElement(IElement element);
 	public void removeElement(IElement element);
 	public IElement getElement(int x, int y);
-	public ArrayList<IElement> getElements(int x, int y);
+	public List<IElement> getElements();
 	public void draw();
 	public void clearCanvas();
+	public void deselectAll();
 }

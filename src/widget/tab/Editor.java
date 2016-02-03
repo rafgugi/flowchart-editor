@@ -66,7 +66,6 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 	public ISubEditor getActiveSubEditor() {
 		int index = super.getSelectionIndex();
 		ISubEditor ans = subEditors.get(index);
-		System.out.println("getActiveSubEditor = " + ans.getTitle());
 		return ans;
 	}
 	

@@ -35,8 +35,10 @@ public class PointerTool extends ATool {
 	public void mouseUp(MouseEvent e) {
 		if (!isDrag) {
 			IElement element = getActiveSubEditor().getElement(e.x, e.y);
+			getActiveSubEditor().deselectAll();
 			if (element != null) {
-				// select this element
+				element.select();
+				getActiveSubEditor().draw();
 			}
 		}
 	}

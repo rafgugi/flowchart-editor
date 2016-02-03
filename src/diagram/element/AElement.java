@@ -1,9 +1,14 @@
 package diagram.element;
 
+import diagram.state.*;
+import interfaces.IDrawingState;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 
 import interfaces.IElement;
+import java.util.List;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.GC;
 
 public abstract class AElement implements IElement {
 
@@ -12,21 +17,19 @@ public abstract class AElement implements IElement {
 	protected int width;
 	protected int height;
 	protected Canvas canvas;
+	private IDrawingState state;
 
 	public AElement(int x, int y, int width, int height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		state = NormalState.getInstance();
 	}
 
 	public AElement(Point src, Point dst) {
-		x = src.x < dst.x ? src.x : dst.x;
-		y = src.y < dst.y ? src.y : dst.y;
-		width = src.x - dst.x;
-		width = width < 0 ? -width : width;
-		height = src.y - dst.y;
-		height = height < 0 ? -height : height;
+		this(Math.min(src.x, dst.x), Math.min(src.y, dst.y), 
+			Math.abs(src.x - dst.x), Math.abs(src.y - dst.y));
 	}
 
 	public void setCanvas(Canvas canvas) {
@@ -75,6 +78,47 @@ public abstract class AElement implements IElement {
 	@Override
 	public int getHeight() {
 		return height;
+	}
+	
+	@Override
+	public void select() {
+		state = EditState.getInstance();
+	}
+	
+	@Override
+	public void deselect() {
+		state = NormalState.getInstance();
+	}
+	
+	@Override
+	public IDrawingState getState() {
+		return state;
+	}
+	
+	@Override
+	public void draw() {
+		state.draw(this);
+	}
+	
+	public void createEditPoint(Point p) {
+		GC gc = new GC(canvas);
+		Color black = new Color(gc.getDevice(), 0, 0, 0);
+		Color white = new Color(gc.getDevice(), 255, 255, 255);
+		gc.setForeground(black);
+		gc.setBackground(white);
+		int x, y, length;
+		x = p.x - 2;
+		y = p.y - 2;
+		length = 5;
+		gc.drawRectangle(x, y, length, length);
+		gc.fillRectangle(x + 1, y + 1, length - 1, length- 1);
+		gc.dispose();
+	}
+	
+	public void createEditPoint(List<Point> points) {
+		for (Point p : points) {
+			createEditPoint(p);
+		}
 	}
 
 }

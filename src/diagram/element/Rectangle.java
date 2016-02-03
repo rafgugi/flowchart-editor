@@ -1,5 +1,6 @@
 package diagram.element;
 
+import java.util.ArrayList;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
@@ -13,7 +14,7 @@ public class Rectangle extends AElement implements HasText {
 	}
 
 	@Override
-	public void draw() {
+	public void renderNormal() {
 		GC gc = new GC(getCanvas());
 		Color black = new Color(gc.getDevice(), 0, 0, 0);
 		Color white = new Color(gc.getDevice(), 255, 255, 255);
@@ -22,6 +23,24 @@ public class Rectangle extends AElement implements HasText {
 		gc.drawRectangle(getX(), getY(), getWidth(), getHeight());
 		gc.fillRectangle(getX() + 1, getY() + 1, getWidth() - 1, getHeight() - 1);
 		gc.dispose();
+	}
+
+	@Override
+	public void renderEdit() {
+		renderNormal();
+		ArrayList<Point> points;
+		int x = getX();
+		int y = getY();
+		int w = getWidth();
+		int h = getHeight();
+		
+		points = new ArrayList<>();
+		points.add(new Point(x, y));
+		points.add(new Point(x + w, y));
+		points.add(new Point(x, y + h));
+		points.add(new Point(x + w, y + h));
+		
+		super.createEditPoint(points);
 	}
 
 	@Override

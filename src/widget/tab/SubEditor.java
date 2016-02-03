@@ -1,5 +1,6 @@
 package widget.tab;
 
+import java.util.List;
 import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
@@ -24,7 +25,7 @@ public class SubEditor extends TabItem implements
 	private String title;
 	private Canvas canvas;
 	private Editor editor;
-	private ArrayList<IElement> elements;
+	private List<IElement> elements;
 
 	public SubEditor(Editor parent, int style) {
 		super(parent, style);
@@ -92,14 +93,8 @@ public class SubEditor extends TabItem implements
 	}
 
 	@Override
-	public ArrayList<IElement> getElements(int x, int y) {
-		ArrayList<IElement> ans = new ArrayList<>();
-		for (IElement element : elements) {
-			if (element.checkBoundary(x, y)) {
-				ans.add(element);
-			}
-		}
-		return ans;
+	public List<IElement> getElements() {
+		return elements;
 	}
 
 	@Override
@@ -141,6 +136,13 @@ public class SubEditor extends TabItem implements
 	@Override
 	public void paintControl(PaintEvent pe) {
 		draw();
+	}
+	
+	@Override
+	public void deselectAll() {
+		for (IElement e : getElements()) {
+			e.deselect();
+		}
 	}
 
 }
