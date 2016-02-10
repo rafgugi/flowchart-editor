@@ -27,7 +27,6 @@ public abstract class AMenuItem extends MenuItem implements IMenuItem, Listener 
 		return name;
 	}
 
-	@Override
 	public void setTitle(String name) {
 		super.setText(name);
 		this.name = name;
