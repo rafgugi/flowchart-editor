@@ -6,24 +6,23 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
 
+import interfaces.IMainWindow;
 import interfaces.IMenu;
 import interfaces.IMenuBar;
-import interfaces.IWindow;
 import widget.window.MainWindow;
 
 public class MenuBar extends Menu implements IMenuBar {
 
-	private String name;
 	private List<IMenu> menus;
 
-	public MenuBar(IWindow parent, int style) {
+	public MenuBar(IMainWindow parent, int style) {
 		super((MainWindow) parent, style);
 		parent.setBar(this);
 		menus = new ArrayList<IMenu>();
 		initialize();
 	}
 
-	public MenuBar(IWindow parent) {
+	public MenuBar(IMainWindow parent) {
 		this(parent, SWT.BAR);
 	}
 
@@ -46,16 +45,6 @@ public class MenuBar extends Menu implements IMenuBar {
 	@Override
 	public void setMenus(List<IMenu> items) {
 		this.menus = items;
-	}
-
-	@Override
-	public String getTitle() {
-		return name;
-	}
-
-	@Override
-	public void setTitle(String name) {
-		this.name = name;
 	}
 
 	@Override

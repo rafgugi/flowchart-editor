@@ -1,14 +1,11 @@
 package widget.window;
 
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.Shell;
-
 import interfaces.IEditor;
+import interfaces.IMainWindow;
 import interfaces.IMenuBar;
 import interfaces.IToolStrip;
-import interfaces.IWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Label;
@@ -16,7 +13,7 @@ import widget.menu.MenuBar;
 import widget.tab.Editor;
 import widget.toolbar.ToolStrip;
 
-public class MainWindow extends Shell implements IWindow {
+public class MainWindow extends AWindow implements IMainWindow {
 
 	private IMenuBar menuBar;
 	private IEditor editor;
@@ -25,7 +22,6 @@ public class MainWindow extends Shell implements IWindow {
 	private Label status;
 
 	private MainWindow() {
-		super(new Display());
 	}
 
 	public static MainWindow getInstance() {
@@ -33,21 +29,6 @@ public class MainWindow extends Shell implements IWindow {
 			instance = new MainWindow();
 		}
 		return instance;
-	}
-
-	@Override
-	public void show() {
-		super.open();
-		initialize();
-		while (!super.isDisposed()) {
-			if (!super.getDisplay().readAndDispatch()) {
-				super.getDisplay().sleep();
-			}
-		}
-	}
-
-	@Override
-	public void checkSubclass() {
 	}
 
 	@Override
@@ -63,25 +44,14 @@ public class MainWindow extends Shell implements IWindow {
 		setToolStrip(new ToolStrip(this));
 		setEditor(new Editor(this));
 		
-//		status = new Label(this, SWT.NONE);
-//		
-//		GridData gridData = new GridData();
-//		gridData.horizontalSpan = 2;
-//		gridData.horizontalAlignment = SWT.FILL;
-//		status.setLayoutData(gridData);
-//		status.setText("Ready");
+		status = new Label(this, SWT.NONE);
+		GridData gridData = new GridData();
+		gridData.horizontalSpan = 2;
+		gridData.horizontalAlignment = SWT.FILL;
+		status.setLayoutData(gridData);
+		setStatus("No diagram yet.");
 		
-//		setStatus("No diagram yet.");
-	}
-
-	@Override
-	public void setTitle(String name) {
-		super.setText(name);
-	}
-
-	@Override
-	public String getTitle() {
-		return super.getText();
+		super.pack();
 	}
 
 	@Override

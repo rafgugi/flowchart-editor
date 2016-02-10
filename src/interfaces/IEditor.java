@@ -2,7 +2,7 @@ package interfaces;
 
 import java.util.List;
 
-public interface IEditor extends IWidget{
+public interface IEditor extends IWidget {
 	public void addSubEditor(ISubEditor subEditor);
 	public void newSubEditor();
 	public ISubEditor getActiveSubEditor();
