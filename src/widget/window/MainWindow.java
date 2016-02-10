@@ -9,6 +9,9 @@ import interfaces.IEditor;
 import interfaces.IMenuBar;
 import interfaces.IToolStrip;
 import interfaces.IWindow;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Label;
 import widget.menu.MenuBar;
 import widget.tab.Editor;
 import widget.toolbar.ToolStrip;
@@ -19,11 +22,10 @@ public class MainWindow extends Shell implements IWindow {
 	private IEditor editor;
 	private IToolStrip toolstrip;
 	private static MainWindow instance;
-	private StatusBar status;
+	private Label status;
 
 	private MainWindow() {
 		super(new Display());
-		initialize();
 	}
 
 	public static MainWindow getInstance() {
@@ -36,6 +38,7 @@ public class MainWindow extends Shell implements IWindow {
 	@Override
 	public void show() {
 		super.open();
+		initialize();
 		while (!super.isDisposed()) {
 			if (!super.getDisplay().readAndDispatch()) {
 				super.getDisplay().sleep();
@@ -60,8 +63,15 @@ public class MainWindow extends Shell implements IWindow {
 		setToolStrip(new ToolStrip(this));
 		setEditor(new Editor(this));
 		
-		this.status = new StatusBar(this);
-		setStatus("No diagram yet.");
+//		status = new Label(this, SWT.NONE);
+//		
+//		GridData gridData = new GridData();
+//		gridData.horizontalSpan = 2;
+//		gridData.horizontalAlignment = SWT.FILL;
+//		status.setLayoutData(gridData);
+//		status.setText("Ready");
+		
+//		setStatus("No diagram yet.");
 	}
 
 	@Override

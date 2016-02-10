@@ -20,11 +20,6 @@ public class StatusBar extends Label implements IWidget {
 	@Override
 	public void initialize() {
 
-		GridData gridData = new GridData();
-		gridData.horizontalSpan = 2;
-		gridData.horizontalAlignment = SWT.FILL;
-		super.setLayoutData(gridData);
-		super.setText("Ready");
 	}
 
 	@Override
