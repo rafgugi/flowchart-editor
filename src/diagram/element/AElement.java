@@ -18,7 +18,7 @@ public abstract class AElement implements IElement {
 	protected int height;
 	protected Canvas canvas;
 	private IDrawingState state;
-
+	
 	public AElement(int x, int y, int width, int height) {
 		this.x = x;
 		this.y = y;

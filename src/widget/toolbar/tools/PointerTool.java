@@ -6,7 +6,6 @@ import org.eclipse.swt.events.MouseEvent;
 import interfaces.IElement;
 import java.util.List;
 import widget.toolbar.ToolStrip;
-import widget.window.DialogWindow;
 import widget.window.MainWindow;
 
 public class PointerTool extends ATool {
@@ -91,8 +90,10 @@ public class PointerTool extends ATool {
 
 	@Override
 	public void mouseDoubleClick(MouseEvent e) {
-		DialogWindow dlg = new DialogWindow();
-		dlg.show();
+		IElement element = getActiveSubEditor().getElement(e.x, e.y);
+		if (element != null) {
+			element.action();
+		}
 	}
 
 	@Override

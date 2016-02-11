@@ -7,8 +7,12 @@ import interfaces.IWindow;
 
 public abstract class AWindow extends Shell implements IWindow {
 	
+	public AWindow(Display display) {
+		super(display);
+	}
+	
 	public AWindow() {
-		super(Display.getDefault());
+		this(Display.getDefault());
 	}
 	
 	public abstract void initialize();
@@ -22,6 +26,7 @@ public abstract class AWindow extends Shell implements IWindow {
 				super.getDisplay().sleep();
 			}
 		}
+		super.dispose();
 	}
 
 	@Override

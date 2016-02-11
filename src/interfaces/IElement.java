@@ -18,4 +18,5 @@ public interface IElement {
 	public void renderEdit();
 	public boolean checkBoundary(int x, int y);
 	public boolean checkBoundary(int x1, int y1, int x2, int y2);
+	public void action();
 }
