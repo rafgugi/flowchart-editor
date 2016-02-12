@@ -63,7 +63,6 @@ public class ProcessProperty extends APropertyWindow {
 	public void execute() {
 		Rectangle element = (Rectangle) super.getElement();
 		String text = input.getText();
-		System.out.println(text);
 		element.setText(text);
 		this.dispose();
 	}
