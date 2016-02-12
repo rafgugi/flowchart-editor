@@ -50,7 +50,7 @@ public class LineTool extends ATool {
 			if (dst != null && dst instanceof TwoDimensional) {
 				dstElement = (TwoDimensional) dst;
 			}
-			if (srcElement == null || dstElement == null) {
+			if (srcElement == null || dstElement == null || srcElement == dstElement) {
 				System.out.println("Connect element properly.");
 			} else {
 				FlowLine flowLine = new FlowLine(srcElement, dstElement);

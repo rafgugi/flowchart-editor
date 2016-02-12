@@ -36,6 +36,9 @@ public abstract class TwoDimensional extends AElement {
 	}
 
 	public void setWidth(int width) {
+		if (width < 10) {
+			width = 10;
+		}
 		this.width = width;
 	}
 
@@ -44,13 +47,16 @@ public abstract class TwoDimensional extends AElement {
 	}
 
 	public void setHeight(int height) {
+		if (height < 10) {
+			height = 10;
+		}
 		this.height = height;
 	}
 
 	public int getHeight() {
 		return height;
 	}
-	
+
 	public void setLocation(int x, int y) {
 		setX(x);
 		setY(y);

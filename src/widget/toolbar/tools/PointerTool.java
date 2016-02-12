@@ -83,11 +83,9 @@ public class PointerTool extends ATool {
 			} else {
 				/* Move selected elements. Could this be more 
 				 * general? You can't move a line */
-//				for (IElement element : elements) {
-//					int x = element.getX() + e.x - downTemp.x;
-//					int y = element.getY() + e.y - downTemp.y;
-//					element.setLocation(x, y);
-//				}
+				for (IElement element : elements) {
+					element.drag(downTemp.x, downTemp.y, e.x, e.y);
+				}
 			}
 		}
 		getActiveSubEditor().draw();

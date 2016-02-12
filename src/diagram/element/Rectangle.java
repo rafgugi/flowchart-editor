@@ -12,10 +12,10 @@ public class Rectangle extends TwoDimensional {
 	private String text;
 
 	public Rectangle(int x, int y, int width, int height) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
+		setX(x);
+		setY(y);
+		setWidth(width);
+		setHeight(height);
 		text = "";
 	}
 
@@ -81,7 +81,7 @@ public class Rectangle extends TwoDimensional {
 		if (x < getX() || x > getX() + getWidth()) {
 			return false;
 		}
-		if (y < getY() || y > getY() + getWidth()) {
+		if (y < getY() || y > getY() + getHeight()) {
 			return false;
 		}
 		return true;
@@ -122,6 +122,13 @@ public class Rectangle extends TwoDimensional {
 	public void setText(String text) {
 		this.text = text;
 		draw();
+	}
+
+	@Override
+	public void drag(int x1, int y1, int x2, int y2) {
+		int x = getX() + x2 - x1;
+		int y = getY() + y2 - y1;
+		setLocation(x, y);
 	}
 
 }
