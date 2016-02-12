@@ -19,7 +19,7 @@ public class PointerTool extends ATool {
 
 	@Override
 	public void initialize() {
-		setIconName("pointer.png");
+		setIconName("pointerx.png");
 		super.initialize();
 	}
 
@@ -36,6 +36,8 @@ public class PointerTool extends ATool {
 		if (elements.isEmpty()) {
 			IElement element = getActiveSubEditor().getElement(e.x, e.y);
 			if (element != null) {
+				/* select an element which previously 
+				 * no selected elements */
 				element.select();
 				getActiveSubEditor().draw();
 			} else {
@@ -52,6 +54,7 @@ public class PointerTool extends ATool {
 			if (isBoundary) {
 				// move all selected elements
 			} else {
+				// reset selection
 				getActiveSubEditor().deselectAll();
 				mouseDown(e);
 			}
@@ -62,13 +65,14 @@ public class PointerTool extends ATool {
 	@Override
 	public void mouseUp(MouseEvent e) {
 		if (!isDrag) {
+			/* Select an element */
 			getActiveSubEditor().deselectAll();
 			IElement element = getActiveSubEditor().getElement(e.x, e.y);
 			if (element != null) {
 				element.select();
 			}
-			getActiveSubEditor().draw();
 		} else {
+			/* Select some elements */
 			List<IElement> elements = getActiveSubEditor().getSelectedElements();
 			if (elements.isEmpty()) {
 				for (IElement element : getActiveSubEditor().getElements()) {
@@ -76,16 +80,17 @@ public class PointerTool extends ATool {
 						element.select();
 					}
 				}
-				getActiveSubEditor().draw();
 			} else {
-				for (IElement element : elements) {
-					int x = element.getX() + e.x - downTemp.x;
-					int y = element.getY() + e.y - downTemp.y;
-					element.setLocation(x, y);
-				}
-				getActiveSubEditor().draw();
+				/* Move selected elements. Could this be more 
+				 * general? You can't move a line */
+//				for (IElement element : elements) {
+//					int x = element.getX() + e.x - downTemp.x;
+//					int y = element.getY() + e.y - downTemp.y;
+//					element.setLocation(x, y);
+//				}
 			}
 		}
+		getActiveSubEditor().draw();
 	}
 
 	@Override

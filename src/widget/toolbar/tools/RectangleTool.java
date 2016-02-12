@@ -20,7 +20,7 @@ public class RectangleTool extends ATool {
 
 	@Override
 	public void initialize() {
-		setIconName("rectangle.png");
+		setIconName("process.png");
 		super.initialize();
 		isDrag = false;
 	}

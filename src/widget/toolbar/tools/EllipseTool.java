@@ -13,7 +13,7 @@ public class EllipseTool extends ATool {
 	
 	@Override
 	public void initialize() {
-		setIconName("ellipse.png");
+		setIconName("terminator.png");
 		super.initialize();
 	}
 

@@ -7,13 +7,21 @@ import org.eclipse.swt.graphics.Point;
 
 import widget.window.property.ProcessProperty;
 
-public class Rectangle extends AElement {
-
+public class Rectangle extends TwoDimensional {
+	
 	private String text;
 
-	public Rectangle(Point src, Point dst) {
-		super(src, dst);
+	public Rectangle(int x, int y, int width, int height) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
 		text = "";
+	}
+
+	public Rectangle(Point src, Point dst) {
+		this(Math.min(src.x, dst.x), Math.min(src.y, dst.y), 
+			Math.abs(src.x - dst.x), Math.abs(src.y - dst.y));
 	}
 
 	@Override
@@ -66,6 +74,39 @@ public class Rectangle extends AElement {
 		points.add(new Point(x + w, y + h));
 
 		super.createEditPoint(points);
+	}
+
+	@Override
+	public boolean checkBoundary(int x, int y) {
+		if (x < getX() || x > getX() + getWidth()) {
+			return false;
+		}
+		if (y < getY() || y > getY() + getWidth()) {
+			return false;
+		}
+		return true;
+	}
+	
+	@Override
+	public boolean checkBoundary(int x1, int y1, int x2, int y2) {
+		int x = Math.min(x1, x2);
+		int y = Math.min(y1, y2);
+		int w = Math.abs(x1 - x2);
+		int h = Math.abs(y1 - y2);
+		
+		if (getX() < x || getX() > x + w) {
+			return false;
+		}
+		if (getY() < y || getY() > y + h) {
+			return false;
+		}
+		if (getX() + getWidth() < x || getX() + getWidth() > x + w) {
+			return false;
+		}
+		if (getY() + getHeight()< y || getY() + getHeight() > y + h) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
