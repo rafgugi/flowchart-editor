@@ -2,11 +2,11 @@ package widget.toolbar.tools;
 
 import org.eclipse.swt.events.DragDetectEvent;
 import org.eclipse.swt.events.MouseEvent;
+
 import diagram.element.FlowLine;
 import diagram.element.TwoDimensional;
 import interfaces.IElement;
 import widget.toolbar.ToolStrip;
-import widget.window.MainWindow;
 
 public class LineTool extends ATool {
 
@@ -14,8 +14,12 @@ public class LineTool extends ATool {
 	private TwoDimensional srcElement;
 	private TwoDimensional dstElement;
 
+	public LineTool(ToolStrip parent, String name) {
+		super(parent, name);
+	}
+
 	public LineTool(ToolStrip parent) {
-		super(parent);
+		super(parent, "Line tool");
 	}
 
 	@Override
@@ -23,12 +27,6 @@ public class LineTool extends ATool {
 		setIconName("arrow.png");
 		super.initialize();
 		isDrag = false;
-	}
-
-	@Override
-	public void execute() {
-		System.out.println("line");
-		MainWindow.getInstance().setStatus("Line tool");
 	}
 
 	@Override

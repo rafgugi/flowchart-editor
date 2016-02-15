@@ -7,27 +7,24 @@ import org.eclipse.swt.graphics.Point;
 import diagram.element.Rectangle;
 import interfaces.IElement;
 import widget.toolbar.ToolStrip;
-import widget.window.MainWindow;
 
 public class RectangleTool extends ATool {
 
 	private boolean isDrag;
 	private MouseEvent downTemp;
 
+	public RectangleTool(ToolStrip parent, String name) {
+		super(parent, name);
+	}
+
 	public RectangleTool(ToolStrip parent) {
-		super(parent);
+		super(parent, "Rectangle tool");
 	}
 
 	@Override
 	public void initialize() {
 		setIconName("process.png");
 		super.initialize();
-		isDrag = false;
-	}
-
-	@Override
-	public void execute() {
-		MainWindow.getInstance().setStatus("Rectangle tool");
 	}
 
 	@Override

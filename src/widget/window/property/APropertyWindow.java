@@ -28,5 +28,5 @@ public abstract class APropertyWindow extends AWindow implements Listener {
 	public void handleEvent(Event event) {
 		execute();
 	}
-	
+
 }

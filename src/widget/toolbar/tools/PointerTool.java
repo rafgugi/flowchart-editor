@@ -6,26 +6,24 @@ import org.eclipse.swt.events.MouseEvent;
 import interfaces.IElement;
 import java.util.List;
 import widget.toolbar.ToolStrip;
-import widget.window.MainWindow;
 
 public class PointerTool extends ATool {
 
 	private boolean isDrag;
 	private MouseEvent downTemp;
 
+	public PointerTool(ToolStrip parent, String name) {
+		super(parent, name);
+	}
+
 	public PointerTool(ToolStrip parent) {
-		super(parent);
+		super(parent, "Pointer tool");
 	}
 
 	@Override
 	public void initialize() {
 		setIconName("pointerx.png");
 		super.initialize();
-	}
-
-	@Override
-	public void execute() {
-		MainWindow.getInstance().setStatus("Pointer tool");
 	}
 
 	@Override
@@ -36,8 +34,9 @@ public class PointerTool extends ATool {
 		if (elements.isEmpty()) {
 			IElement element = getActiveSubEditor().getElement(e.x, e.y);
 			if (element != null) {
-				/* select an element which previously 
-				 * no selected elements */
+				/*
+				 * select an element which previously no selected elements
+				 */
 				element.select();
 				getActiveSubEditor().draw();
 			} else {
@@ -59,7 +58,7 @@ public class PointerTool extends ATool {
 				mouseDown(e);
 			}
 		}
-		
+
 	}
 
 	@Override
@@ -81,8 +80,10 @@ public class PointerTool extends ATool {
 					}
 				}
 			} else {
-				/* Move selected elements. Could this be more 
-				 * general? You can't move a line */
+				/*
+				 * Move selected elements. Could this be more general? You can't
+				 * move a line
+				 */
 				for (IElement element : elements) {
 					element.drag(downTemp.x, downTemp.y, e.x, e.y);
 				}

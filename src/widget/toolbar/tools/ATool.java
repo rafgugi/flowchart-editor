@@ -36,6 +36,11 @@ public abstract class ATool extends ToolItem
 		this(parent, SWT.RADIO);
 	}
 
+	public ATool(ToolStrip parent, String toolName) {
+		this(parent, SWT.RADIO);
+		setToolName(toolName);
+	}
+
 	@Override
 	public void initialize() {
 		generateIcon();
@@ -68,7 +73,9 @@ public abstract class ATool extends ToolItem
 	}
 
 	@Override
-	public abstract void execute();
+	public void execute() {
+		MainWindow.getInstance().setStatus(getToolName());
+	}
 
 	public String getIconName() {
 		return iconName;
