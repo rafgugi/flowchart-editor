@@ -163,5 +163,9 @@ public class SubEditor extends TabItem implements ISubEditor, PaintListener,
 		}
 		return ans;
 	}
+	
+	public GC getGC() {
+		return new GC(canvas);
+	}
 
 }

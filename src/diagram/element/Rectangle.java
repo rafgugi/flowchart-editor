@@ -14,6 +14,11 @@ public class Rectangle extends TwoDimensional {
 		super(src, dst);
 		text = "";
 	}
+	
+	public static void draw(GC gc, int x, int y, int w, int h) {
+		gc.drawRectangle(x, y, w, h);
+		gc.fillRectangle(x + 1, y + 1, w - 1, h - 1);
+	}
 
 	@Override
 	public void renderNormal() {
@@ -42,8 +47,7 @@ public class Rectangle extends TwoDimensional {
 			setHeight(textHeight + 4);
 		}
 		
-		gc.drawRectangle(getX(), getY(), getWidth(), getHeight());
-		gc.fillRectangle(getX() + 1, getY() + 1, getWidth() - 1, getHeight() - 1);
+		draw(gc, getX(), getY(), getWidth(), getHeight());
 
 		gc.drawText(text, getX() + getWidth() / 2 - textWidth / 2, getY() + getHeight() / 2 - textHeight / 2);
 		gc.dispose();
