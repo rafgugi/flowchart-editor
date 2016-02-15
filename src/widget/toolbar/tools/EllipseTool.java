@@ -19,6 +19,7 @@ public class EllipseTool extends ATool {
 
 	@Override
 	public void execute() {
+		System.out.println("elips");
 		MainWindow.getInstance().setStatus("Ellipse tool clicked");
 	}
 

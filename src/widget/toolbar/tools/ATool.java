@@ -18,7 +18,8 @@ import org.eclipse.swt.events.MouseMoveListener;
 import widget.toolbar.ToolStrip;
 import widget.window.MainWindow;
 
-public abstract class ATool extends ToolItem implements ITool, Listener, MouseListener, DragDetectListener, MouseMoveListener {
+public abstract class ATool extends ToolItem
+		implements ITool, Listener, MouseListener, DragDetectListener, MouseMoveListener {
 
 	private String iconName;
 	private String iconFolder;
@@ -32,7 +33,7 @@ public abstract class ATool extends ToolItem implements ITool, Listener, MouseLi
 	}
 
 	public ATool(ToolStrip parent) {
-		this(parent, SWT.PUSH);
+		this(parent, SWT.RADIO);
 	}
 
 	@Override
@@ -86,9 +87,25 @@ public abstract class ATool extends ToolItem implements ITool, Listener, MouseLi
 	}
 
 	@Override
-	public void handleEvent(Event event) {
+	public void select() {
+		super.setSelection(true);
 		MainWindow.getInstance().getEditor().setActiveTool(this);
-		execute();
+	}
+
+	@Override
+	public void deselect() {
+		super.setSelection(false);
+	}
+
+	@Override
+	public void handleEvent(Event event) {
+		if (MainWindow.getInstance().getEditor().getActiveTool() != this) {
+			for (ITool tool : MainWindow.getInstance().getToolStrip().getTools()) {
+				tool.deselect();
+			}
+			this.select();
+			execute();
+		}
 	}
 
 	@Override

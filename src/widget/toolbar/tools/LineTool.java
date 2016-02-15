@@ -27,6 +27,7 @@ public class LineTool extends ATool {
 
 	@Override
 	public void execute() {
+		System.out.println("line");
 		MainWindow.getInstance().setStatus("Line tool");
 	}
 

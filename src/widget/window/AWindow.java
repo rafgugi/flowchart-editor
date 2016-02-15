@@ -6,15 +6,15 @@ import org.eclipse.swt.widgets.Shell;
 import interfaces.IWindow;
 
 public abstract class AWindow extends Shell implements IWindow {
-	
+
 	public AWindow(Display display) {
 		super(display);
 	}
-	
+
 	public AWindow() {
 		this(Display.getDefault());
 	}
-	
+
 	public abstract void initialize();
 
 	@Override
@@ -42,5 +42,5 @@ public abstract class AWindow extends Shell implements IWindow {
 	public String getTitle() {
 		return super.getText();
 	}
-	
+
 }
