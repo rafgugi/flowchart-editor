@@ -19,30 +19,39 @@ public abstract class TwoDimensional extends AElement {
 	}
 
 	public TwoDimensional(Point src, Point dst) {
-		this(Math.min(src.x, dst.x), Math.min(src.y, dst.y), 
-			Math.abs(src.x - dst.x), Math.abs(src.y - dst.y));
+		this(Math.min(src.x, dst.x), Math.min(src.y, dst.y), Math.abs(src.x - dst.x), Math.abs(src.y - dst.y));
+	}
+
+	public static ArrayList<Point> getEditPoints(int x, int y, int w, int h) {
+		ArrayList<Point> points = new ArrayList<>();
+		// 0 1 2
+		// 7   3
+		// 6 5 4
+		points.add(new Point(x, y)); // 0
+		points.add(new Point(x + w / 2, y)); // 1
+		points.add(new Point(x + w, y)); // 2
+		points.add(new Point(x + w, y + h / 2)); // 3
+		points.add(new Point(x + w, y + h)); // 4
+		points.add(new Point(x + w / 2, y + h)); // 5
+		points.add(new Point(x, y + h)); // 6
+		points.add(new Point(x, y + h / 2)); // 7
+		return points;
+	}
+
+	public static ArrayList<Point> getEditPoints(TwoDimensional element) {
+		return getEditPoints(element.getX(), element.getY(), element.getWidth(), element.getHeight());
 	}
 
 	@Override
 	public void renderEdit() {
 		renderNormal();
-		ArrayList<Point> points;
-		int x = getX();
-		int y = getY();
-		int w = getWidth();
-		int h = getHeight();
+		ArrayList<Point> points = TwoDimensional.getEditPoints(this);
+		for (Point point : points) {
+			EditPoint ep = new EditPoint(this, point.x, point.y, points.indexOf(point));
+			
+		}
 
-		points = new ArrayList<>();
-		points.add(new Point(x, y));
-		points.add(new Point(x + w, y));
-		points.add(new Point(x, y + h));
-		points.add(new Point(x + w, y + h));
-		points.add(new Point(getX() + getWidth() / 2, getY()));
-		points.add(new Point(getX(), getY() + getHeight() / 2));
-		points.add(new Point(getX() + getWidth() / 2, getY() + getHeight()));
-		points.add(new Point(getX() + getWidth(), getY() + getHeight() / 2));
-
-		super.createEditPoint(points);
+//		super.createEditPoint(TwoDimensional.getEditPoints(this));
 	}
 
 	@Override
@@ -55,14 +64,14 @@ public abstract class TwoDimensional extends AElement {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public boolean checkBoundary(int x1, int y1, int x2, int y2) {
 		int x = Math.min(x1, x2);
 		int y = Math.min(y1, y2);
 		int w = Math.abs(x1 - x2);
 		int h = Math.abs(y1 - y2);
-		
+
 		if (getX() < x || getX() > x + w) {
 			return false;
 		}
@@ -72,7 +81,7 @@ public abstract class TwoDimensional extends AElement {
 		if (getX() + getWidth() < x || getX() + getWidth() > x + w) {
 			return false;
 		}
-		if (getY() + getHeight()< y || getY() + getHeight() > y + h) {
+		if (getY() + getHeight() < y || getY() + getHeight() > y + h) {
 			return false;
 		}
 		return true;
