@@ -4,13 +4,21 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
+import widget.window.property.TerminatorProperty;
+
 public class RoundedRectangle extends TwoDimensional {
 
-	protected String text;
+	public static String START = "Start";
+	public static String END = "End";
 
 	public RoundedRectangle(Point src, Point dst) {
 		super(src, dst);
-		text = "";
+		text = START;
+	}
+	
+	public static void draw(GC gc, int x, int y, int w, int h) {
+		gc.fillRoundRectangle(x, y, w, h, h, h);
+		gc.drawRoundRectangle(x, y, w, h, h, h);
 	}
 
 	@Override
@@ -40,8 +48,7 @@ public class RoundedRectangle extends TwoDimensional {
 			setHeight(textHeight + 4);
 		}
 
-		gc.drawRoundRectangle(getX(), getY(), getWidth(), getHeight(), getHeight(), getHeight());
-		gc.fillRoundRectangle(getX() + 1, getY() + 1, getWidth() - 1, getHeight() - 1, getHeight(), getHeight());
+		draw(gc, getX(), getY(), getWidth(), getHeight());
 
 		gc.drawText(text, getX() + getWidth() / 2 - textWidth / 2, getY() + getHeight() / 2 - textHeight / 2);
 		gc.dispose();
@@ -49,7 +56,7 @@ public class RoundedRectangle extends TwoDimensional {
 
 	@Override
 	public void action() {
-		// cuma ngasih pilihan jadi start atau jadi end.
+		new TerminatorProperty(this).show();
 	}
 
 }

@@ -2,11 +2,14 @@ package widget.toolbar.tools;
 
 import org.eclipse.swt.events.DragDetectEvent;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
 import diagram.element.RoundedRectangle;
 import interfaces.IElement;
+import widget.tab.SubEditor;
 import widget.toolbar.ToolStrip;
+import widget.window.MainWindow;
 
 public class EllipseTool extends ATool {
 
@@ -35,6 +38,22 @@ public class EllipseTool extends ATool {
 	}
 
 	@Override
+	public void mouseMove(MouseEvent e) {
+		if (!isDrag) {
+			return;
+		}
+		SubEditor s;
+		s = (SubEditor) MainWindow.getInstance().getEditor().getActiveSubEditor();
+		GC gc = s.getGC();
+		
+		MainWindow.getInstance().getEditor().getActiveSubEditor().draw();
+
+		RoundedRectangle.draw(gc, Math.min(downTemp.x, e.x), Math.min(downTemp.y, e.y), 
+				Math.abs(downTemp.x - e.x), Math.abs(downTemp.y - e.y));
+		gc.dispose();
+	}
+
+	@Override
 	public void mouseUp(MouseEvent e) {
 		if (isDrag) {
 			Point src = new Point(downTemp.x, downTemp.y);
@@ -45,6 +64,8 @@ public class EllipseTool extends ATool {
 		} else {
 			System.out.println("Drag to draw object.");
 		}
+		isDrag = false;
+		downTemp = null;
 	}
 
 	@Override
