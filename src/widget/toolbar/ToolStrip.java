@@ -36,6 +36,7 @@ public class ToolStrip extends ToolBar implements IToolStrip {
 		addTool(new PointerTool(this));
 		addTool(new EllipseTool(this));
 		addTool(new RectangleTool(this));
+		addTool(new DiamondTool(this));
 		addTool(new LineTool(this));
 		
 		tools.get(0);

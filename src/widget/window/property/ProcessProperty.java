@@ -7,7 +7,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-import diagram.element.Rectangle;
+import diagram.element.TwoDimensional;
 import interfaces.IElement;
 
 public class ProcessProperty extends APropertyWindow {
@@ -47,7 +47,7 @@ public class ProcessProperty extends APropertyWindow {
 		gridData.verticalAlignment = SWT.FILL;
 		gridData.grabExcessVerticalSpace = true;
 		input.setLayoutData(gridData);
-		input.setText(((Rectangle) getElement()).getText());
+		input.setText(((TwoDimensional) getElement()).getText());
 
 		okButton = new Button(this, SWT.PUSH);
 		okButton.setText("     OK     ");
@@ -61,7 +61,7 @@ public class ProcessProperty extends APropertyWindow {
 
 	@Override
 	public void execute() {
-		Rectangle element = (Rectangle) super.getElement();
+		TwoDimensional element = (TwoDimensional) super.getElement();
 		String text = input.getText();
 		element.setText(text);
 		this.dispose();

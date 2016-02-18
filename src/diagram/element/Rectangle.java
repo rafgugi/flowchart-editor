@@ -8,16 +8,13 @@ import widget.window.property.ProcessProperty;
 
 public class Rectangle extends TwoDimensional {
 
-	protected String text;
-
 	public Rectangle(Point src, Point dst) {
 		super(src, dst);
-		text = "";
 	}
 	
 	public static void draw(GC gc, int x, int y, int w, int h) {
+		gc.fillRectangle(x, y, w, h);
 		gc.drawRectangle(x, y, w, h);
-		gc.fillRectangle(x + 1, y + 1, w - 1, h - 1);
 	}
 
 	@Override
@@ -57,15 +54,6 @@ public class Rectangle extends TwoDimensional {
 	public void action() {
 		ProcessProperty prop = new ProcessProperty(this);
 		prop.show();
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-		draw();
 	}
 
 }

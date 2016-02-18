@@ -10,12 +10,14 @@ public abstract class TwoDimensional extends AElement {
 	protected int y;
 	protected int width;
 	protected int height;
+	protected String text;
 
 	public TwoDimensional(int x, int y, int width, int height) {
 		setX(x);
 		setY(y);
 		setWidth(width);
 		setHeight(height);
+		text = "";
 	}
 
 	public TwoDimensional(Point src, Point dst) {
@@ -126,6 +128,15 @@ public abstract class TwoDimensional extends AElement {
 		int x = getX() + x2 - x1;
 		int y = getY() + y2 - y1;
 		setLocation(x, y);
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+		draw();
 	}
 
 }
