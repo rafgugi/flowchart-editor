@@ -6,6 +6,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
 import diagram.element.Rectangle;
+import exception.CreateElementException;
 import interfaces.IElement;
 import widget.tab.SubEditor;
 import widget.toolbar.ToolStrip;
@@ -55,14 +56,17 @@ public class RectangleTool extends ATool {
 
 	@Override
 	public void mouseUp(MouseEvent e) {
-		if (isDrag) {
+		try {
+			if (!isDrag) {
+				throw new CreateElementException("Drag to draw object.");
+			}
 			Point src = new Point(downTemp.x, downTemp.y);
 			Point dst = new Point(e.x, e.y);
 			IElement rect = new Rectangle(src, dst);
 			rect.select();
 			getActiveSubEditor().addElement(rect);
-		} else {
-			System.out.println("Drag to draw object.");
+		} catch (CreateElementException ex) {
+			System.out.println(ex.getMessage());
 		}
 		isDrag = false;
 		downTemp = null;

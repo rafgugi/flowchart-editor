@@ -33,14 +33,12 @@ public class PointerTool extends ATool {
 		List<IElement> elements = getActiveSubEditor().getSelectedElements();
 		if (elements.isEmpty()) {
 			IElement element = getActiveSubEditor().getElement(e.x, e.y);
-			if (element != null) {
-				/*
-				 * select an element which previously no selected elements
-				 */
+			if (element != null) {				
+				// select an element which previously no selected elements
 				element.select();
 				getActiveSubEditor().draw();
 			} else {
-				// select some elements, ini join sama mouse up
+				// select some elements
 			}
 		} else {
 			boolean isBoundary = false;
