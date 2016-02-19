@@ -11,6 +11,7 @@ public abstract class TwoDimensional extends AElement {
 	protected int width;
 	protected int height;
 	protected String text;
+	// bikin list flow line
 
 	public TwoDimensional(int x, int y, int width, int height) {
 		setX(x);
@@ -44,7 +45,7 @@ public abstract class TwoDimensional extends AElement {
 		points.add(new Point(getX() + getWidth() / 2, getY() + getHeight()));
 		points.add(new Point(getX() + getWidth(), getY() + getHeight() / 2));
 
-		super.createEditPoint(points);
+		super.drawEditPoint(points);
 	}
 
 	@Override

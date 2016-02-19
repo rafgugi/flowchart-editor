@@ -39,6 +39,8 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 		gridData.minimumWidth = 480;
 		super.setLayoutData(gridData);
 
+		newSubEditor();
+
 		ITool tool;
 		try {
 			tool = ((MainWindow) super.getParent()).getToolStrip().getTools().get(0);
