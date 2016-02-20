@@ -36,6 +36,10 @@ public abstract class AMenuItem extends MenuItem implements IMenuItem, Listener 
 		super.setAccelerator(SWT.MOD1 + shortcut);
 	}
 
+	public void setShortcut(int shortcut) {
+		super.setAccelerator(shortcut);
+	}
+
 	@Override
 	public void checkSubclass() {
 	}

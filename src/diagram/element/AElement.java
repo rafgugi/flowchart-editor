@@ -8,14 +8,18 @@ import org.eclipse.swt.widgets.Canvas;
 import diagram.state.*;
 import interfaces.IDrawingState;
 import interfaces.IElement;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AElement implements IElement {
 
 	protected Canvas canvas;
 	private IDrawingState state;
+	private ArrayList<IElement> connected;
 
 	public AElement() {
+		connected = new ArrayList<>();
 		deselect();
 	}
 
@@ -66,6 +70,18 @@ public abstract class AElement implements IElement {
 		for (Point p : points) {
 			drawEditPoint(p);
 		}
+	}
+
+	public ArrayList<IElement> getConnectedElements() {
+		return connected;
+	}
+
+	public void connect(IElement element) {
+		connected.add(element);
+	}
+
+	public void disconnect(IElement element) {
+		connected.remove(element);
 	}
 
 }

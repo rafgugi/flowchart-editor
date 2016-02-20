@@ -18,6 +18,10 @@ public class FlowLine extends AElement {
 	public FlowLine(TwoDimensional src, TwoDimensional dst) {
 		srcElement = src;
 		dstElement = dst;
+		connect(src);
+		connect(dst);
+		src.connect(this);
+		dst.connect(this);
 	}
 	
 	public static void draw(GC gc, int srcx, int srcy, int dstx, int dsty) {
