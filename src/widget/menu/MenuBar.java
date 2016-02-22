@@ -30,6 +30,7 @@ public class MenuBar extends Menu implements IMenuBar {
 	public void initialize() {
 		addItem(new FileMenu(this));
 		addItem(new EditMenu(this));
+		addItem(new DiagramMenu(this));
 	}
 
 	@Override
