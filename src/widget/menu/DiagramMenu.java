@@ -1,6 +1,7 @@
 package widget.menu;
 
 import widget.menu.menuitem.PackMenuItem;
+import widget.menu.menuitem.PropertiesMenuItem;
 import widget.menu.menuitem.ValidateMenuItem;
 
 public class DiagramMenu extends AMenu {
@@ -14,6 +15,7 @@ public class DiagramMenu extends AMenu {
 		setTitle("Diagram");
 		addItem(new PackMenuItem(this));
 		addItem(new ValidateMenuItem(this));
+		addItem(new PropertiesMenuItem(this));
 	}
 
 }

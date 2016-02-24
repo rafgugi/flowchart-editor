@@ -3,6 +3,7 @@ package widget.toolbar.tools;
 import org.eclipse.swt.events.DragDetectEvent;
 import org.eclipse.swt.events.MouseEvent;
 
+import command.ElementPropertiesCommand;
 import interfaces.IElement;
 import java.util.List;
 import widget.toolbar.ToolStrip;
@@ -92,10 +93,7 @@ public class PointerTool extends ATool {
 
 	@Override
 	public void mouseDoubleClick(MouseEvent e) {
-		IElement element = getActiveSubEditor().getElement(e.x, e.y);
-		if (element != null) {
-			element.action();
-		}
+		new ElementPropertiesCommand().execute();
 	}
 
 	@Override
