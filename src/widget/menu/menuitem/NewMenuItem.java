@@ -1,8 +1,7 @@
 package widget.menu.menuitem;
 
+import command.NewTabCommand;
 import widget.menu.AMenu;
-import widget.tab.Editor;
-import widget.window.MainWindow;
 
 public class NewMenuItem extends AMenuItem {
 
@@ -18,8 +17,7 @@ public class NewMenuItem extends AMenuItem {
 
 	@Override
 	public void execute() {
-		Editor editor = (Editor) MainWindow.getInstance().getEditor();
-		editor.newSubEditor();
+		new NewTabCommand().execute();
 	}
 
 }

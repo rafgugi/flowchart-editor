@@ -11,18 +11,40 @@ public class FlowLine extends AElement {
 	private TwoDimensional srcElement;
 	private TwoDimensional dstElement;
 
+	public static int NOT_CONNECTED = 0;
+	public static int CONNECTED_SRC = 1;
+	public static int CONNECTED_DST = 2;
+
 	public FlowLine(TwoDimensional src, TwoDimensional dst) {
 		srcElement = src;
 		dstElement = dst;
+		connect(src);
+		connect(dst);
+		src.connect(this);
+		dst.connect(this);
+	}
+	
+	public static void draw(GC gc, int srcx, int srcy, int dstx, int dsty) {
+		gc.drawLine(srcx, srcy, dstx, dsty);
+
+		int n = 10;
+		double angle = Math.atan2(dsty - srcy, dstx - srcx);
+		int x1 = (int) (dstx - n * Math.cos(angle - Math.PI / 6));
+		int y1 = (int) (dsty - n * Math.sin(angle - Math.PI / 6));
+		int x2 = (int) (dstx - n * Math.cos(angle + Math.PI / 6));
+		int y2 = (int) (dsty - n * Math.sin(angle + Math.PI / 6));
+
+		int[] points = { dstx, dsty, x1, y1, x2, y2 };
+		gc.fillPolygon(points);
+		gc.drawPolygon(points);
 	}
 
 	@Override
 	public void renderNormal() {
 		GC gc = new GC(getCanvas());
 		Color black = new Color(gc.getDevice(), 0, 0, 0);
-		Color white = new Color(gc.getDevice(), 255, 255, 255);
 		gc.setForeground(black);
-		gc.setBackground(white);
+		gc.setBackground(black);
 
 		ArrayList<Point> srcPoints;
 		srcPoints = new ArrayList<>();
@@ -59,19 +81,8 @@ public class FlowLine extends AElement {
 				}
 			}
 		}
-
-		int n = 10;
-		double angle = Math.atan2(dsty - srcy, dstx - srcx);
-		int x1 = (int) (dstx - n * Math.cos(angle - Math.PI / 6));
-		int y1 = (int) (dsty - n * Math.sin(angle - Math.PI / 6));
-		int x2 = (int) (dstx - n * Math.cos(angle + Math.PI / 6));
-		int y2 = (int) (dsty - n * Math.sin(angle + Math.PI / 6));
-
-		gc.drawLine(srcx, srcy, dstx, dsty);
-
-		int[] points = { dstx, dsty, x1, y1, x2, y2 };
-		gc.setBackground(black);
-		gc.fillPolygon(points);
+		
+		draw(gc, srcx, srcy, dstx, dsty);
 		gc.dispose();
 	}
 
@@ -83,7 +94,6 @@ public class FlowLine extends AElement {
 	@Override
 	public void action() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -115,6 +125,16 @@ public class FlowLine extends AElement {
 	@Override
 	public void drag(int x1, int y1, int x2, int y2) {
 		// TODO Auto-generated method stub
+	}
+
+	public int checkConnected(TwoDimensional element) {
+		if (srcElement == element) {
+			return CONNECTED_SRC;
+		}
+		if (dstElement == element) {
+			return CONNECTED_DST;
+		}
+		return NOT_CONNECTED;
 	}
 
 }

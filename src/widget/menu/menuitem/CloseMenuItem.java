@@ -1,8 +1,7 @@
 package widget.menu.menuitem;
 
+import command.CloseTabCommand;
 import widget.menu.AMenu;
-import widget.tab.Editor;
-import widget.window.MainWindow;
 
 public class CloseMenuItem extends AMenuItem {
 
@@ -18,8 +17,7 @@ public class CloseMenuItem extends AMenuItem {
 
 	@Override
 	public void execute() {
-		Editor editor = (Editor) MainWindow.getInstance().getEditor();
-		editor.close();
+		new CloseTabCommand().execute();
 	}
 
 }

@@ -1,9 +1,7 @@
 package widget.menu.menuitem;
 
-import interfaces.IElement;
-import interfaces.ISubEditor;
+import command.SelectAllElementsCommand;
 import widget.menu.AMenu;
-import widget.window.MainWindow;
 
 public class SelectAllMenuItem extends AMenuItem {
 
@@ -19,12 +17,7 @@ public class SelectAllMenuItem extends AMenuItem {
 
 	@Override
 	public void execute() {
-		ISubEditor subEditor;
-		subEditor = MainWindow.getInstance().getEditor().getActiveSubEditor();
-		for (IElement element : subEditor.getElements()) {
-			element.select();
-		}
-		subEditor.draw();
+		new SelectAllElementsCommand().execute();
 	}
 
 }

@@ -5,29 +5,29 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
-import diagram.element.RoundedRectangle;
+import diagram.element.Diamond;
 import exception.CreateElementException;
 import interfaces.IElement;
 import widget.tab.SubEditor;
 import widget.toolbar.ToolStrip;
 import widget.window.MainWindow;
 
-public class EllipseTool extends ATool {
+public class DiamondTool extends ATool {
 
 	private boolean isDrag;
 	private MouseEvent downTemp;
 
-	public EllipseTool(ToolStrip parent, String name) {
+	public DiamondTool(ToolStrip parent, String name) {
 		super(parent, name);
 	}
 
-	public EllipseTool(ToolStrip parent) {
-		super(parent, "Ellipse tool");
+	public DiamondTool(ToolStrip parent) {
+		super(parent, "Diamond tool");
 	}
-	
+
 	@Override
 	public void initialize() {
-		setIconName("terminator.png");
+		setIconName("diamond.png");
 		super.initialize();
 	}
 
@@ -49,7 +49,7 @@ public class EllipseTool extends ATool {
 		
 		MainWindow.getInstance().getEditor().getActiveSubEditor().draw();
 
-		RoundedRectangle.draw(gc, Math.min(downTemp.x, e.x), Math.min(downTemp.y, e.y), 
+		Diamond.draw(gc, Math.min(downTemp.x, e.x), Math.min(downTemp.y, e.y), 
 				Math.abs(downTemp.x - e.x), Math.abs(downTemp.y - e.y));
 		gc.dispose();
 	}
@@ -62,7 +62,7 @@ public class EllipseTool extends ATool {
 			}
 			Point src = new Point(downTemp.x, downTemp.y);
 			Point dst = new Point(e.x, e.y);
-			IElement rect = new RoundedRectangle(src, dst);
+			IElement rect = new Diamond(src, dst);
 			rect.select();
 			getActiveSubEditor().addElement(rect);
 		} catch (CreateElementException ex) {
