@@ -10,6 +10,7 @@ import interfaces.IDrawingState;
 import interfaces.IElement;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class AElement implements IElement {
@@ -17,9 +18,11 @@ public abstract class AElement implements IElement {
 	protected Canvas canvas;
 	private IDrawingState state;
 	private ArrayList<IElement> connected;
+	private ArrayList<EditPoint> editPoints;
 
 	public AElement() {
 		connected = new ArrayList<>();
+		editPoints = new ArrayList<>();
 		deselect();
 	}
 
@@ -83,5 +86,11 @@ public abstract class AElement implements IElement {
 	public void disconnect(IElement element) {
 		connected.remove(element);
 	}
+
+	public void setEditPoints(int[] points) {
+		Arrays.asList(points);
+	}
+
+	public abstract void setEditPoints();
 
 }

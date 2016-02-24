@@ -28,6 +28,19 @@ public class EditPoint extends AElement {
 		this.y = y;
 		this.code = code;
 	}
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+	
+	public void setY(int y) {
+		this.y = y;
+	}
+	
+	public void setPoint(int x, int y) {
+		setX(x);
+		setY(y);
+	}
 
 	@Override
 	public void renderNormal() {

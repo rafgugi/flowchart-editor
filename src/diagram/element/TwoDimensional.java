@@ -112,6 +112,7 @@ public abstract class TwoDimensional extends AElement {
 			width = 10;
 		}
 		this.width = width;
+		setEditPoints(points);
 	}
 
 	public int getWidth() {
@@ -148,6 +149,10 @@ public abstract class TwoDimensional extends AElement {
 	public void setText(String text) {
 		this.text = text;
 		draw();
+	}
+	
+	public void setEditPoints() {
+		setEditPoints(getEditPoints(getX(), getY(), getWidth(), getHeight()));
 	}
 
 }
