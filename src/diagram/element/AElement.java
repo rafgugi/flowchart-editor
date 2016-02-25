@@ -6,6 +6,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 
 import diagram.state.*;
+import exception.ElementNotFoundException;
 import interfaces.IDrawingState;
 import interfaces.IElement;
 
@@ -81,7 +82,9 @@ public abstract class AElement implements IElement {
 	}
 
 	public void disconnect(IElement element) {
-		connected.remove(element);
+		if (!connected.remove(element)) {
+			throw new ElementNotFoundException("Element not found");
+		}
 	}
 
 }

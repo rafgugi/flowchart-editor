@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.Text;
 
 import diagram.element.TwoDimensional;
 import interfaces.IElement;
+import widget.window.MainWindow;
 
 public class ProcessProperty extends APropertyWindow {
 
@@ -64,6 +65,7 @@ public class ProcessProperty extends APropertyWindow {
 		TwoDimensional element = (TwoDimensional) super.getElement();
 		String text = input.getText();
 		element.setText(text);
+		MainWindow.getInstance().getEditor().getActiveSubEditor().draw();
 		this.dispose();
 	}
 

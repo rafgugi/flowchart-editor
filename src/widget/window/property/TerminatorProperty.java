@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Label;
 import diagram.element.RoundedRectangle;
 import diagram.element.TwoDimensional;
 import interfaces.IElement;
+import widget.window.MainWindow;
 
 public class TerminatorProperty extends APropertyWindow {
 
@@ -70,6 +71,7 @@ public class TerminatorProperty extends APropertyWindow {
 		TwoDimensional element = (TwoDimensional) super.getElement();
 		String text = input.getText();
 		element.setText(text);
+		MainWindow.getInstance().getEditor().getActiveSubEditor().draw();
 		this.dispose();
 	}
 

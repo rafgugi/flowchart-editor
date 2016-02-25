@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.Label;
 
 import diagram.element.FlowLine;
 import interfaces.IElement;
+import widget.window.MainWindow;
 
 public class FlowLineProperty extends APropertyWindow {
 
@@ -69,6 +70,7 @@ public class FlowLineProperty extends APropertyWindow {
 		FlowLine element = (FlowLine) super.getElement();
 		String text = input.getText();
 		element.setText(text);
+		MainWindow.getInstance().getEditor().getActiveSubEditor().draw();
 		this.dispose();
 	}
 

@@ -14,6 +14,7 @@ public class DeleteElementsCommand implements ICommand {
 		subEditor = MainWindow.getInstance().getEditor().getActiveSubEditor();
 		for (IElement element : subEditor.getSelectedElements()) {
 			for (IElement connected : element.getConnectedElements()) {
+				connected.disconnect(element);
 				if (!(connected instanceof TwoDimensional)) {
 					subEditor.removeElement(connected);
 				}
