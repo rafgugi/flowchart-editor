@@ -106,5 +106,14 @@ public class ValidateDiagramCommand implements ICommand {
 
 		dialog.open();
 	}
+	
+	public boolean isError() {
+		for (int i = 0; i < MAX_ERROR_KINDS; i++) {
+			if (errors[i]) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

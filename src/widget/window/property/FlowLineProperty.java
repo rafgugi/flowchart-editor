@@ -9,19 +9,18 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Label;
 
-import diagram.element.RoundedRectangle;
-import diagram.element.TwoDimensional;
+import diagram.element.FlowLine;
 import interfaces.IElement;
 import widget.window.MainWindow;
 
-public class TerminatorProperty extends APropertyWindow {
+public class FlowLineProperty extends APropertyWindow {
 
 	private Combo input;
 	private Label label;
 	protected Button okButton;
-	private static String[] choices = new String[] { RoundedRectangle.START, RoundedRectangle.END };
+	private static String[] choices = new String[] { FlowLine.NONE, FlowLine.YES, FlowLine.NO };
 
-	public TerminatorProperty(IElement element) {
+	public FlowLineProperty(IElement element) {
 		super(element);
 	}
 
@@ -54,7 +53,7 @@ public class TerminatorProperty extends APropertyWindow {
 		gridData.grabExcessVerticalSpace = true;
 		input.setLayoutData(gridData);
 		/* Select current item */
-		input.select(Arrays.asList(choices).indexOf(((TwoDimensional) getElement()).getText()));
+		input.select(Arrays.asList(choices).indexOf(((FlowLine) getElement()).getText()));
 
 		okButton = new Button(this, SWT.PUSH);
 		okButton.setText("     OK     ");
@@ -68,7 +67,7 @@ public class TerminatorProperty extends APropertyWindow {
 
 	@Override
 	public void execute() {
-		TwoDimensional element = (TwoDimensional) super.getElement();
+		FlowLine element = (FlowLine) super.getElement();
 		String text = input.getText();
 		element.setText(text);
 		MainWindow.getInstance().getEditor().getActiveSubEditor().draw();

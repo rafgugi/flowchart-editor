@@ -6,10 +6,10 @@ import org.eclipse.swt.graphics.Point;
 
 public abstract class TwoDimensional extends AElement {
 
-	protected int x;
-	protected int y;
-	protected int width;
-	protected int height;
+	private int x;
+	private int y;
+	private int width;
+	private int height;
 	protected String text;
 	// bikin list flow line
 
@@ -148,7 +148,6 @@ public abstract class TwoDimensional extends AElement {
 
 	public void setText(String text) {
 		this.text = text;
-		draw();
 	}
 	
 	public void setEditPoints() {
