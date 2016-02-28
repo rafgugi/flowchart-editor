@@ -6,7 +6,7 @@ import org.eclipse.swt.graphics.GC;
 import interfaces.IElement;
 
 public class EditPoint extends AElement {
-	
+
 	protected int x;
 	protected int y;
 	protected IElement element;
@@ -21,14 +21,17 @@ public class EditPoint extends AElement {
 	public static final int BOTTOM_MIDDLE = 5;
 	public static final int BOTTOM_LEFT = 6;
 	public static final int MIDDLE_LEFT = 7;
-	
+
+	public static final int BEGIN = 0;
+	public static final int END = 1;
+
 	public EditPoint(IElement element, int x, int y, int code) {
 		this.element = element;
 		this.x = x;
 		this.y = y;
 		this.code = code;
 	}
-	
+
 	public IElement getParent() {
 		return element;
 	}
@@ -37,22 +40,36 @@ public class EditPoint extends AElement {
 	public String toString() {
 		return "EditPoint for (" + getParent().toString() + ")[" + code + "]";
 	}
-	
+
+	public int getCode() {
+		return code;
+	}
+
 	public void setX(int x) {
 		this.x = x;
 	}
-	
+
 	public void setY(int y) {
 		this.y = y;
 	}
-	
+
 	public void setPoint(int x, int y) {
 		setX(x);
 		setY(y);
 	}
 
 	@Override
+	public void deselect() {
+	}
+
+	@Override
 	public void renderNormal() {
+		select();
+		renderEdit();
+	}
+
+	@Override
+	public void renderEdit() {
 		GC gc = new GC(canvas);
 		Color black = new Color(gc.getDevice(), 0, 0, 0);
 		Color white = new Color(gc.getDevice(), 255, 255, 255);
@@ -62,13 +79,8 @@ public class EditPoint extends AElement {
 		x = this.x - 2;
 		y = this.y - 2;
 		gc.drawRectangle(x, y, length, length);
-		gc.fillRectangle(x + 1, y + 1, length - 1, length- 1);
+		gc.fillRectangle(x + 1, y + 1, length - 1, length - 1);
 		gc.dispose();
-	}
-
-	@Override
-	public void renderEdit() {
-		renderNormal();
 	}
 
 	@Override
@@ -93,7 +105,7 @@ public class EditPoint extends AElement {
 
 	@Override
 	public void drag(int x1, int y1, int x2, int y2) {
-		element.drag(x1, y1, x2, y2);
+		element.drag(x1, y1, x2, y2, this);
 	}
 
 	@Override

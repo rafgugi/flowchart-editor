@@ -29,7 +29,7 @@ public abstract class TwoDimensional extends AElement {
 	public static ArrayList<Point> getEditPoints(int x, int y, int w, int h) {
 		ArrayList<Point> points = new ArrayList<>();
 		// 0 1 2
-		// 7   3
+		// 7 3
 		// 6 5 4
 		points.add(new Point(x, y)); // 0
 		points.add(new Point(x + w / 2, y)); // 1
@@ -50,7 +50,7 @@ public abstract class TwoDimensional extends AElement {
 	public void renderEdit() {
 		renderNormal();
 	}
-	
+
 	@Override
 	public void select() {
 		super.select();
@@ -133,18 +133,65 @@ public abstract class TwoDimensional extends AElement {
 		setY(y);
 	}
 
+	public void setBoundary(int x1, int y1, int x2, int y2) {
+		if (x1 > x2) {
+			setBoundary(x2, y1, x1, y2);
+			return;
+		}
+		if (y1 > y2) {
+			setBoundary(x1, y2, x2, y1);
+			return;
+		}
+		setX(x1);
+		setY(y1);
+		setWidth(x2 - x1);
+		setHeight(y2 - y1);
+	}
+
 	@Override
 	public void drag(int x1, int y1, int x2, int y2) {
 		int x = getX() + x2 - x1;
 		int y = getY() + y2 - y1;
 		setLocation(x, y);
+		deselect();
+		select();
 	}
 
 	@Override
 	public void drag(int x1, int y1, int x2, int y2, IElement e) {
-		int x = getX() + x2 - x1;
-		int y = getY() + y2 - y1;
-		setLocation(x, y);
+		System.out.println("resize");
+		if (e instanceof EditPoint) {
+			switch (((EditPoint) e).getCode()) {
+			case EditPoint.TOP_LEFT:
+				setBoundary(x2, y2, getX() + getWidth(), getY() + getHeight());
+				break;
+			case EditPoint.TOP_MIDDLE:
+				setBoundary(getX(), y2, getX() + getWidth(), getY() + getHeight());
+				break;
+			case EditPoint.TOP_RIGHT:
+				setBoundary(x2, y2, getX(), getY() + getHeight());
+				break;
+			case EditPoint.MIDDLE_RIGHT:
+				setBoundary(x2, getY() + getHeight(), getX(), getY());
+				break;
+			case EditPoint.BOTTOM_RIGHT:
+				setBoundary(x2, y2, getX(), getY());
+				break;
+			case EditPoint.BOTTOM_MIDDLE:
+				setBoundary(getX() + getWidth(), y2, getX(), getY());
+				break;
+			case EditPoint.BOTTOM_LEFT:
+				setBoundary(x2, y2, getX() + getWidth(), getY());
+				break;
+			case EditPoint.MIDDLE_LEFT:
+				setBoundary(x2, getY(), getX() + getWidth(), getY() + getHeight());
+				break;
+			default:
+				throw new RuntimeException("Unexpected EditPoint constant.");
+			}
+		}
+		deselect();
+		select();
 	}
 
 	public String getText() {
@@ -154,7 +201,7 @@ public abstract class TwoDimensional extends AElement {
 	public void setText(String text) {
 		this.text = text;
 	}
-	
+
 	public void createEditPoints() {
 		createEditPoints(getEditPoints(getX(), getY(), getWidth(), getHeight()));
 	}

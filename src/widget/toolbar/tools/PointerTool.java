@@ -7,12 +7,12 @@ import command.ElementPropertiesCommand;
 import interfaces.IElement;
 import java.util.List;
 import widget.toolbar.ToolStrip;
-import widget.window.MainWindow;
 
 public class PointerTool extends ATool {
 
 	private boolean isDrag;
 	private MouseEvent downTemp;
+	private IElement clickedElement;
 
 	public PointerTool(ToolStrip parent, String name) {
 		super(parent, name);
@@ -30,25 +30,36 @@ public class PointerTool extends ATool {
 
 	@Override
 	public void mouseDown(MouseEvent e) {
-		System.out.println(MainWindow.getInstance().getEditor().getActiveSubEditor().getElements().size());
 		isDrag = false;
 		downTemp = e;
+		clickedElement = null;
 		List<IElement> elements = getActiveSubEditor().getSelectedElements();
+
+		/*
+		 * Kalau ga ada element yang active sekarang, maka pilihannya dia mau
+		 * nyelect banyak atau ngedrag 1 elemen aja.
+		 */
 		if (elements.isEmpty()) {
 			IElement element = getActiveSubEditor().getElement(e.x, e.y);
-			if (element != null) {				
-				// select an element which previously no selected elements
+			if (element != null) {
+				/* select an element which previously no selected elements */
 				element.select();
+				clickedElement = element;
 				getActiveSubEditor().draw();
 			} else {
-				// select some elements
+				/* select some elements */
 			}
-		} else {
+		}
+		/*
+		 * Kalau udah ada elemen yg aktif, maka pilihannya dia mau ngedrag semua
+		 * atau membatalkan seleksi.
+		 */
+		else {
 			boolean isBoundary = false;
 			for (IElement element : elements) {
 				if (element.checkBoundary(e.x, e.y)) {
 					isBoundary = true;
-					break;
+					clickedElement = element;
 				}
 			}
 			if (isBoundary) {
@@ -64,17 +75,25 @@ public class PointerTool extends ATool {
 
 	@Override
 	public void mouseUp(MouseEvent e) {
+		/*
+		 * Jika nggak didrag maka pilihannya cuma select 1 elemen atau tidak
+		 * sama sekali.
+		 */
 		if (!isDrag) {
 			/* Select an element */
-//			getActiveSubEditor().deselectAll();
+			getActiveSubEditor().deselectAll();
 			IElement element = getActiveSubEditor().getElement(e.x, e.y);
 			if (element != null) {
 				element.select();
 			}
-		} else {
+		}
+		/*
+		 * Jika didrag maka pilihannya select banyak elemen ngedrag elemen. Nah
+		 * ini elemennya dibatasi satu saja.
+		 */
+		else {
 			/* Select some elements */
-			List<IElement> elements = getActiveSubEditor().getSelectedElements();
-			if (elements.isEmpty()) {
+			if (clickedElement == null) {
 				for (IElement element : getActiveSubEditor().getElements()) {
 					if (element.checkBoundary(e.x, e.y, downTemp.x, downTemp.y)) {
 						element.select();
@@ -85,11 +104,7 @@ public class PointerTool extends ATool {
 				 * Move selected elements. Could this be more general? You can't
 				 * move a line
 				 */
-				for (IElement element : elements) {
-					element.deselect();
-					element.drag(downTemp.x, downTemp.y, e.x, e.y);
-					element.select();
-				}
+				clickedElement.drag(downTemp.x, downTemp.y, e.x, e.y);
 			}
 		}
 		getActiveSubEditor().draw();

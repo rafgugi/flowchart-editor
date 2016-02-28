@@ -2,7 +2,6 @@ package widget.tab;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DragDetectEvent;
@@ -152,8 +151,7 @@ public class SubEditor extends TabItem
 	@Override
 	public void deselectAll() {
 		ArrayList<IElement> temp = new ArrayList<>();
-		for (Iterator<IElement> iterator = getElements().iterator(); iterator.hasNext();) {
-			IElement e = iterator.next();
+		for (IElement e : getElements()) {
 			if (e.isActive()) {
 				temp.add(e);
 			}

@@ -12,7 +12,6 @@ import interfaces.IElement;
 import widget.window.MainWindow;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public abstract class AElement implements IElement {
@@ -49,13 +48,16 @@ public abstract class AElement implements IElement {
 			return;
 		}
 		System.out.println("Deselect " + this.toString());
+		
+		/* Yang mau dibuang dimasukin temp dulu biar ga rusak */
 		ArrayList<IElement> temp = new ArrayList<>();
-		for (Iterator<IElement> iter = getConnectedElements().iterator(); iter.hasNext();) {
-			IElement connected = iter.next();
+		for (IElement connected : getConnectedElements()) {
 			if (connected instanceof EditPoint) {
 				temp.add(connected);
 			}
 		}
+		
+		/* Mbuang yang harus dibuang */
 		for (IElement e : temp) {
 			e.disconnect(this);
 			this.disconnect(e);
@@ -81,6 +83,18 @@ public abstract class AElement implements IElement {
 	@Override
 	public void draw() {
 		state.draw(this);
+	}
+
+	@Override
+	public void drag(int x1, int y1, int x2, int y2) {
+		deselect();
+		select();
+	}
+
+	@Override
+	public void drag(int x1, int y1, int x2, int y2, IElement e) {
+		deselect();
+		select();
 	}
 
 	public void drawEditPoint(Point p) {
@@ -116,7 +130,6 @@ public abstract class AElement implements IElement {
 		if (!connected.remove(element)) {
 			throw new ElementNotFoundException("Element not found");
 		}
-		System.out.println("Disconnect " + toString() + " from " + element.toString());
 	}
 
 	public void createEditPoints(ArrayList<Point> points) {
@@ -126,7 +139,7 @@ public abstract class AElement implements IElement {
 			this.connect(ep);
 			ep.connect(this);
 			MainWindow.getInstance().getEditor().getActiveSubEditor().addElement(ep);
-//			ep.select();
+			ep.select();
 		}
 	}
 
