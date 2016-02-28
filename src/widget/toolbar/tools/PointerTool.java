@@ -7,6 +7,7 @@ import command.ElementPropertiesCommand;
 import interfaces.IElement;
 import java.util.List;
 import widget.toolbar.ToolStrip;
+import widget.window.MainWindow;
 
 public class PointerTool extends ATool {
 
@@ -29,6 +30,7 @@ public class PointerTool extends ATool {
 
 	@Override
 	public void mouseDown(MouseEvent e) {
+		System.out.println(MainWindow.getInstance().getEditor().getActiveSubEditor().getElements().size());
 		isDrag = false;
 		downTemp = e;
 		List<IElement> elements = getActiveSubEditor().getSelectedElements();
@@ -64,7 +66,7 @@ public class PointerTool extends ATool {
 	public void mouseUp(MouseEvent e) {
 		if (!isDrag) {
 			/* Select an element */
-			getActiveSubEditor().deselectAll();
+//			getActiveSubEditor().deselectAll();
 			IElement element = getActiveSubEditor().getElement(e.x, e.y);
 			if (element != null) {
 				element.select();
@@ -84,7 +86,9 @@ public class PointerTool extends ATool {
 				 * move a line
 				 */
 				for (IElement element : elements) {
+					element.deselect();
 					element.drag(downTemp.x, downTemp.y, e.x, e.y);
+					element.select();
 				}
 			}
 		}

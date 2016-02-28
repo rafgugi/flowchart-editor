@@ -6,6 +6,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
+import interfaces.IElement;
 import widget.window.property.FlowLineProperty;
 
 public class FlowLine extends AElement {
@@ -35,6 +36,11 @@ public class FlowLine extends AElement {
 		src.connect(this);
 		dst.connect(this);
 		text = "";
+	}
+
+	@Override
+	public String toString() {
+		return "FlowLine";
 	}
 	
 	public static void draw(GC gc, int srcx, int srcy, int dstx, int dsty) {
@@ -186,6 +192,10 @@ public class FlowLine extends AElement {
 	@Override
 	public void drag(int x1, int y1, int x2, int y2) {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void drag(int x1, int y1, int x2, int y2, IElement e) {
 	}
 
 	public int checkConnected(TwoDimensional element) {

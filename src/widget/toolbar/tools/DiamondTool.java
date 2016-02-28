@@ -63,8 +63,8 @@ public class DiamondTool extends ATool {
 			Point src = new Point(downTemp.x, downTemp.y);
 			Point dst = new Point(e.x, e.y);
 			IElement rect = new Diamond(src, dst);
-			rect.select();
 			getActiveSubEditor().addElement(rect);
+			rect.select();
 		} catch (CreateElementException ex) {
 			System.out.println(ex.getMessage());
 		}

@@ -9,9 +9,10 @@ import diagram.state.*;
 import exception.ElementNotFoundException;
 import interfaces.IDrawingState;
 import interfaces.IElement;
+import widget.window.MainWindow;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class AElement implements IElement {
@@ -19,12 +20,10 @@ public abstract class AElement implements IElement {
 	protected Canvas canvas;
 	private IDrawingState state;
 	private ArrayList<IElement> connected;
-	private ArrayList<EditPoint> editPoints;
 
 	public AElement() {
 		connected = new ArrayList<>();
-		editPoints = new ArrayList<>();
-		deselect();
+		state = NormalState.getInstance();
 	}
 
 	public void setCanvas(Canvas canvas) {
@@ -37,17 +36,46 @@ public abstract class AElement implements IElement {
 
 	@Override
 	public void select() {
+		if (state == EditState.getInstance()) {
+			return;
+		}
+		System.out.println("Select " + this.toString());
 		state = EditState.getInstance();
 	}
 
 	@Override
 	public void deselect() {
+		if (!isActive()) {
+			return;
+		}
+		System.out.println("Deselect " + this.toString());
+		ArrayList<IElement> temp = new ArrayList<>();
+		for (Iterator<IElement> iter = getConnectedElements().iterator(); iter.hasNext();) {
+			IElement connected = iter.next();
+			if (connected instanceof EditPoint) {
+				temp.add(connected);
+			}
+		}
+		for (IElement e : temp) {
+			e.disconnect(this);
+			this.disconnect(e);
+			MainWindow m = MainWindow.getInstance();
+			m.getEditor().getActiveSubEditor().removeElement(e);
+		}
 		state = NormalState.getInstance();
 	}
 
 	@Override
 	public IDrawingState getState() {
 		return state;
+	}
+
+	@Override
+	public boolean isActive() {
+		if (getState() == NormalState.getInstance()) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -88,12 +116,18 @@ public abstract class AElement implements IElement {
 		if (!connected.remove(element)) {
 			throw new ElementNotFoundException("Element not found");
 		}
+		System.out.println("Disconnect " + toString() + " from " + element.toString());
 	}
 
-	public void setEditPoints(int[] points) {
-		Arrays.asList(points);
+	public void createEditPoints(ArrayList<Point> points) {
+		for (int j = 0; j < points.size(); j++) {
+			Point point = points.get(j);
+			EditPoint ep = new EditPoint(this, point.x, point.y, j);
+			this.connect(ep);
+			ep.connect(this);
+			MainWindow.getInstance().getEditor().getActiveSubEditor().addElement(ep);
+//			ep.select();
+		}
 	}
-
-	public abstract void setEditPoints();
 
 }

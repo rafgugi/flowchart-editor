@@ -29,6 +29,15 @@ public class EditPoint extends AElement {
 		this.code = code;
 	}
 	
+	public IElement getParent() {
+		return element;
+	}
+
+	@Override
+	public String toString() {
+		return "EditPoint for (" + getParent().toString() + ")[" + code + "]";
+	}
+	
 	public void setX(int x) {
 		this.x = x;
 	}
@@ -59,6 +68,7 @@ public class EditPoint extends AElement {
 
 	@Override
 	public void renderEdit() {
+		renderNormal();
 	}
 
 	@Override
@@ -84,6 +94,10 @@ public class EditPoint extends AElement {
 	@Override
 	public void drag(int x1, int y1, int x2, int y2) {
 		element.drag(x1, y1, x2, y2);
+	}
+
+	@Override
+	public void drag(int x1, int y1, int x2, int y2, IElement e) {
 	}
 
 }

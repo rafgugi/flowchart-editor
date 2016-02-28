@@ -15,7 +15,12 @@ public class RoundedRectangle extends TwoDimensional {
 		super(src, dst);
 		text = START;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "RoundedRectangle";
+	}
+
 	public static void draw(GC gc, int x, int y, int w, int h) {
 		gc.fillRoundRectangle(x, y, w, h, h, h);
 		gc.drawRoundRectangle(x, y, w, h, h, h);
@@ -40,7 +45,7 @@ public class RoundedRectangle extends TwoDimensional {
 		/* Determine text height of lines */
 		int textHeight = gc.stringExtent(text).y * lines.length;
 
-		/* Auto enlarge the shape*/
+		/* Auto enlarge the shape */
 		if (textWidth > getWidth()) {
 			setWidth(textWidth + 4);
 		}

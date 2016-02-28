@@ -2,6 +2,7 @@ package widget.tab;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DragDetectEvent;
@@ -21,8 +22,8 @@ import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 
-public class SubEditor extends TabItem implements ISubEditor, PaintListener,
-	MouseListener, DragDetectListener, MouseMoveListener {
+public class SubEditor extends TabItem
+		implements ISubEditor, PaintListener, MouseListener, DragDetectListener, MouseMoveListener {
 
 	private String title;
 	private Canvas canvas;
@@ -73,6 +74,7 @@ public class SubEditor extends TabItem implements ISubEditor, PaintListener,
 
 	@Override
 	public void addElement(IElement element) {
+		System.out.println("Add " + element.toString());
 		((AElement) element).setCanvas(canvas);
 		elements.add(element);
 		draw();
@@ -80,6 +82,7 @@ public class SubEditor extends TabItem implements ISubEditor, PaintListener,
 
 	@Override
 	public void removeElement(IElement element) {
+		System.out.println("Remove " + element.toString());
 		elements.remove(element);
 		draw();
 	}
@@ -148,7 +151,14 @@ public class SubEditor extends TabItem implements ISubEditor, PaintListener,
 
 	@Override
 	public void deselectAll() {
-		for (IElement e : getElements()) {
+		ArrayList<IElement> temp = new ArrayList<>();
+		for (Iterator<IElement> iterator = getElements().iterator(); iterator.hasNext();) {
+			IElement e = iterator.next();
+			if (e.isActive()) {
+				temp.add(e);
+			}
+		}
+		for (IElement e : temp) {
 			e.deselect();
 		}
 	}
@@ -163,7 +173,7 @@ public class SubEditor extends TabItem implements ISubEditor, PaintListener,
 		}
 		return ans;
 	}
-	
+
 	public GC getGC() {
 		return new GC(canvas);
 	}

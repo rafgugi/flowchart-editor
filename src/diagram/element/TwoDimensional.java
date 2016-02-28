@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.eclipse.swt.graphics.Point;
 
+import interfaces.IElement;
+
 public abstract class TwoDimensional extends AElement {
 
 	private int x;
@@ -11,7 +13,6 @@ public abstract class TwoDimensional extends AElement {
 	private int width;
 	private int height;
 	protected String text;
-	// bikin list flow line
 
 	public TwoDimensional(int x, int y, int width, int height) {
 		setX(x);
@@ -48,14 +49,12 @@ public abstract class TwoDimensional extends AElement {
 	@Override
 	public void renderEdit() {
 		renderNormal();
-		ArrayList<Point> points = TwoDimensional.getEditPoints(this);
-		for (Point point : points) {
-			EditPoint ep = new EditPoint(this, point.x, point.y, points.indexOf(point));
-			
-		}
-
-//		super.createEditPoint(TwoDimensional.getEditPoints(this));
-		super.drawEditPoint(points);
+	}
+	
+	@Override
+	public void select() {
+		super.select();
+		createEditPoints();
 	}
 
 	@Override
@@ -112,7 +111,6 @@ public abstract class TwoDimensional extends AElement {
 			width = 10;
 		}
 		this.width = width;
-		setEditPoints(points);
 	}
 
 	public int getWidth() {
@@ -142,6 +140,13 @@ public abstract class TwoDimensional extends AElement {
 		setLocation(x, y);
 	}
 
+	@Override
+	public void drag(int x1, int y1, int x2, int y2, IElement e) {
+		int x = getX() + x2 - x1;
+		int y = getY() + y2 - y1;
+		setLocation(x, y);
+	}
+
 	public String getText() {
 		return text;
 	}
@@ -150,8 +155,8 @@ public abstract class TwoDimensional extends AElement {
 		this.text = text;
 	}
 	
-	public void setEditPoints() {
-		setEditPoints(getEditPoints(getX(), getY(), getWidth(), getHeight()));
+	public void createEditPoints() {
+		createEditPoints(getEditPoints(getX(), getY(), getWidth(), getHeight()));
 	}
 
 }

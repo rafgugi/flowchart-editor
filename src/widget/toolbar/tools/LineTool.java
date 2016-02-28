@@ -90,8 +90,8 @@ public class LineTool extends ATool {
 				throw new CreateElementException("Object alredy connected.");
 			}
 			FlowLine flowLine = new FlowLine(srcElement, dstElement);
-			flowLine.select();
 			getActiveSubEditor().addElement(flowLine);
+			flowLine.select();
 		} catch (CreateElementException ex) {
 			System.out.println(ex.getMessage());
 			getActiveSubEditor().draw();

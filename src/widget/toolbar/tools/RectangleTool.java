@@ -63,8 +63,8 @@ public class RectangleTool extends ATool {
 			Point src = new Point(downTemp.x, downTemp.y);
 			Point dst = new Point(e.x, e.y);
 			IElement rect = new Rectangle(src, dst);
-			rect.select();
 			getActiveSubEditor().addElement(rect);
+			rect.select();
 		} catch (CreateElementException ex) {
 			System.out.println(ex.getMessage());
 		}
