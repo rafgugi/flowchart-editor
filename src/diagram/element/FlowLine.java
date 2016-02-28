@@ -9,7 +9,7 @@ import org.eclipse.swt.graphics.Point;
 import interfaces.IElement;
 import widget.window.property.FlowLineProperty;
 
-public class FlowLine extends AElement {
+public class FlowLine extends AEditable {
 
 	private TwoDimensional srcElement;
 	private TwoDimensional dstElement;
@@ -42,7 +42,7 @@ public class FlowLine extends AElement {
 	public String toString() {
 		return "FlowLine";
 	}
-	
+
 	public static void draw(GC gc, int srcx, int srcy, int dstx, int dsty) {
 		gc.drawLine(srcx, srcy, dstx, dsty);
 
@@ -70,15 +70,19 @@ public class FlowLine extends AElement {
 		srcPoints = new ArrayList<>();
 		srcPoints.add(new Point(srcElement.getX() + srcElement.getWidth() / 2, srcElement.getY()));
 		srcPoints.add(new Point(srcElement.getX(), srcElement.getY() + srcElement.getHeight() / 2));
-		srcPoints.add(new Point(srcElement.getX() + srcElement.getWidth() / 2, srcElement.getY() + srcElement.getHeight()));
-		srcPoints.add(new Point(srcElement.getX() + srcElement.getWidth(), srcElement.getY() + srcElement.getHeight() / 2));
+		srcPoints.add(
+				new Point(srcElement.getX() + srcElement.getWidth() / 2, srcElement.getY() + srcElement.getHeight()));
+		srcPoints.add(
+				new Point(srcElement.getX() + srcElement.getWidth(), srcElement.getY() + srcElement.getHeight() / 2));
 
 		ArrayList<Point> dstPoints;
 		dstPoints = new ArrayList<>();
 		dstPoints.add(new Point(dstElement.getX() + dstElement.getWidth() / 2, dstElement.getY()));
 		dstPoints.add(new Point(dstElement.getX(), dstElement.getY() + dstElement.getHeight() / 2));
-		dstPoints.add(new Point(dstElement.getX() + dstElement.getWidth() / 2, dstElement.getY() + dstElement.getHeight()));
-		dstPoints.add(new Point(dstElement.getX() + dstElement.getWidth(), dstElement.getY() + dstElement.getHeight() / 2));
+		dstPoints.add(
+				new Point(dstElement.getX() + dstElement.getWidth() / 2, dstElement.getY() + dstElement.getHeight()));
+		dstPoints.add(
+				new Point(dstElement.getX() + dstElement.getWidth(), dstElement.getY() + dstElement.getHeight() / 2));
 
 		double min = Double.MAX_VALUE;
 		int srcx = 0;
@@ -106,15 +110,15 @@ public class FlowLine extends AElement {
 		setSrcy(srcy);
 		setDstx(dstx);
 		setDsty(dsty);
-		
+
 		/* Determine max text width from each line */
 		String[] lines = text.split("\r\n|\r|\n");
 		int textWidth = -1;
 		for (String line : lines) {
 			if (gc.stringExtent(line).x > textWidth)
-			textWidth = gc.stringExtent(line).x;
+				textWidth = gc.stringExtent(line).x;
 		}
-		
+
 		/* Determine text height of lines */
 		int textHeight = gc.stringExtent(text).y * lines.length;
 
@@ -125,19 +129,8 @@ public class FlowLine extends AElement {
 			temp = " " + temp + " ";
 		}
 		gc.drawText(temp, (getSrcx() + getDstx()) / 2 - textWidth / 2, (getSrcy() + getDsty()) / 2 - textHeight / 2);
-		
+
 		gc.dispose();
-	}
-
-	@Override
-	public void renderEdit() {
-		renderNormal();
-	}
-
-	@Override
-	public void select() {
-		super.select();
-		createEditPoints();
 	}
 
 	@Override
@@ -157,7 +150,7 @@ public class FlowLine extends AElement {
 		int y = Math.min(y1, y2);
 		int w = Math.abs(x1 - x2);
 		int h = Math.abs(y1 - y2);
-		
+
 		if (getSrcx() < x || getSrcx() > x + w) {
 			return false;
 		}
@@ -167,7 +160,7 @@ public class FlowLine extends AElement {
 		if (getDstx() < x || getDstx() > x + w) {
 			return false;
 		}
-		if (getDsty()< y || getDsty() > y + h) {
+		if (getDsty() < y || getDsty() > y + h) {
 			return false;
 		}
 		return true;
@@ -247,7 +240,8 @@ public class FlowLine extends AElement {
 	public void setText(String text) {
 		this.text = text;
 	}
-	
+
+	@Override
 	public void createEditPoints() {
 		ArrayList<Point> points = new ArrayList<>();
 		points.add(new Point(getSrcx(), getSrcy()));

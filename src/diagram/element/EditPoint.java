@@ -9,7 +9,7 @@ public class EditPoint extends AElement {
 
 	protected int x;
 	protected int y;
-	protected IElement element;
+	protected AEditable element;
 	public static int length = 5;
 	protected int code;
 
@@ -25,7 +25,7 @@ public class EditPoint extends AElement {
 	public static final int BEGIN = 0;
 	public static final int END = 1;
 
-	public EditPoint(IElement element, int x, int y, int code) {
+	public EditPoint(AEditable element, int x, int y, int code) {
 		this.element = element;
 		this.x = x;
 		this.y = y;
@@ -106,10 +106,6 @@ public class EditPoint extends AElement {
 	@Override
 	public void drag(int x1, int y1, int x2, int y2) {
 		element.drag(x1, y1, x2, y2, this);
-	}
-
-	@Override
-	public void drag(int x1, int y1, int x2, int y2, IElement e) {
 	}
 
 }

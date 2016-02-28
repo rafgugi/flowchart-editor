@@ -6,7 +6,7 @@ import org.eclipse.swt.graphics.Point;
 
 import interfaces.IElement;
 
-public abstract class TwoDimensional extends AElement {
+public abstract class TwoDimensional extends AEditable {
 
 	private int x;
 	private int y;
@@ -24,17 +24,6 @@ public abstract class TwoDimensional extends AElement {
 
 	public TwoDimensional(Point src, Point dst) {
 		this(Math.min(src.x, dst.x), Math.min(src.y, dst.y), Math.abs(src.x - dst.x), Math.abs(src.y - dst.y));
-	}
-
-	@Override
-	public void renderEdit() {
-		renderNormal();
-	}
-
-	@Override
-	public void select() {
-		super.select();
-		createEditPoints();
 	}
 
 	@Override
@@ -180,6 +169,7 @@ public abstract class TwoDimensional extends AElement {
 		this.text = text;
 	}
 
+	@Override
 	public void createEditPoints() {
 		// 0 1 2
 		// 7 X 3

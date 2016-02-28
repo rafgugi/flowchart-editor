@@ -1,6 +1,5 @@
 package diagram.element;
 
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 
 import diagram.state.*;
@@ -88,12 +87,6 @@ public abstract class AElement implements IElement {
 		select();
 	}
 
-	@Override
-	public void drag(int x1, int y1, int x2, int y2, IElement e) {
-		deselect();
-		select();
-	}
-
 	public ArrayList<IElement> getConnectedElements() {
 		return connected;
 	}
@@ -105,17 +98,6 @@ public abstract class AElement implements IElement {
 	public void disconnect(IElement element) {
 		if (!connected.remove(element)) {
 			throw new ElementNotFoundException("Element not found");
-		}
-	}
-
-	public void createEditPoints(ArrayList<Point> points) {
-		for (int j = 0; j < points.size(); j++) {
-			Point point = points.get(j);
-			EditPoint ep = new EditPoint(this, point.x, point.y, j);
-			this.connect(ep);
-			ep.connect(this);
-			MainWindow.getInstance().getEditor().getActiveSubEditor().addElement(ep);
-			ep.select();
 		}
 	}
 

@@ -15,7 +15,6 @@ public interface IElement {
 	public boolean checkBoundary(int x1, int y1, int x2, int y2);
 	public void action();
 	public void drag(int x1, int y1, int x2, int y2);
-	public void drag(int x1, int y1, int x2, int y2, IElement e);
 	public ArrayList<IElement> getConnectedElements();
 	public void connect(IElement element);
 	public void disconnect(IElement element);
