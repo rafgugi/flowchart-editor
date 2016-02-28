@@ -5,6 +5,8 @@ import org.eclipse.swt.events.MouseEvent;
 
 import command.ElementPropertiesCommand;
 import interfaces.IElement;
+
+import java.util.ArrayList;
 import java.util.List;
 import widget.toolbar.ToolStrip;
 
@@ -94,10 +96,15 @@ public class PointerTool extends ATool {
 		else {
 			/* Select some elements */
 			if (clickedElement == null) {
+				ArrayList<IElement> temp = new ArrayList<>();
 				for (IElement element : getActiveSubEditor().getElements()) {
 					if (element.checkBoundary(e.x, e.y, downTemp.x, downTemp.y)) {
-						element.select();
+						temp.add(element);
 					}
+				}
+				
+				for (IElement element : temp) {
+					element.select();
 				}
 			} else {
 				/*

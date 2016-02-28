@@ -26,26 +26,6 @@ public abstract class TwoDimensional extends AElement {
 		this(Math.min(src.x, dst.x), Math.min(src.y, dst.y), Math.abs(src.x - dst.x), Math.abs(src.y - dst.y));
 	}
 
-	public static ArrayList<Point> getEditPoints(int x, int y, int w, int h) {
-		ArrayList<Point> points = new ArrayList<>();
-		// 0 1 2
-		// 7 3
-		// 6 5 4
-		points.add(new Point(x, y)); // 0
-		points.add(new Point(x + w / 2, y)); // 1
-		points.add(new Point(x + w, y)); // 2
-		points.add(new Point(x + w, y + h / 2)); // 3
-		points.add(new Point(x + w, y + h)); // 4
-		points.add(new Point(x + w / 2, y + h)); // 5
-		points.add(new Point(x, y + h)); // 6
-		points.add(new Point(x, y + h / 2)); // 7
-		return points;
-	}
-
-	public static ArrayList<Point> getEditPoints(TwoDimensional element) {
-		return getEditPoints(element.getX(), element.getY(), element.getWidth(), element.getHeight());
-	}
-
 	@Override
 	public void renderEdit() {
 		renderNormal();
@@ -153,8 +133,7 @@ public abstract class TwoDimensional extends AElement {
 		int x = getX() + x2 - x1;
 		int y = getY() + y2 - y1;
 		setLocation(x, y);
-		deselect();
-		select();
+		super.drag(x1, y1, x2, y2);
 	}
 
 	@Override
@@ -190,8 +169,7 @@ public abstract class TwoDimensional extends AElement {
 				throw new RuntimeException("Unexpected EditPoint constant.");
 			}
 		}
-		deselect();
-		select();
+		super.drag(x1, y1, x2, y2, e);
 	}
 
 	public String getText() {
@@ -203,7 +181,19 @@ public abstract class TwoDimensional extends AElement {
 	}
 
 	public void createEditPoints() {
-		createEditPoints(getEditPoints(getX(), getY(), getWidth(), getHeight()));
+		// 0 1 2
+		// 7 X 3
+		// 6 5 4
+		ArrayList<Point> points = new ArrayList<>();
+		points.add(new Point(getX(), getY())); // 0
+		points.add(new Point(getX() + getWidth() / 2, getY())); // 1
+		points.add(new Point(getX() + getWidth(), getY())); // 2
+		points.add(new Point(getX() + getWidth(), getY() + getHeight() / 2)); // 3
+		points.add(new Point(getX() + getWidth(), getY() + getHeight())); // 4
+		points.add(new Point(getX() + getWidth() / 2, getY() + getHeight())); // 5
+		points.add(new Point(getX(), getY() + getHeight())); // 6
+		points.add(new Point(getX(), getY() + getHeight() / 2)); // 7
+		createEditPoints(points);
 	}
 
 }

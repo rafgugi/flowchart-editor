@@ -1,7 +1,5 @@
 package diagram.element;
 
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Canvas;
 
@@ -12,7 +10,6 @@ import interfaces.IElement;
 import widget.window.MainWindow;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public abstract class AElement implements IElement {
 
@@ -95,27 +92,6 @@ public abstract class AElement implements IElement {
 	public void drag(int x1, int y1, int x2, int y2, IElement e) {
 		deselect();
 		select();
-	}
-
-	public void drawEditPoint(Point p) {
-		GC gc = new GC(canvas);
-		Color black = new Color(gc.getDevice(), 0, 0, 0);
-		Color white = new Color(gc.getDevice(), 255, 255, 255);
-		gc.setForeground(black);
-		gc.setBackground(white);
-		int x, y, length;
-		x = p.x - 2;
-		y = p.y - 2;
-		length = 5;
-		gc.drawRectangle(x, y, length, length);
-		gc.fillRectangle(x + 1, y + 1, length - 1, length - 1);
-		gc.dispose();
-	}
-
-	public void drawEditPoint(List<Point> points) {
-		for (Point p : points) {
-			drawEditPoint(p);
-		}
 	}
 
 	public ArrayList<IElement> getConnectedElements() {

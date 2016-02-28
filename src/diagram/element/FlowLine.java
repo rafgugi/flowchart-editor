@@ -132,12 +132,12 @@ public class FlowLine extends AElement {
 	@Override
 	public void renderEdit() {
 		renderNormal();
-		
-		ArrayList<Point> points = new ArrayList<>();
-		points.add(new Point(getSrcx(), getSrcy()));
-		points.add(new Point(getDstx(), getDsty()));
+	}
 
-		super.drawEditPoint(points);
+	@Override
+	public void select() {
+		super.select();
+		createEditPoints();
 	}
 
 	@Override
@@ -246,6 +246,13 @@ public class FlowLine extends AElement {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+	
+	public void createEditPoints() {
+		ArrayList<Point> points = new ArrayList<>();
+		points.add(new Point(getSrcx(), getSrcy()));
+		points.add(new Point(getDstx(), getDsty()));
+		createEditPoints(points);
 	}
 
 }
