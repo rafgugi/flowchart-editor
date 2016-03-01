@@ -59,7 +59,7 @@ public class PointerTool extends ATool {
 		else {
 			boolean isBoundary = false;
 			for (IElement element : elements) {
-				if (element.checkBoundary(e.x, e.y)) {
+				if (element.checkBoundary(e.x, e.y) != null) {
 					isBoundary = true;
 					clickedElement = element;
 				}
@@ -98,7 +98,7 @@ public class PointerTool extends ATool {
 			if (clickedElement == null) {
 				ArrayList<IElement> temp = new ArrayList<>();
 				for (IElement element : getActiveSubEditor().getElements()) {
-					if (element.checkBoundary(e.x, e.y, downTemp.x, downTemp.y)) {
+					if (element.checkBoundary(e.x, e.y, downTemp.x, downTemp.y) != null) {
 						temp.add(element);
 					}
 				}

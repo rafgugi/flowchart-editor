@@ -88,13 +88,15 @@ public class SubEditor extends TabItem
 
 	@Override
 	public IElement getElement(int x, int y) {
-		IElement ans = null;
+		IElement retval = null;
 		for (IElement element : elements) {
-			if (element.checkBoundary(x, y)) {
-				ans = element;
+			IElement ans = element.checkBoundary(x, y);
+			if (ans != null) {
+				retval = ans;
 			}
 		}
-		return ans;
+		System.out.println("Dapet elemen " + retval);
+		return retval;
 	}
 
 	@Override

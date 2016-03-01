@@ -4,21 +4,56 @@ import java.util.ArrayList;
 
 import org.eclipse.swt.graphics.Point;
 
+import diagram.state.NormalState;
 import interfaces.IEditableElement;
 import interfaces.IElement;
-import widget.window.MainWindow;
 
 public abstract class AEditable extends AElement implements IEditableElement {
 
+	private ArrayList<EditPoint> editPoints;
+	
+	public AEditable() {
+		editPoints = new ArrayList<>();
+	}
+
 	@Override
 	public void select() {
-		super.select();
-		createEditPoints();
+		if (!isActive()) {
+			super.select();
+			createEditPoints();	
+		}
+	}
+
+	public void deselect() {
+		if (!isActive()) {
+			return;
+		}
+		System.out.println("Deselect " + this.toString());
+		editPoints.clear();
+		state = NormalState.getInstance();
+	}
+
+	public void addEditPoint(EditPoint e) {
+		editPoints.add(e);
+	}
+	
+	@Override
+	public IElement checkBoundary(int x, int y) {
+		for (IElement e : editPoints) {
+			IElement ans = e.checkBoundary(x, y);
+			if (ans != null) {
+				return ans;
+			}
+		}
+		return null;
 	}
 
 	@Override
 	public void renderEdit() {
 		renderNormal();
+		for (EditPoint ep : editPoints) {
+			ep.draw();
+		}
 	}
 
 	@Override
@@ -31,10 +66,8 @@ public abstract class AEditable extends AElement implements IEditableElement {
 		for (int i = 0; i < points.size(); i++) {
 			Point point = points.get(i);
 			EditPoint ep = new EditPoint(this, point.x, point.y, i);
-			this.connect(ep);
-			ep.connect(this);
-			MainWindow.getInstance().getEditor().getActiveSubEditor().addElement(ep);
-			ep.select();
+			ep.setCanvas(canvas);
+			addEditPoint(ep);
 		}
 	}
 

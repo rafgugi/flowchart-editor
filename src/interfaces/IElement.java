@@ -11,8 +11,8 @@ public interface IElement {
 	public void draw();
 	public void renderNormal();
 	public void renderEdit();
-	public boolean checkBoundary(int x, int y);
-	public boolean checkBoundary(int x1, int y1, int x2, int y2);
+	public IElement checkBoundary(int x, int y);
+	public IElement checkBoundary(int x1, int y1, int x2, int y2);
 	public void action();
 	public void drag(int x1, int y1, int x2, int y2);
 	public ArrayList<IElement> getConnectedElements();

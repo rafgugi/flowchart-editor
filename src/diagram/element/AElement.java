@@ -6,14 +6,13 @@ import diagram.state.*;
 import exception.ElementNotFoundException;
 import interfaces.IDrawingState;
 import interfaces.IElement;
-import widget.window.MainWindow;
 
 import java.util.ArrayList;
 
 public abstract class AElement implements IElement {
 
 	protected Canvas canvas;
-	private IDrawingState state;
+	protected IDrawingState state;
 	private ArrayList<IElement> connected;
 
 	public AElement() {
@@ -44,22 +43,6 @@ public abstract class AElement implements IElement {
 			return;
 		}
 		System.out.println("Deselect " + this.toString());
-		
-		/* Yang mau dibuang dimasukin temp dulu biar ga rusak */
-		ArrayList<IElement> temp = new ArrayList<>();
-		for (IElement connected : getConnectedElements()) {
-			if (connected instanceof EditPoint) {
-				temp.add(connected);
-			}
-		}
-		
-		/* Mbuang yang harus dibuang */
-		for (IElement e : temp) {
-			e.disconnect(this);
-			this.disconnect(e);
-			MainWindow m = MainWindow.getInstance();
-			m.getEditor().getActiveSubEditor().removeElement(e);
-		}
 		state = NormalState.getInstance();
 	}
 

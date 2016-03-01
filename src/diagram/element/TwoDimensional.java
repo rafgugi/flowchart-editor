@@ -27,36 +27,42 @@ public abstract class TwoDimensional extends AEditable {
 	}
 
 	@Override
-	public boolean checkBoundary(int x, int y) {
+	public IElement checkBoundary(int x, int y) {
+		// check apakah atasnya udah ada return nya
+		IElement ans = super.checkBoundary(x, y);
+		if (ans != null) {
+			return ans;
+		}
+		
 		if (x < getX() || x > getX() + getWidth()) {
-			return false;
+			return null;
 		}
 		if (y < getY() || y > getY() + getHeight()) {
-			return false;
+			return null;
 		}
-		return true;
+		return this;
 	}
 
 	@Override
-	public boolean checkBoundary(int x1, int y1, int x2, int y2) {
+	public IElement checkBoundary(int x1, int y1, int x2, int y2) {
 		int x = Math.min(x1, x2);
 		int y = Math.min(y1, y2);
 		int w = Math.abs(x1 - x2);
 		int h = Math.abs(y1 - y2);
 
 		if (getX() < x || getX() > x + w) {
-			return false;
+			return null;
 		}
 		if (getY() < y || getY() > y + h) {
-			return false;
+			return null;
 		}
 		if (getX() + getWidth() < x || getX() + getWidth() > x + w) {
-			return false;
+			return null;
 		}
 		if (getY() + getHeight() < y || getY() + getHeight() > y + h) {
-			return false;
+			return null;
 		}
-		return true;
+		return this;
 	}
 
 	public void setX(int x) {

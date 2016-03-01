@@ -10,7 +10,7 @@ public class EditPoint extends AElement {
 	protected int x;
 	protected int y;
 	protected AEditable element;
-	public static int length = 5;
+	public static int length = 7;
 	protected int code;
 
 	public static final int TOP_LEFT = 0;
@@ -59,6 +59,11 @@ public class EditPoint extends AElement {
 	}
 
 	@Override
+	public void select() {
+		element.select();
+	}
+
+	@Override
 	public void deselect() {
 	}
 
@@ -84,19 +89,19 @@ public class EditPoint extends AElement {
 	}
 
 	@Override
-	public boolean checkBoundary(int x, int y) {
+	public IElement checkBoundary(int x, int y) {
 		if (x < this.x - length / 2 || x > this.x + length / 2) {
-			return false;
+			return null;
 		}
 		if (y < this.y - length / 2 || y > this.y + length / 2) {
-			return false;
+			return null;
 		}
-		return true;
+		return this;
 	}
 
 	@Override
-	public boolean checkBoundary(int x1, int y1, int x2, int y2) {
-		return false;
+	public IElement checkBoundary(int x1, int y1, int x2, int y2) {
+		return null;
 	}
 
 	@Override

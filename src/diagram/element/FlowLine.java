@@ -140,30 +140,30 @@ public class FlowLine extends AEditable {
 	}
 
 	@Override
-	public boolean checkBoundary(int x, int y) {
-		return false;
+	public IElement checkBoundary(int x, int y) {
+		return null;
 	}
 
 	@Override
-	public boolean checkBoundary(int x1, int y1, int x2, int y2) {
+	public IElement checkBoundary(int x1, int y1, int x2, int y2) {
 		int x = Math.min(x1, x2);
 		int y = Math.min(y1, y2);
 		int w = Math.abs(x1 - x2);
 		int h = Math.abs(y1 - y2);
 
 		if (getSrcx() < x || getSrcx() > x + w) {
-			return false;
+			return null;
 		}
 		if (getSrcy() < y || getSrcy() > y + h) {
-			return false;
+			return null;
 		}
 		if (getDstx() < x || getDstx() > x + w) {
-			return false;
+			return null;
 		}
 		if (getDsty() < y || getDsty() > y + h) {
-			return false;
+			return null;
 		}
-		return true;
+		return this;
 	}
 
 	public TwoDimensional getSrcElement() {
