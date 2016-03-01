@@ -7,7 +7,6 @@ import command.ElementPropertiesCommand;
 import interfaces.IElement;
 
 import java.util.ArrayList;
-import java.util.List;
 import widget.toolbar.ToolStrip;
 
 public class PointerTool extends ATool {
@@ -35,42 +34,14 @@ public class PointerTool extends ATool {
 		isDrag = false;
 		downTemp = e;
 		clickedElement = null;
-		List<IElement> elements = getActiveSubEditor().getSelectedElements();
 
-		/*
-		 * Kalau ga ada element yang active sekarang, maka pilihannya dia mau
-		 * nyelect banyak atau ngedrag 1 elemen aja.
-		 */
-		if (elements.isEmpty()) {
-			IElement element = getActiveSubEditor().getElement(e.x, e.y);
-			if (element != null) {
-				/* select an element which previously no selected elements */
-				element.select();
-				clickedElement = element;
-				getActiveSubEditor().draw();
-			} else {
-				/* select some elements */
-			}
-		}
-		/*
-		 * Kalau udah ada elemen yg aktif, maka pilihannya dia mau ngedrag semua
-		 * atau membatalkan seleksi.
-		 */
-		else {
-			boolean isBoundary = false;
-			for (IElement element : elements) {
-				if (element.checkBoundary(e.x, e.y) != null) {
-					isBoundary = true;
-					clickedElement = element;
-				}
-			}
-			if (isBoundary) {
-				// move all selected elements
-			} else {
-				// reset selection
-				getActiveSubEditor().deselectAll();
-				mouseDown(e);
-			}
+		IElement element = getActiveSubEditor().getElement(e.x, e.y);
+		if (element != null) {
+			/* select an element which previously no selected elements */
+			clickedElement = element;
+			getActiveSubEditor().draw();
+		} else {
+			/* select some elements */
 		}
 
 	}
@@ -78,15 +49,13 @@ public class PointerTool extends ATool {
 	@Override
 	public void mouseUp(MouseEvent e) {
 		/*
-		 * Jika nggak didrag maka pilihannya cuma select 1 elemen atau tidak
-		 * sama sekali.
+		 * Jika nggak didrag maka select 1 elemen
 		 */
 		if (!isDrag) {
 			/* Select an element */
 			getActiveSubEditor().deselectAll();
-			IElement element = getActiveSubEditor().getElement(e.x, e.y);
-			if (element != null) {
-				element.select();
+			if (clickedElement != null) {
+				clickedElement.select();
 			}
 		}
 		/*
@@ -112,6 +81,8 @@ public class PointerTool extends ATool {
 				 * move a line
 				 */
 				clickedElement.drag(downTemp.x, downTemp.y, e.x, e.y);
+				getActiveSubEditor().deselectAll();
+				clickedElement.select();
 			}
 		}
 		getActiveSubEditor().draw();

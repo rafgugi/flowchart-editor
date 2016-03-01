@@ -10,7 +10,7 @@ public class EditPoint extends AElement {
 	protected int x;
 	protected int y;
 	protected AEditable element;
-	public static int length = 7;
+	public static int length = 5;
 	protected int code;
 
 	public static final int TOP_LEFT = 0;
