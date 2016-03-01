@@ -65,6 +65,7 @@ public class EllipseTool extends ATool {
 			IElement rect = new RoundedRectangle(src, dst);
 			getActiveSubEditor().addElement(rect);
 			rect.select();
+			getActiveSubEditor().draw();
 		} catch (CreateElementException ex) {
 			System.out.println(ex.getMessage());
 		}

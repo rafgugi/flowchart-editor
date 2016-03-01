@@ -92,6 +92,7 @@ public class LineTool extends ATool {
 			FlowLine flowLine = new FlowLine(srcElement, dstElement);
 			getActiveSubEditor().addElement(flowLine);
 			flowLine.select();
+			getActiveSubEditor().draw();
 		} catch (CreateElementException ex) {
 			System.out.println(ex.getMessage());
 			getActiveSubEditor().draw();

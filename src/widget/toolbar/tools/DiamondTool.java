@@ -65,6 +65,7 @@ public class DiamondTool extends ATool {
 			IElement rect = new Diamond(src, dst);
 			getActiveSubEditor().addElement(rect);
 			rect.select();
+			getActiveSubEditor().draw();
 		} catch (CreateElementException ex) {
 			System.out.println(ex.getMessage());
 		}
