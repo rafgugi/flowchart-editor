@@ -1,8 +1,12 @@
 package diagram.pad;
 
-public class PadElement {
-	
+public abstract class PadElement {
+
 	private String text;
+
+	public PadElement() {
+		text = "";
+	}
 
 	public String getText() {
 		return text;
@@ -11,5 +15,7 @@ public class PadElement {
 	public void setText(String text) {
 		this.text = text;
 	}
+
+	public abstract String generate();
 
 }

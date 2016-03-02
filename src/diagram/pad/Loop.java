@@ -1,7 +1,7 @@
 package diagram.pad;
 
-public class Loop extends PadElement {
-	
+public abstract class Loop extends PadElement {
+
 	private ElementContainer child;
 
 	public ElementContainer getChild() {
