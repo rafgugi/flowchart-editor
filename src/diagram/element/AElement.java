@@ -53,10 +53,7 @@ public abstract class AElement implements IElement {
 
 	@Override
 	public boolean isActive() {
-		if (getState() == NormalState.getInstance()) {
-			return false;
-		}
-		return true;
+		return getState() != NormalState.getInstance();
 	}
 
 	@Override
@@ -70,14 +67,17 @@ public abstract class AElement implements IElement {
 		select();
 	}
 
+	@Override
 	public ArrayList<IElement> getConnectedElements() {
 		return connected;
 	}
 
+	@Override
 	public void connect(IElement element) {
 		connected.add(element);
 	}
 
+	@Override
 	public void disconnect(IElement element) {
 		if (!connected.remove(element)) {
 			throw new ElementNotFoundException("Element not found");

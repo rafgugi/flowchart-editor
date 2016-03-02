@@ -4,8 +4,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
-import widget.window.property.TerminatorProperty;
-
 public class RoundedRectangle extends TwoDimensional {
 
 	public static String START = "Start";
@@ -57,11 +55,6 @@ public class RoundedRectangle extends TwoDimensional {
 
 		gc.drawText(text, getX() + getWidth() / 2 - textWidth / 2, getY() + getHeight() / 2 - textHeight / 2);
 		gc.dispose();
-	}
-
-	@Override
-	public void action() {
-		new TerminatorProperty(this).show();
 	}
 
 }

@@ -4,8 +4,6 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
-import widget.window.property.ProcessProperty;
-
 public class Rectangle extends TwoDimensional {
 
 	public Rectangle(Point src, Point dst) {
@@ -53,12 +51,6 @@ public class Rectangle extends TwoDimensional {
 
 		gc.drawText(text, getX() + getWidth() / 2 - textWidth / 2, getY() + getHeight() / 2 - textHeight / 2);
 		gc.dispose();
-	}
-
-	@Override
-	public void action() {
-		ProcessProperty prop = new ProcessProperty(this);
-		prop.show();
 	}
 
 }

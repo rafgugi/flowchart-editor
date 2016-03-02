@@ -105,10 +105,6 @@ public class EditPoint extends AElement {
 	}
 
 	@Override
-	public void action() {
-	}
-
-	@Override
 	public void drag(int x1, int y1, int x2, int y2) {
 		element.drag(x1, y1, x2, y2, this);
 	}

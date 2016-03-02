@@ -3,6 +3,7 @@ package command;
 import java.util.List;
 
 import interfaces.ICommand;
+import interfaces.IDiagramElement;
 import interfaces.IElement;
 import interfaces.ISubEditor;
 import widget.window.MainWindow;
@@ -15,7 +16,7 @@ public class ElementPropertiesCommand implements ICommand {
 		subEditor = MainWindow.getInstance().getEditor().getActiveSubEditor();
 		List<IElement> elements = subEditor.getSelectedElements();
 		if (elements.size() == 1) {
-			IElement element = elements.get(0);
+			IDiagramElement element = (IDiagramElement) elements.get(0);
 			element.action();
 		}
 	}

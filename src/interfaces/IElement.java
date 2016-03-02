@@ -13,7 +13,6 @@ public interface IElement {
 	public void renderEdit();
 	public IElement checkBoundary(int x, int y);
 	public IElement checkBoundary(int x1, int y1, int x2, int y2);
-	public void action();
 	public void drag(int x1, int y1, int x2, int y2);
 	public ArrayList<IElement> getConnectedElements();
 	public void connect(IElement element);

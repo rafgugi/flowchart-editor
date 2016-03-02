@@ -6,6 +6,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
 import diagram.element.RoundedRectangle;
+import diagram.flowchart.Terminator;
 import exception.CreateElementException;
 import interfaces.IElement;
 import widget.tab.SubEditor;
@@ -62,7 +63,7 @@ public class EllipseTool extends ATool {
 			}
 			Point src = new Point(downTemp.x, downTemp.y);
 			Point dst = new Point(e.x, e.y);
-			IElement rect = new RoundedRectangle(src, dst);
+			IElement rect = new Terminator(src, dst);
 			getActiveSubEditor().addElement(rect);
 			rect.select();
 			getActiveSubEditor().draw();

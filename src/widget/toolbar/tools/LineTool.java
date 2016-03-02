@@ -4,8 +4,9 @@ import org.eclipse.swt.events.DragDetectEvent;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.GC;
 
-import diagram.element.FlowLine;
+import diagram.element.Line;
 import diagram.element.TwoDimensional;
+import diagram.flowchart.FlowLine;
 import exception.CreateElementException;
 import interfaces.IElement;
 import widget.tab.SubEditor;
@@ -58,7 +59,7 @@ public class LineTool extends ATool {
 
 		MainWindow.getInstance().getEditor().getActiveSubEditor().draw();
 
-		FlowLine.draw(gc, downTemp.x, downTemp.y, e.x, e.y);
+		Line.draw(gc, downTemp.x, downTemp.y, e.x, e.y);
 		gc.dispose();
 	}
 
@@ -79,11 +80,11 @@ public class LineTool extends ATool {
 			/* Cek apakeh element udah tersambung */
 			boolean alredy = false;
 			for (IElement element : getActiveSubEditor().getElements()) {
-				if (element instanceof FlowLine) {
-					FlowLine flow = (FlowLine) element;
+				if (element instanceof Line) {
+					Line flow = (Line) element;
 					int isSrc = flow.checkConnected(srcElement);
 					int isDst = flow.checkConnected(dstElement);
-					alredy = isSrc == FlowLine.CONNECTED_SRC && isDst == FlowLine.CONNECTED_DST;
+					alredy = isSrc == Line.CONNECTED_SRC && isDst == Line.CONNECTED_DST;
 				}
 			}
 			if (alredy) {

@@ -24,6 +24,7 @@ public abstract class AEditable extends AElement implements IEditableElement {
 		}
 	}
 
+	@Override
 	public void deselect() {
 		if (!isActive()) {
 			return;

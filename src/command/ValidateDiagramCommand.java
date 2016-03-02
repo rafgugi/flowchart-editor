@@ -33,6 +33,7 @@ public class ValidateDiagramCommand implements ICommand {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void execute() {
 		errors = new boolean[MAX_ERROR_KINDS];
@@ -66,7 +67,7 @@ public class ValidateDiagramCommand implements ICommand {
 		if (!(errors[INCOMPLETE_TERMINATOR] || errors[MORE_THAN_ONE_TERMINATOR])) {
 			ArrayList<IElement> elements = (ArrayList<IElement>) editor.getElements();
 			elements = (ArrayList<IElement>) elements.clone();
-			Stack<IElement> stack = new Stack<IElement>();
+			Stack<IElement> stack = new Stack<>();
 			stack.push(start);
 			elements.remove(start);
 

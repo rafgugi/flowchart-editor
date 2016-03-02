@@ -6,6 +6,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
 import diagram.element.Rectangle;
+import diagram.flowchart.Process;
 import exception.CreateElementException;
 import interfaces.IElement;
 import widget.tab.SubEditor;
@@ -62,7 +63,7 @@ public class RectangleTool extends ATool {
 			}
 			Point src = new Point(downTemp.x, downTemp.y);
 			Point dst = new Point(e.x, e.y);
-			IElement rect = new Rectangle(src, dst);
+			IElement rect = new Process(src, dst);
 			getActiveSubEditor().addElement(rect);
 			rect.select();
 			getActiveSubEditor().draw();

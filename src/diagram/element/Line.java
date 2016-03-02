@@ -7,9 +7,8 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
 import interfaces.IElement;
-import widget.window.property.FlowLineProperty;
 
-public class FlowLine extends AEditable {
+public class Line extends AEditable {
 
 	private TwoDimensional srcElement;
 	private TwoDimensional dstElement;
@@ -28,7 +27,7 @@ public class FlowLine extends AEditable {
 	public static final String YES = "Y";
 	public static final String NO = "N";
 
-	public FlowLine(TwoDimensional src, TwoDimensional dst) {
+	public Line(TwoDimensional src, TwoDimensional dst) {
 		srcElement = src;
 		dstElement = dst;
 		connect(src);
@@ -131,12 +130,6 @@ public class FlowLine extends AEditable {
 		gc.drawText(temp, (getSrcx() + getDstx()) / 2 - textWidth / 2, (getSrcy() + getDsty()) / 2 - textHeight / 2);
 
 		gc.dispose();
-	}
-
-	@Override
-	public void action() {
-		FlowLineProperty prop = new FlowLineProperty(this);
-		prop.show();
 	}
 
 	@Override
