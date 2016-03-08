@@ -6,25 +6,24 @@ import diagram.state.*;
 import exception.ElementNotFoundException;
 import interfaces.IDrawingState;
 import interfaces.IElement;
+import widget.tab.SubEditor;
+import widget.window.MainWindow;
 
 import java.util.ArrayList;
 
 public abstract class AElement implements IElement {
 
-	protected Canvas canvas;
+	private final Canvas canvas;
 	protected IDrawingState state;
 	private ArrayList<IElement> connected;
 
 	public AElement() {
 		connected = new ArrayList<>();
 		state = NormalState.getInstance();
+		canvas = ((SubEditor) MainWindow.getInstance().getEditor().getActiveSubEditor()).getCanvas();
 	}
 
-	public void setCanvas(Canvas canvas) {
-		this.canvas = canvas;
-	}
-
-	public Canvas getCanvas() {
+	protected Canvas getCanvas() {
 		return canvas;
 	}
 

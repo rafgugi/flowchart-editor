@@ -67,7 +67,6 @@ public abstract class AEditable extends AElement implements IEditableElement {
 		for (int i = 0; i < points.size(); i++) {
 			Point point = points.get(i);
 			EditPoint ep = new EditPoint(this, point.x, point.y, i);
-			ep.setCanvas(canvas);
 			addEditPoint(ep);
 		}
 	}

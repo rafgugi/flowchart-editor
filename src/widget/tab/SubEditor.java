@@ -11,7 +11,6 @@ import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.TabItem;
 
-import diagram.element.AElement;
 import diagram.state.EditState;
 import interfaces.IElement;
 import interfaces.ISubEditor;
@@ -43,12 +42,12 @@ public class SubEditor extends TabItem
 	@Override
 	public void initialize() {
 		canvas = new Canvas(this.getParent(), SWT.BORDER);
-		super.setControl(canvas);
+		super.setControl(getCanvas());
 
-		canvas.addMouseListener(this);
-		canvas.addMouseMoveListener(this);
-		canvas.addDragDetectListener(this);
-		canvas.addPaintListener(this);
+		getCanvas().addMouseListener(this);
+		getCanvas().addMouseMoveListener(this);
+		getCanvas().addDragDetectListener(this);
+		getCanvas().addPaintListener(this);
 	}
 
 	@Override
@@ -74,7 +73,6 @@ public class SubEditor extends TabItem
 	@Override
 	public void addElement(IElement element) {
 		System.out.println("Add " + element.toString());
-		((AElement) element).setCanvas(canvas);
 		elements.add(element);
 		draw();
 	}
@@ -139,9 +137,9 @@ public class SubEditor extends TabItem
 
 	@Override
 	public void clearCanvas() {
-		GC gc = new GC(canvas);
+		GC gc = new GC(getCanvas());
 		gc.setBackground(new Color(gc.getDevice(), 255, 255, 255));
-		gc.fillRectangle(0, 0, canvas.getSize().x, canvas.getSize().y);
+		gc.fillRectangle(0, 0, getCanvas().getSize().x, getCanvas().getSize().y);
 		gc.dispose();
 	}
 
@@ -175,7 +173,11 @@ public class SubEditor extends TabItem
 	}
 
 	public GC getGC() {
-		return new GC(canvas);
+		return new GC(getCanvas());
+	}
+
+	public Canvas getCanvas() {
+		return canvas;
 	}
 
 }

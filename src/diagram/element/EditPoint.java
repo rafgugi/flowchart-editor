@@ -75,7 +75,7 @@ public class EditPoint extends AElement {
 
 	@Override
 	public void renderEdit() {
-		GC gc = new GC(canvas);
+		GC gc = new GC(getCanvas());
 		Color black = new Color(gc.getDevice(), 0, 0, 0);
 		Color white = new Color(gc.getDevice(), 255, 255, 255);
 		gc.setForeground(black);
