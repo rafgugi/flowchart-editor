@@ -3,7 +3,6 @@ package interfaces;
 import java.util.ArrayList;
 
 public interface IElement {
-	public String toString();
 	public IDrawingState getState();
 	public void select();
 	public void deselect();
@@ -17,4 +16,5 @@ public interface IElement {
 	public ArrayList<IElement> getConnectedElements();
 	public void connect(IElement element);
 	public void disconnect(IElement element);
+	public String toString();
 }

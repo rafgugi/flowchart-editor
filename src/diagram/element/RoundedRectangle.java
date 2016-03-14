@@ -6,12 +6,9 @@ import org.eclipse.swt.graphics.Point;
 
 public class RoundedRectangle extends TwoDimensional {
 
-	public static String START = "Start";
-	public static String END = "End";
-
 	public RoundedRectangle(Point src, Point dst) {
 		super(src, dst);
-		text = START;
+		setText("");
 	}
 
 	@Override

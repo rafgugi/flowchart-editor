@@ -9,8 +9,8 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Label;
 
-import diagram.element.RoundedRectangle;
 import diagram.element.TwoDimensional;
+import diagram.flowchart.Terminator;
 import interfaces.IElement;
 import widget.window.MainWindow;
 
@@ -19,7 +19,7 @@ public class TerminatorProperty extends APropertyWindow {
 	private Combo input;
 	private Label label;
 	protected Button okButton;
-	private static String[] choices = new String[] { RoundedRectangle.START, RoundedRectangle.END };
+	private static String[] choices = new String[] { Terminator.START, Terminator.END };
 
 	public TerminatorProperty(IElement element) {
 		super(element);
