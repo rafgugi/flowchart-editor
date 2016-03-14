@@ -6,7 +6,7 @@ import java.util.Stack;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 
-import diagram.element.RoundedRectangle;
+import diagram.flowchart.Terminator;
 import interfaces.ICommand;
 import interfaces.IElement;
 import interfaces.ISubEditor;
@@ -42,15 +42,15 @@ public class ValidateDiagramCommand implements ICommand {
 		IElement start = null;
 		IElement end = null;
 		for (IElement elem : editor.getElements()) {
-			if (elem instanceof RoundedRectangle) {
-				RoundedRectangle ele = (RoundedRectangle) elem;
-				if (ele.getText().equals(RoundedRectangle.START)) {
+			if (elem instanceof Terminator) {
+				Terminator ele = (Terminator) elem;
+				if (ele.getText().equals(Terminator.START)) {
 					if (start == null) {
 						start = ele;
 					} else {
 						errors[MORE_THAN_ONE_TERMINATOR] = true;
 					}
-				} else if (ele.getText().equals(RoundedRectangle.END)) {
+				} else if (ele.getText().equals(Terminator.END)) {
 					if (end == null) {
 						end = ele;
 					} else {

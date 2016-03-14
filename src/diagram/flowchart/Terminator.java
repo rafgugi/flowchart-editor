@@ -4,13 +4,15 @@ import org.eclipse.swt.graphics.Point;
 
 import diagram.element.Line;
 import diagram.element.RoundedRectangle;
+import diagram.pad.NodeCode;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
 import widget.window.property.TerminatorProperty;
 
-public class Terminator extends RoundedRectangle implements IDiagramElement {
+public class Terminator extends RoundedRectangle implements IDiagramElement, FlowChartElement {
 
 	private FlowLine flow;
+	private NodeCode nodeCode;
 
 	public static String START = "Start";
 	public static String END = "End";
@@ -45,6 +47,16 @@ public class Terminator extends RoundedRectangle implements IDiagramElement {
 
 	public FlowLine getFlow() {
 		return flow;
+	}
+
+	@Override
+	public NodeCode getNodeCode() {
+		return nodeCode;
+	}
+
+	@Override
+	public void setNodeCode(NodeCode code) {
+		this.nodeCode = code;
 	}
 
 }

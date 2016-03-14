@@ -6,13 +6,15 @@ import org.eclipse.swt.graphics.Point;
 
 import diagram.element.Diamond;
 import diagram.element.Line;
+import diagram.pad.NodeCode;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
 import widget.window.property.ProcessProperty;
 
-public class Decision extends Diamond implements IDiagramElement {
+public class Decision extends Diamond implements IDiagramElement, FlowChartElement {
 	
 	private ArrayList<FlowLine> flows;
+	private NodeCode nodeCode;
 
 	public Decision(Point src, Point dst) {
 		super(src, dst);
@@ -44,6 +46,16 @@ public class Decision extends Diamond implements IDiagramElement {
 	
 	public ArrayList<FlowLine> getFlows() {
 		return flows;
+	}
+
+	@Override
+	public NodeCode getNodeCode() {
+		return nodeCode;
+	}
+
+	@Override
+	public void setNodeCode(NodeCode code) {
+		this.nodeCode = code;
 	}
 
 }

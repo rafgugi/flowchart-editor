@@ -4,13 +4,15 @@ import org.eclipse.swt.graphics.Point;
 
 import diagram.element.Line;
 import diagram.element.Rectangle;
+import diagram.pad.NodeCode;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
 import widget.window.property.ProcessProperty;
 
-public class Process extends Rectangle implements IDiagramElement {
+public class Process extends Rectangle implements IDiagramElement, FlowChartElement {
 	
 	private FlowLine flow;
+	private NodeCode nodeCode;
 
 	public Process(Point src, Point dst) {
 		super(src, dst);
@@ -41,6 +43,16 @@ public class Process extends Rectangle implements IDiagramElement {
 
 	public FlowLine getFlow() {
 		return flow;
+	}
+
+	@Override
+	public NodeCode getNodeCode() {
+		return nodeCode;
+	}
+
+	@Override
+	public void setNodeCode(NodeCode code) {
+		this.nodeCode = code;
 	}
 
 }

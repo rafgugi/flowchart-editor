@@ -3,12 +3,18 @@ package command;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
+import java.util.Stack;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
-import diagram.pad.ElementContainer;
+import diagram.flowchart.Process;
+import diagram.flowchart.Terminator;
+import diagram.pad.*;
+import exception.InvalidFlowChartException;
 import interfaces.ICommand;
+import interfaces.IElement;
 import widget.window.MainWindow;
 
 public class GenerateCodeCommand implements ICommand {
@@ -41,8 +47,53 @@ public class GenerateCodeCommand implements ICommand {
 	}
 
 	public final ElementContainer generatePad() {
+		Stack<IElement> flowstack = new Stack<>();
+		Stack<ElementContainer> padstack = new Stack<>();
+		
+		ElementContainer currentPad = new ElementContainer();
+		padstack.push(currentPad);
+		
+		List<IElement> elements = MainWindow.getInstance().getEditor().getActiveSubEditor().getElements();
+		
+		/* Get start element */
+		IElement currentElem = null;
+		for (IElement e : elements) {
+			if (e instanceof Terminator) {
+				if (((Terminator) e).getText().equals(Terminator.START)) {
+					currentElem = e;
+				}
+			}
+		}
+		
+		if (currentElem == null) {
+			throw new InvalidFlowChartException("Start element not found.");
+		}
+		
+		flowstack.push(currentElem);
+		
+		while (!flowstack.isEmpty()) {
+			currentElem = flowstack.pop();
+
+			/* Case when the element is terminator */
+			if (currentElem instanceof Terminator) {
+				Terminator term = (Terminator) currentElem;
+				if (term.getText().equals(Terminator.START)) {
+					flowstack.push(term.getFlow().getDstElement());
+				}
+			}
+			
+			/* Case when the element is process */
+			if (currentElem instanceof Process) {
+				Process proc = (Process) currentElem;
+				flowstack.push(proc.getFlow().getDstElement());
+			}
+		}
 
 		return null;
+	}
+	
+	public final String generateCode() {
+		return "";
 	}
 
 }
