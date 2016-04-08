@@ -12,19 +12,17 @@ import widget.window.MainWindow;
 import java.util.ArrayList;
 
 public abstract class AElement implements IElement {
-
-	private final Canvas canvas;
+	
 	protected IDrawingState state;
 	private ArrayList<IElement> connected;
 
 	public AElement() {
 		connected = new ArrayList<>();
 		state = NormalState.getInstance();
-		canvas = ((SubEditor) MainWindow.getInstance().getEditor().getActiveSubEditor()).getCanvas();
 	}
 
 	protected Canvas getCanvas() {
-		return canvas;
+		return ((SubEditor) MainWindow.getInstance().getEditor().getActiveSubEditor()).getCanvas();
 	}
 
 	@Override
