@@ -1,18 +1,20 @@
 package diagram.element;
 
 import org.eclipse.swt.widgets.Canvas;
+import org.json.JSONObject;
 
 import diagram.state.*;
 import exception.ElementNotFoundException;
 import interfaces.IDrawingState;
 import interfaces.IElement;
+import interfaces.JSONAble;
 import widget.tab.SubEditor;
 import widget.window.MainWindow;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
-public abstract class AElement implements IElement {
+public abstract class AElement implements IElement, JSONAble {
 	
 	protected IDrawingState state;
 	private ArrayList<IElement> connected;
@@ -87,6 +89,18 @@ public abstract class AElement implements IElement {
 	@Override
 	public UUID getId() {
 		return id;
+	}
+
+	@Override
+	public void setId(UUID id) {
+		this.id = id;
+	}
+
+	@Override
+	public JSONObject jsonEncode() {
+		JSONObject obj = new JSONObject();
+		obj.append("class", this.getClass().getName());
+		return obj;
 	}
 
 }

@@ -12,6 +12,7 @@ public interface IElement {
 	public void renderNormal();
 	public void renderEdit();
 	public UUID getId();
+	public void setId(UUID id);
 	public IElement checkBoundary(int x, int y);
 	public IElement checkBoundary(int x1, int y1, int x2, int y2);
 	public void drag(int x1, int y1, int x2, int y2);

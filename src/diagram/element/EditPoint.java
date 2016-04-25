@@ -2,6 +2,7 @@ package diagram.element;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
+import org.json.JSONObject;
 
 import interfaces.IElement;
 
@@ -107,6 +108,11 @@ public class EditPoint extends AElement {
 	@Override
 	public void drag(int x1, int y1, int x2, int y2) {
 		element.drag(x1, y1, x2, y2, this);
+	}
+
+	@Override
+	public void jsonDecode(JSONObject obj) {
+		// TODO Auto-generated method stub
 	}
 
 }
