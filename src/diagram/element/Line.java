@@ -249,7 +249,9 @@ public class Line extends AEditable {
 	@Override
 	public JSONObject jsonEncode() {
 		JSONObject obj = super.jsonEncode();
-		obj.append("text", text);
+		obj.put("text", text);
+		obj.put("src", srcElement.getId());
+		obj.put("dst", dstElement.getId());
 		return obj;
 	}
 

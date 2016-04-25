@@ -99,7 +99,8 @@ public abstract class AElement implements IElement, JSONAble {
 	@Override
 	public JSONObject jsonEncode() {
 		JSONObject obj = new JSONObject();
-		obj.append("class", this.getClass().getName());
+		obj.put("class", this.getClass().getName());
+		obj.put("id", this.getId());
 		return obj;
 	}
 

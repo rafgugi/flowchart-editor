@@ -1,6 +1,7 @@
 package widget.tab;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.ArrayList;
 
 import org.eclipse.swt.SWT;
@@ -12,6 +13,7 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.TabItem;
 
 import diagram.state.EditState;
+import exception.ElementNotFoundException;
 import interfaces.IElement;
 import interfaces.ISubEditor;
 import org.eclipse.swt.events.MouseMoveListener;
@@ -178,6 +180,21 @@ public class SubEditor extends TabItem
 
 	public Canvas getCanvas() {
 		return canvas;
+	}
+
+	@Override
+	public IElement getElement(UUID id) {
+		for (IElement elem : elements) {
+			if (elem.getId().equals(id)) {
+				return elem;
+			}
+		}
+		throw new ElementNotFoundException("Can't find ID " + id);
+	}
+
+	@Override
+	public IElement getElement(String id) {
+		return getElement(UUID.fromString(id));
 	}
 
 }

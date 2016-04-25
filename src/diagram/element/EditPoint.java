@@ -112,7 +112,6 @@ public class EditPoint extends AElement {
 
 	@Override
 	public void jsonDecode(JSONObject obj) {
-		// TODO Auto-generated method stub
 	}
 
 }

@@ -1,10 +1,13 @@
 package command;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.UUID;
 
-import org.json.JSONArray;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.FileDialog;
 import org.json.JSONObject;
 
 import diagram.element.AEditable;
@@ -17,21 +20,32 @@ public class SaveCommand implements ICommand {
 	@Override
 	public void execute() {
 		List<IElement> elements = MainWindow.getInstance().getEditor().getActiveSubEditor().getElements();
-		
-		JSONArray arr = new JSONArray();
-		for (IElement i : elements) {
-			UUID id = UUID.randomUUID();
-			System.out.println(id.getLeastSignificantBits() + "_" + id.getMostSignificantBits());
-			System.out.println(id);
-			UUID another = UUID.fromString(id.toString());
-			System.out.println(another);
 
+		JSONObject retval = new JSONObject();
+		for (IElement i : elements) {
 			AEditable elem = (AEditable) i;
 			JSONObject obj = elem.jsonEncode();
-			arr.put(obj);
+			retval.append("elements", obj);
+
 			System.out.println(obj);
 		}
-		
+
+        FileDialog fd = new FileDialog(MainWindow.getInstance(), SWT.SAVE);
+        fd.setText("Save");
+
+        String[] filterExt = {"*.json", "*.*"};
+        fd.setFilterExtensions(filterExt);
+        String selected = fd.open();
+        if (selected != null) {
+            PrintWriter writer;
+    		try {
+    			writer = new PrintWriter(selected, "UTF-8");
+    	        writer.print(retval);
+    	        writer.close();
+    		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+    			e.printStackTrace();
+    		}
+        }
 	}
 
 	public void nyobaktok() {

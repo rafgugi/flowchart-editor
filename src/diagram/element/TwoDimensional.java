@@ -199,11 +199,11 @@ public abstract class TwoDimensional extends AEditable {
 	@Override
 	public JSONObject jsonEncode() {
 		JSONObject obj = super.jsonEncode();
-		obj.append("x", x);
-		obj.append("y", y);
-		obj.append("width", width);
-		obj.append("height", height);
-		obj.append("text", text);
+		obj.put("x", x);
+		obj.put("y", y);
+		obj.put("width", width);
+		obj.put("height", height);
+		obj.put("text", text);
 		return obj;
 	}
 
