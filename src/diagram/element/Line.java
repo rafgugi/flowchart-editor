@@ -268,6 +268,7 @@ public class Line extends AEditable {
 
 	@Override
 	public void jsonDecode(JSONObject obj) {
+		super.jsonDecode(obj);
 		ISubEditor se = MainWindow.getInstance().getEditor().getActiveSubEditor();
 		IElement src = se.getElement(obj.getString("src"));
 		IElement dst = se.getElement(obj.getString("dst"));

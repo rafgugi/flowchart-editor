@@ -67,7 +67,6 @@ public class OpenCommand implements ICommand {
 			if (elem == null) {
 				throw new PersistenceException("Wrong JSON format: wrong class name.");
 			}
-			elem.setId(item.getString("id"));
 			elem.jsonDecode(item);
 			editor.addElement(elem);
 		}

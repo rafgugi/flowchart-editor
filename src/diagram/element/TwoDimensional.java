@@ -13,10 +13,9 @@ public abstract class TwoDimensional extends AEditable {
 	private int y;
 	private int width;
 	private int height;
-	protected String text;
+	protected String text = "";
 
 	public TwoDimensional() {
-		text = "";
 	}
 
 	public TwoDimensional(int x, int y, int width, int height) {
@@ -210,6 +209,7 @@ public abstract class TwoDimensional extends AEditable {
 
 	@Override
 	public void jsonDecode(JSONObject obj) {
+		super.jsonDecode(obj);
 		setX(obj.getInt("x"));
 		setY(obj.getInt("y"));
 		setWidth(obj.getInt("width"));

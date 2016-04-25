@@ -112,6 +112,7 @@ public class EditPoint extends AElement {
 
 	@Override
 	public void jsonDecode(JSONObject obj) {
+		super.jsonDecode(obj);
 	}
 
 }

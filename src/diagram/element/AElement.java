@@ -108,4 +108,9 @@ public abstract class AElement implements IElement {
 		return obj;
 	}
 
+	@Override
+	public void jsonDecode(JSONObject obj) {
+		setId(obj.getString("id"));
+	}
+
 }
