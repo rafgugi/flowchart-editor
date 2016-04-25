@@ -12,6 +12,8 @@ public class FileMenu extends AMenu {
 	public void initialize() {
 		setTitle("File");
 		addItem(new NewMenuItem(this));
+		addItem(new OpenMenuItem(this));
+		addItem(new SaveMenuItem(this));
 		addItem(new CloseMenuItem(this));
 	}
 
