@@ -10,15 +10,18 @@ import widget.tab.SubEditor;
 import widget.window.MainWindow;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public abstract class AElement implements IElement {
 	
 	protected IDrawingState state;
 	private ArrayList<IElement> connected;
+	private UUID id;
 
 	public AElement() {
 		connected = new ArrayList<>();
 		state = NormalState.getInstance();
+		id = UUID.randomUUID();
 	}
 
 	protected Canvas getCanvas() {
@@ -79,6 +82,11 @@ public abstract class AElement implements IElement {
 		if (!connected.remove(element)) {
 			throw new ElementNotFoundException("Element not found");
 		}
+	}
+
+	@Override
+	public UUID getId() {
+		return id;
 	}
 
 }

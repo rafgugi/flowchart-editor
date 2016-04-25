@@ -17,6 +17,9 @@ public class Terminator extends RoundedRectangle implements IDiagramElement, Flo
 	public static String START = "Start";
 	public static String END = "End";
 
+	public Terminator() {
+	}
+
 	public Terminator(Point src, Point dst) {
 		super(src, dst);
 		setText(START);

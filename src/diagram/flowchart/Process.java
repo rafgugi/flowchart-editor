@@ -14,6 +14,9 @@ public class Process extends Rectangle implements IDiagramElement, FlowChartElem
 	private FlowLine flow;
 	private NodeCode nodeCode;
 
+	public Process() {
+	}
+
 	public Process(Point src, Point dst) {
 		super(src, dst);
 	}

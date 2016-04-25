@@ -16,6 +16,9 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 	private ArrayList<FlowLine> flows;
 	private NodeCode nodeCode;
 
+	public Decision() {
+	}
+
 	public Decision(Point src, Point dst) {
 		super(src, dst);
 		flows = new ArrayList<>();

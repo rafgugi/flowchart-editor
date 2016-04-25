@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
+import org.json.JSONObject;
 
 import interfaces.IElement;
 
@@ -27,9 +28,12 @@ public class Line extends AEditable {
 	public static final String YES = "Y";
 	public static final String NO = "N";
 
+	public Line() {
+	}
+
 	public Line(TwoDimensional src, TwoDimensional dst) {
-		srcElement = src;
-		dstElement = dst;
+		setSrcElement(src);
+		setDstElement(dst);
 		connect(src);
 		connect(dst);
 		src.connect(this);
@@ -240,6 +244,19 @@ public class Line extends AEditable {
 		points.add(new Point(getSrcx(), getSrcy()));
 		points.add(new Point(getDstx(), getDsty()));
 		createEditPoints(points);
+	}
+
+	@Override
+	public JSONObject jsonEncode() {
+		JSONObject obj = super.jsonEncode();
+		obj.append("text", text);
+		return obj;
+	}
+
+	@Override
+	public void jsonDecode(JSONObject obj) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

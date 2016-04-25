@@ -3,6 +3,7 @@ package diagram.element;
 import java.util.ArrayList;
 
 import org.eclipse.swt.graphics.Point;
+import org.json.JSONObject;
 
 import interfaces.IElement;
 
@@ -13,6 +14,9 @@ public abstract class TwoDimensional extends AEditable {
 	private int width;
 	private int height;
 	protected String text;
+
+	public TwoDimensional() {
+	}
 
 	public TwoDimensional(int x, int y, int width, int height) {
 		setX(x);
@@ -190,6 +194,17 @@ public abstract class TwoDimensional extends AEditable {
 		points.add(new Point(getX(), getY() + getHeight())); // 6
 		points.add(new Point(getX(), getY() + getHeight() / 2)); // 7
 		createEditPoints(points);
+	}
+
+	@Override
+	public JSONObject jsonEncode() {
+		JSONObject obj = super.jsonEncode();
+		obj.append("x", x);
+		obj.append("y", y);
+		obj.append("width", width);
+		obj.append("height", height);
+		obj.append("text", text);
+		return obj;
 	}
 
 }

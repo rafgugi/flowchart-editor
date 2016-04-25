@@ -3,12 +3,14 @@ package diagram.element;
 import java.util.ArrayList;
 
 import org.eclipse.swt.graphics.Point;
+import org.json.JSONObject;
 
 import diagram.state.NormalState;
 import interfaces.IEditableElement;
 import interfaces.IElement;
+import interfaces.JSONAble;
 
-public abstract class AEditable extends AElement implements IEditableElement {
+public abstract class AEditable extends AElement implements IEditableElement, JSONAble {
 
 	private ArrayList<EditPoint> editPoints;
 	
@@ -69,6 +71,13 @@ public abstract class AEditable extends AElement implements IEditableElement {
 			EditPoint ep = new EditPoint(this, point.x, point.y, i);
 			addEditPoint(ep);
 		}
+	}
+
+	@Override
+	public JSONObject jsonEncode() {
+		JSONObject obj = new JSONObject();
+		obj.append("class", this.getClass().getName());
+		return obj;
 	}
 
 }

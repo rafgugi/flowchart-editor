@@ -7,6 +7,9 @@ import widget.window.property.FlowLineProperty;
 
 public class FlowLine extends Line implements IDiagramElement {
 
+	public FlowLine() {
+	}
+
 	public FlowLine(TwoDimensional src, TwoDimensional dst) {
 		super(src, dst);
 	}
