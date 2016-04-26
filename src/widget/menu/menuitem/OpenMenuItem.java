@@ -1,6 +1,6 @@
 package widget.menu.menuitem;
 
-import command.CloseTabCommand;
+import command.OpenCommand;
 import widget.menu.AMenu;
 
 public class OpenMenuItem extends AMenuItem {
@@ -17,7 +17,7 @@ public class OpenMenuItem extends AMenuItem {
 
 	@Override
 	public void execute() {
-		new CloseTabCommand().execute();
+		new OpenCommand().execute();
 	}
 
 }

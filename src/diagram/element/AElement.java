@@ -7,14 +7,13 @@ import diagram.state.*;
 import exception.ElementNotFoundException;
 import interfaces.IDrawingState;
 import interfaces.IElement;
-import interfaces.JSONAble;
 import widget.tab.SubEditor;
 import widget.window.MainWindow;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
-public abstract class AElement implements IElement, JSONAble {
+public abstract class AElement implements IElement {
 	
 	protected IDrawingState state;
 	private ArrayList<IElement> connected;
@@ -94,6 +93,11 @@ public abstract class AElement implements IElement, JSONAble {
 	@Override
 	public void setId(UUID id) {
 		this.id = id;
+	}
+
+	@Override
+	public void setId(String id) {
+		setId(UUID.fromString(id));
 	}
 
 	@Override
