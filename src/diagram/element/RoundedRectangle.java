@@ -12,7 +12,6 @@ public class RoundedRectangle extends TwoDimensional {
 
 	public RoundedRectangle(Point src, Point dst) {
 		super(src, dst);
-		setText("");
 	}
 
 	@Override
@@ -56,12 +55,6 @@ public class RoundedRectangle extends TwoDimensional {
 
 		gc.drawText(text, getX() + getWidth() / 2 - textWidth / 2, getY() + getHeight() / 2 - textHeight / 2);
 		gc.dispose();
-	}
-
-	@Override
-	public void jsonDecode(JSONObject obj) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

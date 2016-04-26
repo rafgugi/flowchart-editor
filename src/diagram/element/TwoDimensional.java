@@ -16,14 +16,15 @@ public abstract class TwoDimensional extends AEditable {
 	protected String text;
 
 	public TwoDimensional() {
+		text = "";
 	}
 
 	public TwoDimensional(int x, int y, int width, int height) {
+		this();
 		setX(x);
 		setY(y);
 		setWidth(width);
 		setHeight(height);
-		text = "";
 	}
 
 	public TwoDimensional(Point src, Point dst) {
@@ -205,6 +206,15 @@ public abstract class TwoDimensional extends AEditable {
 		obj.put("height", height);
 		obj.put("text", text);
 		return obj;
+	}
+
+	@Override
+	public void jsonDecode(JSONObject obj) {
+		setX(obj.getInt("x"));
+		setY(obj.getInt("y"));
+		setWidth(obj.getInt("width"));
+		setHeight(obj.getInt("height"));
+		setText(obj.getString("text"));
 	}
 
 }

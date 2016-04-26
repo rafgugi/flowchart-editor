@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import exception.PersistenceException;
 import interfaces.ICommand;
 import interfaces.IElement;
+import interfaces.ISubEditor;
 import widget.window.MainWindow;
 
 public class OpenCommand implements ICommand {
@@ -48,6 +49,8 @@ public class OpenCommand implements ICommand {
 
 	public void beginDecoding(JSONObject obj) {
 		JSONArray elements = obj.getJSONArray("elements");
+		MainWindow.getInstance().getEditor().newSubEditor();
+		ISubEditor editor = MainWindow.getInstance().getEditor().getActiveSubEditor();
 		for (int i = 0; i < elements.length(); i++) {
 			JSONObject item = elements.getJSONObject(i);
 			String className = item.getString("class");
@@ -64,6 +67,7 @@ public class OpenCommand implements ICommand {
 			}
 			elem.setId(item.getString("id"));
 			elem.jsonDecode(item);
+			editor.addElement(elem);
 		}
 	}
 

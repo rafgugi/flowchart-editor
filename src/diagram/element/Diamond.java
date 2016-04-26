@@ -59,10 +59,4 @@ public class Diamond extends TwoDimensional {
 		gc.dispose();
 	}
 
-	@Override
-	public void jsonDecode(JSONObject obj) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }
