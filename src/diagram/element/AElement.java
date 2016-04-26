@@ -90,13 +90,11 @@ public abstract class AElement implements IElement {
 		return id;
 	}
 
-	@Override
-	public void setId(UUID id) {
+	private void setId(UUID id) {
 		this.id = id;
 	}
 
-	@Override
-	public void setId(String id) {
+	private void setId(String id) {
 		setId(UUID.fromString(id));
 	}
 
