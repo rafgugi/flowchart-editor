@@ -1,3 +1,12 @@
+## Objectives
+
+|Fungsional | Status
+|---|---
+| Dapat membuat flowchart (flowchart editor) | Ok
+| Dapat memvalidasi flowchart | Progress
+| Dapat menyimpan dan membuka flowchart | Progress
+| Dapat mengubah flowchart menjadi kode sumber berbahasa C | Belum
+
 ## Persiapan
 - pastikan java.eclipse.swt terinclude ke dalam project ini. https://www.eclipse.org/swt/eclipse.php
 
