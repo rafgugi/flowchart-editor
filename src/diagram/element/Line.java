@@ -8,6 +8,8 @@ import org.eclipse.swt.graphics.Point;
 import org.json.JSONObject;
 
 import interfaces.IElement;
+import interfaces.ISubEditor;
+import widget.window.MainWindow;
 
 public class Line extends AEditable {
 
@@ -29,16 +31,13 @@ public class Line extends AEditable {
 	public static final String NO = "N";
 
 	public Line() {
+		text = "";
 	}
 
 	public Line(TwoDimensional src, TwoDimensional dst) {
+		this();
 		setSrcElement(src);
 		setDstElement(dst);
-		connect(src);
-		connect(dst);
-		src.connect(this);
-		dst.connect(this);
-		text = "";
 	}
 
 	@Override
@@ -128,7 +127,8 @@ public class Line extends AEditable {
 		draw(gc, getSrcx(), getSrcy(), getDstx(), getDsty());
 		gc.setBackground(white);
 		String temp = text;
-		if (temp != "") {
+		if (!temp.equals("")) {
+			System.out.println(":" + temp + ":");
 			temp = " " + temp + " ";
 		}
 		gc.drawText(temp, (getSrcx() + getDstx()) / 2 - textWidth / 2, (getSrcy() + getDsty()) / 2 - textHeight / 2);
@@ -168,7 +168,13 @@ public class Line extends AEditable {
 	}
 
 	public void setSrcElement(TwoDimensional element) {
+		if (srcElement != null) {
+			disconnect(srcElement);
+			srcElement.disconnect(this);
+		}
 		srcElement = element;
+		connect(element);
+		element.connect(this);
 	}
 
 	public TwoDimensional getDstElement() {
@@ -176,7 +182,13 @@ public class Line extends AEditable {
 	}
 
 	public void setDstElement(TwoDimensional element) {
+		if (dstElement != null) {
+			disconnect(dstElement);
+			dstElement.disconnect(this);
+		}
 		dstElement = element;
+		connect(element);
+		element.connect(this);
 	}
 
 	@Override
@@ -257,8 +269,12 @@ public class Line extends AEditable {
 
 	@Override
 	public void jsonDecode(JSONObject obj) {
-		// TODO Auto-generated method stub
-		
+		ISubEditor se = MainWindow.getInstance().getEditor().getActiveSubEditor();
+		IElement src = se.getElement(obj.getString("src"));
+		IElement dst = se.getElement(obj.getString("dst"));
+		setSrcElement((TwoDimensional) src);
+		setDstElement((TwoDimensional) dst);
+		setText(obj.getString("text"));
 	}
 
 }

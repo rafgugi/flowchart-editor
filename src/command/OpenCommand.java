@@ -1,6 +1,7 @@
 package command;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.lang.reflect.InvocationTargetException;
 
@@ -22,7 +23,7 @@ public class OpenCommand implements ICommand {
 		FileDialog fd = new FileDialog(MainWindow.getInstance(), SWT.OPEN);
 		fd.setText("Open");
 
-		String[] filterExt = { "*.json", "*.*" };
+		String[] filterExt = {"*.json", "*.*"};
 		fd.setFilterExtensions(filterExt);
 		String filename = fd.open();
 		String json = null;
@@ -40,16 +41,17 @@ public class OpenCommand implements ICommand {
 		if (json != null) {
 			JSONObject obj = new JSONObject(json);
 			try {
-				beginDecoding(obj);
+				int index = filename.lastIndexOf(File.separator) + 1;
+				beginDecoding(obj, filename.substring(index));
 			} catch (PersistenceException e) {
 				System.out.println(e.getMessage());
 			}
 		}
 	}
 
-	public void beginDecoding(JSONObject obj) {
+	public void beginDecoding(JSONObject obj, String filename) {
 		JSONArray elements = obj.getJSONArray("elements");
-		MainWindow.getInstance().getEditor().newSubEditor();
+		MainWindow.getInstance().getEditor().newSubEditor(filename);
 		ISubEditor editor = MainWindow.getInstance().getEditor().getActiveSubEditor();
 		for (int i = 0; i < elements.length(); i++) {
 			JSONObject item = elements.getJSONObject(i);

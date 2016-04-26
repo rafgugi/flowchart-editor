@@ -81,7 +81,7 @@ public abstract class AElement implements IElement {
 	@Override
 	public void disconnect(IElement element) {
 		if (!connected.remove(element)) {
-			throw new ElementNotFoundException("Element not found");
+			throw new ElementNotFoundException("Element not found when trying to disconnect");
 		}
 	}
 

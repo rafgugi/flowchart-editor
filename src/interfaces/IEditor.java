@@ -5,6 +5,7 @@ import java.util.List;
 public interface IEditor extends IWidget {
 	public void addSubEditor(ISubEditor subEditor);
 	public void newSubEditor();
+	public void newSubEditor(String title);
 	public ISubEditor getActiveSubEditor();
 	public List<ISubEditor> getSubEditors();
 	public void close();

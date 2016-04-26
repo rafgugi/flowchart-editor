@@ -3,7 +3,6 @@ package diagram.element;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
-import org.json.JSONObject;
 
 public class Diamond extends TwoDimensional {
 

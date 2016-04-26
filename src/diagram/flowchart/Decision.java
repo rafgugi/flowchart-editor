@@ -13,7 +13,7 @@ import widget.window.property.ProcessProperty;
 
 public class Decision extends Diamond implements IDiagramElement, FlowChartElement {
 	
-	private ArrayList<FlowLine> flows;
+	private ArrayList<FlowLine> flows = new ArrayList<>();
 	private NodeCode nodeCode;
 
 	public Decision() {
@@ -21,7 +21,6 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 
 	public Decision(Point src, Point dst) {
 		super(src, dst);
-		flows = new ArrayList<>();
 	}
 
 	@Override

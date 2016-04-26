@@ -6,6 +6,8 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
+
 import interfaces.IEditor;
 import interfaces.ISubEditor;
 import interfaces.ITool;
@@ -55,13 +57,20 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 	@Override
 	public void addSubEditor(ISubEditor subEditor) {
 		subEditors.add(subEditor);
+		this.setSelection((TabItem) subEditor);
 	}
 
 	@Override
 	public void newSubEditor() {
+		newSubEditor("SubEditor " + (subEditors.size() + 1));
+	}
+
+	@Override
+	public void newSubEditor(String title) {
 		ISubEditor subEditor = new SubEditor(this);
-		subEditor.setTitle("SubEditor " + (subEditors.size() + 1));
+		subEditor.setTitle(title);
 		addSubEditor(subEditor);
+		//"SubEditor " + (subEditors.size() + 1)
 	}
 
 	@Override
