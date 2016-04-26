@@ -45,3 +45,6 @@ local.properties
 /nbproject/
 build.xml
 manifest.mf
+
+# TA.~ml, ga tau ini file digenerate otomatis sama staruml -_-
+TA.~ml
