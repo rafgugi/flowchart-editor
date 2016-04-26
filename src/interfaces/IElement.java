@@ -12,13 +12,10 @@ public interface IElement extends JSONAble {
 	public void renderNormal();
 	public void renderEdit();
 	public UUID getId();
-	public void setId(UUID id);
-	public void setId(String id);
 	public IElement checkBoundary(int x, int y);
 	public IElement checkBoundary(int x1, int y1, int x2, int y2);
 	public void drag(int x1, int y1, int x2, int y2);
 	public ArrayList<IElement> getConnectedElements();
 	public void connect(IElement element);
 	public void disconnect(IElement element);
-	public String toString();
 }
