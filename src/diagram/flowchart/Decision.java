@@ -15,6 +15,7 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 	
 	private ArrayList<FlowLine> flows = new ArrayList<>();
 	private NodeCode nodeCode;
+	private String type;
 
 	public Decision() {
 	}
@@ -58,6 +59,16 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 	@Override
 	public void setNodeCode(NodeCode code) {
 		this.nodeCode = code;
+	}
+
+	@Override
+	public String getType() {
+		return type;
+	}
+
+	@Override
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

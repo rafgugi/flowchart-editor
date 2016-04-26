@@ -13,6 +13,7 @@ public class Process extends Rectangle implements IDiagramElement, FlowChartElem
 	
 	private FlowLine flow;
 	private NodeCode nodeCode;
+	private String type;
 
 	public Process() {
 	}
@@ -56,6 +57,16 @@ public class Process extends Rectangle implements IDiagramElement, FlowChartElem
 	@Override
 	public void setNodeCode(NodeCode code) {
 		this.nodeCode = code;
+	}
+
+	@Override
+	public String getType() {
+		return type;
+	}
+
+	@Override
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

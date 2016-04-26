@@ -11,4 +11,6 @@ import diagram.pad.NodeCode;
 public interface FlowChartElement {
 	public NodeCode getNodeCode();
 	public void setNodeCode(NodeCode code);
+	public String getType();
+	public void setType(String type);
 }
