@@ -77,19 +77,19 @@ public abstract class ATool extends ToolItem
 		MainWindow.getInstance().setStatus(getToolName());
 	}
 
-	public String getIconName() {
+	protected String getIconName() {
 		return iconName;
 	}
 
-	public void setIconName(String iconName) {
+	protected void setIconName(String iconName) {
 		this.iconName = iconName;
 	}
 
-	public String getIconFolder() {
+	protected String getIconFolder() {
 		return iconFolder;
 	}
 
-	public void setIconFolder(String iconFolder) {
+	protected void setIconFolder(String iconFolder) {
 		this.iconFolder = iconFolder;
 	}
 
