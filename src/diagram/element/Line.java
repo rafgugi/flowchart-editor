@@ -128,7 +128,6 @@ public class Line extends AEditable {
 		gc.setBackground(white);
 		String temp = text;
 		if (!temp.equals("")) {
-			System.out.println(":" + temp + ":");
 			temp = " " + temp + " ";
 		}
 		gc.drawText(temp, (getSrcx() + getDstx()) / 2 - textWidth / 2, (getSrcy() + getDsty()) / 2 - textHeight / 2);
