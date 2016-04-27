@@ -3,9 +3,12 @@
 |Fungsional | Status
 |---|---
 | Dapat membuat flowchart (flowchart editor) | Ok
+| Dapat menyimpan dan membuka flowchart | Ok
 | Dapat memvalidasi flowchart | Progress
-| Dapat menyimpan dan membuka flowchart | Progress
-| Dapat mengubah flowchart menjadi kode sumber berbahasa C | Belum
+| Memberi kode untuk setiap elemen flowchart | Progress
+| Mengubah flowchart yang sudah diberi kode menjadi PAD | Belum
+| Mengubah PAD menjadi sourcecode (RAW) | Belum
+| Mengubah sourcecode (RAW) menjadi sourcecode (compilable)  | Belum
 
 ## Persiapan
 - pastikan java.eclipse.swt terinclude ke dalam project ini. https://www.eclipse.org/swt/eclipse.php
