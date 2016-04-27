@@ -37,20 +37,20 @@ ConvertToPAD(currentCode, Blcok fatherBlock)
                 selectionHeadPtr.NodeType=HeadPtr;
                 newBlock.SubNodeList.append(selectionHeadPtr);
                 TempCode =currentCode+0j00； /*nex layer*/
-            ConvertToPAD(currentCode, selectionHeadPtr); /*begin a new layer, so the fatherBlock is
-            newBlock */
+                /*begin a new layer, so the fatherBlock is newBlock */
+                ConvertToPAD(currentCode, selectionHeadPtr);
             }
-        /*as all the sub-nodes have been coded, so process the nodes at the same level */
-        currentCode←currentCode.YY+1;
-        ConvertToPAD(currentCode, fatherBlock);
+            /*as all the sub-nodes have been coded, so process the nodes at the same level */
+            currentCode←currentCode.YY+1;
+            ConvertToPAD(currentCode, fatherBlock);
         }
         If(CurrentNode.type is loop)
         {
-            currentCode =currentCode+0000；/*into next layer*/
-            newBlock.NodeType= loopType; /*here loopType represents the types of selection*/
+            currentCode =currentCode+0000；/* into next layer */
+            newBlock.NodeType= loopType; /* here loopType represents the types of selection */
             newBlock.codeblock=currentNode.Codeblock;
-            ConvertToPAD(currentCode, newBlock); /*begin a new layer, so the fatherBlock is newBlock */
-            /*as all the sub-nodes have been coded, so process the nodes at the same level */
+            ConvertToPAD(currentCode, newBlock); /* begin a new layer, so the fatherBlock is newBlock */
+            /* as all the sub-nodes have been coded, so process the nodes at the same level */
             currentCode←currentCode.YY+1;
             ConvertToPAD(currentCode, fatherBlock);
         }

@@ -78,7 +78,7 @@ public class GenerateCodeCommand implements ICommand {
 		}
 		if (currElem instanceof Process) {
 			currElem.setNodeCode(currCode);
-			NodeCode codeOfSon = currCode.getSibling();
+			NodeCode codeOfSon = currCode.createSibling();
 		}
 	}
 
