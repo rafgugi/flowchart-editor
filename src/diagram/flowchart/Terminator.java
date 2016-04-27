@@ -13,6 +13,7 @@ public class Terminator extends RoundedRectangle implements IDiagramElement, Flo
 
 	private FlowLine flow;
 	private NodeCode nodeCode;
+	private String type;
 
 	public static String START = "Start";
 	public static String END = "End";
@@ -60,6 +61,16 @@ public class Terminator extends RoundedRectangle implements IDiagramElement, Flo
 	@Override
 	public void setNodeCode(NodeCode code) {
 		this.nodeCode = code;
+	}
+
+	@Override
+	public String getType() {
+		return type;
+	}
+
+	@Override
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }
