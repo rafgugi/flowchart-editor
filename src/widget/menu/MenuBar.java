@@ -13,12 +13,11 @@ import widget.window.MainWindow;
 
 public class MenuBar extends Menu implements IMenuBar {
 
-	private List<IMenu> menus;
+	private List<IMenu> menus = new ArrayList<IMenu>();
 
 	public MenuBar(IMainWindow parent, int style) {
 		super((MainWindow) parent, style);
 		parent.setBar(this);
-		menus = new ArrayList<IMenu>();
 		initialize();
 	}
 
@@ -41,11 +40,6 @@ public class MenuBar extends Menu implements IMenuBar {
 	@Override
 	public List<IMenu> getMenus() {
 		return menus;
-	}
-
-	@Override
-	public void setMenus(List<IMenu> items) {
-		this.menus = items;
 	}
 
 	@Override

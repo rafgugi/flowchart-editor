@@ -22,10 +22,4 @@ public interface IMenuBar extends IWidget {
 	 */
 	public List<IMenu> getMenus();
 
-	/**
-	 * Add a menu.
-	 *
-	 * @param Menu to be added.
-	 */
-	public void setMenus(List<IMenu> items);
 }

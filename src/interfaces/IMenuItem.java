@@ -14,6 +14,13 @@ public interface IMenuItem extends IWidget {
 	public String getTitle();
 
 	/**
+	 * Set the menu title (or name).
+	 *
+	 * @param Menu title
+	 */
+	public void setTitle(String title);
+
+	/**
 	 * Executed when clicked.
 	 */
 	public void execute();

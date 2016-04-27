@@ -13,7 +13,6 @@ public interface IToolStrip extends IWidget {
 	 * @return Collection of tools.
 	 */
 	public List<ITool> getTools();
-	public void setTools(List<ITool> tools);
 
 	/**
 	 * Add a tool.

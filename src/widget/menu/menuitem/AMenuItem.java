@@ -27,16 +27,17 @@ public abstract class AMenuItem extends MenuItem implements IMenuItem, Listener 
 		return name;
 	}
 
+	@Override
 	public void setTitle(String name) {
 		super.setText(name);
 		this.name = name;
 	}
 
-	public void setShortcut(char shortcut) {
+	protected void setShortcut(char shortcut) {
 		super.setAccelerator(SWT.MOD1 + shortcut);
 	}
 
-	public void setShortcut(int shortcut) {
+	protected void setShortcut(int shortcut) {
 		super.setAccelerator(shortcut);
 	}
 

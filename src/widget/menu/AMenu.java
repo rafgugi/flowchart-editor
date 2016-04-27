@@ -12,7 +12,7 @@ import interfaces.IMenuItem;
 public abstract class AMenu extends Menu implements IMenu {
 
 	private String name;
-	private List<IMenuItem> menuItems;
+	private List<IMenuItem> menuItems = new ArrayList<>();
 	private MenuItem menu;
 
 	public AMenu(MenuBar parent, int style) {
@@ -20,7 +20,6 @@ public abstract class AMenu extends Menu implements IMenu {
 
 		menu = new MenuItem(parent, style);
 		menu.setMenu(this);
-		menuItems = new ArrayList<>();
 		initialize();
 	}
 
@@ -39,11 +38,6 @@ public abstract class AMenu extends Menu implements IMenu {
 	@Override
 	public List<IMenuItem> getMenuItems() {
 		return menuItems;
-	}
-
-	@Override
-	public void setItems(List<IMenuItem> items) {
-		this.menuItems = items;
 	}
 
 	@Override

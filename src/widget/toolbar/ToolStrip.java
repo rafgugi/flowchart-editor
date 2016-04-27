@@ -15,11 +15,10 @@ import widget.window.MainWindow;
 
 public class ToolStrip extends ToolBar implements IToolStrip {
 
-	private List<ITool> tools;
+	private List<ITool> tools = new ArrayList<>();
 
 	public ToolStrip(MainWindow parent, int style) {
 		super(parent, style);
-		tools = new ArrayList<>();
 		initialize();
 	}
 
@@ -50,14 +49,8 @@ public class ToolStrip extends ToolBar implements IToolStrip {
 	}
 
 	@Override
-	public void setTools(List<ITool> tools) {
-		this.tools = tools;
-	}
-
-	@Override
 	public void addTool(ITool tool) {
 		tools.add(tool);
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -66,7 +59,6 @@ public class ToolStrip extends ToolBar implements IToolStrip {
 		while (iterator.hasNext()) {
 			ITool tool = (ITool) iterator.next();
 			tools.remove(tool);
-			// TODO Auto-generated method stub
 		}
 	}
 

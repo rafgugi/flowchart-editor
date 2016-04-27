@@ -9,8 +9,9 @@ import java.util.Stack;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
+import diagram.element.TwoDimensional;
+import diagram.flowchart.*;
 import diagram.flowchart.Process;
-import diagram.flowchart.Terminator;
 import diagram.pad.*;
 import exception.InvalidFlowChartException;
 import interfaces.ICommand;
@@ -38,19 +39,19 @@ public class GenerateCodeCommand implements ICommand {
 				writer.println("The first line");
 				writer.println("The second line");
 				writer.close();
-			} catch (FileNotFoundException e | UnsupportedEncodingException e) {
+			} catch (FileNotFoundException | UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		List<IElement> elements;
 		elements = MainWindow.getInstance().getEditor().getActiveSubEditor().getElements();
-		
+
 		/* Get start element */
 		IElement currentElem = null;
 		for (IElement e : elements) {
 			if (e instanceof FlowChartElement) {
-				initializeElement(e);
+				initializeElement((FlowChartElement) e);
 			}
 			if (e instanceof Terminator) {
 				if (((Terminator) e).getText().equals(Terminator.START)) {
@@ -61,7 +62,8 @@ public class GenerateCodeCommand implements ICommand {
 
 		/* Begin code flowchartElement, send father, his son, and new code */
 		TwoDimensional father = (TwoDimensional) currentElem;
-		codeAlgorithm(father, father.getChildren().get(0), new NodeCode());
+		TwoDimensional son = father.getChildren().get(0);
+		codeAlgorithm((FlowChartElement) father, (FlowChartElement) son, new NodeCode());
 	}
 
 	public final void initializeElement(FlowChartElement e) {
@@ -85,13 +87,13 @@ public class GenerateCodeCommand implements ICommand {
 	public final ElementContainer generatePad() {
 		Stack<IElement> flowstack = new Stack<>();
 		Stack<ElementContainer> padstack = new Stack<>();
-		
+
 		ElementContainer currentPad = new ElementContainer();
 		padstack.push(currentPad);
-		
+
 		List<IElement> elements;
 		elements = MainWindow.getInstance().getEditor().getActiveSubEditor().getElements();
-		
+
 		/* Get start element */
 		IElement currentElem = null;
 		for (IElement e : elements) {
@@ -101,13 +103,13 @@ public class GenerateCodeCommand implements ICommand {
 				}
 			}
 		}
-		
+
 		if (currentElem == null) {
 			throw new InvalidFlowChartException("Start element not found.");
 		}
-		
+
 		flowstack.push(currentElem);
-		
+
 		while (!flowstack.isEmpty()) {
 			currentElem = flowstack.pop();
 
@@ -118,7 +120,7 @@ public class GenerateCodeCommand implements ICommand {
 					flowstack.push(term.getFlow().getDstElement());
 				}
 			}
-			
+
 			/* Case when the element is process */
 			if (currentElem instanceof Process) {
 				Process proc = (Process) currentElem;
@@ -128,7 +130,7 @@ public class GenerateCodeCommand implements ICommand {
 
 		return null;
 	}
-	
+
 	public final String generateCode() {
 		return "";
 	}

@@ -36,10 +36,4 @@ public interface IMenu extends IWidget {
 	 */
 	public List<IMenuItem> getMenuItems();
 
-	/**
-	 * Set collection of menu items.
-	 *
-	 * @param Menu items collection
-	 */
-	public void setItems(List<IMenuItem> items);
 }
