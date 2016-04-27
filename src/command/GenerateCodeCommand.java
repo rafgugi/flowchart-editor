@@ -38,11 +38,47 @@ public class GenerateCodeCommand implements ICommand {
 				writer.println("The first line");
 				writer.println("The second line");
 				writer.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (UnsupportedEncodingException e) {
+			} catch (FileNotFoundException e | UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
+		}
+		
+		List<IElement> elements;
+		elements = MainWindow.getInstance().getEditor().getActiveSubEditor().getElements();
+		
+		/* Get start element */
+		IElement currentElem = null;
+		for (IElement e : elements) {
+			if (e instanceof FlowChartElement) {
+				initializeElement(e);
+			}
+			if (e instanceof Terminator) {
+				if (((Terminator) e).getText().equals(Terminator.START)) {
+					currentElem = e;
+				}
+			}
+		}
+
+		/* Begin code flowchartElement, send father, his son, and new code */
+		TwoDimensional father = (TwoDimensional) currentElem;
+		codeAlgorithm(father, father.getChildren().get(0), new NodeCode());
+	}
+
+	public final void initializeElement(FlowChartElement e) {
+		e.setType("");
+		e.setNodeCode(null);
+	}
+
+	public final void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, NodeCode currCode) {
+		if (currElem instanceof Terminator) {
+			return; // exit point of recursion
+		}
+		if (currElem instanceof Decision) {
+			// if current node has been transversed. wtf is tranversed?
+		}
+		if (currElem instanceof Process) {
+			currElem.setNodeCode(currCode);
+			NodeCode codeOfSon = currCode.getSibling();
 		}
 	}
 
@@ -53,7 +89,8 @@ public class GenerateCodeCommand implements ICommand {
 		ElementContainer currentPad = new ElementContainer();
 		padstack.push(currentPad);
 		
-		List<IElement> elements = MainWindow.getInstance().getEditor().getActiveSubEditor().getElements();
+		List<IElement> elements;
+		elements = MainWindow.getInstance().getEditor().getActiveSubEditor().getElements();
 		
 		/* Get start element */
 		IElement currentElem = null;

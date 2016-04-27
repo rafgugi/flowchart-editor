@@ -217,4 +217,26 @@ public abstract class TwoDimensional extends AEditable {
 		setText(obj.getString("text"));
 	}
 
+	public ArrayList<TwoDimensional> getChildren() {
+		ArrayList<TwoDimensional> children = new ArrayList<>();
+		for (IElement elem : getConnectedElements()) {
+			Line line = (Line) elem;
+			if (line.checkConnected(this) == CONNECTED_SRC) {
+				children.add(line.getDstElement());
+			}
+		}
+		return children;
+	}
+
+	public ArrayList<TwoDimensional> getParents() {
+		ArrayList<TwoDimensional> parents = new ArrayList<>();
+		for (IElement elem : getConnectedElements()) {
+			Line line = (Line) elem;
+			if (line.checkConnected(this) == CONNECTED_DST) {
+				children.add(line.getSrcElement());
+			}
+		}
+		return parents;
+	}
+
 }
