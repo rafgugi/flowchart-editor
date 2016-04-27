@@ -15,8 +15,10 @@ public class NodeCode {
 	}
 
 	public NodeCode(NodeCode parent) {
-		this(parent, 0, parent.getYStreak());
-		incYStreak();
+		if (parent != null) {
+			this(parent, 0, parent.getYStreak());
+			parent.incYStreak();
+		}
 	}
 
 	public NodeCode() {
@@ -39,6 +41,19 @@ public class NodeCode {
 
 	public void incYStreak() {
 		yStreak++;
+	}
+
+	public NodeCode createSibling() {
+		NodeCode sibling = new Node(this.parent, this.x, this.y + 1);
+	}
+
+	@Override
+	public String toString() {
+		String retval = "";
+		if (parent != null) {
+			retval = parent.toString();
+		}
+		return retval + "[" + x + "," + y + "]";
 	}
 
 }

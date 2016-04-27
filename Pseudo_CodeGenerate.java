@@ -36,4 +36,4 @@ CodeGenerate(Block CurrentBlock, String CurrentCode)
 		CurrentBlock.Append(loopCode);
 	}
 	else return;
-} 
+}
