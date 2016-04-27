@@ -3,10 +3,10 @@ package diagram.pad;
 public class NodeCode {
 
 	public NodeCode parent;
-	public int x; // current x value
-	public int y; // current y value
-	private int xStreak; // child highest x value
-	private int yStreak; // child highest y value
+	public int x = 0; // current x value
+	public int y = 0; // current y value
+	private int xStreak = 0; // child highest x value
+	private int yStreak = 0; // child highest y value
 
 	public NodeCode(NodeCode parent, int x, int y) {
 		this.parent = parent;
@@ -15,8 +15,10 @@ public class NodeCode {
 	}
 
 	public NodeCode(NodeCode parent) {
+		this.parent = parent;
 		if (parent != null) {
-			this(parent, 0, parent.getYStreak());
+			this.x = parent.x;
+			this.y = parent.y;
 			parent.incYStreak();
 		}
 	}
@@ -44,7 +46,17 @@ public class NodeCode {
 	}
 
 	public NodeCode createSibling() {
-		NodeCode sibling = new Node(this.parent, this.x, this.y + 1);
+		NodeCode sibling = new NodeCode(parent, x, y + 1);
+		if (parent != null) {
+			parent.incYStreak();
+		}
+		return sibling;
+	}
+
+	public NodeCode createChild() {
+		NodeCode child = new NodeCode(this, getXStreak(), 0);
+		incXStreak();
+		return child;
 	}
 
 	@Override
