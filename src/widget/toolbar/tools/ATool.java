@@ -22,12 +22,11 @@ public abstract class ATool extends ToolItem
 		implements ITool, Listener, MouseListener, DragDetectListener, MouseMoveListener {
 
 	private String iconName;
-	private String iconFolder;
+	private String iconFolder = "/resources/icons/";
 	private String toolName;
 
 	public ATool(ToolStrip parent, int style) {
 		super(parent, style);
-		iconFolder = "/resources/icons/";
 		initialize();
 		super.addListener(SWT.Selection, this);
 	}
@@ -46,7 +45,7 @@ public abstract class ATool extends ToolItem
 		generateIcon();
 	}
 
-	public void generateIcon() {
+	protected void generateIcon() {
 		if (getIconFolder() == null || getIconName() == null) {
 			throw new NullPointerException();
 		}

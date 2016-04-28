@@ -221,7 +221,7 @@ public abstract class TwoDimensional extends AEditable {
 		ArrayList<TwoDimensional> children = new ArrayList<>();
 		for (IElement elem : getConnectedElements()) {
 			Line line = (Line) elem;
-			if (line.checkConnected(this) == CONNECTED_SRC) {
+			if (line.checkConnected(this) == Line.CONNECTED_SRC) {
 				children.add(line.getDstElement());
 			}
 		}
@@ -232,8 +232,8 @@ public abstract class TwoDimensional extends AEditable {
 		ArrayList<TwoDimensional> parents = new ArrayList<>();
 		for (IElement elem : getConnectedElements()) {
 			Line line = (Line) elem;
-			if (line.checkConnected(this) == CONNECTED_DST) {
-				children.add(line.getSrcElement());
+			if (line.checkConnected(this) == Line.CONNECTED_DST) {
+				parents.add(line.getSrcElement());
 			}
 		}
 		return parents;
