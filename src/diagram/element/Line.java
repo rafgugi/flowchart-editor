@@ -20,7 +20,7 @@ public class Line extends AEditable {
 	private int srcy;
 	private int dstx;
 	private int dsty;
-	protected String text;
+	protected String text = "";
 
 	public static final int NOT_CONNECTED = 0;
 	public static final int CONNECTED_SRC = 1;
@@ -31,18 +31,12 @@ public class Line extends AEditable {
 	public static final String NO = "N";
 
 	public Line() {
-		text = "";
 	}
 
 	public Line(TwoDimensional src, TwoDimensional dst) {
 		this();
 		setSrcElement(src);
 		setDstElement(dst);
-	}
-
-	@Override
-	public String toString() {
-		return "FlowLine";
 	}
 
 	public static void draw(GC gc, int srcx, int srcy, int dstx, int dsty) {

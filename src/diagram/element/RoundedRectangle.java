@@ -13,11 +13,6 @@ public class RoundedRectangle extends TwoDimensional {
 		super(src, dst);
 	}
 
-	@Override
-	public String toString() {
-		return "RoundedRectangle";
-	}
-
 	public static void draw(GC gc, int x, int y, int w, int h) {
 		gc.fillRoundRectangle(x, y, w, h, h, h);
 		gc.drawRoundRectangle(x, y, w, h, h, h);

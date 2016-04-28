@@ -16,17 +16,17 @@ import java.util.UUID;
 public abstract class AElement implements IElement {
 	
 	protected IDrawingState state;
-	private ArrayList<IElement> connected;
+	private ArrayList<IElement> connected = new ArrayList<>();
 	private UUID id;
 
 	public AElement() {
-		connected = new ArrayList<>();
 		state = NormalState.getInstance();
 		id = UUID.randomUUID();
 	}
 
 	protected Canvas getCanvas() {
-		return ((SubEditor) MainWindow.getInstance().getEditor().getActiveSubEditor()).getCanvas();
+		SubEditor s = (SubEditor) MainWindow.getInstance().getEditor().getActiveSubEditor(); 
+		return s.getCanvas();
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public abstract class AElement implements IElement {
 		if (state == EditState.getInstance()) {
 			return;
 		}
-		System.out.println("Select " + this.toString());
+		// System.out.println("Select " + this.toString());
 		state = EditState.getInstance();
 	}
 
@@ -43,7 +43,7 @@ public abstract class AElement implements IElement {
 		if (!isActive()) {
 			return;
 		}
-		System.out.println("Deselect " + this.toString());
+		// System.out.println("Deselect " + this.toString());
 		state = NormalState.getInstance();
 	}
 
@@ -101,14 +101,19 @@ public abstract class AElement implements IElement {
 	@Override
 	public JSONObject jsonEncode() {
 		JSONObject obj = new JSONObject();
-		obj.put("class", this.getClass().getName());
-		obj.put("id", this.getId());
+		obj.put("class", getClass().getName());
+		obj.put("id", getId());
 		return obj;
 	}
 
 	@Override
 	public void jsonDecode(JSONObject obj) {
 		setId(obj.getString("id"));
+	}
+
+	@Override
+	public String toString() {
+		return "[" + getId() + "] " + getClass().getName();
 	}
 
 }

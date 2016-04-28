@@ -11,7 +11,6 @@ import exception.CreateElementException;
 import interfaces.IElement;
 import widget.tab.SubEditor;
 import widget.toolbar.ToolStrip;
-import widget.window.MainWindow;
 
 public class RectangleTool extends ATool {
 
@@ -44,11 +43,9 @@ public class RectangleTool extends ATool {
 		if (!isDrag) {
 			return;
 		}
-		SubEditor s;
-		s = (SubEditor) MainWindow.getInstance().getEditor().getActiveSubEditor();
-		GC gc = s.getGC();
+		GC gc = ((SubEditor) getActiveSubEditor()).getGC();
 		
-		MainWindow.getInstance().getEditor().getActiveSubEditor().draw();
+		getActiveSubEditor().draw();
 
 		Rectangle.draw(gc, Math.min(downTemp.x, e.x), Math.min(downTemp.y, e.y), 
 				Math.abs(downTemp.x - e.x), Math.abs(downTemp.y - e.y));

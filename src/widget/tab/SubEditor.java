@@ -95,7 +95,7 @@ public class SubEditor extends TabItem
 				retval = ans;
 			}
 		}
-		System.out.println("Dapet elemen " + retval);
+		// System.out.println("Dapet elemen " + retval);
 		return retval;
 	}
 
@@ -160,6 +160,9 @@ public class SubEditor extends TabItem
 		}
 		for (IElement e : temp) {
 			e.deselect();
+		}
+		if (!temp.isEmpty()) {
+			draw();			
 		}
 	}
 

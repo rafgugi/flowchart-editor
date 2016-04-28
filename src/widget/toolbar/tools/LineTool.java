@@ -11,7 +11,6 @@ import exception.CreateElementException;
 import interfaces.IElement;
 import widget.tab.SubEditor;
 import widget.toolbar.ToolStrip;
-import widget.window.MainWindow;
 
 public class LineTool extends ATool {
 
@@ -57,7 +56,7 @@ public class LineTool extends ATool {
 		s = (SubEditor) getActiveSubEditor();
 		GC gc = s.getGC();
 
-		MainWindow.getInstance().getEditor().getActiveSubEditor().draw();
+		getActiveSubEditor().draw();
 
 		Line.draw(gc, downTemp.x, downTemp.y, e.x, e.y);
 		gc.dispose();
@@ -75,7 +74,7 @@ public class LineTool extends ATool {
 			}
 			/* Yang diklik itu ada element nya apa nggak */
 			if (srcElement == null || dstElement == null || srcElement == dstElement) {
-				throw new CreateElementException("Connect element properly.");
+				throw new CreateElementException("Connect element exactly.");
 			}
 			/* Cek apakeh element udah tersambung */
 			boolean alredy = false;

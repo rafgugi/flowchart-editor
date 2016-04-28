@@ -2,7 +2,7 @@ package interfaces;
 
 import java.util.List;
 
-public interface IEditor extends IWidget {\
+public interface IEditor extends IWidget {
 	/**
 	 * Create a new tab
 	 *

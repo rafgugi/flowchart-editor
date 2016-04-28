@@ -13,11 +13,6 @@ public class Rectangle extends TwoDimensional {
 		super(src, dst);
 	}
 
-	@Override
-	public String toString() {
-		return "Rectangle";
-	}
-
 	public static void draw(GC gc, int x, int y, int w, int h) {
 		gc.fillRectangle(x, y, w, h);
 		gc.drawRectangle(x, y, w, h);

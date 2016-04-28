@@ -11,12 +11,6 @@ public class Diamond extends TwoDimensional {
 
 	public Diamond(Point src, Point dst) {
 		super(src, dst);
-		text = "";
-	}
-
-	@Override
-	public String toString() {
-		return "Diamond";
 	}
 	
 	public static void draw(GC gc, int x, int y, int w, int h) {
