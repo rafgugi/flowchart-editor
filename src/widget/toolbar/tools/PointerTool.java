@@ -34,13 +34,13 @@ public class PointerTool extends ATool {
 		isDrag = false;
 		downTemp = e;
 		clickedElement = null;
-		getActiveSubEditor().deselectAll();
+//		getActiveSubEditor().deselectAll();
 
 		IElement element = getActiveSubEditor().getElement(e.x, e.y);
 		if (element != null) {
 			/* select an element which previously no selected elements */
 			clickedElement = element;
-			element.select();
+//			element.select();
 			getActiveSubEditor().draw();
 		} else {
 			/* select some elements */
@@ -55,7 +55,7 @@ public class PointerTool extends ATool {
 		 */
 		if (!isDrag) {
 			/* Select an element */
-//			getActiveSubEditor().deselectAll();
+			getActiveSubEditor().deselectAll();
 			if (clickedElement != null) {
 				clickedElement.select();
 			}
