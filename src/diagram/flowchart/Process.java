@@ -7,13 +7,14 @@ import diagram.element.Rectangle;
 import diagram.pad.NodeCode;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
+import interfaces.IType;
 import widget.window.property.ProcessProperty;
 
 public class Process extends Rectangle implements IDiagramElement, FlowChartElement {
 	
 	private FlowLine flow;
 	private NodeCode nodeCode;
-	private String type;
+	private IType type;
 
 	public Process() {
 	}
@@ -60,12 +61,12 @@ public class Process extends Rectangle implements IDiagramElement, FlowChartElem
 	}
 
 	@Override
-	public String getType() {
+	public IType getType() {
 		return type;
 	}
 
 	@Override
-	public void setType(String type) {
+	public void setType(IType type) {
 		this.type = type;
 	}
 

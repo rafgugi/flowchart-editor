@@ -67,7 +67,7 @@ public class GenerateCodeCommand implements ICommand {
 	}
 
 	public final void initializeElement(FlowChartElement e) {
-		e.setType("");
+		e.setType(null);
 		e.setNodeCode(null);
 	}
 

@@ -7,13 +7,14 @@ import diagram.element.RoundedRectangle;
 import diagram.pad.NodeCode;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
+import interfaces.IType;
 import widget.window.property.TerminatorProperty;
 
 public class Terminator extends RoundedRectangle implements IDiagramElement, FlowChartElement {
 
 	private FlowLine flow;
 	private NodeCode nodeCode;
-	private String type;
+	private IType type;
 
 	public static String START = "Start";
 	public static String END = "End";
@@ -64,12 +65,12 @@ public class Terminator extends RoundedRectangle implements IDiagramElement, Flo
 	}
 
 	@Override
-	public String getType() {
+	public IType getType() {
 		return type;
 	}
 
 	@Override
-	public void setType(String type) {
+	public void setType(IType type) {
 		this.type = type;
 	}
 

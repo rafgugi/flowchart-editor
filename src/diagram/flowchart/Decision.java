@@ -9,13 +9,14 @@ import diagram.element.Line;
 import diagram.pad.NodeCode;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
+import interfaces.IType;
 import widget.window.property.ProcessProperty;
 
 public class Decision extends Diamond implements IDiagramElement, FlowChartElement {
 	
 	private ArrayList<FlowLine> flows = new ArrayList<>();
 	private NodeCode nodeCode;
-	private String type;
+	private IType type;
 
 	public Decision() {
 	}
@@ -62,12 +63,12 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 	}
 
 	@Override
-	public String getType() {
+	public IType getType() {
 		return type;
 	}
 
 	@Override
-	public void setType(String type) {
+	public void setType(IType type) {
 		this.type = type;
 	}
 
