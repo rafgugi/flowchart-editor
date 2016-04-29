@@ -17,12 +17,11 @@ import widget.window.MainWindow;
 
 public class Editor extends TabFolder implements IEditor, SelectionListener {
 
-	private List<ISubEditor> subEditors;
+	private List<ISubEditor> subEditors = new ArrayList<>();
 	private ITool tool;
 
 	public Editor(MainWindow parent, int style) {
 		super(parent, style);
-		subEditors = new ArrayList<>();
 		initialize();
 	}
 
@@ -76,6 +75,9 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 	@Override
 	public ISubEditor getActiveSubEditor() {
 		int index = super.getSelectionIndex();
+		if (index == -1) {
+			return null;
+		}
 		ISubEditor ans = subEditors.get(index);
 		return ans;
 	}
@@ -91,7 +93,7 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 			ISubEditor subEditor = getActiveSubEditor();
 			subEditor.close();
 			subEditors.remove(subEditor);
-		} catch (ArrayIndexOutOfBoundsException e) {
+		} catch (NullPointerException e) {
 			MainWindow.getInstance().setStatus("Editor is empty");
 		}
 	}

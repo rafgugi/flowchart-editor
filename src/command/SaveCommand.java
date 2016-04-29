@@ -13,13 +13,19 @@ import org.json.JSONObject;
 import diagram.element.AEditable;
 import interfaces.ICommand;
 import interfaces.IElement;
+import interfaces.ISubEditor;
 import widget.window.MainWindow;
 
 public class SaveCommand implements ICommand {
 
 	@Override
 	public void execute() {
-		List<IElement> elements = MainWindow.getInstance().getEditor().getActiveSubEditor().getElements();
+		ISubEditor s = MainWindow.getInstance().getEditor().getActiveSubEditor();
+		if (s == null) {
+			MainWindow.getInstance().setStatus("Editor is empty");
+			return;
+		}
+		List<IElement> elements = s.getElements();
 
 		JSONObject retval = new JSONObject();
 		for (IElement i : elements) {
