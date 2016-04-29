@@ -1,11 +1,8 @@
 package diagram.flowchart.type;
 
-public class WhileType {
+public class WhileType extends LoopType {
 
 	private static WhileType instance;
-
-	private WhileType() {
-	}
 
 	public static WhileType get() {
 		if (instance == null) {

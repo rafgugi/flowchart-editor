@@ -14,6 +14,7 @@ import diagram.flowchart.*;
 import diagram.flowchart.Process;
 import diagram.pad.*;
 import exception.InvalidFlowChartException;
+import interfaces.FlowChartElement;
 import interfaces.ICommand;
 import interfaces.IElement;
 import widget.window.MainWindow;

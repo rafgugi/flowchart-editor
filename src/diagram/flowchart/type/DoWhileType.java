@@ -1,11 +1,8 @@
 package diagram.flowchart.type;
 
-public class DoWhileType {
+public class DoWhileType extends LoopType {
 
 	private static DoWhileType instance;
-
-	private DoWhileType() {
-	}
 
 	public static DoWhileType get() {
 		if (instance == null) {

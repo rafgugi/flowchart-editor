@@ -1,11 +1,10 @@
 package diagram.flowchart.type;
 
-public class SelectionType {
+import interfaces.IType;
+
+public class SelectionType implements IType {
 
 	private static SelectionType instance;
-
-	private SelectionType() {
-	}
 
 	public static SelectionType get() {
 		if (instance == null) {

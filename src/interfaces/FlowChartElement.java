@@ -1,13 +1,9 @@
-package diagram.flowchart;
+package interfaces;
 
 import diagram.pad.NodeCode;
-import interfaces.IType;
 
 /**
  * Ini interface biar flowchart bisa dijadikan PAD
- * 
- * @author sg
- *
  */
 public interface FlowChartElement {
 	public NodeCode getNodeCode();

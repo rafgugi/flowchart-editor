@@ -1,6 +1,6 @@
 package exception;
 
-public class InvalidFlowChartException extends RuntimeException {
+public class InvalidFlowChartException extends FlowchartEditorException {
 	
 	private static final long serialVersionUID = 3968084348957461104L;
 

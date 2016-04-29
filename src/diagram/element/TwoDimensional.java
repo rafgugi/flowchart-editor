@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.eclipse.swt.graphics.Point;
 import org.json.JSONObject;
 
+import exception.FlowchartEditorException;
 import interfaces.IElement;
 
 public abstract class TwoDimensional extends AEditable {
@@ -165,7 +166,7 @@ public abstract class TwoDimensional extends AEditable {
 				setBoundary(x2, getY(), getX() + getWidth(), getY() + getHeight());
 				break;
 			default:
-				throw new RuntimeException("Unexpected EditPoint constant.");
+				throw new FlowchartEditorException("Unexpected EditPoint constant.");
 			}
 		}
 		super.drag(x1, y1, x2, y2, e);

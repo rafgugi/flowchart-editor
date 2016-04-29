@@ -7,6 +7,7 @@ import org.eclipse.swt.graphics.Point;
 import diagram.element.Diamond;
 import diagram.element.Line;
 import diagram.pad.NodeCode;
+import interfaces.FlowChartElement;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
 import interfaces.IType;

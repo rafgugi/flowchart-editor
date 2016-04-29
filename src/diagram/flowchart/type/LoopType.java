@@ -1,11 +1,10 @@
 package diagram.flowchart.type;
 
-public class LoopType {
+import interfaces.IType;
+
+public class LoopType implements IType {
 
 	private static LoopType instance;
-
-	private LoopType() {
-	}
 
 	public static LoopType get() {
 		if (instance == null) {
