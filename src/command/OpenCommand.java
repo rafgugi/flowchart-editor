@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import exception.PersistenceException;
@@ -23,7 +24,7 @@ public class OpenCommand implements ICommand {
 		FileDialog fd = new FileDialog(MainWindow.getInstance(), SWT.OPEN);
 		fd.setText("Open");
 
-		String[] filterExt = {"*.json", "*.*"};
+		String[] filterExt = { "*.json", "*.*" };
 		fd.setFilterExtensions(filterExt);
 		String filename = fd.open();
 		String json = null;
@@ -36,15 +37,19 @@ public class OpenCommand implements ICommand {
 			}
 			reader.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 		if (json != null) {
-			JSONObject obj = new JSONObject(json);
 			try {
-				int index = filename.lastIndexOf(File.separator) + 1;
-				beginDecoding(obj, filename.substring(index));
-			} catch (PersistenceException e) {
-				System.out.println(e.getMessage());
+				JSONObject obj = new JSONObject(json);
+				try {
+					int index = filename.lastIndexOf(File.separator) + 1;
+					beginDecoding(obj, filename.substring(index));
+				} catch (PersistenceException e) {
+					MainWindow.getInstance().setStatus(e.getMessage());
+				}
+			} catch (JSONException e) {
+				MainWindow.getInstance().setStatus("Wrong JSON file.");
 			}
 		}
 	}
@@ -59,9 +64,9 @@ public class OpenCommand implements ICommand {
 			IElement elem = null;
 			try {
 				elem = (IElement) Class.forName(className).getConstructor().newInstance();
-			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException 
-					| InvocationTargetException | NoSuchMethodException 
-					| SecurityException | ClassNotFoundException e) {
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+					| InvocationTargetException | NoSuchMethodException | SecurityException
+					| ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 			if (elem == null) {

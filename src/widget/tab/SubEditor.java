@@ -16,6 +16,8 @@ import diagram.state.EditState;
 import exception.ElementNotFoundException;
 import interfaces.IElement;
 import interfaces.ISubEditor;
+import widget.window.MainWindow;
+
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
@@ -27,13 +29,10 @@ public class SubEditor extends TabItem
 
 	private String title;
 	private Canvas canvas;
-	private Editor editor;
-	private List<IElement> elements;
+	private List<IElement> elements = new ArrayList<>();
 
 	public SubEditor(Editor parent, int style) {
 		super(parent, style);
-		editor = parent;
-		elements = new ArrayList<>();
 		initialize();
 	}
 
@@ -106,27 +105,27 @@ public class SubEditor extends TabItem
 
 	@Override
 	public void mouseDoubleClick(MouseEvent e) {
-		((MouseListener) editor.getActiveTool()).mouseDoubleClick(e);
+		((MouseListener) MainWindow.getInstance().getEditor().getActiveTool()).mouseDoubleClick(e);
 	}
 
 	@Override
 	public void mouseDown(MouseEvent e) {
-		((MouseListener) editor.getActiveTool()).mouseDown(e);
+		((MouseListener) MainWindow.getInstance().getEditor().getActiveTool()).mouseDown(e);
 	}
 
 	@Override
 	public void mouseUp(MouseEvent e) {
-		((MouseListener) editor.getActiveTool()).mouseUp(e);
+		((MouseListener) MainWindow.getInstance().getEditor().getActiveTool()).mouseUp(e);
 	}
 
 	@Override
 	public void dragDetected(DragDetectEvent e) {
-		((DragDetectListener) editor.getActiveTool()).dragDetected(e);
+		((DragDetectListener) MainWindow.getInstance().getEditor().getActiveTool()).dragDetected(e);
 	}
 
 	@Override
 	public void mouseMove(MouseEvent e) {
-		((MouseMoveListener) editor.getActiveTool()).mouseMove(e);
+		((MouseMoveListener) MainWindow.getInstance().getEditor().getActiveTool()).mouseMove(e);
 	}
 
 	@Override

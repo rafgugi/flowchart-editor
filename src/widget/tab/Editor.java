@@ -47,7 +47,7 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 			tool = ((MainWindow) super.getParent()).getToolStrip().getTools().get(0);
 			setActiveTool(tool);
 		} catch (IndexOutOfBoundsException e) {
-			System.out.println("Tool belum ada");
+			MainWindow.getInstance().setStatus("Tool belum ada");
 		}
 
 		super.addSelectionListener(this);
@@ -110,12 +110,12 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-		System.out.println("widgetSelected");
+//		System.out.println("widgetSelected");
 	}
 
 	@Override
 	public void widgetDefaultSelected(SelectionEvent e) {
-		System.out.println("widgetDefaultSelected");
+//		System.out.println("widgetDefaultSelected");
 	}
 
 }
