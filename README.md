@@ -11,7 +11,9 @@
 | Mengubah sourcecode (RAW) menjadi sourcecode (compilable)  | Belum
 
 ## Persiapan
-- pastikan java.eclipse.swt terinclude ke dalam project ini. https://www.eclipse.org/swt/eclipse.php
+- [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+- [Eclipse for Java developers](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+- pastikan [java.eclipse.swt](https://www.eclipse.org/swt/eclipse.php) terinclude ke dalam project ini.
 
 ## Cara baru
 - Buka Eclipse
