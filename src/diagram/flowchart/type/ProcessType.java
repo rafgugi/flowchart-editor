@@ -2,12 +2,12 @@ package diagram.flowchart.type;
 
 public class ProcessType {
 
-	private static SelectionType instance;
+	private static ProcessType instance;
 
 	private ProcessType() {
 	}
 
-	public static SelectionType get() {
+	public static ProcessType get() {
 		if (instance == null) {
 			instance = new ProcessType();
 		}
