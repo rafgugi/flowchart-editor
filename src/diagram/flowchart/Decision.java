@@ -6,7 +6,6 @@ import org.eclipse.swt.graphics.Point;
 
 import diagram.element.Diamond;
 import diagram.element.Line;
-import diagram.pad.NodeCode;
 import interfaces.FlowChartElement;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
@@ -18,6 +17,10 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 	private ArrayList<FlowLine> flows = new ArrayList<>();
 	private NodeCode nodeCode;
 	private IType type;
+	private boolean tranversed;
+	private int doWhile;
+	private int recodeDoWhile;
+	private Decision doWhileNode;
 
 	public Decision() {
 	}
@@ -71,6 +74,51 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 	@Override
 	public void setType(IType type) {
 		this.type = type;
+	}
+
+	@Override
+	public boolean hasBeenTraversed() {
+		return tranversed;
+	}
+
+	@Override
+	public void resetTraversed() {
+		tranversed = false;
+	}
+
+	@Override
+	public void traverse() {
+		tranversed = true;
+	}
+
+	@Override
+	public int getDoWhileCounter() {
+		return doWhile;
+	}
+
+	@Override
+	public void setDoWhileCounter(int counter) {
+		doWhile = counter;
+	}
+
+	@Override
+	public int getRecodeDoWhileCounter() {
+		return recodeDoWhile;
+	}
+
+	@Override
+	public void setRecodeDoWhileCounter(int counter) {
+		recodeDoWhile = counter;
+	}
+
+	@Override
+	public FlowChartElement getDoWhileNode() {
+		return doWhileNode;
+	}
+
+	@Override
+	public void setDoWhileNode(FlowChartElement node) {
+		doWhileNode = (Decision) node;
 	}
 
 }

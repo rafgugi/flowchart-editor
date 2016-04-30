@@ -4,7 +4,7 @@ import org.eclipse.swt.graphics.Point;
 
 import diagram.element.Line;
 import diagram.element.RoundedRectangle;
-import diagram.pad.NodeCode;
+import exception.FlowchartEditorException;
 import interfaces.FlowChartElement;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
@@ -16,6 +16,10 @@ public class Terminator extends RoundedRectangle implements IDiagramElement, Flo
 	private FlowLine flow;
 	private NodeCode nodeCode;
 	private IType type;
+	private boolean traversed;
+	private int doWhile;
+	private int recodeDoWhile;
+	private Decision doWhileNode;
 
 	public static String START = "Start";
 	public static String END = "End";
@@ -36,6 +40,9 @@ public class Terminator extends RoundedRectangle implements IDiagramElement, Flo
 
 	@Override
 	public void connect(IElement element) {
+		if (this.flow != null) {
+			throw new FlowchartEditorException("Terminator can't have more than one children.");
+		}
 		super.connect(element);
 		if (element instanceof FlowLine) {
 			FlowLine flow = (FlowLine) element;
@@ -73,6 +80,51 @@ public class Terminator extends RoundedRectangle implements IDiagramElement, Flo
 	@Override
 	public void setType(IType type) {
 		this.type = type;
+	}
+
+	@Override
+	public boolean hasBeenTraversed() {
+		return traversed;
+	}
+
+	@Override
+	public void resetTraversed() {
+		traversed = false;
+	}
+
+	@Override
+	public void traverse() {
+		traversed = true;
+	}
+
+	@Override
+	public int getDoWhileCounter() {
+		return doWhile;
+	}
+
+	@Override
+	public void setDoWhileCounter(int counter) {
+		doWhile = counter;
+	}
+
+	@Override
+	public int getRecodeDoWhileCounter() {
+		return recodeDoWhile;
+	}
+
+	@Override
+	public void setRecodeDoWhileCounter(int counter) {
+		recodeDoWhile = counter;
+	}
+
+	@Override
+	public FlowChartElement getDoWhileNode() {
+		return doWhileNode;
+	}
+
+	@Override
+	public void setDoWhileNode(FlowChartElement node) {
+		doWhileNode = (Decision) node;
 	}
 
 }

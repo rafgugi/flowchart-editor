@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import diagram.element.TwoDimensional;
 import diagram.flowchart.*;
 import diagram.flowchart.Process;
+import diagram.flowchart.type.DoWhileType;
 import diagram.pad.*;
 import exception.InvalidFlowChartException;
 import interfaces.FlowChartElement;
@@ -20,6 +21,8 @@ import interfaces.IElement;
 import widget.window.MainWindow;
 
 public class GenerateCodeCommand implements ICommand {
+	
+	private Stack<Decision> stackOfJudgment = new Stack<>();
 
 	@Override
 	public void execute() {
@@ -70,19 +73,80 @@ public class GenerateCodeCommand implements ICommand {
 	public final void initializeElement(FlowChartElement e) {
 		e.setType(null);
 		e.setNodeCode(null);
+		e.setDoWhileCounter(0);
+		e.setRecodeDoWhileCounter(0);
 	}
 
 	public final void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, NodeCode currCode) {
 		if (currElem instanceof Terminator) {
 			return; // exit point of recursion
 		}
-		if (currElem instanceof Decision) {
-			// if current node has been transversed. wtf is tranversed?
-		}
 		if (currElem instanceof Process) {
-			currElem.setNodeCode(currCode);
+			Process currNode = (Process) currElem;
+			currNode.setNodeCode(currCode);
 			NodeCode codeOfSon = currCode.createSibling();
+			if (!currNode.hasBeenTraversed()) {
+				currNode.traverse();
+				FlowChartElement son = (FlowChartElement) currNode.getFlow().getDstElement();
+				codeAlgorithm(currNode, son, codeOfSon);
+			} else {
+				if (father instanceof Decision && father.getType() == null) {
+					father.setType(DoWhileType.get());
+					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
+					father.setDoWhileNode(currNode);
+					father.setDoWhileCounter(currNode.getDoWhileCounter());
+					/* used for recode ??? */
+					currNode.setDoWhileCounter(currNode.getDoWhileCounter());
+				}
+				if (currNode.getDoWhileCounter() > 0) {
+					recode(currNode, null);
+				}
+			}
 		}
+		if (currElem instanceof Decision) {
+			Decision currNode = (Decision) currElem;
+			if (!currNode.hasBeenTraversed()) {
+				currNode.setNodeCode(currCode);
+				stackOfJudgment.push(currNode);
+
+				for (FlowLine fl : currNode.getChildren()) { // except convergence pls
+					FlowChartElement son = fl.getDstElement();
+					NodeCode sonCode = currCode.createChild();
+					codeAlgorithm(currNode, son, sonCode);
+				}
+				// if CurrentNode has a son of convergence( as convergenceSon ) [7-2]
+				// {
+				// 	CodeAlgorithm(CurrentNode, convergenceSon, null); [8]
+				// }
+				if (currNode.getType() == null) {
+					currNode.setType(DecisionType.get());
+				}
+				// /*Continue to process the nodes behind Convergence. */
+				// CurrentNode=CurrentNode.directJudgmentNode;
+				// CodeofSon = Increase YY of CurrentCode by one
+				// CodeAlgorithm(CurrentNode, CurrentNode.Son, CodeofSon); [9]
+			} else {
+				if (currNode.getType() == null) {
+					currNode.setType(WhileType.get());
+				} else {
+					if (father instanceof Decision && father.getType() == null) {
+						father.setType(DoWhileType.get());
+						currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
+						father.setDoWhileNode(currNode);
+						father.setDoWhileCounter(currNode.getDoWhileCounter());
+						CurrentNode.doWhileRecodeCounter=CurrentNode.doWhileCounter;
+						currNode.setRecodeDoWhileCounter(currNode.getDoWhileCounter());
+					}
+					if (currNode.getDoWhileCounter() > 0) {
+						recode(currNode, null);
+					}
+				}
+			}
+		}
+	}
+	
+	public final void recode(FlowChartElement currNode, NodeCode currCode) {
+		
 	}
 
 	public final ElementContainer generatePad() {

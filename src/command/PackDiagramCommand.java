@@ -1,6 +1,6 @@
 package command;
 
-import diagram.pad.NodeCode;
+import diagram.flowchart.NodeCode;
 import interfaces.ICommand;
 
 public class PackDiagramCommand implements ICommand {
