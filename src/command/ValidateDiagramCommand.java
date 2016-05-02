@@ -32,11 +32,11 @@ public class ValidateDiagramCommand implements ICommand {
 	public String getMessage(int code) {
 		switch (code) {
 		case INCOMPLETE_TERMINATOR:
-			return "Terminator tidak lengkap.";
+			return "Terminator tidak lengkap";
 		case MORE_THAN_ONE_TERMINATOR:
-			return "Terminator lebih dari satu.";
+			return "Terminator lebih dari satu";
 		case NOT_CONNECTED_ELEMENT:
-			return "Ada elemen yang tidak terkoneksi.";
+			return "Ada elemen yang tidak terkoneksi";
 		default:
 			return "";
 		}
