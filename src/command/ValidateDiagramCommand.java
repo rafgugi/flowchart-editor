@@ -10,6 +10,8 @@ import diagram.flowchart.Terminator;
 import interfaces.ICommand;
 import interfaces.IElement;
 import interfaces.ISubEditor;
+import interfaces.IValidationItem;
+import interfaces.IValidationList;
 import widget.window.MainWindow;
 
 public class ValidateDiagramCommand implements ICommand {
@@ -19,6 +21,13 @@ public class ValidateDiagramCommand implements ICommand {
 	public static final int MORE_THAN_ONE_TERMINATOR = 1;
 	public static final int NOT_CONNECTED_ELEMENT = 2;
 	private boolean[] errors;
+
+	private IValidationList validationList;
+	
+	public ValidateDiagramCommand() {
+		validationList = MainWindow.getInstance().getValidationList();
+		validationList.reset();
+	}
 
 	public String getMessage(int code) {
 		switch (code) {
@@ -49,12 +58,20 @@ public class ValidateDiagramCommand implements ICommand {
 						start = ele;
 					} else {
 						errors[MORE_THAN_ONE_TERMINATOR] = true;
+						IValidationItem item = validationList.newItem();
+						item.addProblems(elem);
+						item.setTitle(getMessage(MORE_THAN_ONE_TERMINATOR));
+						validationList.addItem(item);
 					}
 				} else if (ele.getText().equals(Terminator.END)) {
 					if (end == null) {
 						end = ele;
 					} else {
 						errors[MORE_THAN_ONE_TERMINATOR] = true;
+						IValidationItem item = validationList.newItem();
+						item.addProblems(elem);
+						item.setTitle(getMessage(MORE_THAN_ONE_TERMINATOR));
+						validationList.addItem(item);
 					}
 				}
 			}
@@ -62,6 +79,9 @@ public class ValidateDiagramCommand implements ICommand {
 
 		if (start == null || end == null) {
 			errors[INCOMPLETE_TERMINATOR] = true;
+			IValidationItem item = validationList.newItem();
+			item.setTitle(getMessage(INCOMPLETE_TERMINATOR));
+			validationList.addItem(item);
 		}
 
 		if (!(errors[INCOMPLETE_TERMINATOR] || errors[MORE_THAN_ONE_TERMINATOR])) {
@@ -81,6 +101,12 @@ public class ValidateDiagramCommand implements ICommand {
 			}
 			if (!elements.isEmpty()) {
 				errors[NOT_CONNECTED_ELEMENT] = true;
+				IValidationItem item = validationList.newItem();
+				for (IElement e : elements) {
+					item.addProblems(e);	
+				}
+				item.setTitle(getMessage(NOT_CONNECTED_ELEMENT));
+				validationList.addItem(item);
 			}
 		}
 
@@ -95,7 +121,7 @@ public class ValidateDiagramCommand implements ICommand {
 			if (errors[i]) {
 				MessageBox dialog = new MessageBox(MainWindow.getInstance(), SWT.OK);
 				dialog.setText("Validation");
-				dialog.setMessage(getMessage(i));
+				dialog.setMessage("Validation fails");
 
 				dialog.open();
 				return;

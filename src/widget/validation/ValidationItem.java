@@ -3,18 +3,24 @@ package widget.validation;
 import java.util.ArrayList;
 
 import interfaces.IElement;
+import interfaces.ISubEditor;
 import interfaces.IValidationItem;
+import widget.window.MainWindow;
 
 public class ValidationItem implements IValidationItem {
 	
 	private String title;
 	private String description;
-	private ArrayList<IElement> problems;
+	private ArrayList<IElement> problems = new ArrayList<>();
 
 	@Override
 	public void action() {
-		// TODO Auto-generated method stub
-		
+		ISubEditor subEditor = MainWindow.getInstance().getEditor().getActiveSubEditor(); 
+		subEditor.deselectAll();
+		for (IElement e : problems) {
+			e.select();
+		}
+		subEditor.draw();
 	}
 
 	@Override

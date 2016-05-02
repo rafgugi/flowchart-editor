@@ -16,6 +16,13 @@ public interface IValidationList extends IWidget {
 	public void addItem(IValidationItem item);
 
 	/**
+	 * Remove an item from the list.
+	 * 
+	 * @param item
+	 */
+	public void removeItem(IValidationItem item);
+
+	/**
 	 * Let this create new item for you.
 	 * 
 	 * @return Validation item
