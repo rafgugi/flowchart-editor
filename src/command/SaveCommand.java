@@ -11,7 +11,6 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.json.JSONObject;
 
 import diagram.element.AEditable;
-import exception.EmptySubEditorException;
 import interfaces.ICommand;
 import interfaces.IElement;
 import interfaces.ISubEditor;
