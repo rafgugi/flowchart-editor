@@ -13,7 +13,7 @@ import interfaces.IType;
 import widget.window.property.ProcessProperty;
 
 public class Decision extends Diamond implements IDiagramElement, FlowChartElement {
-	
+
 	private ArrayList<FlowLine> flows = new ArrayList<>();
 	private NodeCode nodeCode;
 	private IType type;
@@ -51,7 +51,7 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 		super.disconnect(element);
 		flows.remove(element);
 	}
-	
+
 	public ArrayList<FlowLine> getFlows() {
 		return flows;
 	}

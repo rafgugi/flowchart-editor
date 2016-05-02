@@ -1,6 +1,7 @@
 package command;
 
 import diagram.element.TwoDimensional;
+import exception.EmptySubEditorException;
 import interfaces.ICommand;
 import interfaces.IElement;
 import interfaces.ISubEditor;

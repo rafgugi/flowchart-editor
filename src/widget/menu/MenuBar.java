@@ -17,7 +17,6 @@ public class MenuBar extends Menu implements IMenuBar {
 
 	public MenuBar(IMainWindow parent, int style) {
 		super((MainWindow) parent, style);
-		parent.setBar(this);
 		initialize();
 	}
 

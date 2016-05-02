@@ -6,18 +6,23 @@ import interfaces.IEditor;
 import interfaces.IMainWindow;
 import interfaces.IMenuBar;
 import interfaces.IToolStrip;
+import interfaces.IValidationList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Label;
+
 import widget.menu.MenuBar;
 import widget.tab.Editor;
 import widget.toolbar.ToolStrip;
+import widget.validation.ValidationList;
 
 public class MainWindow extends AWindow implements IMainWindow {
 
 	private IMenuBar menuBar;
 	private IEditor editor;
 	private IToolStrip toolstrip;
+	private IValidationList validationList;
 	private static MainWindow instance;
 	private Label status;
 
@@ -44,9 +49,11 @@ public class MainWindow extends AWindow implements IMainWindow {
 		setToolStrip(new ToolStrip(this));
 		setEditor(new Editor(this));
 		
+		validationList = new ValidationList(this, SWT.BORDER);
+
 		status = new Label(this, SWT.NONE);
 		GridData gridData = new GridData();
-		gridData.horizontalSpan = 2;
+		gridData.horizontalSpan = 3;
 		gridData.horizontalAlignment = SWT.FILL;
 		status.setLayoutData(gridData);
 		setStatus("No diagram yet.");
@@ -59,8 +66,7 @@ public class MainWindow extends AWindow implements IMainWindow {
 		return menuBar;
 	}
 
-	@Override
-	public void setBar(IMenuBar bar) {
+	private void setBar(IMenuBar bar) {
 		super.setMenuBar((Menu) bar);
 		this.menuBar = bar;
 	}
@@ -70,8 +76,7 @@ public class MainWindow extends AWindow implements IMainWindow {
 		return editor;
 	}
 
-	@Override
-	public void setEditor(IEditor editor) {
+	private void setEditor(IEditor editor) {
 		this.editor = editor;
 	}
 
@@ -80,12 +85,16 @@ public class MainWindow extends AWindow implements IMainWindow {
 		return toolstrip;
 	}
 
-	@Override
-	public void setToolStrip(IToolStrip toolstrip) {
+	private void setToolStrip(IToolStrip toolstrip) {
 		this.toolstrip = toolstrip;
 	}
 	
 	public void setStatus(String status) {
 		this.status.setText(status);
+	}
+
+	@Override
+	public IValidationList getValidationList() {
+		return validationList;
 	}
 }

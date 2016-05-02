@@ -8,6 +8,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
+import exception.EmptySubEditorException;
 import interfaces.IEditor;
 import interfaces.ISubEditor;
 import interfaces.ITool;
@@ -69,14 +70,13 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 		ISubEditor subEditor = new SubEditor(this);
 		subEditor.setTitle(title);
 		addSubEditor(subEditor);
-		//"SubEditor " + (subEditors.size() + 1)
 	}
 
 	@Override
 	public ISubEditor getActiveSubEditor() {
 		int index = super.getSelectionIndex();
 		if (index == -1) {
-			return null;
+			throw new EmptySubEditorException();
 		}
 		ISubEditor ans = subEditors.get(index);
 		return ans;
@@ -89,13 +89,12 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 
 	@Override
 	public void close() {
-		try {
-			ISubEditor subEditor = getActiveSubEditor();
-			subEditor.close();
-			subEditors.remove(subEditor);
-		} catch (NullPointerException e) {
-			MainWindow.getInstance().setStatus("Editor is empty");
+		ISubEditor subEditor = getActiveSubEditor();
+		if (subEditor == null) {
+			throw new EmptySubEditorException();
 		}
+		subEditor.close();
+		subEditors.remove(subEditor);
 	}
 
 	@Override
@@ -110,12 +109,12 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-//		System.out.println("widgetSelected");
+		// System.out.println("widgetSelected");
 	}
 
 	@Override
 	public void widgetDefaultSelected(SelectionEvent e) {
-//		System.out.println("widgetDefaultSelected");
+		// System.out.println("widgetDefaultSelected");
 	}
 
 }

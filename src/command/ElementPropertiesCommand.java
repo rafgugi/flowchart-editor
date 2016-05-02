@@ -2,6 +2,7 @@ package command;
 
 import java.util.List;
 
+import exception.EmptySubEditorException;
 import interfaces.ICommand;
 import interfaces.IDiagramElement;
 import interfaces.IElement;

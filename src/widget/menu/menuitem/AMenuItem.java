@@ -5,8 +5,10 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MenuItem;
 
+import exception.FlowchartEditorException;
 import interfaces.IMenuItem;
 import widget.menu.AMenu;
+import widget.window.MainWindow;
 
 public abstract class AMenuItem extends MenuItem implements IMenuItem, Listener {
 
@@ -47,6 +49,10 @@ public abstract class AMenuItem extends MenuItem implements IMenuItem, Listener 
 
 	@Override
 	public void handleEvent(Event event) {
-		execute();
+		try {
+			execute();	
+		} catch (FlowchartEditorException e) { 
+			MainWindow.getInstance().setStatus(e.getMessage());
+		}
 	}
 }

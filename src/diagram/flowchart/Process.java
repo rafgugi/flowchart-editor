@@ -12,7 +12,7 @@ import interfaces.IType;
 import widget.window.property.ProcessProperty;
 
 public class Process extends Rectangle implements IDiagramElement, FlowChartElement {
-	
+
 	private FlowLine flow;
 	private NodeCode nodeCode;
 	private IType type;
@@ -33,7 +33,7 @@ public class Process extends Rectangle implements IDiagramElement, FlowChartElem
 		ProcessProperty prop = new ProcessProperty(this);
 		prop.show();
 	}
-	
+
 	@Override
 	public void connect(IElement element) {
 		if (this.flow != null) {
@@ -47,7 +47,7 @@ public class Process extends Rectangle implements IDiagramElement, FlowChartElem
 			}
 		}
 	}
-	
+
 	@Override
 	public void disconnect(IElement element) {
 		super.disconnect(element);

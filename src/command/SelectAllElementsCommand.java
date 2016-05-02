@@ -1,5 +1,6 @@
 package command;
 
+import exception.EmptySubEditorException;
 import interfaces.ICommand;
 import interfaces.IElement;
 import interfaces.ISubEditor;

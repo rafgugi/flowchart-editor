@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.json.JSONObject;
 
 import diagram.element.AEditable;
+import exception.EmptySubEditorException;
 import interfaces.ICommand;
 import interfaces.IElement;
 import interfaces.ISubEditor;
@@ -21,10 +22,6 @@ public class SaveCommand implements ICommand {
 	@Override
 	public void execute() {
 		ISubEditor s = MainWindow.getInstance().getEditor().getActiveSubEditor();
-		if (s == null) {
-			MainWindow.getInstance().setStatus("Editor is empty");
-			return;
-		}
 		List<IElement> elements = s.getElements();
 
 		JSONObject retval = new JSONObject();
