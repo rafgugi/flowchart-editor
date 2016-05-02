@@ -109,12 +109,11 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-		// System.out.println("widgetSelected");
+		MainWindow.getInstance().getValidationList().reset();
 	}
 
 	@Override
 	public void widgetDefaultSelected(SelectionEvent e) {
-		// System.out.println("widgetDefaultSelected");
 	}
 
 }

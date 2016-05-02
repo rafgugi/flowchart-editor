@@ -23,6 +23,15 @@ public interface IValidationList extends IWidget {
 	public void removeItem(IValidationItem item);
 
 	/**
+	 * Get index of the item. If this item not found in the collection, return
+	 * -1.
+	 * 
+	 * @param item
+	 * @return index
+	 */
+	int getIndex(IValidationItem item);
+
+	/**
 	 * Let this create new item for you.
 	 * 
 	 * @return Validation item

@@ -43,6 +43,11 @@ public class ValidationList extends List implements IValidationList, SelectionLi
 		super.remove(index);
 		validationItems.remove(item);
 	}
+	
+	@Override
+	public int getIndex(IValidationItem item) {
+		return validationItems.indexOf(item);
+	}
 
 	@Override
 	public IValidationItem newItem() {

@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.TabItem;
 
 import diagram.state.EditState;
 import exception.ElementNotFoundException;
+import exception.FlowchartEditorException;
 import interfaces.IElement;
 import interfaces.ISubEditor;
 import widget.window.MainWindow;
@@ -81,6 +82,13 @@ public class SubEditor extends TabItem
 	@Override
 	public void removeElement(IElement element) {
 		System.out.println("Remove " + element.toString());
+		for (IElement conn : element.getConnectedElements()) {
+			try {
+				conn.disconnect(element);
+			} catch (FlowchartEditorException e) {
+				MainWindow.getInstance().setStatus(e.getMessage());
+			}
+		}
 		elements.remove(element);
 		draw();
 	}
@@ -161,7 +169,7 @@ public class SubEditor extends TabItem
 			e.deselect();
 		}
 		if (!temp.isEmpty()) {
-			draw();			
+			draw();
 		}
 	}
 

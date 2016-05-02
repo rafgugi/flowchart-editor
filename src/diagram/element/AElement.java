@@ -4,7 +4,6 @@ import org.eclipse.swt.widgets.Canvas;
 import org.json.JSONObject;
 
 import diagram.state.*;
-import exception.ElementNotFoundException;
 import interfaces.IDrawingState;
 import interfaces.IElement;
 import widget.tab.SubEditor;
@@ -81,7 +80,9 @@ public abstract class AElement implements IElement {
 	@Override
 	public void disconnect(IElement element) {
 		if (!connected.remove(element)) {
-			throw new ElementNotFoundException("Element not found when trying to disconnect");
+			System.out.println("Element not found when trying to disconnect");
+			System.out.println("    " + this);
+			System.out.println("    " + element);
 		}
 	}
 

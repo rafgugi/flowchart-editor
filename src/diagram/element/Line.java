@@ -30,6 +30,8 @@ public class Line extends AEditable {
 	public static final String YES = "Y";
 	public static final String NO = "N";
 
+	public static final int BOUNDARY = 6;
+
 	public Line() {
 	}
 
@@ -39,19 +41,21 @@ public class Line extends AEditable {
 		setDstElement(dst);
 	}
 
-	public static void draw(GC gc, int srcx, int srcy, int dstx, int dsty) {
+	public static void draw(GC gc, int srcx, int srcy, int dstx, int dsty, boolean pointed) {
 		gc.drawLine(srcx, srcy, dstx, dsty);
 
-		int n = 10;
-		double angle = Math.atan2(dsty - srcy, dstx - srcx);
-		int x1 = (int) (dstx - n * Math.cos(angle - Math.PI / 6));
-		int y1 = (int) (dsty - n * Math.sin(angle - Math.PI / 6));
-		int x2 = (int) (dstx - n * Math.cos(angle + Math.PI / 6));
-		int y2 = (int) (dsty - n * Math.sin(angle + Math.PI / 6));
+		if (pointed) {
+			int n = 10;
+			double angle = Math.atan2(dsty - srcy, dstx - srcx);
+			int x1 = (int) (dstx - n * Math.cos(angle - Math.PI / 6));
+			int y1 = (int) (dsty - n * Math.sin(angle - Math.PI / 6));
+			int x2 = (int) (dstx - n * Math.cos(angle + Math.PI / 6));
+			int y2 = (int) (dsty - n * Math.sin(angle + Math.PI / 6));
 
-		int[] points = { dstx, dsty, x1, y1, x2, y2 };
-		gc.fillPolygon(points);
-		gc.drawPolygon(points);
+			int[] points = { dstx, dsty, x1, y1, x2, y2 };
+			gc.fillPolygon(points);
+			gc.drawPolygon(points);	
+		}
 	}
 
 	@Override
@@ -118,7 +122,7 @@ public class Line extends AEditable {
 		/* Determine text height of lines */
 		int textHeight = gc.stringExtent(text).y * lines.length;
 
-		draw(gc, getSrcx(), getSrcy(), getDstx(), getDsty());
+		draw(gc, getSrcx(), getSrcy(), getDstx(), getDsty(), true);
 		gc.setBackground(white);
 		String temp = text;
 		if (!temp.equals("")) {

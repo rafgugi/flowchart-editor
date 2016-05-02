@@ -50,6 +50,7 @@ public class ValidateDiagramCommand implements ICommand {
 
 		IElement start = null;
 		IElement end = null;
+		ArrayList<IElement> overTerminator = new ArrayList<>();
 		for (IElement elem : editor.getElements()) {
 			if (elem instanceof Terminator) {
 				Terminator ele = (Terminator) elem;
@@ -58,23 +59,26 @@ public class ValidateDiagramCommand implements ICommand {
 						start = ele;
 					} else {
 						errors[MORE_THAN_ONE_TERMINATOR] = true;
-						IValidationItem item = validationList.newItem();
-						item.addProblems(elem);
-						item.setTitle(getMessage(MORE_THAN_ONE_TERMINATOR));
-						validationList.addItem(item);
+						overTerminator.add(elem);
 					}
 				} else if (ele.getText().equals(Terminator.END)) {
 					if (end == null) {
 						end = ele;
 					} else {
 						errors[MORE_THAN_ONE_TERMINATOR] = true;
-						IValidationItem item = validationList.newItem();
-						item.addProblems(elem);
-						item.setTitle(getMessage(MORE_THAN_ONE_TERMINATOR));
-						validationList.addItem(item);
+						overTerminator.add(elem);
 					}
 				}
 			}
+		}
+		
+		if (!overTerminator.isEmpty()) {
+			IValidationItem item = validationList.newItem();
+			for (IElement elem : overTerminator) {
+				item.addProblems(elem);
+			}
+			item.setTitle(getMessage(MORE_THAN_ONE_TERMINATOR));
+			validationList.addItem(item);			
 		}
 
 		if (start == null || end == null) {
@@ -133,7 +137,7 @@ public class ValidateDiagramCommand implements ICommand {
 
 		dialog.open();
 	}
-	
+
 	public boolean isError() {
 		for (int i = 0; i < MAX_ERROR_KINDS; i++) {
 			if (errors[i]) {

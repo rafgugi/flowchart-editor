@@ -8,9 +8,11 @@ import diagram.element.Line;
 import diagram.element.TwoDimensional;
 import diagram.flowchart.FlowLine;
 import exception.CreateElementException;
+import exception.FlowchartEditorException;
 import interfaces.IElement;
 import widget.tab.SubEditor;
 import widget.toolbar.ToolStrip;
+import widget.window.MainWindow;
 
 public class LineTool extends ATool {
 
@@ -58,7 +60,7 @@ public class LineTool extends ATool {
 
 		getActiveSubEditor().draw();
 
-		Line.draw(gc, downTemp.x, downTemp.y, e.x, e.y);
+		Line.draw(gc, downTemp.x, downTemp.y, e.x, e.y, true);
 		gc.dispose();
 	}
 
@@ -89,14 +91,23 @@ public class LineTool extends ATool {
 			if (alredy) {
 				throw new CreateElementException("Object alredy connected.");
 			}
-			FlowLine flowLine = new FlowLine(srcElement, dstElement);
-			getActiveSubEditor().addElement(flowLine);
-			flowLine.select();
-			getActiveSubEditor().draw();
+
+			FlowLine flowLine = null;
+			try {
+				flowLine = new FlowLine(srcElement, dstElement);
+				getActiveSubEditor().addElement(flowLine);
+				flowLine.select();
+			} catch (FlowchartEditorException ex) {
+				MainWindow.getInstance().setStatus(ex.getMessage());
+			} finally {
+				if (flowLine == null) {
+					
+				}
+			}
 		} catch (CreateElementException ex) {
-			System.out.println(ex.getMessage());
-			getActiveSubEditor().draw();
+			MainWindow.getInstance().setStatus(ex.getMessage());
 		}
+		getActiveSubEditor().draw();
 		isDrag = false;
 		downTemp = null;
 	}
