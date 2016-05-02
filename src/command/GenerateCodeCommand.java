@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import diagram.element.TwoDimensional;
 import diagram.flowchart.*;
 import diagram.flowchart.Process;
-import diagram.flowchart.type.DoWhileType;
+import diagram.flowchart.type.*;
 import diagram.pad.*;
 import exception.InvalidFlowChartException;
 import interfaces.FlowChartElement;
@@ -109,17 +109,16 @@ public class GenerateCodeCommand implements ICommand {
 				currNode.setNodeCode(currCode);
 				stackOfJudgment.push(currNode);
 
-				for (FlowLine fl : currNode.getChildren()) { // except convergence pls
-					FlowChartElement son = fl.getDstElement();
+				for (TwoDimensional son : currNode.getChildren()) { // except convergence pls
 					NodeCode sonCode = currCode.createChild();
-					codeAlgorithm(currNode, son, sonCode);
+					codeAlgorithm(currNode, (FlowChartElement) son, sonCode);
 				}
 				// if CurrentNode has a son of convergence( as convergenceSon ) [7-2]
 				// {
 				// 	CodeAlgorithm(CurrentNode, convergenceSon, null); [8]
 				// }
 				if (currNode.getType() == null) {
-					currNode.setType(DecisionType.get());
+					currNode.setType(SelectionType.get());
 				}
 				// /*Continue to process the nodes behind Convergence. */
 				// CurrentNode=CurrentNode.directJudgmentNode;
@@ -134,7 +133,6 @@ public class GenerateCodeCommand implements ICommand {
 						currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
 						father.setDoWhileNode(currNode);
 						father.setDoWhileCounter(currNode.getDoWhileCounter());
-						CurrentNode.doWhileRecodeCounter=CurrentNode.doWhileCounter;
 						currNode.setRecodeDoWhileCounter(currNode.getDoWhileCounter());
 					}
 					if (currNode.getDoWhileCounter() > 0) {
