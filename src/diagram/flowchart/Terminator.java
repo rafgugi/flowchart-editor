@@ -4,7 +4,7 @@ import org.eclipse.swt.graphics.Point;
 
 import diagram.element.Line;
 import diagram.element.RoundedRectangle;
-import exception.FlowchartEditorException;
+import exception.CreateElementException;
 import interfaces.FlowChartElement;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
@@ -40,14 +40,15 @@ public class Terminator extends RoundedRectangle implements IDiagramElement, Flo
 
 	@Override
 	public void connect(IElement element) {
-		if (this.flow != null) {
-			throw new FlowchartEditorException("Terminator can't have more than one children.");
-		}
 		super.connect(element);
 		if (element instanceof FlowLine) {
 			FlowLine flow = (FlowLine) element;
 			if (flow.checkConnected(this) == Line.CONNECTED_SRC) {
-				this.flow = flow;
+				if (this.flow != null) {
+					throw new CreateElementException("Terminator can't have more than one children.");
+				} else {
+					this.flow = flow;
+				}
 			}
 		}
 	}

@@ -33,9 +33,10 @@ public class ToolStrip extends ToolBar implements IToolStrip {
 		super.setLayoutData(gridData);
 		
 		addTool(new PointerTool(this));
-		addTool(new EllipseTool(this));
-		addTool(new RectangleTool(this));
-		addTool(new DiamondTool(this));
+		addTool(new TerminatorTool(this));
+		addTool(new ProcessTool(this));
+		addTool(new DecisionTool(this));
+		addTool(new ConvergenceTool(this));
 		addTool(new LineTool(this));
 		addTool(new PolylineTool(this));
 		

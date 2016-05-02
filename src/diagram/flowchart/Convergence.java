@@ -2,8 +2,8 @@ package diagram.flowchart;
 
 import org.eclipse.swt.graphics.Point;
 
+import diagram.element.Ellipse;
 import diagram.element.Line;
-import diagram.element.Rectangle;
 import exception.CreateElementException;
 import interfaces.FlowChartElement;
 import interfaces.IDiagramElement;
@@ -11,7 +11,7 @@ import interfaces.IElement;
 import interfaces.IType;
 import widget.window.property.ProcessProperty;
 
-public class Process extends Rectangle implements IDiagramElement, FlowChartElement {
+public class Convergence extends Ellipse implements IDiagramElement, FlowChartElement {
 
 	private FlowLine flow;
 	private NodeCode nodeCode;
@@ -21,11 +21,23 @@ public class Process extends Rectangle implements IDiagramElement, FlowChartElem
 	private int recodeDoWhile;
 	private Decision doWhileNode;
 
-	public Process() {
+	public static final int FIX_DIAMETER = 12;
+
+	public Convergence() {
 	}
 
-	public Process(Point src, Point dst) {
+	public Convergence(Point src, Point dst) {
 		super(src, dst);
+	}
+
+	@Override
+	public void setWidth(int h) {
+		super.setWidth(FIX_DIAMETER);
+	}
+
+	@Override
+	public void setHeight(int h) {
+		super.setHeight(FIX_DIAMETER);
 	}
 
 	@Override
@@ -36,15 +48,14 @@ public class Process extends Rectangle implements IDiagramElement, FlowChartElem
 
 	@Override
 	public void connect(IElement element) {
+		if (this.flow != null) {
+			throw new CreateElementException("Convergence can't have more than one children.");
+		}
 		super.connect(element);
 		if (element instanceof FlowLine) {
 			FlowLine flow = (FlowLine) element;
 			if (flow.checkConnected(this) == Line.CONNECTED_SRC) {
-				if (this.flow != null) {
-					throw new CreateElementException("Process can't have more than one children.");
-				} else {
-					this.flow = flow;
-				}
+				this.flow = flow;
 			}
 		}
 	}

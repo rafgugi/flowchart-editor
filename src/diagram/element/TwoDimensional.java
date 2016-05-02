@@ -38,7 +38,7 @@ public abstract class TwoDimensional extends AEditable {
 		if (ans != null) {
 			return ans;
 		}
-		
+
 		if (x < getX() || x > getX() + getWidth()) {
 			return null;
 		}

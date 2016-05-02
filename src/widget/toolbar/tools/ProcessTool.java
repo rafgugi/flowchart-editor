@@ -5,29 +5,29 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
-import diagram.element.RoundedRectangle;
-import diagram.flowchart.Terminator;
+import diagram.element.Rectangle;
+import diagram.flowchart.Process;
 import exception.CreateElementException;
 import interfaces.IElement;
 import widget.tab.SubEditor;
 import widget.toolbar.ToolStrip;
 
-public class EllipseTool extends ATool {
+public class ProcessTool extends ATool {
 
 	private boolean isDrag;
 	private MouseEvent downTemp;
 
-	public EllipseTool(ToolStrip parent, String name) {
+	public ProcessTool(ToolStrip parent, String name) {
 		super(parent, name);
 	}
 
-	public EllipseTool(ToolStrip parent) {
-		super(parent, "Ellipse tool");
+	public ProcessTool(ToolStrip parent) {
+		super(parent, "Process tool");
 	}
-	
+
 	@Override
 	public void initialize() {
-		setIconName("terminator.png");
+		setIconName("process.png");
 		super.initialize();
 	}
 
@@ -47,7 +47,7 @@ public class EllipseTool extends ATool {
 		
 		getActiveSubEditor().draw();
 
-		RoundedRectangle.draw(gc, Math.min(downTemp.x, e.x), Math.min(downTemp.y, e.y), 
+		Rectangle.draw(gc, Math.min(downTemp.x, e.x), Math.min(downTemp.y, e.y), 
 				Math.abs(downTemp.x - e.x), Math.abs(downTemp.y - e.y));
 		gc.dispose();
 	}
@@ -60,7 +60,7 @@ public class EllipseTool extends ATool {
 			}
 			Point src = new Point(downTemp.x, downTemp.y);
 			Point dst = new Point(e.x, e.y);
-			IElement rect = new Terminator(src, dst);
+			IElement rect = new Process(src, dst);
 			getActiveSubEditor().addElement(rect);
 			rect.select();
 			getActiveSubEditor().draw();

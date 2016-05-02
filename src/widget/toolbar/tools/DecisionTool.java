@@ -5,29 +5,29 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
-import diagram.element.Rectangle;
-import diagram.flowchart.Process;
+import diagram.element.Diamond;
+import diagram.flowchart.Decision;
 import exception.CreateElementException;
 import interfaces.IElement;
 import widget.tab.SubEditor;
 import widget.toolbar.ToolStrip;
 
-public class RectangleTool extends ATool {
+public class DecisionTool extends ATool {
 
 	private boolean isDrag;
 	private MouseEvent downTemp;
 
-	public RectangleTool(ToolStrip parent, String name) {
+	public DecisionTool(ToolStrip parent, String name) {
 		super(parent, name);
 	}
 
-	public RectangleTool(ToolStrip parent) {
-		super(parent, "Rectangle tool");
+	public DecisionTool(ToolStrip parent) {
+		super(parent, "Decision tool");
 	}
 
 	@Override
 	public void initialize() {
-		setIconName("process.png");
+		setIconName("diamond.png");
 		super.initialize();
 	}
 
@@ -47,7 +47,7 @@ public class RectangleTool extends ATool {
 		
 		getActiveSubEditor().draw();
 
-		Rectangle.draw(gc, Math.min(downTemp.x, e.x), Math.min(downTemp.y, e.y), 
+		Diamond.draw(gc, Math.min(downTemp.x, e.x), Math.min(downTemp.y, e.y), 
 				Math.abs(downTemp.x - e.x), Math.abs(downTemp.y - e.y));
 		gc.dispose();
 	}
@@ -60,7 +60,7 @@ public class RectangleTool extends ATool {
 			}
 			Point src = new Point(downTemp.x, downTemp.y);
 			Point dst = new Point(e.x, e.y);
-			IElement rect = new Process(src, dst);
+			IElement rect = new Decision(src, dst);
 			getActiveSubEditor().addElement(rect);
 			rect.select();
 			getActiveSubEditor().draw();
