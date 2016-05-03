@@ -1,6 +1,7 @@
 package interfaces;
 
 public interface IEditableElement extends IElement {
+
 	/**
 	 * Create edit points on the 8 points of element, then
 	 * put edit points in private variable editPoints
@@ -16,4 +17,5 @@ public interface IEditableElement extends IElement {
 	 * @param y2
 	 */
 	public void drag(int x1, int y1, int x2, int y2, IElement e);
+
 }

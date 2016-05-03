@@ -32,10 +32,6 @@ public abstract class AEditable extends AElement implements IEditableElement {
 		editPoints.clear();
 		super.deselect();
 	}
-
-	public void addEditPoint(EditPoint e) {
-		editPoints.add(e);
-	}
 	
 	@Override
 	public IElement checkBoundary(int x, int y) {
@@ -60,6 +56,10 @@ public abstract class AEditable extends AElement implements IEditableElement {
 	public void drag(int x1, int y1, int x2, int y2, IElement e) {
 		deselect();
 		select();
+	}
+
+	public void addEditPoint(EditPoint e) {
+		editPoints.add(e);
 	}
 
 	public void createEditPoints(ArrayList<Point> points) {

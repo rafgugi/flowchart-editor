@@ -11,7 +11,7 @@ public class EditPoint extends AElement {
 	protected int x;
 	protected int y;
 	protected AEditable element;
-	public static int length = 5;
+	public static final int LENGTH = 5;
 	protected int code;
 
 	public static final int TOP_LEFT = 0;
@@ -84,17 +84,17 @@ public class EditPoint extends AElement {
 		int x, y;
 		x = this.x - 2;
 		y = this.y - 2;
-		gc.drawRectangle(x, y, length, length);
-		gc.fillRectangle(x + 1, y + 1, length - 1, length - 1);
+		gc.drawRectangle(x, y, LENGTH, LENGTH);
+		gc.fillRectangle(x + 1, y + 1, LENGTH - 1, LENGTH - 1);
 		gc.dispose();
 	}
 
 	@Override
 	public IElement checkBoundary(int x, int y) {
-		if (x < this.x - length / 2 || x > this.x + length / 2) {
+		if (x < this.x - LENGTH / 2 || x > this.x + LENGTH / 2) {
 			return null;
 		}
-		if (y < this.y - length / 2 || y > this.y + length / 2) {
+		if (y < this.y - LENGTH / 2 || y > this.y + LENGTH / 2) {
 			return null;
 		}
 		return this;

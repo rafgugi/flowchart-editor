@@ -20,7 +20,7 @@ public class Line extends AEditable {
 	private int srcy;
 	private int dstx;
 	private int dsty;
-	protected String text = "";
+	private String text = "";
 
 	public static final int NOT_CONNECTED = 0;
 	public static final int CONNECTED_SRC = 1;
