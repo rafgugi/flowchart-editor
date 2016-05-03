@@ -14,7 +14,7 @@ import java.util.UUID;
 
 public abstract class AElement implements IElement {
 	
-	protected IDrawingState state;
+	private IDrawingState state;
 	private ArrayList<IElement> connected = new ArrayList<>();
 	private UUID id;
 

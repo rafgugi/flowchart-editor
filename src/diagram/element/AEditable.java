@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.eclipse.swt.graphics.Point;
 
-import diagram.state.NormalState;
 import interfaces.IEditableElement;
 import interfaces.IElement;
 
@@ -31,7 +30,7 @@ public abstract class AEditable extends AElement implements IEditableElement {
 		}
 		// System.out.println("Deselect " + this.toString());
 		editPoints.clear();
-		state = NormalState.getInstance();
+		super.deselect();
 	}
 
 	public void addEditPoint(EditPoint e) {

@@ -52,8 +52,8 @@ public interface IElement extends JSONAble {
 	public UUID getId();
 
 	/**
-	 * Check if the point is in the element area. Return this
-	 * element if true. Otherwise return null.
+	 * Check if the point is in the element area. Return this element if true.
+	 * Otherwise return null.
 	 *
 	 * @param x
 	 * @param y
@@ -62,8 +62,8 @@ public interface IElement extends JSONAble {
 	public IElement checkBoundary(int x, int y);
 
 	/**
-	 * Check if the element is inside the square given the points. 
-	 * Return this element if true. Otherwise return null.
+	 * Check if the element is inside the square given the points. Return this
+	 * element if true. Otherwise return null.
 	 *
 	 * @param x1
 	 * @param y1
@@ -93,14 +93,16 @@ public interface IElement extends JSONAble {
 	/**
 	 * Connect an element.
 	 *
-	 * @param Element to be connected.
+	 * @param Element
+	 *            to be connected.
 	 */
 	public void connect(IElement element);
 
 	/**
 	 * Disconnect an element.
 	 *
-	 * @param Element to be disconnected.
+	 * @param Element
+	 *            to be disconnected.
 	 */
 	public void disconnect(IElement element);
 }

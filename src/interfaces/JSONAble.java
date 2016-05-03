@@ -3,9 +3,8 @@ package interfaces;
 import org.json.JSONObject;
 
 /**
- * All things that you want it to be saved as json must 
- * implement this. Object that implement this must have
- * constructor with no parameter.
+ * All things that you want it to be saved as json must implement this. Object
+ * that implement this must have constructor with no parameter.
  */
 public interface JSONAble {
 

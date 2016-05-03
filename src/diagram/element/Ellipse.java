@@ -26,28 +26,9 @@ public class Ellipse extends TwoDimensional {
 		gc.setForeground(black);
 		gc.setBackground(white);
 
-		/* Determine max text width from each line */
-		String[] lines = text.split("\r\n|\r|\n");
-		int textWidth = -1;
-		for (String line : lines) {
-			if (gc.stringExtent(line).x > textWidth)
-				textWidth = gc.stringExtent(line).x;
-		}
-
-		/* Determine text height of lines */
-		int textHeight = gc.stringExtent(text).y * lines.length;
-
-		/* Auto enlarge the */
-		if (textWidth > getWidth()) {
-			setWidth(textWidth + 4);
-		}
-		if (textHeight > getHeight()) {
-			setHeight(textHeight + 4);
-		}
-
 		draw(gc, getX(), getY(), getWidth(), getHeight());
+		TwoDimensional.drawText(gc, getText(), this);
 
-		gc.drawText(text, getX() + getWidth() / 2 - textWidth / 2, getY() + getHeight() / 2 - textHeight / 2);
 		gc.dispose();
 	}
 

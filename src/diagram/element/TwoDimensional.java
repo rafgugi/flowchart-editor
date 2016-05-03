@@ -2,6 +2,7 @@ package diagram.element;
 
 import java.util.ArrayList;
 
+import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.json.JSONObject;
 
@@ -14,7 +15,7 @@ public abstract class TwoDimensional extends AEditable {
 	private int y;
 	private int width;
 	private int height;
-	protected String text = "";
+	private String text = "";
 
 	public TwoDimensional() {
 	}
@@ -29,6 +30,45 @@ public abstract class TwoDimensional extends AEditable {
 
 	public TwoDimensional(Point src, Point dst) {
 		this(Math.min(src.x, dst.x), Math.min(src.y, dst.y), Math.abs(src.x - dst.x), Math.abs(src.y - dst.y));
+	}
+
+	public static void drawText(GC gc, String text, TwoDimensional element) {
+		String intext = element.getText();
+		int inx = element.getX();
+		int iny = element.getY();
+		int inw = element.getWidth();
+		int inh = element.getHeight();
+
+		/* Determine max text width from each line */
+		String[] lines = intext.split("\r\n|\r|\n");
+		int textWidth = -1;
+		for (String line : lines) {
+			if (gc.stringExtent(line).x > textWidth) {
+				textWidth = gc.stringExtent(line).x;
+			}
+		}
+
+		/* Determine text height of lines */
+		int textHeight = gc.stringExtent(intext).y * lines.length;
+
+		/* Auto enlarge the element */
+		boolean changed = false;
+		if (textWidth > inw) {
+			inw = textWidth + 4;
+			element.setWidth(inw);
+			changed = true;
+		}
+		if (textHeight > inh) {
+			inh = textHeight + 4;
+			element.setHeight(inh);
+			changed = true;
+		}
+		if (changed) {
+			element.renderNormal();
+			return;
+		}
+
+		gc.drawText(intext, inx + inw / 2 - textWidth / 2, iny + inh / 2 - textHeight / 2);
 	}
 
 	@Override
@@ -70,20 +110,24 @@ public abstract class TwoDimensional extends AEditable {
 		return this;
 	}
 
+	public int getX() {
+		return x;
+	}
+
 	public void setX(int x) {
 		this.x = x;
 	}
 
-	public int getX() {
-		return x;
+	public int getY() {
+		return y;
 	}
 
 	public void setY(int y) {
 		this.y = y;
 	}
 
-	public int getY() {
-		return y;
+	public int getWidth() {
+		return width;
 	}
 
 	public void setWidth(int width) {
@@ -93,8 +137,8 @@ public abstract class TwoDimensional extends AEditable {
 		this.width = width;
 	}
 
-	public int getWidth() {
-		return width;
+	public int getHeight() {
+		return height;
 	}
 
 	public void setHeight(int height) {
@@ -104,8 +148,12 @@ public abstract class TwoDimensional extends AEditable {
 		this.height = height;
 	}
 
-	public int getHeight() {
-		return height;
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	public void setLocation(int x, int y) {
@@ -170,14 +218,6 @@ public abstract class TwoDimensional extends AEditable {
 			}
 		}
 		super.drag(x1, y1, x2, y2, e);
-	}
-
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
 	}
 
 	@Override
