@@ -34,9 +34,8 @@ public interface ISubEditor extends IWidget {
 	public void removeElement(IElement element);
 
 	/**
-	 * Get an element given the point to be checked
-	 * whether the point is inside the element. Return
-	 * the most front element. Return null if no element
+	 * Get an element given the point to be checked whether the point is inside
+	 * the element. Return the most front element. Return null if no element
 	 * found.
 	 *
 	 * @return IElement | null
@@ -44,8 +43,7 @@ public interface ISubEditor extends IWidget {
 	public IElement getElement(int x, int y);
 
 	/**
-	 * Get an element given ID. Throws exception if no
-	 * element found.
+	 * Get an element given ID. Throws exception if no element found.
 	 *
 	 * @return IElement
 	 * @throws ElementNotFoundException
@@ -53,8 +51,7 @@ public interface ISubEditor extends IWidget {
 	public IElement getElement(UUID id);
 
 	/**
-	 * Get an element given ID. Throws exception if no
-	 * element found.
+	 * Get an element given ID. Throws exception if no element found.
 	 *
 	 * @return IElement
 	 * @throws ElementNotFoundException

@@ -3,8 +3,8 @@ package interfaces;
 public interface IEditableElement extends IElement {
 
 	/**
-	 * Create edit points on the 8 points of element, then
-	 * put edit points in private variable editPoints
+	 * Create edit points on the 8 points of element, then put edit points in
+	 * private variable editPoints
 	 */
 	public void createEditPoints();
 

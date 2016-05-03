@@ -26,4 +26,5 @@ public interface ITool extends IWidget {
 	 * Set this tool as deactive.
 	 */
 	public void deselect();
+
 }

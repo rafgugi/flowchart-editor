@@ -3,8 +3,7 @@ package interfaces;
 public interface IDiagramElement extends IElement {
 
 	/**
-	 * This function will be triggered when the element 
-	 * is doubleclicked
+	 * This function will be triggered when the element is double-clicked
 	 */
 	public void action();
 

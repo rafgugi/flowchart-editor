@@ -1,8 +1,7 @@
 package interfaces;
 
 /**
- * MenuItem is single item of Menu. It will execute command
- * when clicked.
+ * MenuItem is single item of Menu. It will execute command when clicked.
  */
 public interface IMenuItem extends IWidget {
 

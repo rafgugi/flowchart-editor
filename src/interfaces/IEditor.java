@@ -3,10 +3,11 @@ package interfaces;
 import java.util.List;
 
 public interface IEditor extends IWidget {
+
 	/**
 	 * Create a new tab
 	 *
-	 * @param ISubEditor tab
+	 * @param tab
 	 */
 	public void addSubEditor(ISubEditor subEditor);
 
@@ -18,7 +19,8 @@ public interface IEditor extends IWidget {
 	/**
 	 * Create a default tab.
 	 *
-	 * @param String tab name
+	 * @param tab
+	 *            name
 	 */
 	public void newSubEditor(String title);
 
@@ -51,7 +53,9 @@ public interface IEditor extends IWidget {
 	/**
 	 * Set active tool.
 	 *
-	 * @param active tool
+	 * @param active
+	 *            tool
 	 */
 	public void setActiveTool(ITool tool);
+
 }

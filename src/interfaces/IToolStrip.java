@@ -22,7 +22,7 @@ public interface IToolStrip extends IWidget {
 	public void addTool(ITool tool);
 
 	/**
-	 * Remove all tools. Not implementated yet.
+	 * Remove all tools. Not implemented yet.
 	 */
 	public void resetTools();
 }

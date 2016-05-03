@@ -1,10 +1,12 @@
 package interfaces;
 
 public interface IDrawingState {
+
 	/**
 	 * Draw an element based on current state
 	 *
-	 * @param element to be drawn 
+	 * @param element
 	 */
 	public void draw(IElement element);
+
 }
