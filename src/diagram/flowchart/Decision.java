@@ -22,6 +22,8 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 	private int recodeDoWhile;
 	private Decision doWhileNode;
 
+	private Convergence directConvergence;
+
 	public Decision() {
 	}
 
@@ -119,6 +121,23 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 	@Override
 	public void setDoWhileNode(FlowChartElement node) {
 		doWhileNode = (Decision) node;
+	}
+
+	public Convergence getDirectConvergence() {
+		return directConvergence;
+	}
+
+	public void setDirectConvergence(Convergence directConvergence) {
+		this.directConvergence = directConvergence;
+	}
+
+	@Override
+	public void prepare() {
+		setType(null);
+		setNodeCode(null);
+		setDoWhileCounter(0);
+		setRecodeDoWhileCounter(0);
+		setDirectConvergence(null);
 	}
 
 }

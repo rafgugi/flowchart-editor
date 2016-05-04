@@ -3,6 +3,7 @@ package command;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -21,8 +22,9 @@ import interfaces.IElement;
 import widget.window.MainWindow;
 
 public class GenerateCodeCommand implements ICommand {
-	
+
 	private Stack<Decision> stackOfJudgment = new Stack<>();
+	private Stack<Decision> stackOfLoopReturn = new Stack<>();
 
 	@Override
 	public void execute() {
@@ -55,7 +57,8 @@ public class GenerateCodeCommand implements ICommand {
 		IElement currentElem = null;
 		for (IElement e : elements) {
 			if (e instanceof FlowChartElement) {
-				initializeElement((FlowChartElement) e);
+				((FlowChartElement) e).prepare();
+				;
 			}
 			if (e instanceof Terminator) {
 				if (((Terminator) e).getText().equals(Terminator.START)) {
@@ -70,13 +73,16 @@ public class GenerateCodeCommand implements ICommand {
 		codeAlgorithm((FlowChartElement) father, (FlowChartElement) son, new NodeCode());
 	}
 
-	public final void initializeElement(FlowChartElement e) {
-		e.setType(null);
-		e.setNodeCode(null);
-		e.setDoWhileCounter(0);
-		e.setRecodeDoWhileCounter(0);
-	}
-
+	/**
+	 * Generate a code for every node according to the coding strategy.
+	 * 
+	 * @param father
+	 *            node
+	 * @param current
+	 *            node
+	 * @param current
+	 *            code
+	 */
 	public final void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, NodeCode currCode) {
 		if (currElem instanceof Terminator) {
 			return; // exit point of recursion
@@ -109,14 +115,18 @@ public class GenerateCodeCommand implements ICommand {
 				currNode.setNodeCode(currCode);
 				stackOfJudgment.push(currNode);
 
-				for (TwoDimensional son : currNode.getChildren()) { // except convergence pls
+				ArrayList<Convergence> convergenceSons = new ArrayList<>();
+				for (TwoDimensional son : currNode.getChildren()) {
+					if (son instanceof Convergence) {
+						convergenceSons.add((Convergence) son);
+						continue;
+					}
 					NodeCode sonCode = currCode.createChild();
 					codeAlgorithm(currNode, (FlowChartElement) son, sonCode);
 				}
-				// if CurrentNode has a son of convergence( as convergenceSon ) [7-2]
-				// {
-				// 	CodeAlgorithm(CurrentNode, convergenceSon, null); [8]
-				// }
+				for (Convergence convergenceson : convergenceSons) {
+					codeAlgorithm(currNode, convergenceson, null);
+				}
 				if (currNode.getType() == null) {
 					currNode.setType(SelectionType.get());
 				}
@@ -141,8 +151,26 @@ public class GenerateCodeCommand implements ICommand {
 				}
 			}
 		}
+		if (currElem instanceof Convergence) {
+			Convergence currNode = (Convergence) currElem;
+			if (!currNode.hasBeenTraversed()) {
+				Decision tempDecision = stackOfJudgment.pop();
+				currNode.setDirectJudgment(tempDecision);
+				tempDecision.setDirectConvergence(currNode);
+				currNode.setNodeCode(tempDecision.getNodeCode());
+			} else {
+				return;
+			}
+		}
 	}
-	
+
+	/**
+	 * Recode do-while. When first enter, the first parameter is the first node
+	 * in do-while and the second is null.
+	 * 
+	 * @param currNode
+	 * @param currCode
+	 */
 	public final void recode(FlowChartElement currNode, NodeCode currCode) {
 		
 	}

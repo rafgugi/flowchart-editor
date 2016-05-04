@@ -124,4 +124,12 @@ public class Process extends Rectangle implements IDiagramElement, FlowChartElem
 		doWhileNode = (Decision) node;
 	}
 
+	@Override
+	public void prepare() {
+		setType(null);
+		setNodeCode(null);
+		setDoWhileCounter(0);
+		setRecodeDoWhileCounter(0);
+	}
+
 }

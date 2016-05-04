@@ -53,6 +53,11 @@ public interface FlowChartElement {
 	 */
 	public void traverse();
 
+	/**
+	 * Prepare element before used in a set of algorithm.
+	 */
+	public void prepare();
+
 	public int getDoWhileCounter();
 	public void setDoWhileCounter(int counter);
 	

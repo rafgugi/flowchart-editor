@@ -65,6 +65,7 @@ public abstract class ATool extends ToolItem
 
 	protected void setToolName(String toolName) {
 		this.toolName = toolName;
+		super.setToolTipText(getToolName());
 	}
 
 	@Override

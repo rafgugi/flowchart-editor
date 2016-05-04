@@ -21,6 +21,8 @@ public class Convergence extends Ellipse implements IDiagramElement, FlowChartEl
 	private int recodeDoWhile;
 	private Decision doWhileNode;
 
+	private Decision directJudgment;
+
 	public static final int FIX_DIAMETER = 12;
 
 	public Convergence() {
@@ -133,6 +135,23 @@ public class Convergence extends Ellipse implements IDiagramElement, FlowChartEl
 	@Override
 	public void setDoWhileNode(FlowChartElement node) {
 		doWhileNode = (Decision) node;
+	}
+
+	public Decision getDirectJudgment() {
+		return directJudgment;
+	}
+
+	public void setDirectJudgment(Decision directJudgment) {
+		this.directJudgment = directJudgment;
+	}
+
+	@Override
+	public void prepare() {
+		setType(null);
+		setNodeCode(null);
+		setDoWhileCounter(0);
+		setRecodeDoWhileCounter(0);
+		setDirectJudgment(null);
 	}
 
 }

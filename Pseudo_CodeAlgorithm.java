@@ -73,7 +73,7 @@ CodeAlgorithm(Node Father, Node CurrentNode, String CurrentCode)
                     Father.type = 'do-while';
                     CurrentNode.doWhileCounter++; /* original value is zero */
                     Father.doWhileNode=CurrentNode;
-                    Father. doWhileCounter= CurrentNode.doWhileCounter;
+                    Father.doWhileCounter= CurrentNode.doWhileCounter;
                     /*used for recode*/
                     CurrentNode.doWhileRecodeCounter=CurrentNode.doWhileCounter;
                 }

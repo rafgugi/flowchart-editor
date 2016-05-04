@@ -128,4 +128,12 @@ public class Terminator extends RoundedRectangle implements IDiagramElement, Flo
 		doWhileNode = (Decision) node;
 	}
 
+	@Override
+	public void prepare() {
+		setType(null);
+		setNodeCode(null);
+		setDoWhileCounter(0);
+		setRecodeDoWhileCounter(0);
+	}
+
 }
