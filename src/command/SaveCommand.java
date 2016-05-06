@@ -32,22 +32,22 @@ public class SaveCommand implements ICommand {
 			System.out.println(obj);
 		}
 
-        FileDialog fd = new FileDialog(MainWindow.getInstance(), SWT.SAVE);
-        fd.setText("Save");
+		FileDialog fd = new FileDialog(MainWindow.getInstance(), SWT.SAVE);
+		fd.setText("Save");
 
-        String[] filterExt = {"*.json", "*.*"};
-        fd.setFilterExtensions(filterExt);
-        String selected = fd.open();
-        if (selected != null) {
-            PrintWriter writer;
-    		try {
-    			writer = new PrintWriter(selected, "UTF-8");
-    	        writer.print(retval);
-    	        writer.close();
-    		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-    			e.printStackTrace();
-    		}
-        }
+		String[] filterExt = {"*.json", "*.*"};
+		fd.setFilterExtensions(filterExt);
+		String selected = fd.open();
+		if (selected != null) {
+			PrintWriter writer;
+			try {
+				writer = new PrintWriter(selected, "UTF-8");
+				writer.print(retval);
+				writer.close();
+			} catch (FileNotFoundException | UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	public void nyobaktok() {

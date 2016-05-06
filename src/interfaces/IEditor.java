@@ -19,8 +19,7 @@ public interface IEditor extends IWidget {
 	/**
 	 * Create a default tab.
 	 *
-	 * @param tab
-	 *            name
+	 * @param tab name
 	 */
 	public void newSubEditor(String title);
 
@@ -53,8 +52,7 @@ public interface IEditor extends IWidget {
 	/**
 	 * Set active tool.
 	 *
-	 * @param active
-	 *            tool
+	 * @param active tool
 	 */
 	public void setActiveTool(ITool tool);
 

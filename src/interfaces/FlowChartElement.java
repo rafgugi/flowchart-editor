@@ -17,8 +17,7 @@ public interface FlowChartElement {
 	/**
 	 * Set the current node code.
 	 * 
-	 * @param Node
-	 *            code
+	 * @param Node code
 	 */
 	public void setNodeCode(NodeCode code);
 

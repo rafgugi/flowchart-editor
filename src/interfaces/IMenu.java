@@ -18,8 +18,7 @@ public interface IMenu extends IWidget {
 	/**
 	 * Set the menu title (or name).
 	 *
-	 * @param Menu
-	 *            title
+	 * @param title
 	 */
 	public void setTitle(String name);
 

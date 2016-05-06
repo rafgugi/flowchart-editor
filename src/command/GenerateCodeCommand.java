@@ -80,7 +80,7 @@ public class GenerateCodeCommand implements ICommand {
 	 * @param current node
 	 * @param current code
 	 */
-	public final void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, NodeCode currCode) {
+	public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, NodeCode currCode) {
 		System.out.println("codeAlgorithm:");
 		System.out.println("    " + father);
 		System.out.println("    " + currElem);
@@ -183,7 +183,7 @@ public class GenerateCodeCommand implements ICommand {
 	 * @param currNode
 	 * @param currCode
 	 */
-	public final void recode(FlowChartElement currNode, NodeCode currCode) {
+	public void recode(FlowChartElement currNode, NodeCode currCode) {
 		System.out.println("recode:");
 		System.out.println("    " + currNode);
 		System.out.println("    " + currCode);
