@@ -34,6 +34,14 @@ public class Terminator extends RoundedRectangle implements IDiagramElement, Flo
 	}
 
 	@Override
+	public void select() {
+		super.select();
+		System.out.println("Select " + this);
+		System.out.println("Type: " + getType());
+		System.out.println("Node Code:" + getNodeCode());
+	}
+
+	@Override
 	public void action() {
 		new TerminatorProperty(this).show();
 	}

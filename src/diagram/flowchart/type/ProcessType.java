@@ -1,8 +1,6 @@
 package diagram.flowchart.type;
 
-import interfaces.IType;
-
-public class ProcessType implements IType {
+public class ProcessType extends AType {
 
 	private static ProcessType instance;
 

@@ -29,6 +29,14 @@ public class Process extends Rectangle implements IDiagramElement, FlowChartElem
 	}
 
 	@Override
+	public void select() {
+		super.select();
+		System.out.println("Select " + this);
+		System.out.println("Type: " + getType());
+		System.out.println("Node Code:" + getNodeCode());
+	}
+
+	@Override
 	public void action() {
 		ProcessProperty prop = new ProcessProperty(this);
 		prop.show();

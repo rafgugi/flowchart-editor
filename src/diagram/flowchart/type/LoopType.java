@@ -1,8 +1,6 @@
 package diagram.flowchart.type;
 
-import interfaces.IType;
-
-public class LoopType implements IType {
+public class LoopType extends AType {
 
 	private static LoopType instance;
 

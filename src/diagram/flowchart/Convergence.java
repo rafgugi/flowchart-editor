@@ -32,14 +32,22 @@ public class Convergence extends Ellipse implements IDiagramElement, FlowChartEl
 		super(src, dst);
 	}
 
-	@Override
-	public void setWidth(int h) {
-		super.setWidth(FIX_DIAMETER);
-	}
+//	@Override
+//	public void setWidth(int h) {
+//		super.setWidth(FIX_DIAMETER);
+//	}
+//
+//	@Override
+//	public void setHeight(int h) {
+//		super.setHeight(FIX_DIAMETER);
+//	}
 
 	@Override
-	public void setHeight(int h) {
-		super.setHeight(FIX_DIAMETER);
+	public void select() {
+		super.select();
+		System.out.println("Select " + this);
+		System.out.println("Type: " + getType());
+		System.out.println("Node Code:" + getNodeCode());
 	}
 
 	@Override

@@ -166,10 +166,12 @@ public class GenerateCodeCommand implements ICommand {
 			if (!currNode.hasBeenTraversed()) { /* [13] */
 				/* as a judgment and a convergence is exist geminate, so the top
 				 * judgment in stack must be able to match the current convergence */
-				Decision tempDecision = stackOfJudgment.pop();
-				currNode.setDirectJudgment(tempDecision);
-				tempDecision.setDirectConvergence(currNode);
-				currNode.setNodeCode(tempDecision.getNodeCode());
+				if (currNode.getDirectJudgment() == null) {
+					Decision tempDecision = stackOfJudgment.pop();
+					currNode.setDirectJudgment(tempDecision);
+					tempDecision.setDirectConvergence(currNode);
+					currNode.setNodeCode(tempDecision.getNodeCode());
+				}
 			} else {
 				return; /* [14] */
 			}

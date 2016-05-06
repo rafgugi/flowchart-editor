@@ -1,8 +1,6 @@
 package diagram.flowchart.type;
 
-import interfaces.IType;
-
-public class SelectionType implements IType {
+public class SelectionType extends AType {
 
 	private static SelectionType instance;
 

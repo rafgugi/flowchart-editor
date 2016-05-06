@@ -20,7 +20,7 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 	private boolean tranversed;
 	private int doWhile;
 	private int recodeDoWhile;
-	private Decision doWhileNode;
+	private FlowChartElement doWhileNode;
 
 	private Convergence directConvergence;
 
@@ -29,6 +29,14 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 
 	public Decision(Point src, Point dst) {
 		super(src, dst);
+	}
+
+	@Override
+	public void select() {
+		super.select();
+		System.out.println("Select " + this);
+		System.out.println("Type: " + getType());
+		System.out.println("Node Code:" + getNodeCode());
 	}
 
 	@Override
@@ -120,7 +128,7 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 
 	@Override
 	public void setDoWhileNode(FlowChartElement node) {
-		doWhileNode = (Decision) node;
+		doWhileNode = node;
 	}
 
 	public Convergence getDirectConvergence() {
