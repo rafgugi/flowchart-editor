@@ -91,6 +91,7 @@ public class GenerateCodeCommand implements ICommand {
 		}
 		if (currElem instanceof Process) { /* [1] */
 			Process currNode = (Process) currElem;
+			/* Generate the code for CurrentNode */
 			currNode.setNodeCode(currCode); /* [1-1] */
 			NodeCode codeOfSon = currCode.createSibling();
 			if (!currNode.hasBeenTraversed()) {
@@ -98,9 +99,11 @@ public class GenerateCodeCommand implements ICommand {
 				FlowChartElement son = (FlowChartElement) currNode.getFlow().getDstElement();
 				codeAlgorithm(currNode, son, codeOfSon); /* [2] */
 			} else {
+				/* Father is recognized as a do-while structure, mark the Judgment and
+				 * link it with his Father, include do-while and nested do-while */
 				if (father instanceof Decision && father.getType() == null) { /* [3] */
 					father.setType(DoWhileType.get());
-					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
+					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1); // original value is zero
 					father.setDoWhileNode(currNode);
 					father.setDoWhileCounter(currNode.getDoWhileCounter());
 					/* used for recode ??? */
@@ -129,13 +132,17 @@ public class GenerateCodeCommand implements ICommand {
 				for (Convergence convergenceson : convergenceSons) {
 					codeAlgorithm(currNode, convergenceson, null); /* [8] */
 				}
+				/* loop structures have been recognized, the left is selections */
 				if (currNode.getType() == null) {
+					/* according to the condition of judgment, the detailed 
+					 * structures of if-else/if/case can be recognized also. */
 					currNode.setType(SelectionType.get());
 				}
-				// /*Continue to process the nodes behind Convergence. */
-				// CurrentNode=CurrentNode.directJudgmentNode;
-				// CodeofSon = Increase YY of CurrentCode by one
-				// CodeAlgorithm(CurrentNode, CurrentNode.Son, CodeofSon); [9]
+				/* Continue to process the nodes behind Convergence. */
+				Convergence conv = currNode.getDirectConvergence();
+				NodeCode sonCode = currCode.createSibling();
+				FlowChartElement sonNode = (FlowChartElement) conv.getFlow().getDstElement();
+				codeAlgorithm(conv, sonNode, sonCode); /* [9] */
 			} else {
 				if (currNode.getType() == null) { /* [10] */
 					currNode.setType(WhileType.get());
@@ -155,7 +162,10 @@ public class GenerateCodeCommand implements ICommand {
 		}
 		if (currElem instanceof Convergence) {
 			Convergence currNode = (Convergence) currElem;
+			/* match a judgment node and a convergence node */
 			if (!currNode.hasBeenTraversed()) { /* [13] */
+				/* as a judgment and a convergence is exist geminate, so the top
+				 * judgment in stack must be able to match the current convergence */
 				Decision tempDecision = stackOfJudgment.pop();
 				currNode.setDirectJudgment(tempDecision);
 				tempDecision.setDirectConvergence(currNode);
