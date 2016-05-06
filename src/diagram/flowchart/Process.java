@@ -132,4 +132,13 @@ public class Process extends Rectangle implements IDiagramElement, FlowChartElem
 		setRecodeDoWhileCounter(0);
 	}
 
+	@Override
+	public String getText() {
+		String ans = super.getText();
+		if (getNodeCode() != null) {
+			ans += " " + getNodeCode();
+		}
+		return ans;
+	}
+
 }

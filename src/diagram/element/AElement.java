@@ -114,7 +114,7 @@ public abstract class AElement implements IElement {
 
 	@Override
 	public String toString() {
-		return "[" + getId() + "] " + getClass().getName();
+		return "[" + getId().getLeastSignificantBits() + "] " + getClass().getName();
 	}
 
 }

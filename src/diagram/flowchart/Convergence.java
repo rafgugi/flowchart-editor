@@ -23,7 +23,7 @@ public class Convergence extends Ellipse implements IDiagramElement, FlowChartEl
 
 	private Decision directJudgment;
 
-	public static final int FIX_DIAMETER = 12;
+	public static final int FIX_DIAMETER = 15;
 
 	public Convergence() {
 	}
@@ -137,10 +137,20 @@ public class Convergence extends Ellipse implements IDiagramElement, FlowChartEl
 		doWhileNode = (Decision) node;
 	}
 
+	/**
+	 * Get the judgment pair of this.
+	 * 
+	 * @return judgment
+	 */
 	public Decision getDirectJudgment() {
 		return directJudgment;
 	}
 
+	/**
+	 * Set the judgment pair.
+	 * 
+	 * @param judgment
+	 */
 	public void setDirectJudgment(Decision directJudgment) {
 		this.directJudgment = directJudgment;
 	}
@@ -152,6 +162,15 @@ public class Convergence extends Ellipse implements IDiagramElement, FlowChartEl
 		setDoWhileCounter(0);
 		setRecodeDoWhileCounter(0);
 		setDirectJudgment(null);
+	}
+
+	@Override
+	public String getText() {
+		String ans = super.getText();
+		if (getNodeCode() != null) {
+			ans += " " + getNodeCode();
+		}
+		return ans;
 	}
 
 }

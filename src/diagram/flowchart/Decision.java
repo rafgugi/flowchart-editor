@@ -140,4 +140,13 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 		setDirectConvergence(null);
 	}
 
+	@Override
+	public String getText() {
+		String ans = super.getText();
+		if (getNodeCode() != null) {
+			ans += " " + getNodeCode();
+		}
+		return ans;
+	}
+
 }
