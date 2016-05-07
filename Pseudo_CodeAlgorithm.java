@@ -1,7 +1,7 @@
 /***************************************************************************
-Function：Generate a code for every node according to the coding strategy.
-Input：All the nodes of flowchart.
-Output：The flowchart coded
+Function: Generate a code for every node according to the coding strategy.
+Input: All the nodes of flowchart.
+Output: The flowchart coded
 ****************************************************************************/
 Stack StackofJudgement(Judgment); /* the elements of this stack is a Judgment, used to match Judgment and its convergnece */
 Node root; /*root is Begin node, its code is 0000, so the code of first node is 0001*/
