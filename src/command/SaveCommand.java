@@ -3,7 +3,6 @@ package command;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
@@ -20,28 +19,31 @@ public class SaveCommand implements ICommand {
 
 	@Override
 	public void execute() {
-		ISubEditor s = MainWindow.getInstance().getEditor().getActiveSubEditor();
-		List<IElement> elements = s.getElements();
-
-		JSONObject retval = new JSONObject();
-		for (IElement i : elements) {
-			AEditable elem = (AEditable) i;
-			JSONObject obj = elem.jsonEncode();
-			retval.append("elements", obj);
-
-			System.out.println(obj);
-		}
-
 		FileDialog fd = new FileDialog(MainWindow.getInstance(), SWT.SAVE);
 		fd.setText("Save");
 
 		String[] filterExt = {"*.json", "*.*"};
 		fd.setFilterExtensions(filterExt);
-		String selected = fd.open();
-		if (selected != null) {
+		String filename = fd.open();
+
+		if (filename != null) {
+			/* Begin encoding the elements */
+			ISubEditor s = MainWindow.getInstance().getEditor().getActiveSubEditor();
+			List<IElement> elements = s.getElements();
+
+			JSONObject retval = new JSONObject();
+			for (IElement i : elements) {
+				AEditable elem = (AEditable) i;
+				JSONObject obj = elem.jsonEncode();
+				retval.append("elements", obj);
+
+				System.out.println(obj);
+			}
+
+			MainWindow.getInstance().setStatus("Save file " + filename);
 			PrintWriter writer;
 			try {
-				writer = new PrintWriter(selected, "UTF-8");
+				writer = new PrintWriter(filename, "UTF-8");
 				writer.print(retval);
 				writer.close();
 			} catch (FileNotFoundException | UnsupportedEncodingException e) {
@@ -50,18 +52,4 @@ public class SaveCommand implements ICommand {
 		}
 	}
 
-	public void nyobaktok() {
-		JSONObject obj = new JSONObject();
-		String className = obj.getClass().getName();
-		JSONObject o = null;
-		try {
-			o = (JSONObject) Class.forName(className).getConstructor().newInstance();
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException 
-				| InvocationTargetException | NoSuchMethodException 
-				| SecurityException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		o.append("key1", "value1");
-		System.out.println(o);
-	}
 }

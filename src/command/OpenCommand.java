@@ -27,6 +27,10 @@ public class OpenCommand implements ICommand {
 		String[] filterExt = { "*.json", "*.*" };
 		fd.setFilterExtensions(filterExt);
 		String filename = fd.open();
+		if (filename == null) {
+			return;
+		}
+		MainWindow.getInstance().setStatus("Open file " + filename);
 		String json = null;
 
 		try {

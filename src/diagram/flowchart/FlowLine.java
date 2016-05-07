@@ -1,11 +1,11 @@
 package diagram.flowchart;
 
-import diagram.element.Line;
+import diagram.element.PolyLine;
 import diagram.element.TwoDimensional;
 import interfaces.IDiagramElement;
 import widget.window.property.FlowLineProperty;
 
-public class FlowLine extends Line implements IDiagramElement {
+public class FlowLine extends PolyLine implements IDiagramElement {
 
 	public FlowLine() {
 	}

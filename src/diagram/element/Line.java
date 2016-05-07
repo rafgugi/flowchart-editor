@@ -25,6 +25,7 @@ public class Line extends AEditable {
 	public static final int NOT_CONNECTED = 0;
 	public static final int CONNECTED_SRC = 1;
 	public static final int CONNECTED_DST = 2;
+	public static final int CONNECTED_BOTH = 3;
 
 	public static final String NONE = "";
 	public static final String YES = "Y";
@@ -54,41 +55,38 @@ public class Line extends AEditable {
 
 			int[] points = { dstx, dsty, x1, y1, x2, y2 };
 			gc.fillPolygon(points);
-			gc.drawPolygon(points);	
+			gc.drawPolygon(points);
 		}
 	}
 
-	@Override
-	public void renderNormal() {
-		GC gc = new GC(getCanvas());
-		Color black = new Color(gc.getDevice(), 0, 0, 0);
-		Color white = new Color(gc.getDevice(), 255, 255, 255);
-		gc.setForeground(black);
-		gc.setBackground(black);
-
+	protected void generateSrcDstPoints() {
 		ArrayList<Point> srcPoints;
 		srcPoints = new ArrayList<>();
-		srcPoints.add(new Point(srcElement.getX() + srcElement.getWidth() / 2, srcElement.getY()));
-		srcPoints.add(new Point(srcElement.getX(), srcElement.getY() + srcElement.getHeight() / 2));
-		srcPoints.add(
-				new Point(srcElement.getX() + srcElement.getWidth() / 2, srcElement.getY() + srcElement.getHeight()));
-		srcPoints.add(
-				new Point(srcElement.getX() + srcElement.getWidth(), srcElement.getY() + srcElement.getHeight() / 2));
+		int srcx = getSrcElement().getX();
+		int srcy = getSrcElement().getY();
+		int srcw = getSrcElement().getWidth();
+		int srch = getSrcElement().getHeight();
+		srcPoints.add(new Point(srcx + srcw / 2, srcy));
+		srcPoints.add(new Point(srcx, srcy + srch / 2));
+		srcPoints.add(new Point(srcx + srcw / 2, srcy + srch));
+		srcPoints.add(new Point(srcx + srcw, srcy + srch / 2));
 
 		ArrayList<Point> dstPoints;
 		dstPoints = new ArrayList<>();
-		dstPoints.add(new Point(dstElement.getX() + dstElement.getWidth() / 2, dstElement.getY()));
-		dstPoints.add(new Point(dstElement.getX(), dstElement.getY() + dstElement.getHeight() / 2));
-		dstPoints.add(
-				new Point(dstElement.getX() + dstElement.getWidth() / 2, dstElement.getY() + dstElement.getHeight()));
-		dstPoints.add(
-				new Point(dstElement.getX() + dstElement.getWidth(), dstElement.getY() + dstElement.getHeight() / 2));
+		int dstx = getDstElement().getX();
+		int dsty = getDstElement().getY();
+		int dstw = getDstElement().getWidth();
+		int dsth = getDstElement().getHeight();
+		dstPoints.add(new Point(dstx + dstw / 2, dsty));
+		dstPoints.add(new Point(dstx, dsty + dsth / 2));
+		dstPoints.add(new Point(dstx + dstw / 2, dsty + dsth));
+		dstPoints.add(new Point(dstx + dstw, dsty + dsth / 2));
 
 		double min = Double.MAX_VALUE;
-		int srcx = 0;
-		int srcy = 0;
-		int dstx = 0;
-		int dsty = 0;
+		srcx = 0;
+		srcy = 0;
+		dstx = 0;
+		dsty = 0;
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
@@ -110,6 +108,18 @@ public class Line extends AEditable {
 		setSrcy(srcy);
 		setDstx(dstx);
 		setDsty(dsty);
+	}
+
+	@Override
+	public void renderNormal() {
+		GC gc = new GC(getCanvas());
+		Color black = new Color(gc.getDevice(), 0, 0, 0);
+		Color white = new Color(gc.getDevice(), 255, 255, 255);
+		gc.setForeground(black);
+		gc.setBackground(black);
+
+		generateSrcDstPoints();
+		draw(gc, getSrcx(), getSrcy(), getDstx(), getDsty(), true);
 
 		/* Determine max text width from each line */
 		String[] lines = text.split("\r\n|\r|\n");
@@ -122,20 +132,28 @@ public class Line extends AEditable {
 		/* Determine text height of lines */
 		int textHeight = gc.stringExtent(text).y * lines.length;
 
-		draw(gc, getSrcx(), getSrcy(), getDstx(), getDsty(), true);
 		gc.setBackground(white);
 		String temp = text;
 		if (!temp.equals("")) {
 			temp = " " + temp + " ";
 		}
-		gc.drawText(temp, (getSrcx() + getDstx()) / 2 - textWidth / 2, (getSrcy() + getDsty()) / 2 - textHeight / 2);
+		int middlex = (getSrcx() + getDstx()) / 2;
+		int middley = (getSrcy() + getDsty()) / 2;
+		gc.drawText(temp, middlex - textWidth / 2, middley - textHeight / 2);
 
 		gc.dispose();
 	}
 
 	@Override
+	public void renderEdit() {
+		createEditPoints();
+		super.renderEdit();
+	}
+	
+	@Override
 	public IElement checkBoundary(int x, int y) {
-		return null;
+		IElement retval = super.checkBoundary(x, y);
+		return retval;
 	}
 
 	@Override
@@ -198,6 +216,9 @@ public class Line extends AEditable {
 	}
 
 	public int checkConnected(TwoDimensional element) {
+		if (srcElement == dstElement) {
+			return CONNECTED_BOTH;
+		}
 		if (srcElement == element) {
 			return CONNECTED_SRC;
 		}

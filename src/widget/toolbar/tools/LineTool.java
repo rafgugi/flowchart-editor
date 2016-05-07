@@ -101,7 +101,7 @@ public class LineTool extends ATool {
 				MainWindow.getInstance().setStatus(ex.getMessage());
 			} finally {
 				if (flowLine == null) {
-					
+					// jika gagal maka ngapain?
 				}
 			}
 		} catch (CreateElementException ex) {

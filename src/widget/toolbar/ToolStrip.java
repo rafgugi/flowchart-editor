@@ -37,7 +37,7 @@ public class ToolStrip extends ToolBar implements IToolStrip {
 		addTool(new ProcessTool(this));
 		addTool(new DecisionTool(this));
 		addTool(new ConvergenceTool(this));
-		addTool(new LineTool(this));
+		// addTool(new LineTool(this));
 		addTool(new PolylineTool(this));
 		
 		tools.get(0);

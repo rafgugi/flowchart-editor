@@ -186,7 +186,6 @@ public abstract class TwoDimensional extends AEditable {
 
 	@Override
 	public void drag(int x1, int y1, int x2, int y2, IElement e) {
-		System.out.println("resize");
 		if (e instanceof EditPoint) {
 			switch (((EditPoint) e).getCode()) {
 			case EditPoint.TOP_LEFT:
