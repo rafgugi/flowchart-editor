@@ -5,11 +5,10 @@ import java.util.ArrayList;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import interfaces.IElement;
-import interfaces.ISubEditor;
-import widget.window.MainWindow;
 
 public class PolyLine extends Line {
 
@@ -163,21 +162,26 @@ public class PolyLine extends Line {
 	@Override
 	public JSONObject jsonEncode() {
 		JSONObject obj = super.jsonEncode();
-		obj.put("text", getText());
-		obj.put("src", getSrcElement().getId());
-		obj.put("dst", getDstElement().getId());
+		JSONArray elbows = new JSONArray();
+		for (Point elbow : this.elbows) {
+			JSONObject temp = new JSONObject();
+			temp.put("x", elbow.x);
+			temp.put("y", elbow.y);
+			elbows.put(temp);
+		}
+		obj.put("elbows", elbows);
 		return obj;
 	}
 
 	@Override
 	public void jsonDecode(JSONObject obj) {
 		super.jsonDecode(obj);
-		ISubEditor se = MainWindow.getInstance().getEditor().getActiveSubEditor();
-		IElement src = se.getElement(obj.getString("src"));
-		IElement dst = se.getElement(obj.getString("dst"));
-		setSrcElement((TwoDimensional) src);
-		setDstElement((TwoDimensional) dst);
-		setText(obj.getString("text"));
+		JSONArray elbows = obj.getJSONArray("elbows");
+		for (int i = 0; i < elbows.length(); i++) {
+			JSONObject elbow = elbows.getJSONObject(i);
+			Point p = new Point(elbow.getInt("x"), elbow.getInt("y"));
+			addElbow(p);
+		}
 	}
 
 	@Override

@@ -207,11 +207,6 @@ public class Line extends AEditable {
 	}
 
 	@Override
-	public void drag(int x1, int y1, int x2, int y2) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public void drag(int x1, int y1, int x2, int y2, IElement e) {
 	}
 
