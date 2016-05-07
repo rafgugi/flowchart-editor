@@ -7,9 +7,9 @@ User can make flowchart, then user convert flowchart into sourcecode using Probl
 | Data persistence (Save & Open) | Ok
 | Flowchart validation | Progress
 | Generate a code for every node | Progress
-| Convert coded flowchart into PAD | Belum
-| Convert PAD into raw sourcecode | Belum
-| Convert raw sourcecode into compilable code  | Belum
+| Convert coded flowchart into PAD | Not yet
+| Convert PAD into raw sourcecode | Not yet
+| Convert raw sourcecode into compilable code  | Not yet
 
 ## Preparing
 - [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
