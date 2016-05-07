@@ -1,24 +1,28 @@
 ## Objectives
+User can make flowchart, then user convert flowchart into sourcecode using Problem Analysis Diagram approach.
 
-|Fungsional | Status
+| Functional | Status
 |---|---
-| Dapat membuat flowchart (flowchart editor) | Ok
-| Dapat menyimpan dan membuka flowchart | Ok
-| Dapat memvalidasi flowchart | Progress
-| Memberi kode untuk setiap elemen flowchart | Progress
-| Mengubah flowchart yang sudah diberi kode menjadi PAD | Belum
-| Mengubah PAD menjadi sourcecode (RAW) | Belum
-| Mengubah sourcecode (RAW) menjadi sourcecode (compilable)  | Belum
+| Flowchart Editor | Ok
+| Data persistence (Save & Open) | Ok
+| Flowchart validation | Progress
+| Generate a code for every node | Progress
+| Convert coded flowchart into PAD | Not yet
+| Convert PAD into raw sourcecode | Not yet
+| Convert raw sourcecode into compilable code  | Not yet
 
-## Persiapan
+## Preparing
 - [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 - [Eclipse for Java developers](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-- pastikan [java.eclipse.swt](https://www.eclipse.org/swt/eclipse.php) terinclude ke dalam project ini.
+- Make sure [java.eclipse.swt](https://www.eclipse.org/swt/eclipse.php) included into this project
 
-## Cara baru
-- Buka Eclipse
+## Another nice way to clone this project
+- Open Eclipse
 - File -> import
-- Pilih Git, lalu Next
-- Pilih sendiri semaumu. Terakhir aku coba, aku clone project manual dulu, trus pilih Existing local repository
-- Pilih project
+- Choose Git, then Next
+- Choose either from url or from local git repository
+- Choose project
 - Import using the New Project Wizard
+
+## Note
+If you want to contribute into this project, I am glad to receive your email. Please send to risyanggi@gmail.com. You can fork this project and reqeust for pull requests.
