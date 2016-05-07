@@ -4,6 +4,7 @@ import org.eclipse.swt.graphics.Point;
 
 import diagram.element.Ellipse;
 import diagram.element.Line;
+import diagram.flowchart.type.ProcessType;
 import exception.CreateElementException;
 import interfaces.FlowChartElement;
 import interfaces.IDiagramElement;
@@ -170,6 +171,7 @@ public class Convergence extends Ellipse implements IDiagramElement, FlowChartEl
 		setDoWhileCounter(0);
 		setRecodeDoWhileCounter(0);
 		setDirectJudgment(null);
+		setType(ProcessType.get());
 	}
 
 	@Override

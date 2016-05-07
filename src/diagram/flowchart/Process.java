@@ -4,6 +4,7 @@ import org.eclipse.swt.graphics.Point;
 
 import diagram.element.Line;
 import diagram.element.Rectangle;
+import diagram.flowchart.type.ProcessType;
 import exception.CreateElementException;
 import interfaces.FlowChartElement;
 import interfaces.IDiagramElement;
@@ -138,6 +139,7 @@ public class Process extends Rectangle implements IDiagramElement, FlowChartElem
 		setNodeCode(null);
 		setDoWhileCounter(0);
 		setRecodeDoWhileCounter(0);
+		setType(ProcessType.get());
 	}
 
 	@Override

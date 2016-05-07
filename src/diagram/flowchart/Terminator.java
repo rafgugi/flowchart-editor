@@ -4,6 +4,7 @@ import org.eclipse.swt.graphics.Point;
 
 import diagram.element.Line;
 import diagram.element.RoundedRectangle;
+import diagram.flowchart.type.TerminatorType;
 import exception.CreateElementException;
 import interfaces.FlowChartElement;
 import interfaces.IDiagramElement;
@@ -142,6 +143,7 @@ public class Terminator extends RoundedRectangle implements IDiagramElement, Flo
 		setNodeCode(null);
 		setDoWhileCounter(0);
 		setRecodeDoWhileCounter(0);
+		setType(TerminatorType.get());
 	}
 
 }

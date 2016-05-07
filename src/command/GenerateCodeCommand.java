@@ -117,6 +117,7 @@ public class GenerateCodeCommand implements ICommand {
 		if (currElem instanceof Decision) { /* [5] */
 			Decision currNode = (Decision) currElem;
 			if (!currNode.hasBeenTraversed()) { /* [5-2] */
+				currNode.traverse();
 				currNode.setNodeCode(currCode); /* [5-1] */
 				stackOfJudgment.push(currNode); /* [6] */
 
@@ -164,6 +165,7 @@ public class GenerateCodeCommand implements ICommand {
 			Convergence currNode = (Convergence) currElem;
 			/* match a judgment node and a convergence node */
 			if (!currNode.hasBeenTraversed()) { /* [13] */
+				currNode.traverse();
 				/* as a judgment and a convergence is exist geminate, so the top
 				 * judgment in stack must be able to match the current convergence */
 				if (currNode.getDirectJudgment() == null) {
