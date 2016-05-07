@@ -68,6 +68,24 @@ public class PolyLine extends Line {
 	}
 
 	@Override
+	public IElement checkBoundary(int x, int y) {
+		IElement retval = super.checkBoundary(x, y);
+		if (retval == null || retval instanceof AEditable) {
+			Point temp = new Point(getSrcx(), getSrcy());
+			for (Point elbow : elbows) {
+				if (checkBoundary(x, y, temp, elbow)) {
+					return this;
+				}
+				temp = elbow;
+			}
+			if (checkBoundary(x, y, temp, new Point(getDstx(), getDsty()))) {
+				return this;
+			}
+		}
+		return retval;
+	}
+
+	@Override
 	protected void generateSrcDstPoints() {
 		if (elbows.isEmpty()) {
 			super.generateSrcDstPoints();

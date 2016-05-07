@@ -149,11 +149,46 @@ public class Line extends AEditable {
 		createEditPoints();
 		super.renderEdit();
 	}
-	
-	@Override
-	public IElement checkBoundary(int x, int y) {
-		IElement retval = super.checkBoundary(x, y);
-		return retval;
+
+	/**
+	 * Check whether (x,y) is inside square p1 and p2
+	 * 
+	 * @param x
+	 * @param y
+	 * @param p1
+	 * @param p2
+	 * @return
+	 */
+	protected boolean checkBoundary(int x, int y, Point p1, Point p2) {
+		int p1x = p1.x;
+		int p1y = p1.y;
+		int p2x = p2.x;
+		int p2y = p2.y;
+
+		if (p1x > p2x) {
+			int temp = p1x;
+			p1x = p2x;
+			p2x = temp;
+		}
+
+		if (p1y > p2y) {
+			int temp = p1y;
+			p1y = p2y;
+			p2y = temp;
+		}
+
+		p1x -= BOUNDARY;
+		p1y -= BOUNDARY;
+		p2x += BOUNDARY;
+		p2y += BOUNDARY;
+
+		if (x < p1x || x > p2x) {
+			return false;
+		}
+		if (y < p1y || y > p2y) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
