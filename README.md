@@ -1,6 +1,3 @@
-## Note
-If you want to contribute into this project, I am glad to receive your email. Please send to risyanggi@gmail.com. You can fork this project and reqeust for pull requests.
-
 ## Objectives
 User can make flowchart, then user convert flowchart into sourcecode using Problem Analysis Diagram approach.
 
@@ -26,3 +23,6 @@ User can make flowchart, then user convert flowchart into sourcecode using Probl
 - Choose either from url or from local git repository
 - Choose project
 - Import using the New Project Wizard
+
+## Note
+If you want to contribute into this project, I am glad to receive your email. Please send to risyanggi@gmail.com. You can fork this project and reqeust for pull requests.
