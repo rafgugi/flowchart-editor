@@ -1,3 +1,6 @@
+## Note
+If you want to contribute into this project, I am glad to receive your email. Please send to risyanggi@gmail.com. You can fork this project and reqeust for pull requests.
+
 ## Objectives
 
 |Fungsional | Status
