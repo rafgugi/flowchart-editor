@@ -14,6 +14,7 @@ import diagram.element.TwoDimensional;
 import diagram.flowchart.*;
 import diagram.flowchart.Process;
 import diagram.flowchart.type.*;
+import exception.GenerateCodeException;
 import interfaces.FlowChartElement;
 import interfaces.ICommand;
 import interfaces.IElement;
@@ -70,7 +71,14 @@ public class GenerateCodeCommand implements ICommand {
 		/* Begin code flowchartElement, send father, his son, and new code */
 		TwoDimensional father = (TwoDimensional) currentElem;
 		TwoDimensional son = father.getChildren().get(0);
-		codeAlgorithm((FlowChartElement) father, (FlowChartElement) son, new NodeCode());
+		try {
+			codeAlgorithm((FlowChartElement) father, (FlowChartElement) son, new NodeCode());
+		} catch (GenerateCodeException ex) {
+			System.out.println(" Error: ");
+			System.out.println(ex.getMessage());
+		}
+		MainWindow.getInstance().getEditor().getActiveSubEditor().clearCanvas();
+		MainWindow.getInstance().getEditor().getActiveSubEditor().draw();
 	}
 
 	/**
@@ -169,6 +177,9 @@ public class GenerateCodeCommand implements ICommand {
 				/* as a judgment and a convergence is exist geminate, so the top
 				 * judgment in stack must be able to match the current convergence */
 				if (currNode.getDirectJudgment() == null) {
+					if (stackOfJudgment.isEmpty()) {
+						throw new GenerateCodeException("Empty stackOfJudgment.");
+					}
 					Decision tempDecision = stackOfJudgment.pop();
 					currNode.setDirectJudgment(tempDecision);
 					tempDecision.setDirectConvergence(currNode);
@@ -188,6 +199,8 @@ public class GenerateCodeCommand implements ICommand {
 	 * @param currCode
 	 */
 	public void recode(FlowChartElement currNode, NodeCode currCode) {
+		if (currNode instanceof IElement)
+			throw new GenerateCodeException("Break Point!");
 		System.out.println("recode:");
 		System.out.println("    " + currNode);
 		System.out.println("    " + currCode);
@@ -196,12 +209,17 @@ public class GenerateCodeCommand implements ICommand {
 			if (currNode.getType() instanceof LoopType) {
 				stackOfLoopReturn.push(currNode); /* [R2] */
 			} else { /* [R3] */
+				if (stackOfLoopReturn.isEmpty()) {
+					throw new GenerateCodeException("Empty stackOfLoopReturn.");
+				}
 				stackOfLoopReturn.pop();
 				return;
 			}
 		}
 		if (currCode != null) {
 			currNode.setNodeCode(currCode); /* [R4] */
+		} else {
+			currCode = currNode.getNodeCode().createChild();// cobacobacoba
 		}
 		if (currNode.getRecodeDoWhileCounter() > 0) {
 			/* [R5] ??????????? */
@@ -211,6 +229,7 @@ public class GenerateCodeCommand implements ICommand {
 				(father).setDoWhileCounter(currNode.getRecodeDoWhileCounter());
 				(father).setDoWhileNode(currNode);
 				currNode.setDoWhileCounter(currNode.getDoWhileCounter() - 1);
+				/* Let the code of father be the code of CurrentNode */
 				recode(father, currNode.getNodeCode()); /* [R6] */
 			}
 			if (currNode.getRecodeDoWhileCounter() == 0) { /* [R7] */
@@ -234,6 +253,7 @@ public class GenerateCodeCommand implements ICommand {
 		} else if (currNode.getType() instanceof LoopType) { /* [R11] */
 			Decision specific = (Decision) currNode;
 			NodeCode newCode = currCode.createChild();
+			/* CurrentNode.son is not the convergence */
 			recode(currNode, newCode); /* [R11-1] */
 			if (stackOfLoopReturn.isEmpty()) {
 				return; // return to codealgorithm /* [R13] */
