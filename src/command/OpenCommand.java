@@ -44,16 +44,19 @@ public class OpenCommand implements ICommand {
 			System.out.println(e.getMessage());
 		}
 		if (json != null) {
+			boolean success = false;
 			try {
 				JSONObject obj = new JSONObject(json);
-				try {
-					int index = filename.lastIndexOf(File.separator) + 1;
-					beginDecoding(obj, filename.substring(index));
-				} catch (PersistenceException e) {
-					MainWindow.getInstance().setStatus(e.getMessage());
-				}
+				int index = filename.lastIndexOf(File.separator) + 1;
+
+				beginDecoding(obj, filename.substring(index));
+				success = true;
 			} catch (JSONException e) {
-				MainWindow.getInstance().setStatus("Wrong JSON file.");
+				throw new PersistenceException("Wrong JSON file.");
+			} finally {
+				if (!success) {
+					new CloseTabCommand().execute();
+				}
 			}
 		}
 	}
@@ -71,7 +74,7 @@ public class OpenCommand implements ICommand {
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 					| InvocationTargetException | NoSuchMethodException | SecurityException
 					| ClassNotFoundException e) {
-				e.printStackTrace();
+				throw new PersistenceException("Create element: " + e.getMessage());
 			}
 			if (elem == null) {
 				throw new PersistenceException("Wrong JSON format: wrong class name.");

@@ -184,10 +184,20 @@ public class SubEditor extends TabItem
 		return ans;
 	}
 
+	/**
+	 * Get GC for drawing.
+	 * 
+	 * @return GC
+	 */
 	public GC getGC() {
 		return new GC(getCanvas());
 	}
 
+	/**
+	 * Get canvas for drawing.
+	 * 
+	 * @return canvas
+	 */
 	public Canvas getCanvas() {
 		return canvas;
 	}

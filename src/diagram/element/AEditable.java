@@ -58,10 +58,20 @@ public abstract class AEditable extends AElement implements IEditableElement {
 		select();
 	}
 
-	public void addEditPoint(EditPoint e) {
-		editPoints.add(e);
+	/**
+	 * Add edit point for this element.
+	 * 
+	 * @param editPoint
+	 */
+	public void addEditPoint(EditPoint editPoint) {
+		editPoints.add(editPoint);
 	}
 
+	/**
+	 * Create edit point based on this element type.
+	 * 
+	 * @param points
+	 */
 	public void createEditPoints(ArrayList<Point> points) {
 		for (int i = 0; i < points.size(); i++) {
 			Point point = points.get(i);

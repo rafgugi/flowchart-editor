@@ -35,10 +35,20 @@ public abstract class AMenuItem extends MenuItem implements IMenuItem, Listener 
 		this.name = name;
 	}
 
+	/**
+	 * Create shortcut, ctrl + shortcut.
+	 * 
+	 * @param shortcut
+	 */
 	protected void setShortcut(char shortcut) {
 		super.setAccelerator(SWT.MOD1 + shortcut);
 	}
 
+	/**
+	 * Create shortcut, from SWT.
+	 * 
+	 * @param shortcut
+	 */
 	protected void setShortcut(int shortcut) {
 		super.setAccelerator(shortcut);
 	}

@@ -14,6 +14,7 @@ public class EditPoint extends AElement {
 	public static final int LENGTH = 5;
 	protected int code;
 
+	/* Two dimensional */
 	public static final int TOP_LEFT = 0;
 	public static final int TOP_MIDDLE = 1;
 	public static final int TOP_RIGHT = 2;
@@ -23,6 +24,7 @@ public class EditPoint extends AElement {
 	public static final int BOTTOM_LEFT = 6;
 	public static final int MIDDLE_LEFT = 7;
 
+	/* Line */
 	public static final int BEGIN = 0;
 	public static final int END = 1;
 
@@ -33,6 +35,11 @@ public class EditPoint extends AElement {
 		this.code = code;
 	}
 
+	/**
+	 * Get parent element which this belongs to.
+	 * 
+	 * @return element
+	 */
 	public IElement getParent() {
 		return element;
 	}
@@ -42,18 +49,41 @@ public class EditPoint extends AElement {
 		return "EditPoint for (" + getParent().toString() + ")[" + code + "]";
 	}
 
+	/**
+	 * Get code of this edit point. Code is constantly generated on create, based
+	 * on parent element type, defining which edit point according to the parent
+	 * element.
+	 * 
+	 * @return code
+	 */
 	public int getCode() {
 		return code;
 	}
 
+	/**
+	 * Set x value.
+	 * 
+	 * @param x
+	 */
 	public void setX(int x) {
 		this.x = x;
 	}
 
+	/**
+	 * Set y value.
+	 * 
+	 * @param y
+	 */
 	public void setY(int y) {
 		this.y = y;
 	}
 
+	/**
+	 * Set x and y.
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void setPoint(int x, int y) {
 		setX(x);
 		setY(y);

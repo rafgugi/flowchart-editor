@@ -10,6 +10,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.json.JSONObject;
 
 import diagram.element.AEditable;
+import exception.PersistenceException;
 import interfaces.ICommand;
 import interfaces.IElement;
 import interfaces.ISubEditor;
@@ -22,7 +23,7 @@ public class SaveCommand implements ICommand {
 		FileDialog fd = new FileDialog(MainWindow.getInstance(), SWT.SAVE);
 		fd.setText("Save");
 
-		String[] filterExt = {"*.json", "*.*"};
+		String[] filterExt = { "*.json", "*.*" };
 		fd.setFilterExtensions(filterExt);
 		String filename = fd.open();
 
@@ -47,7 +48,7 @@ public class SaveCommand implements ICommand {
 				writer.print(retval);
 				writer.close();
 			} catch (FileNotFoundException | UnsupportedEncodingException e) {
-				e.printStackTrace();
+				throw new PersistenceException("Writing file: " + e.getMessage());
 			}
 		}
 	}

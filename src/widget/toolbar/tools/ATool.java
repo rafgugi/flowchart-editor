@@ -45,6 +45,9 @@ public abstract class ATool extends ToolItem
 		generateIcon();
 	}
 
+	/**
+	 * Generate icon for this tool.
+	 */
 	protected void generateIcon() {
 		if (getIconFolder() == null || getIconName() == null) {
 			throw new NullPointerException();
@@ -63,6 +66,11 @@ public abstract class ATool extends ToolItem
 		return toolName;
 	}
 
+	/**
+	 * Set the tool name.
+	 * 
+	 * @param toolName
+	 */
 	protected void setToolName(String toolName) {
 		this.toolName = toolName;
 		super.setToolTipText(getToolName());
@@ -77,18 +85,38 @@ public abstract class ATool extends ToolItem
 		MainWindow.getInstance().setStatus(getToolName());
 	}
 
+	/**
+	 * Get icon file name.
+	 * 
+	 * @return filename
+	 */
 	protected String getIconName() {
 		return iconName;
 	}
 
+	/**
+	 * Set icon file name.
+	 * 
+	 * @param filename
+	 */
 	protected void setIconName(String iconName) {
 		this.iconName = iconName;
 	}
 
+	/**
+	 * Get icons directory.
+	 * 
+	 * @return directory
+	 */
 	protected String getIconFolder() {
 		return iconFolder;
 	}
 
+	/**
+	 * Set icons directory.
+	 * 
+	 * @param directory
+	 */
 	protected void setIconFolder(String iconFolder) {
 		this.iconFolder = iconFolder;
 	}
@@ -122,26 +150,11 @@ public abstract class ATool extends ToolItem
 	}
 
 	@Override
-	public void mouseDown(MouseEvent e) {
-		// System.out.println("Unimplemented mouseDown \n(" + e.toString() +
-		// ")");
-	}
-
-	@Override
-	public void mouseUp(MouseEvent e) {
-		// System.out.println("Unimplemented mouseUp \n(" + e.toString() + ")");
-	}
-
-	@Override
 	public void dragDetected(DragDetectEvent e) {
-		// System.out.println("Unimplemented dragDetected \n(" + e.toString() +
-		// ")");
 	}
 
 	@Override
 	public void mouseMove(MouseEvent e) {
-		// System.out.println("Unimplemented mouseMove \n(" + e.toString() +
-		// ")");
 	}
 
 	protected ISubEditor getActiveSubEditor() {

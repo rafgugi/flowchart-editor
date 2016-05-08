@@ -91,10 +91,20 @@ public abstract class AElement implements IElement {
 		return id;
 	}
 
+	/**
+	 * Set id.
+	 * 
+	 * @param id
+	 */
 	private void setId(UUID id) {
 		this.id = id;
 	}
 
+	/**
+	 * Set id.
+	 * 
+	 * @param id
+	 */
 	private void setId(String id) {
 		setId(UUID.fromString(id));
 	}

@@ -213,10 +213,20 @@ public class Line extends AEditable {
 		return this;
 	}
 
+	/**
+	 * Get source element.
+	 * 
+	 * @return source element
+	 */
 	public TwoDimensional getSrcElement() {
 		return srcElement;
 	}
 
+	/**
+	 * Set source element.
+	 * 
+	 * @param source element
+	 */
 	public void setSrcElement(TwoDimensional element) {
 		if (srcElement != null) {
 			disconnect(srcElement);
@@ -227,10 +237,20 @@ public class Line extends AEditable {
 		element.connect(this);
 	}
 
+	/**
+	 * Get destination element.
+	 * 
+	 * @return destination element
+	 */
 	public TwoDimensional getDstElement() {
 		return dstElement;
 	}
 
+	/**
+	 * Set destination element.
+	 * 
+	 * @param destination element
+	 */
 	public void setDstElement(TwoDimensional element) {
 		if (dstElement != null) {
 			disconnect(dstElement);
@@ -245,6 +265,16 @@ public class Line extends AEditable {
 	public void drag(int x1, int y1, int x2, int y2, IElement e) {
 	}
 
+	/**
+	 * Check connection status of an element. Return connection status constant.
+	 *    CONNECTED_BOTH if the element is both as source and destination.
+	 *    CONNECTED_SRC if the element is as source of the line.
+	 *    CONNECTED_DST if the element is as destination of the line.
+	 *    NOT_CONNECTED if the element is not connected to the line.
+	 * 
+	 * @param element
+	 * @return
+	 */
 	public int checkConnected(TwoDimensional element) {
 		if (srcElement == dstElement) {
 			return CONNECTED_BOTH;
@@ -258,42 +288,92 @@ public class Line extends AEditable {
 		return NOT_CONNECTED;
 	}
 
+	/**
+	 * Get src x
+	 *
+	 * @return srcx
+	 */
 	public int getSrcx() {
 		return srcx;
 	}
 
+	/**
+	 * Set src x
+	 *
+	 * @param srcx
+	 */
 	public void setSrcx(int srcx) {
 		this.srcx = srcx;
 	}
 
+	/**
+	 * Get src y
+	 *
+	 * @return srcy
+	 */
 	public int getSrcy() {
 		return srcy;
 	}
 
+	/**
+	 * Set src y
+	 *
+	 * @param srcy
+	 */
 	public void setSrcy(int srcy) {
 		this.srcy = srcy;
 	}
 
+	/**
+	 * Get dst x
+	 *
+	 * @return dstx
+	 */
 	public int getDstx() {
 		return dstx;
 	}
 
+	/**
+	 * Set dst x
+	 *
+	 * @param dstx
+	 */
 	public void setDstx(int dstx) {
 		this.dstx = dstx;
 	}
 
+	/**
+	 * Get dst y
+	 *
+	 * @return dsty
+	 */
 	public int getDsty() {
 		return dsty;
 	}
 
+	/**
+	 * Set dst y
+	 *
+	 * @param dsty
+	 */
 	public void setDsty(int dsty) {
 		this.dsty = dsty;
 	}
 
+	/**
+	 * Get text value.
+	 *
+	 * @return text
+	 */
 	public String getText() {
 		return text;
 	}
 
+	/**
+	 * Set text value.
+	 * 
+	 * @param text
+	 */
 	public void setText(String text) {
 		this.text = text;
 	}

@@ -110,26 +110,56 @@ public abstract class TwoDimensional extends AEditable {
 		return this;
 	}
 
+	/**
+	 * Get x value.
+	 *
+	 * @return x
+	 */
 	public int getX() {
 		return x;
 	}
 
+	/**
+	 * Set x value.
+	 *
+	 * @param x
+	 */
 	public void setX(int x) {
 		this.x = x;
 	}
 
+	/**
+	 * Get y value.
+	 *
+	 * @return y
+	 */
 	public int getY() {
 		return y;
 	}
 
+	/**
+	 * Set y value.
+	 *
+	 * @param y
+	 */
 	public void setY(int y) {
 		this.y = y;
 	}
 
+	/**
+	 * Get width value.
+	 *
+	 * @return width
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * Set width value.
+	 *
+	 * @param width
+	 */
 	public void setWidth(int width) {
 		if (width < 10) {
 			width = 10;
@@ -137,10 +167,20 @@ public abstract class TwoDimensional extends AEditable {
 		this.width = width;
 	}
 
+	/**
+	 * Get height value.
+	 *
+	 * @return height
+	 */
 	public int getHeight() {
 		return height;
 	}
 
+	/**
+	 * Set height value.
+	 *
+	 * @param height
+	 */
 	public void setHeight(int height) {
 		if (height < 10) {
 			height = 10;
@@ -148,19 +188,43 @@ public abstract class TwoDimensional extends AEditable {
 		this.height = height;
 	}
 
+	/**
+	 * Get text value.
+	 *
+	 * @return text
+	 */
 	public String getText() {
 		return text;
 	}
 
+	/**
+	 * Set text value.
+	 * 
+	 * @param text
+	 */
 	public void setText(String text) {
 		this.text = text;
 	}
 
+	/**
+	 * Set x and y value.
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void setLocation(int x, int y) {
 		setX(x);
 		setY(y);
 	}
 
+	/**
+	 * Set x, y, width, and height value from two point square.
+	 * 
+	 * @param x1
+	 * @param y1
+	 * @param x2
+	 * @param y2
+	 */
 	public void setBoundary(int x1, int y1, int x2, int y2) {
 		if (x1 > x2) {
 			setBoundary(x2, y1, x1, y2);
@@ -257,6 +321,11 @@ public abstract class TwoDimensional extends AEditable {
 		setText(obj.getString("text"));
 	}
 
+	/**
+	 * Get children, destination of the outgoing flows.
+	 * 
+	 * @return children
+	 */
 	public ArrayList<TwoDimensional> getChildren() {
 		ArrayList<TwoDimensional> children = new ArrayList<>();
 		for (IElement elem : getConnectedElements()) {
@@ -268,6 +337,11 @@ public abstract class TwoDimensional extends AEditable {
 		return children;
 	}
 
+	/**
+	 * Get parents, source of the incoming flows.
+	 * 
+	 * @return parents
+	 */
 	public ArrayList<TwoDimensional> getParents() {
 		ArrayList<TwoDimensional> parents = new ArrayList<>();
 		for (IElement elem : getConnectedElements()) {

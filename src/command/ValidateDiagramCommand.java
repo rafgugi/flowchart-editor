@@ -3,9 +3,6 @@ package command;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.MessageBox;
-
 import diagram.flowchart.Terminator;
 import interfaces.ICommand;
 import interfaces.IElement;
@@ -123,19 +120,11 @@ public class ValidateDiagramCommand implements ICommand {
 	public void showMessage() {
 		for (int i = 0; i < MAX_ERROR_KINDS; i++) {
 			if (errors[i]) {
-				MessageBox dialog = new MessageBox(MainWindow.getInstance(), SWT.OK);
-				dialog.setText("Validation");
-				dialog.setMessage("Validation fails");
-
-				dialog.open();
+				MainWindow.getInstance().setStatus("Validation fails");
 				return;
 			}
 		}
-		MessageBox dialog = new MessageBox(MainWindow.getInstance(), SWT.OK);
-		dialog.setText("Validation");
-		dialog.setMessage("Validation success");
-
-		dialog.open();
+		MainWindow.getInstance().setStatus("Validation success");
 	}
 
 	public boolean isError() {

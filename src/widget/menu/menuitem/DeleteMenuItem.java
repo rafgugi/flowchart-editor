@@ -1,5 +1,7 @@
 package widget.menu.menuitem;
 
+import org.eclipse.swt.SWT;
+
 import command.DeleteElementsCommand;
 import widget.menu.AMenu;
 
@@ -11,8 +13,8 @@ public class DeleteMenuItem extends AMenuItem {
 
 	@Override
 	public void initialize() {
-		setTitle("&Delete\tCtrl+D");
-		super.setShortcut('D');
+		setTitle("&Delete\tdel");
+		super.setShortcut((int) SWT.DEL);
 	}
 
 	@Override
