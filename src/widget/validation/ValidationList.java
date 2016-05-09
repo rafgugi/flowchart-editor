@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.List;
 
 import interfaces.IValidationItem;
 import interfaces.IValidationList;
+import main.Main;
 
 public class ValidationList extends List implements IValidationList, SelectionListener {
 
@@ -79,7 +80,7 @@ public class ValidationList extends List implements IValidationList, SelectionLi
 			return;
 		}
 		IValidationItem item = validationItems.get(i);
-		System.out.println(item.getTitle());
+		Main.log(item.getTitle());
 		item.action();
 		// this.removeItem(item);
 	}

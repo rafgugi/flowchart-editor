@@ -15,6 +15,7 @@ import exception.PersistenceException;
 import interfaces.ICommand;
 import interfaces.IElement;
 import interfaces.ISubEditor;
+import main.Main;
 import widget.window.MainWindow;
 
 public class OpenCommand implements ICommand {
@@ -41,7 +42,7 @@ public class OpenCommand implements ICommand {
 			}
 			reader.close();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			Main.log(e.getMessage());
 		}
 		if (json != null) {
 			boolean success = false;

@@ -20,6 +20,17 @@ public class Process extends FlowChartDecorator implements IDiagramElement {
 	}
 
 	@Override
+	public void select() {
+		super.select();
+		Main.log("Select " + this);
+		Main.log("Type: " + getType());
+		Main.log("Node Code:" + getNodeCode());
+		Main.log("DoWhile:" + getDoWhileCounter());
+		Main.log("RecodeDoWhile:" + getRecodeDoWhileCounter());
+		Main.log("Traversed:" + (hasBeenTraversed() ? "true" : "false"));
+	}
+
+	@Override
 	public void action() {
 		ProcessProperty prop = new ProcessProperty(this);
 		prop.show();

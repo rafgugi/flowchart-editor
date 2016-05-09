@@ -9,6 +9,7 @@ import interfaces.IElement;
 import interfaces.ISubEditor;
 import interfaces.IValidationItem;
 import interfaces.IValidationList;
+import main.Main;
 import widget.window.MainWindow;
 
 public class ValidateDiagramCommand implements ICommand {
@@ -112,7 +113,7 @@ public class ValidateDiagramCommand implements ICommand {
 		}
 
 		for (int i = 0; i < MAX_ERROR_KINDS; i++) {
-			System.out.println(i + (errors[i] ? " true" : " false"));
+			Main.log(i + (errors[i] ? " true" : " false"));
 		}
 		showMessage();
 	}

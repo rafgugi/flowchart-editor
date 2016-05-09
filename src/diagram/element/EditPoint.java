@@ -5,6 +5,7 @@ import org.eclipse.swt.graphics.GC;
 import org.json.JSONObject;
 
 import interfaces.IElement;
+import main.Main;
 
 public class EditPoint extends AElement {
 
@@ -127,7 +128,7 @@ public class EditPoint extends AElement {
 		if (y < this.y - LENGTH / 2 || y > this.y + LENGTH / 2) {
 			return null;
 		}
-		System.out.println("Get editpoint [" + getCode() + "]");
+		Main.log("Get editpoint [" + getCode() + "]");
 		return this;
 	}
 
@@ -138,7 +139,7 @@ public class EditPoint extends AElement {
 
 	@Override
 	public void drag(int x1, int y1, int x2, int y2) {
-		System.out.println("Drag by editpoint [" + getCode() + "]");
+		Main.log("Drag by editpoint [" + getCode() + "]");
 		element.drag(x1, y1, x2, y2, this);
 	}
 

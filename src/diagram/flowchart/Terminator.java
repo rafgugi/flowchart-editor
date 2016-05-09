@@ -26,9 +26,9 @@ public class Terminator extends FlowChartDecorator implements IDiagramElement {
 	@Override
 	public void select() {
 		super.select();
-		System.out.println("Select " + this);
-		System.out.println("Type: " + getType());
-		System.out.println("Node Code:" + getNodeCode());
+		Main.log("Select " + this);
+		Main.log("Type: " + getType());
+		Main.log("Node Code:" + getNodeCode());
 	}
 
 	@Override

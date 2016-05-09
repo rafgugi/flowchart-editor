@@ -28,7 +28,7 @@ public abstract class AEditable extends AElement implements IEditableElement {
 		if (!isActive()) {
 			return;
 		}
-		// System.out.println("Deselect " + this.toString());
+		// Main.log("Deselect " + this.toString());
 		editPoints.clear();
 		super.deselect();
 	}

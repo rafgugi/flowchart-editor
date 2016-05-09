@@ -22,7 +22,7 @@ Recode(Node CurrentNode, String CurrentCode)
     if(CurrentNode.doWhileRecodeCounter>0)
     {
         [R5]
-        Get a father (as tfather) of CurrentNode , and meet:
+        Get a father (as tfather) of CurrentNode , where:
         (tfather.doWhileCounter= doWhileRecodeCounter
             and tfather.doWhileNode=CurrentNode);
         CurrentNode.doWhileRecodeCounter--;

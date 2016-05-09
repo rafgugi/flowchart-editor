@@ -9,6 +9,7 @@ import diagram.element.Diamond;
 import diagram.flowchart.Decision;
 import exception.CreateElementException;
 import interfaces.IElement;
+import main.Main;
 import widget.tab.SubEditor;
 import widget.toolbar.ToolStrip;
 
@@ -65,7 +66,7 @@ public class DecisionTool extends ATool {
 			rect.select();
 			getActiveSubEditor().draw();
 		} catch (CreateElementException ex) {
-			System.out.println(ex.getMessage());
+			Main.log(ex.getMessage());
 		}
 		isDrag = false;
 		downTemp = null;

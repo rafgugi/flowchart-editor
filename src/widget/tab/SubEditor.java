@@ -17,6 +17,7 @@ import exception.ElementNotFoundException;
 import exception.FlowchartEditorException;
 import interfaces.IElement;
 import interfaces.ISubEditor;
+import main.Main;
 import widget.window.MainWindow;
 
 import org.eclipse.swt.events.MouseMoveListener;
@@ -74,14 +75,14 @@ public class SubEditor extends TabItem
 
 	@Override
 	public void addElement(IElement element) {
-		System.out.println("Add " + element.toString());
+		Main.log("Add " + element.toString());
 		elements.add(element);
 		draw();
 	}
 
 	@Override
 	public void removeElement(IElement element) {
-		System.out.println("Remove " + element.toString());
+		Main.log("Remove " + element.toString());
 		for (IElement conn : element.getConnectedElements()) {
 			try {
 				conn.disconnect(element);
@@ -102,7 +103,7 @@ public class SubEditor extends TabItem
 				retval = ans;
 			}
 		}
-		// System.out.println("Dapet elemen " + retval);
+		// Main.log("Dapet elemen " + retval);
 		return retval;
 	}
 
