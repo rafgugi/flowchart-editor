@@ -28,7 +28,6 @@ public class Main {
 			System.out.println("Can not create log file.");
 			return;
 		}
-		log("first log");
 		MainWindow window = MainWindow.getInstance();
 		window.pack();
 		window.show();
