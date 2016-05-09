@@ -6,6 +6,7 @@ import diagram.flowchart.type.ProcessType;
 import interfaces.FlowChartElement;
 import interfaces.IDiagramElement;
 import interfaces.IType;
+import main.Main;
 
 public abstract class FlowChartDecorator extends TwoDimensionalDecorator implements FlowChartElement, IDiagramElement {
 
@@ -102,9 +103,9 @@ public abstract class FlowChartDecorator extends TwoDimensionalDecorator impleme
 	@Override
 	public void select() {
 		super.select();
-		System.out.println("Select " + this);
-		System.out.println("Type: " + getType());
-		System.out.println("Node Code:" + getNodeCode());
+		Main.log("Select " + this);
+		Main.log("Type: " + getType());
+		Main.log("Node Code:" + getNodeCode());
 	}
 
 }
