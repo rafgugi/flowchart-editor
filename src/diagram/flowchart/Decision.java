@@ -2,33 +2,23 @@ package diagram.flowchart;
 
 import java.util.ArrayList;
 
-import org.eclipse.swt.graphics.Point;
-
-import diagram.element.Diamond;
 import diagram.element.Line;
-import interfaces.FlowChartElement;
+import diagram.element.TwoDimensional;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
-import interfaces.IType;
 import widget.window.property.ProcessProperty;
 
-public class Decision extends Diamond implements IDiagramElement, FlowChartElement {
+public class Decision extends FlowChartDecorator implements IDiagramElement {
 
 	private ArrayList<FlowLine> flows = new ArrayList<>();
-	private NodeCode nodeCode;
-	private IType type;
-	private boolean tranversed;
-	private int doWhile;
-	private int recodeDoWhile;
-	private FlowChartElement doWhileNode;
 
 	private Convergence directConvergence;
 
 	public Decision() {
 	}
 
-	public Decision(Point src, Point dst) {
-		super(src, dst);
+	public Decision(TwoDimensional component) {
+		super(component);
 	}
 
 	@Override
@@ -66,71 +56,6 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 		return flows;
 	}
 
-	@Override
-	public NodeCode getNodeCode() {
-		return nodeCode;
-	}
-
-	@Override
-	public void setNodeCode(NodeCode code) {
-		this.nodeCode = code;
-	}
-
-	@Override
-	public IType getType() {
-		return type;
-	}
-
-	@Override
-	public void setType(IType type) {
-		this.type = type;
-	}
-
-	@Override
-	public boolean hasBeenTraversed() {
-		return tranversed;
-	}
-
-	@Override
-	public void resetTraversed() {
-		tranversed = false;
-	}
-
-	@Override
-	public void traverse() {
-		tranversed = true;
-	}
-
-	@Override
-	public int getDoWhileCounter() {
-		return doWhile;
-	}
-
-	@Override
-	public void setDoWhileCounter(int counter) {
-		doWhile = counter;
-	}
-
-	@Override
-	public int getRecodeDoWhileCounter() {
-		return recodeDoWhile;
-	}
-
-	@Override
-	public void setRecodeDoWhileCounter(int counter) {
-		recodeDoWhile = counter;
-	}
-
-	@Override
-	public FlowChartElement getDoWhileNode() {
-		return doWhileNode;
-	}
-
-	@Override
-	public void setDoWhileNode(FlowChartElement node) {
-		doWhileNode = node;
-	}
-
 	public Convergence getDirectConvergence() {
 		return directConvergence;
 	}
@@ -141,10 +66,7 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 
 	@Override
 	public void prepare() {
-		setType(null);
-		setNodeCode(null);
-		setDoWhileCounter(0);
-		setRecodeDoWhileCounter(0);
+		super.prepare();
 		setDirectConvergence(null);
 	}
 

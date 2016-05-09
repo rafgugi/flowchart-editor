@@ -26,7 +26,7 @@ public class Rectangle extends TwoDimensional {
 		gc.setForeground(black);
 		gc.setBackground(white);
 
-		draw(gc, getX(), getY(), getWidth(), getHeight());
+		Rectangle.draw(gc, getX(), getY(), getWidth(), getHeight());
 		TwoDimensional.drawText(gc, getText(), this);
 
 		gc.dispose();

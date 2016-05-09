@@ -60,7 +60,7 @@ public class ProcessTool extends ATool {
 			}
 			Point src = new Point(downTemp.x, downTemp.y);
 			Point dst = new Point(e.x, e.y);
-			IElement rect = new Process(src, dst);
+			IElement rect = new Process(new Rectangle(src, dst));
 			getActiveSubEditor().addElement(rect);
 			rect.select();
 			getActiveSubEditor().draw();

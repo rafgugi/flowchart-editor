@@ -60,7 +60,7 @@ public class DecisionTool extends ATool {
 			}
 			Point src = new Point(downTemp.x, downTemp.y);
 			Point dst = new Point(e.x, e.y);
-			IElement rect = new Decision(src, dst);
+			IElement rect = new Decision(new Diamond(src, dst));
 			getActiveSubEditor().addElement(rect);
 			rect.select();
 			getActiveSubEditor().draw();
