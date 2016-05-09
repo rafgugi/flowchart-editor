@@ -16,7 +16,8 @@ public class Main {
 	private static void prepareLog() throws FileNotFoundException, UnsupportedEncodingException {
 		String filename = new Date().getTime() + ".txt";
 		String log_path = LOG_PATH + '/' + filename;
-		log_path = log_path.replaceAll("/", File.separator);
+		log_path = log_path.replace('/', File.separatorChar);
+		System.out.println(log_path);
 		writer = new PrintWriter(log_path, "UTF-8");
 	}
 
