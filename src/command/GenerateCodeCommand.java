@@ -18,6 +18,7 @@ import exception.GenerateCodeException;
 import interfaces.FlowChartElement;
 import interfaces.ICommand;
 import interfaces.IElement;
+import main.Main;
 import widget.window.MainWindow;
 
 public class GenerateCodeCommand implements ICommand {
@@ -30,7 +31,7 @@ public class GenerateCodeCommand implements ICommand {
 		ValidateDiagramCommand validator = new ValidateDiagramCommand();
 		validator.execute();
 		if (validator.isError()) {
-			System.out.println("Masih Error");
+			Main.log("Masih Error");
 			return;
 		}
 		if (validator instanceof IElement) { // always fail
@@ -38,7 +39,7 @@ public class GenerateCodeCommand implements ICommand {
 			dialog.setFilterNames(new String[] { "*.txt", "*.*" });
 			dialog.setFileName("output.txt");
 			String filepath = dialog.open();
-			System.out.println("Save to " + filepath);
+			Main.log("Save to " + filepath);
 
 			PrintWriter writer;
 			try {
@@ -75,8 +76,8 @@ public class GenerateCodeCommand implements ICommand {
 			father.setNodeCode(new NodeCode());
 			codeAlgorithm(father, son, father.getNodeCode().createSibling());
 		} catch (GenerateCodeException ex) {
-			System.out.println(" Error: ");
-			System.out.println(ex.getMessage());
+			Main.log(" Error: ");
+			Main.log(ex.getMessage());
 		}
 		MainWindow.getInstance().getEditor().getActiveSubEditor().clearCanvas();
 		MainWindow.getInstance().getEditor().getActiveSubEditor().draw();
@@ -90,33 +91,33 @@ public class GenerateCodeCommand implements ICommand {
 	 * @param current code
 	 */
 	public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, NodeCode currCode) {
-		System.out.println("codeAlgorithm:");
-		System.out.println("\t" + father);
-		System.out.println("\t" + currElem);
-		System.out.println("\t" + currCode);
+		Main.log("codeAlgorithm:");
+		Main.log("\t" + father);
+		Main.log("\t" + currElem);
+		Main.log("\t" + currCode);
 
 		if (currElem instanceof Terminator) {
-			System.out.println("\t\t<15>");
-			System.out.println("return");
+			Main.log("\t\t<15>");
+			Main.log("return");
 			return; // exit point of recursion /* [15] */
 		}
 		if (currElem instanceof Process) { /* [1] */
-			System.out.println("\t\t<1>");
+			Main.log("\t\t<1>");
 			Process currNode = (Process) currElem;
 			/* Generate the code for CurrentNode */
-			System.out.println("\t\t<1-1>");
+			Main.log("\t\t<1-1>");
 			currNode.setNodeCode(currCode); /* [1-1] */
 			NodeCode codeOfSon = currCode.createSibling();
 			if (!currNode.hasBeenTraversed()) {
 				currNode.traverse();
 				FlowChartElement son = (FlowChartElement) currNode.getFlow().getDstElement();
-				System.out.println("\t\t<2>");
+				Main.log("\t\t<2>");
 				codeAlgorithm(currNode, son, codeOfSon); /* [2] */
 			} else {
 				/* Father is recognized as a do-while structure, mark the Judgment and
 				 * link it with his Father, include do-while and nested do-while */
 				if (father instanceof Decision && father.getType() == null) { /* [3] */
-					System.out.println("\t\t<3>");
+					Main.log("\t\t<3>");
 					father.setType(DoWhileType.get());
 					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1); // original value is zero
 					father.setDoWhileNode(currNode);
@@ -125,36 +126,36 @@ public class GenerateCodeCommand implements ICommand {
 					currNode.setDoWhileCounter(currNode.getDoWhileCounter());
 				}
 				if (currNode.getDoWhileCounter() > 0) {
-					System.out.println("\t\t<4>");
+					Main.log("\t\t<4>");
 					recode(currNode, null); /* [4] */
 				}
 			}
 		}
 		if (currElem instanceof Decision) { /* [5] */
-			System.out.println("\t\t<5>");
+			Main.log("\t\t<5>");
 			Decision currNode = (Decision) currElem;
 			if (!currNode.hasBeenTraversed()) { /* [5-2] */
-				System.out.println("\t\t<5-2>");
+				Main.log("\t\t<5-2>");
 				currNode.traverse();
-				System.out.println("\t\t<5-1>");
+				Main.log("\t\t<5-1>");
 				currNode.setNodeCode(currCode); /* [5-1] */
-				System.out.println("\t\t<6>");
+				Main.log("\t\t<6>");
 				stackOfJudgment.push(currNode); /* [6] */
 
 				ArrayList<Convergence> convergenceSons = new ArrayList<>();
-				System.out.println("\t\t<7>");
+				Main.log("\t\t<7>");
 				for (TwoDimensional son : currNode.getChildren()) { /* [7] */
 					if (son instanceof Convergence) {
 						convergenceSons.add((Convergence) son);
 						continue;
 					}
 					NodeCode sonCode = currCode.createChild();
-					System.out.println("\t\t<7-1>");
+					Main.log("\t\t<7-1>");
 					codeAlgorithm(currNode, (FlowChartElement) son, sonCode); /* [7-1] */
 				}
 				for (Convergence convergenceson : convergenceSons) { /* [7-2] */
-					System.out.println("\t\t<7-2>");
-					System.out.println("\t\t<8>");
+					Main.log("\t\t<7-2>");
+					Main.log("\t\t<8>");
 					codeAlgorithm(currNode, convergenceson, null); /* [8] */
 				}
 				/* loop structures have been recognized, the left is selections */
@@ -167,18 +168,18 @@ public class GenerateCodeCommand implements ICommand {
 				Convergence conv = currNode.getDirectConvergence();
 				NodeCode sonCode = currCode.createSibling();
 				FlowChartElement sonNode = (FlowChartElement) conv.getFlow().getDstElement();
-				System.out.println("\t\t<9>");
+				Main.log("\t\t<9>");
 				codeAlgorithm(conv, sonNode, sonCode); /* [9] */
 			}
 			// been traversed.
 			else {
 				if (currNode.getType() == null) { /* [10] */
-					System.out.println("\t\t<10>");
+					Main.log("\t\t<10>");
 					currNode.setType(WhileType.get());
 				} else {
 					// and been recognized
 					if (father instanceof Decision && father.getType() == null) { /* [11] */
-						System.out.println("\t\t<11>");
+						Main.log("\t\t<11>");
 						father.setType(DoWhileType.get());
 						currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
 						father.setDoWhileNode(currNode);
@@ -186,7 +187,7 @@ public class GenerateCodeCommand implements ICommand {
 						currNode.setRecodeDoWhileCounter(currNode.getDoWhileCounter());
 					}
 					if (currNode.getDoWhileCounter() > 0) {
-						System.out.println("\t\t<12>");
+						Main.log("\t\t<12>");
 						recode(currNode, null); /* [12] */
 					}
 				}
@@ -196,7 +197,7 @@ public class GenerateCodeCommand implements ICommand {
 			Convergence currNode = (Convergence) currElem;
 			/* match a judgment node and a convergence node */
 			if (!currNode.hasBeenTraversed()) { /* [13] */
-				System.out.println("\t\t<13>");
+				Main.log("\t\t<13>");
 				currNode.traverse();
 				/* as a judgment and a convergence is exist geminate, so the top
 				 * judgment in stack must be able to match the current convergence */
@@ -210,12 +211,12 @@ public class GenerateCodeCommand implements ICommand {
 					currNode.setNodeCode(tempDecision.getNodeCode());
 				}
 			} else {
-				System.out.println("\t\t<14>");
-				System.out.println("return");
+				Main.log("\t\t<14>");
+				Main.log("return");
 				return; /* [14] */
 			}
 		}
-		System.out.println("return");
+		Main.log("return");
 	}
 
 	/**
@@ -226,17 +227,17 @@ public class GenerateCodeCommand implements ICommand {
 	 * @param currCode
 	 */
 	public void recode(FlowChartElement currNode, NodeCode currCode) {
-		System.out.println("recode:");
-		System.out.println("    " + currNode);
-		System.out.println("    " + currCode);
+		Main.log("recode:");
+		Main.log("    " + currNode);
+		Main.log("    " + currCode);
 
 		if (currCode != null) { /* [R1] ??????? */
-			System.out.println("\t\t<R1>");
+			Main.log("\t\t<R1>");
 			if (currNode.getType() instanceof LoopType) {
-				System.out.println("\t\t<R2>");
+				Main.log("\t\t<R2>");
 				stackOfLoopReturn.push(currNode); /* [R2] */
 			} else { /* [R3] */
-				System.out.println("\t\t<R3>");
+				Main.log("\t\t<R3>");
 				if (stackOfLoopReturn.isEmpty()) {
 					throw new GenerateCodeException("Empty stackOfLoopReturn.");
 				}
@@ -245,7 +246,7 @@ public class GenerateCodeCommand implements ICommand {
 			}
 		}
 		if (currCode != null) {
-			System.out.println("\t\t<R4>");
+			Main.log("\t\t<R4>");
 			currNode.setNodeCode(currCode); /* [R4] */
 		}
 		/* Ini coba coba aja sumpah. hapus aja klo salah *
@@ -255,7 +256,7 @@ public class GenerateCodeCommand implements ICommand {
 		//*/
 		if (currNode.getRecodeDoWhileCounter() > 0) {
 			/* [R5] ??????????? */
-			System.out.println("\t\t<R5>");
+			Main.log("\t\t<R5>");
 			TwoDimensional currElem = (TwoDimensional) currNode;
 			for (TwoDimensional parent : currElem.getParents()) {
 				FlowChartElement father = (FlowChartElement) parent;
@@ -269,21 +270,21 @@ public class GenerateCodeCommand implements ICommand {
 				(father).setDoWhileNode(currNode);
 				currNode.setDoWhileCounter(currNode.getDoWhileCounter() - 1);
 				/* Let the code of father be the code of CurrentNode */
-				System.out.println("\t\t<R6>");
+				Main.log("\t\t<R6>");
 				recode(father, currNode.getNodeCode()); /* [R6] */
 			}
 			if (currNode.getRecodeDoWhileCounter() == 0) { /* [R7] */
-				System.out.println("\t\t<R7>");
+				Main.log("\t\t<R7>");
 				currNode.setRecodeDoWhileCounter(currNode.getDoWhileCounter());
 			}
 		}
 		if (currNode.getType() instanceof ProcessType) { /* [R8] */
-			System.out.println("\t\t<R8>");
+			Main.log("\t\t<R8>");
 			NodeCode newCode = currCode.createSibling();
 			recode(currNode, newCode); /* [R8-1] */
 		} else if (currNode.getType() instanceof SelectionType) {
 			Decision specific = (Decision) currNode;
-			System.out.println("\t\t<R9>");
+			Main.log("\t\t<R9>");
 			for (TwoDimensional son : specific.getChildren()) { /* [R9] */
 				if (son instanceof Convergence) {
 					continue;
@@ -292,24 +293,24 @@ public class GenerateCodeCommand implements ICommand {
 				recode((FlowChartElement) son, newCode); //?????????
 			}
 			IElement convergSon = specific.getDirectConvergence().getFlow().getDstElement(); 
-			System.out.println("\t\t<R10>");
+			Main.log("\t\t<R10>");
 			recode((FlowChartElement) convergSon, currCode); /* [R10] */
 		} else if (currNode.getType() instanceof LoopType) { /* [R11] */
-			System.out.println("\t\t<R11>");
+			Main.log("\t\t<R11>");
 			Decision specific = (Decision) currNode;
 			NodeCode newCode = currCode.createChild();
 			/* CurrentNode.son is not the convergence */
-			System.out.println("\t\t<R11-1>");
+			Main.log("\t\t<R11-1>");
 			recode(currNode, newCode); /* [R11-1] */
 			if (stackOfLoopReturn.isEmpty()) {
-				System.out.println("\t\t<R13>");
+				Main.log("\t\t<R13>");
 				return; // return to codealgorithm /* [R13] */
 			}
 			newCode = currCode.createSibling();
 			IElement convergSon = specific.getDirectConvergence().getFlow().getDstElement(); 
 			recode((FlowChartElement) convergSon, newCode);
 		} else {
-			System.out.println("\t\t<R12>");
+			Main.log("\t\t<R12>");
 			return; /* [R12] */
 		}
 	}

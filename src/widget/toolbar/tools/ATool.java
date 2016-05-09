@@ -145,7 +145,7 @@ public abstract class ATool extends ToolItem
 
 	@Override
 	public void mouseDoubleClick(MouseEvent e) {
-		// System.out.println("Unimplemented mouseDoubleClick \n(" +
+		// Main.log("Unimplemented mouseDoubleClick \n(" +
 		// e.toString() + ")");
 	}
 

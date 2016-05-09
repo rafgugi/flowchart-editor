@@ -2,6 +2,7 @@ package command;
 
 import diagram.flowchart.NodeCode;
 import interfaces.ICommand;
+import main.Main;
 
 public class PackDiagramCommand implements ICommand {
 
@@ -15,17 +16,17 @@ public class PackDiagramCommand implements ICommand {
 		NodeCode code6 = code2.createChild();
 
 		System.out.print("code1 new NodeCode(): ");
-		System.out.println(code1);
+		Main.log(code1 + "");
 		System.out.print("code2 code1.createChild(): ");
-		System.out.println(code2);
+		Main.log(code2 + "");
 		System.out.print("code3 code2.createSibling(): ");
-		System.out.println(code3);
+		Main.log(code3 + "");
 		System.out.print("code4 code1.createSibling(): ");
-		System.out.println(code4);
+		Main.log(code4 + "");
 		System.out.print("code5 code1.createChild(): ");
-		System.out.println(code5);
+		Main.log(code5 + "");
 		System.out.print("code6 code2.createChild(): ");
-		System.out.println(code6);
+		Main.log(code6 + "");
 	}
 
 }

@@ -10,6 +10,7 @@ import interfaces.FlowChartElement;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
 import interfaces.IType;
+import main.Main;
 import widget.window.property.ProcessProperty;
 
 public class Decision extends Diamond implements IDiagramElement, FlowChartElement {
@@ -34,9 +35,9 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 	@Override
 	public void select() {
 		super.select();
-		System.out.println("Select " + this);
-		System.out.println("Type: " + getType());
-		System.out.println("Node Code:" + getNodeCode());
+		Main.log("Select " + this);
+		Main.log("Type: " + getType());
+		Main.log("Node Code:" + getNodeCode());
 	}
 
 	@Override

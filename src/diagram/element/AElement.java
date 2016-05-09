@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import diagram.state.*;
 import interfaces.IDrawingState;
 import interfaces.IElement;
+import main.Main;
 import widget.tab.SubEditor;
 import widget.window.MainWindow;
 
@@ -33,7 +34,7 @@ public abstract class AElement implements IElement {
 		if (state == EditState.getInstance()) {
 			return;
 		}
-		// System.out.println("Select " + this.toString());
+		// Main.log("Select " + this.toString());
 		state = EditState.getInstance();
 	}
 
@@ -42,7 +43,7 @@ public abstract class AElement implements IElement {
 		if (!isActive()) {
 			return;
 		}
-		// System.out.println("Deselect " + this.toString());
+		// Main.log("Deselect " + this.toString());
 		state = NormalState.getInstance();
 	}
 
@@ -80,9 +81,9 @@ public abstract class AElement implements IElement {
 	@Override
 	public void disconnect(IElement element) {
 		if (!connected.remove(element)) {
-			System.out.println("Element not found when trying to disconnect");
-			System.out.println("    " + this);
-			System.out.println("    " + element);
+			Main.log("Element not found when trying to disconnect");
+			Main.log("    " + this);
+			Main.log("    " + element);
 		}
 	}
 
