@@ -227,6 +227,9 @@ public class GenerateCodeCommand implements ICommand {
 	 * @param currCode
 	 */
 	public void recode(FlowChartElement currNode, NodeCode currCode) {
+		if (currNode instanceof IElement) {
+			throw new GenerateCodeException("fuck it");
+		}
 		Main.log("recode:");
 		Main.log("    " + currNode);
 		Main.log("    " + currCode);
@@ -298,17 +301,29 @@ public class GenerateCodeCommand implements ICommand {
 		} else if (currNode.getType() instanceof LoopType) { /* [R11] */
 			Main.log("\t\t<R11>");
 			Decision specific = (Decision) currNode;
+
+			/* Get son that is not convergence */
+			FlowChartElement notConv = null;
+			for (IElement child : ((TwoDimensional) currNode).getChildren()) {
+				if (!(child instanceof Convergence)) {
+					notConv = (FlowChartElement) child;
+					break;
+				}
+			}
 			NodeCode newCode = currCode.createChild();
-			/* CurrentNode.son is not the convergence */
 			Main.log("\t\t<R11-1>");
-			recode(currNode, newCode); /* [R11-1] */
+			if (notConv == null) {
+				throw new GenerateCodeException("This decision has no normal child");
+			}
+			recode(notConv, newCode); /* [R11-1] */
 			if (stackOfLoopReturn.isEmpty()) {
 				Main.log("\t\t<R13>");
 				return; // return to codealgorithm /* [R13] */
 			}
 			newCode = currCode.createSibling();
 			IElement convergSon = specific.getDirectConvergence().getFlow().getDstElement(); 
-			recode((FlowChartElement) convergSon, newCode);
+			Main.log("\t\t<R11-2>");
+			recode((FlowChartElement) convergSon, newCode); /* [R11-2] */
 		} else {
 			Main.log("\t\t<R12>");
 			return; /* [R12] */

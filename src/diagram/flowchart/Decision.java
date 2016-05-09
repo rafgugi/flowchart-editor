@@ -38,6 +38,9 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 		Main.log("Select " + this);
 		Main.log("Type: " + getType());
 		Main.log("Node Code:" + getNodeCode());
+		Main.log("DoWhile:" + getDoWhileCounter());
+		Main.log("RecodeDoWhile:" + getRecodeDoWhileCounter());
+		Main.log("Traversed:" + (hasBeenTraversed() ? "true" : "false"));
 	}
 
 	@Override
