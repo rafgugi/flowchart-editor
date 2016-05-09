@@ -1,5 +1,6 @@
 package main;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -10,10 +11,13 @@ import widget.window.MainWindow;
 public class Main {
 
 	static PrintWriter writer;
+	static final String LOG_PATH = "log"; // use '/' as file separator
 
 	private static void prepareLog() throws FileNotFoundException, UnsupportedEncodingException {
-		String filename = new Date().getTime() + "";
-		writer = new PrintWriter(filename, "UTF-8");
+		String filename = new Date().getTime() + ".txt";
+		String log_path = LOG_PATH + '/' + filename;
+		log_path = log_path.replaceAll("/", File.separator);
+		writer = new PrintWriter(log_path, "UTF-8");
 	}
 
 	public static void main(String[] args) {
@@ -23,7 +27,7 @@ public class Main {
 			System.out.println("Can not create log file.");
 			return;
 		}
-
+		log("first log");
 		MainWindow window = MainWindow.getInstance();
 		window.pack();
 		window.show();
