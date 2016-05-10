@@ -50,6 +50,7 @@ public class Convergence extends Ellipse implements IDiagramElement, FlowChartEl
 		Main.log("Select " + this);
 		Main.log("Type: " + getType());
 		Main.log("Node Code:" + getNodeCode());
+		Main.log("Convergence:" + getDirectJudgment());
 	}
 
 	@Override

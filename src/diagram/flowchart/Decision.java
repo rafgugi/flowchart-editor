@@ -41,6 +41,7 @@ public class Decision extends Diamond implements IDiagramElement, FlowChartEleme
 		Main.log("DoWhile:" + getDoWhileCounter());
 		Main.log("RecodeDoWhile:" + getRecodeDoWhileCounter());
 		Main.log("Traversed:" + (hasBeenTraversed() ? "true" : "false"));
+		Main.log("Convergence:" + getDirectConvergence());
 	}
 
 	@Override
