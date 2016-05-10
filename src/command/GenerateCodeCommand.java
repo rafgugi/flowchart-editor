@@ -247,15 +247,15 @@ public class GenerateCodeCommand implements ICommand {
 	 */
 	public void recode(FlowChartElement currNode, NodeCode currCode) {
 		if (currNode instanceof IElement) {
-			 throw new GenerateCodeException("Stop at recode!");
+			 // throw new GenerateCodeException("Stop at recode!");
 		}
 		Main.log("recode (" + (recodeCounter++) + ")");
 		Main.log("    " + currNode);
 		Main.log("    " + currCode);
 
 		if (currCode != null) { /* [R1] ??????? */
-			Main.log("\t\t<R1>");
 			if (currNode.getType() instanceof LoopType) {
+				Main.log("\t\t<R1>");
 				if (stackOfLoopReturn.isEmpty() || stackOfLoopReturn.peek() != currNode) {
 					Main.log("\t\t<R2>");
 					stackOfLoopReturn.push(currNode); /* [R2] */
