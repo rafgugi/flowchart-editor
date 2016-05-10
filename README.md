@@ -13,7 +13,7 @@ User can make flowchart, then user convert flowchart into sourcecode using Probl
 
 ## Preparing
 - [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-- [Eclipse for Java developers](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+- [Eclipse for Java developers](https://eclipse.org/downloads)
 - Make sure [java.eclipse.swt](https://www.eclipse.org/swt/eclipse.php) included into this project
 
 ## Another nice way to clone this project
