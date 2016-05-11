@@ -38,14 +38,15 @@ public class Convergence extends FlowChartDecorator implements IDiagramElement {
 
 	@Override
 	public void connect(IElement element) {
-		if (this.flow != null) {
-			throw new CreateElementException("Convergence can't have more than one children.");
-		}
 		super.connect(element);
 		if (element instanceof FlowLine) {
 			FlowLine flow = (FlowLine) element;
 			if (flow.checkConnected(this) == Line.CONNECTED_SRC) {
-				this.flow = flow;
+				if (this.flow != null) {
+					throw new CreateElementException("Convergence can't have more than one children.");
+				} else {
+					this.flow = flow;
+				}
 			}
 		}
 	}

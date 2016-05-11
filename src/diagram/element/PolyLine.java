@@ -220,4 +220,17 @@ public class PolyLine extends Line {
 		super.drag(x1, y1, x2, y2, e);
 	}
 
+	@Override
+	public void drag(int x1, int y1, int x2, int y2) {
+		if (getElbows().isEmpty()) {
+			return;
+		}
+		int dx = x2 - x1;
+		int dy = y2 - y1;
+		for (Point elbow : getElbows()) {
+			elbow.x = elbow.x + dx;
+			elbow.y = elbow.y + dy;
+		}
+	}
+
 }
