@@ -1,7 +1,6 @@
 package diagram.element;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.UUID;
 
 import org.json.JSONObject;
@@ -167,10 +166,12 @@ public abstract class TwoDimensionalDecorator extends TwoDimensional {
 
 	@Override
 	public JSONObject jsonEncode() {
-		JSONObject thisJson = super.jsonEncode();
+		JSONObject obj = new JSONObject();
+		obj.put("class", getClass().getName());
+		obj.put("id", super.getId());
 		JSONObject comJson = component.jsonEncode();
-		thisJson.put("component", comJson);
-		return thisJson;
+		obj.put("component", comJson);
+		return obj;
 	}
 
 	@Override

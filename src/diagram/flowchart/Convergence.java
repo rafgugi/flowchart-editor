@@ -6,6 +6,7 @@ import diagram.flowchart.type.ProcessType;
 import exception.CreateElementException;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
+import main.Main;
 import widget.window.property.ProcessProperty;
 
 public class Convergence extends FlowChartDecorator implements IDiagramElement {
@@ -93,15 +94,6 @@ public class Convergence extends FlowChartDecorator implements IDiagramElement {
 	public void prepare() {
 		super.prepare();
 		setType(ProcessType.get());
-	}
-
-	@Override
-	public String getText() {
-		String ans = super.getText();
-		if (getNodeCode() != null) {
-			ans += " " + getNodeCode();
-		}
-		return ans;
 	}
 
 }

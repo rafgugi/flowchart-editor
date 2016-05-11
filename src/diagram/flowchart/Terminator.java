@@ -6,6 +6,7 @@ import diagram.flowchart.type.TerminatorType;
 import exception.CreateElementException;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
+import main.Main;
 import widget.window.property.TerminatorProperty;
 
 public class Terminator extends FlowChartDecorator implements IDiagramElement {

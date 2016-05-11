@@ -6,7 +6,6 @@ import diagram.element.Line;
 import diagram.element.TwoDimensional;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
-import interfaces.IType;
 import main.Main;
 import widget.window.property.ProcessProperty;
 
@@ -73,15 +72,6 @@ public class Decision extends FlowChartDecorator implements IDiagramElement {
 	public void prepare() {
 		super.prepare();
 		setDirectConvergence(null);
-	}
-
-	@Override
-	public String getText() {
-		String ans = super.getText();
-		if (getNodeCode() != null) {
-			ans += " " + getNodeCode();
-		}
-		return ans;
 	}
 
 }
