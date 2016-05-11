@@ -306,10 +306,11 @@ public class GenerateCodeCommand implements ICommand {
 			Main.log("\t\t<R8>");
 			if (currCode == null) {
 				// throw new GenerateCodeException("Current code never existed");
-				Main.log("\t\tCurrent code never existed, hard return");
-				returnRecode();
-				return;
-				// currCode = currNode.getNodeCode();
+//				Main.log("\t\tCurrent code never existed, hard return");
+//				returnRecode();
+//				return;
+				Main.log("\t\tMaksa pake currNode.getCode");
+				currCode = currNode.getNodeCode();
 			}
 			NodeCode newCode = currCode.createSibling();
 			Main.log("\t\t<R8-1>");
@@ -342,10 +343,11 @@ public class GenerateCodeCommand implements ICommand {
 			}
 			if (currCode == null) {
 				// throw new GenerateCodeException("Current code never existed");
-				Main.log("\t\tCurrent code never existed, hard return");
-				returnRecode();
-				return;
-				// currCode = currNode.getNodeCode();
+//				Main.log("\t\tCurrent code never existed, hard return");
+//				returnRecode();
+//				return;
+				Main.log("\t\tMaksa pake currNode.getCode");
+				currCode = currNode.getNodeCode();
 			}
 			NodeCode newCode = currCode.createChild();
 			Main.log("\t\t<R11-1>");
