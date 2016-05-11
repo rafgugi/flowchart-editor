@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import diagram.element.Line;
 import diagram.element.TwoDimensional;
+import interfaces.FlowChartElement;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
 import main.Main;
@@ -12,8 +13,8 @@ import widget.window.property.ProcessProperty;
 public class Decision extends FlowChartDecorator implements IDiagramElement {
 
 	private ArrayList<FlowLine> flows = new ArrayList<>();
-
 	private Convergence directConvergence;
+	private FlowChartElement doWhileNode;
 
 	public Decision() {
 	}
@@ -69,10 +70,22 @@ public class Decision extends FlowChartDecorator implements IDiagramElement {
 		this.directConvergence = directConvergence;
 	}
 
+	/**
+	 * Node where do while child begin.
+	 */
+	public FlowChartElement getDoWhileNode() {
+		return doWhileNode;
+	}
+
+	public void setDoWhileNode(FlowChartElement node) {
+		doWhileNode = node;
+	}
+
 	@Override
 	public void prepare() {
 		super.prepare();
 		setDirectConvergence(null);
+		setDoWhileNode(null);
 	}
 
 }

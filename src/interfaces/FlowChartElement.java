@@ -63,7 +63,4 @@ public interface FlowChartElement {
 	public int getRecodeDoWhileCounter();
 	public void setRecodeDoWhileCounter(int counter);
 
-	public FlowChartElement getDoWhileNode();
-	public void setDoWhileNode(FlowChartElement node);
-
 }

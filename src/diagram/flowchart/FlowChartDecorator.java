@@ -14,7 +14,6 @@ public abstract class FlowChartDecorator extends TwoDimensionalDecorator impleme
 	private boolean traversed;
 	private int doWhile;
 	private int recodeDoWhile;
-	private Decision doWhileNode;
 	
 	public FlowChartDecorator() {
 	}
@@ -31,6 +30,7 @@ public abstract class FlowChartDecorator extends TwoDimensionalDecorator impleme
 	@Override
 	public void setNodeCode(NodeCode code) {
 		this.nodeCode = code;
+		Main.log("\tSet code of " + this + ": " + code);
 	}
 
 	@Override
@@ -41,6 +41,7 @@ public abstract class FlowChartDecorator extends TwoDimensionalDecorator impleme
 	@Override
 	public void setType(IType type) {
 		this.type = type;
+		Main.log("\tSet type of " + this + ": " + type);
 	}
 
 	@Override
@@ -65,7 +66,6 @@ public abstract class FlowChartDecorator extends TwoDimensionalDecorator impleme
 		setNodeCode(null);
 		setDoWhileCounter(0);
 		setRecodeDoWhileCounter(0);
-		setDoWhileNode(null);
 	}
 
 	@Override
@@ -86,16 +86,6 @@ public abstract class FlowChartDecorator extends TwoDimensionalDecorator impleme
 	@Override
 	public void setRecodeDoWhileCounter(int counter) {
 		recodeDoWhile = counter;
-	}
-
-	@Override
-	public FlowChartElement getDoWhileNode() {
-		return doWhileNode;
-	}
-
-	@Override
-	public void setDoWhileNode(FlowChartElement node) {
-		doWhileNode = (Decision) node;
 	}
 
 	@Override

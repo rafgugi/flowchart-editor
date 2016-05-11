@@ -107,9 +107,10 @@ public class GenerateCodeCommand implements ICommand {
 		if (currElem instanceof Process) {
 			Process currNode = (Process) currElem;
 			/* Generate the code for CurrentNode */
-			currNode.setNodeCode(currCode);
 			NodeCode codeOfSon = currCode.createSibling();
 			if (!currNode.hasBeenTraversed()) {
+				Main.log("\tProcess hasn't been traversed.");
+				currNode.setNodeCode(currCode); //!!!
 				currNode.traverse();
 				FlowChartElement son = (FlowChartElement) currNode.getFlow().getDstElement();
 				codeAlgorithm(currNode, son, codeOfSon);
@@ -120,14 +121,19 @@ public class GenerateCodeCommand implements ICommand {
 				 * nested do-while
 				 */
 				if (father instanceof Decision && father.getType() == null) {
+					Main.log("\tProcess father is do-while.");
+					NodeCode thisCode = currNode.getNodeCode(); //!!!
+					father.setNodeCode(thisCode); //!!!
+					currNode.setNodeCode(thisCode.createChild()); //!!!
 					father.setType(DoWhileType.get());
-					father.setDoWhileNode(currNode);
+					((Decision) father).setDoWhileNode(currNode);
 				}
 			}
 		}
 		if (currElem instanceof Decision) {
 			Decision currNode = (Decision) currElem;
 			if (!currNode.hasBeenTraversed()) {
+				Main.log("\tDecision hasn't been traversed.");
 				currNode.traverse();
 				currNode.setNodeCode(currCode);
 				stackOfJudgment.push(currNode);
@@ -140,9 +146,11 @@ public class GenerateCodeCommand implements ICommand {
 						continue;
 					}
 					NodeCode sonCode = currCode.createChild();
+					Main.log("\tGo to decision's child.");
 					codeAlgorithm(currNode, (FlowChartElement) son, sonCode);
 				}
 				for (Convergence convergenceson : convergenceSons) {
+					Main.log("\tGo to decision's convergence direct child.");
 					codeAlgorithm(currNode, convergenceson, null);
 				}
 
@@ -151,13 +159,15 @@ public class GenerateCodeCommand implements ICommand {
 					/*
 					 * according to the condition of judgment, the detailed
 					 * structures of if-else/if/case can be recognized also.
+					 * Approved by gugik :D
 					 */
 					currNode.setType(SelectionType.get());
 				}
 				/* Continue to process the nodes behind Convergence. */
 				Convergence conv = currNode.getDirectConvergence();
-				NodeCode sonCode = currCode.createSibling();
+				NodeCode sonCode = conv.getNodeCode().createSibling();
 				FlowChartElement sonNode = (FlowChartElement) conv.getFlow().getDstElement();
+				Main.log("\tGo to decision's direct convergence.");
 				codeAlgorithm(conv, sonNode, sonCode);
 			}
 			else { // been traversed.
@@ -166,8 +176,12 @@ public class GenerateCodeCommand implements ICommand {
 				}
 				else { // and been recognized
 					if (father instanceof Decision && father.getType() == null) {
+						Main.log("\tDecision father is do-while.");
+						NodeCode thisCode = currNode.getNodeCode(); //!!!
+						father.setNodeCode(thisCode); //!!!
+						currNode.setNodeCode(thisCode.createChild()); //!!!
 						father.setType(DoWhileType.get());
-						father.setDoWhileNode(currNode);
+						((Decision) father).setDoWhileNode(currNode);
 					}
 				}
 			}
@@ -176,6 +190,7 @@ public class GenerateCodeCommand implements ICommand {
 			Convergence currNode = (Convergence) currElem;
 			/* match a judgment node and a convergence node */
 			if (!currNode.hasBeenTraversed()) {
+				Main.log("\tConvergence hasn't been traversed.");
 				currNode.traverse();
 				/*
 				 * as a judgment and a convergence is exist geminate, so the top
@@ -183,6 +198,7 @@ public class GenerateCodeCommand implements ICommand {
 				 * convergence
 				 */
 				if (currNode.getDirectJudgment() == null) {
+					Main.log("\tConnect convergence with decision.");
 					if (stackOfJudgment.isEmpty()) {
 						throw new GenerateCodeException("Empty stackOfJudgment.");
 					}
@@ -192,6 +208,7 @@ public class GenerateCodeCommand implements ICommand {
 					currNode.setNodeCode(tempDecision.getNodeCode());
 				}
 			} else {
+				Main.log("\tConvergence has been traversed.");
 				currNode.setNodeCode(currNode.getDirectJudgment().getNodeCode());
 				returnCode();
 				return;
