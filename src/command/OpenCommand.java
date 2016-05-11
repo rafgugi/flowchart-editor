@@ -56,7 +56,7 @@ public class OpenCommand implements ICommand {
 				throw new PersistenceException("Wrong JSON file.");
 			} finally {
 				if (!success) {
-					new CloseTabCommand().execute();
+//					new CloseTabCommand().execute();
 				}
 			}
 		}

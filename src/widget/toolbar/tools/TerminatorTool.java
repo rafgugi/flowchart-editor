@@ -61,7 +61,7 @@ public class TerminatorTool extends ATool {
 			}
 			Point src = new Point(downTemp.x, downTemp.y);
 			Point dst = new Point(e.x, e.y);
-			IElement rect = new Terminator(src, dst);
+			IElement rect = new Terminator(new RoundedRectangle(src, dst));
 			getActiveSubEditor().addElement(rect);
 			rect.select();
 			getActiveSubEditor().draw();

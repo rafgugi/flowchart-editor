@@ -61,7 +61,7 @@ public class ConvergenceTool extends ATool {
 			}
 			Point src = new Point(downTemp.x, downTemp.y);
 			Point dst = new Point(e.x, e.y);
-			IElement rect = new Convergence(src, dst);
+			IElement rect = new Convergence(new Ellipse(src, dst));
 			getActiveSubEditor().addElement(rect);
 			rect.select();
 			getActiveSubEditor().draw();

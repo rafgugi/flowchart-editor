@@ -1,48 +1,24 @@
 package diagram.flowchart;
 
-import org.eclipse.swt.graphics.Point;
-
-import diagram.element.Ellipse;
 import diagram.element.Line;
 import diagram.flowchart.type.ConvergenceType;
 import exception.CreateElementException;
-import interfaces.FlowChartElement;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
-import interfaces.IType;
 import main.Main;
 import widget.window.property.ProcessProperty;
 
-public class Convergence extends Ellipse implements IDiagramElement, FlowChartElement {
+public class Convergence extends FlowChartDecorator implements IDiagramElement {
 
 	private FlowLine flow;
-	private NodeCode nodeCode;
-	private IType type;
-	private boolean traversed;
-	private int doWhile;
-	private int recodeDoWhile;
-	private Decision doWhileNode;
-
 	private Decision directJudgment;
-
-	public static final int FIX_DIAMETER = 15;
 
 	public Convergence() {
 	}
 
-	public Convergence(Point src, Point dst) {
-		super(src, dst);
+	public Convergence(TwoDimensional component) {
+		super(component);
 	}
-
-//	@Override
-//	public void setWidth(int h) {
-//		super.setWidth(FIX_DIAMETER);
-//	}
-//
-//	@Override
-//	public void setHeight(int h) {
-//		super.setHeight(FIX_DIAMETER);
-//	}
 
 	@Override
 	public void select() {
@@ -83,71 +59,6 @@ public class Convergence extends Ellipse implements IDiagramElement, FlowChartEl
 		return flow;
 	}
 
-	@Override
-	public NodeCode getNodeCode() {
-		return nodeCode;
-	}
-
-	@Override
-	public void setNodeCode(NodeCode code) {
-		this.nodeCode = code;
-	}
-
-	@Override
-	public IType getType() {
-		return type;
-	}
-
-	@Override
-	public void setType(IType type) {
-		this.type = type;
-	}
-
-	@Override
-	public boolean hasBeenTraversed() {
-		return traversed;
-	}
-
-	@Override
-	public void resetTraversed() {
-		traversed = false;
-	}
-
-	@Override
-	public void traverse() {
-		traversed = true;
-	}
-
-	@Override
-	public int getDoWhileCounter() {
-		return doWhile;
-	}
-
-	@Override
-	public void setDoWhileCounter(int counter) {
-		doWhile = counter;
-	}
-
-	@Override
-	public int getRecodeDoWhileCounter() {
-		return recodeDoWhile;
-	}
-
-	@Override
-	public void setRecodeDoWhileCounter(int counter) {
-		recodeDoWhile = counter;
-	}
-
-	@Override
-	public FlowChartElement getDoWhileNode() {
-		return doWhileNode;
-	}
-
-	@Override
-	public void setDoWhileNode(FlowChartElement node) {
-		doWhileNode = (Decision) node;
-	}
-
 	/**
 	 * Get the judgment pair of this.
 	 * 
@@ -168,21 +79,9 @@ public class Convergence extends Ellipse implements IDiagramElement, FlowChartEl
 
 	@Override
 	public void prepare() {
-		setType(null);
-		setNodeCode(null);
-		setDoWhileCounter(0);
-		setRecodeDoWhileCounter(0);
+		super.prepare();
 		setDirectJudgment(null);
 		setType(ConvergenceType.get());
-	}
-
-	@Override
-	public String getText() {
-		String ans = super.getText();
-		if (getNodeCode() != null) {
-			ans += " " + getNodeCode();
-		}
-		return ans;
 	}
 
 }

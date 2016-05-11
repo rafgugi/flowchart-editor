@@ -129,6 +129,7 @@ public class EditPoint extends AElement {
 			return null;
 		}
 		Main.log("Get editpoint [" + getCode() + "]");
+		Main.log("\tof element " + element);
 		return this;
 	}
 
