@@ -2,7 +2,6 @@ package diagram.flowchart;
 
 import diagram.element.TwoDimensional;
 import diagram.element.TwoDimensionalDecorator;
-import diagram.flowchart.type.ProcessType;
 import interfaces.FlowChartElement;
 import interfaces.IDiagramElement;
 import interfaces.IType;

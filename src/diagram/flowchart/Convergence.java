@@ -1,6 +1,7 @@
 package diagram.flowchart;
 
 import diagram.element.Line;
+import diagram.element.TwoDimensional;
 import diagram.flowchart.type.ConvergenceType;
 import exception.CreateElementException;
 import interfaces.IDiagramElement;
