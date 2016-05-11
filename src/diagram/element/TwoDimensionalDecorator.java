@@ -12,7 +12,7 @@ import interfaces.IElement;
 public abstract class TwoDimensionalDecorator extends TwoDimensional {
 
 	private TwoDimensional component;
-	
+
 	public TwoDimensionalDecorator() {
 	}
 
@@ -26,7 +26,12 @@ public abstract class TwoDimensionalDecorator extends TwoDimensional {
 
 	@Override
 	public void renderNormal() {
-		// can't render :(
+		// can't render :( because of draw below
+	}
+
+	@Override
+	public void renderEdit() {
+		// can't render :( because of draw below
 	}
 
 	@Override
@@ -44,10 +49,14 @@ public abstract class TwoDimensionalDecorator extends TwoDimensional {
 		component.deselect();
 	}
 
-	// @Override
-	// public IElement checkBoundary(int x, int y) {
-	// 	return component.checkBoundary(x, y);
-	// }
+	@Override
+	public IElement checkBoundary(int x, int y) {
+		IElement retval = component.checkBoundary(x, y);
+		if (retval == null || retval instanceof EditPoint) {
+			return retval;
+		}
+		return this;
+	}
 
 	// @Override
 	// public IElement checkBoundary(int x1, int y1, int x2, int y2) {

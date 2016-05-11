@@ -12,26 +12,13 @@ import widget.window.property.ProcessProperty;
 public class Convergence extends FlowChartDecorator implements IDiagramElement {
 
 	private FlowLine flow;
-
 	private Decision directJudgment;
-
-	public static final int FIX_DIAMETER = 15;
 
 	public Convergence() {
 	}
 
 	public Convergence(TwoDimensional component) {
 		super(component);
-	}
-
-	@Override
-	public void setWidth(int h) {
-		super.setWidth(FIX_DIAMETER);
-	}
-
-	@Override
-	public void setHeight(int h) {
-		super.setHeight(FIX_DIAMETER);
 	}
 
 	@Override
