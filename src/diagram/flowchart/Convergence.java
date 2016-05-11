@@ -24,15 +24,15 @@ public class Convergence extends FlowChartDecorator implements IDiagramElement {
 		super(component);
 	}
 
-//	@Override
-//	public void setWidth(int h) {
-//		super.setWidth(FIX_DIAMETER);
-//	}
-//
-//	@Override
-//	public void setHeight(int h) {
-//		super.setHeight(FIX_DIAMETER);
-//	}
+	@Override
+	public void setWidth(int h) {
+		super.setWidth(FIX_DIAMETER);
+	}
+
+	@Override
+	public void setHeight(int h) {
+		super.setHeight(FIX_DIAMETER);
+	}
 
 	@Override
 	public void select() {
