@@ -24,8 +24,8 @@ import widget.window.MainWindow;
 public class GenerateCodeCommand implements ICommand {
 
 	private Stack<Decision> stackOfJudgment = new Stack<>();
-	private Stack<FlowChartElement> stackOfLoopReturn = new Stack<>();
-	private int recodeCounter;
+	// private Stack<FlowChartElement> stackOfLoopReturn = new Stack<>();
+	// private int recodeCounter;
 	private int codeCounter;
 
 	@Override
@@ -77,7 +77,7 @@ public class GenerateCodeCommand implements ICommand {
 		try {
 			father.setNodeCode(new NodeCode());
 			codeCounter = 0;
-			recodeCounter = 0;
+			// recodeCounter = 0;
 			codeAlgorithm(father, son, father.getNodeCode().createSibling());
 		} catch (GenerateCodeException ex) {
 			Main.log(" Error: ");
@@ -101,77 +101,52 @@ public class GenerateCodeCommand implements ICommand {
 		Main.log("\t" + currCode);
 
 		if (currElem instanceof Terminator) {
-			Main.log("\t\t<15>");
 			returnCode();
-			return; // exit point of recursion /* [15] */
+			return; // exit point of recursion
 		}
-		if (currElem instanceof Process) { /* [1] */
-			Main.log("\t\t<1>");
+		if (currElem instanceof Process) {
 			Process currNode = (Process) currElem;
 			/* Generate the code for CurrentNode */
-			Main.log("\t\t<1-1>");
-			currNode.setNodeCode(currCode); /* [1-1] */
+			currNode.setNodeCode(currCode);
 			NodeCode codeOfSon = currCode.createSibling();
 			if (!currNode.hasBeenTraversed()) {
 				currNode.traverse();
 				FlowChartElement son = (FlowChartElement) currNode.getFlow().getDstElement();
-				Main.log("\t\t<2>");
-				codeAlgorithm(currNode, son, codeOfSon); /* [2] */
+				codeAlgorithm(currNode, son, codeOfSon);
 			} else {
 				/*
 				 * Father is recognized as a do-while structure, mark the
 				 * Judgment and link it with his Father, include do-while and
 				 * nested do-while
 				 */
-				if (father instanceof Decision && father.getType() == null) { /* [3] */
-					Main.log("\t\t<3>");
+				if (father instanceof Decision && father.getType() == null) {
 					father.setType(DoWhileType.get());
-					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1); // original
-																					// value
-																					// is
-																					// zero
 					father.setDoWhileNode(currNode);
-					father.setDoWhileCounter(currNode.getDoWhileCounter());
-					/* used for recode */
-					currNode.setRecodeDoWhileCounter(currNode.getDoWhileCounter());
-				}
-				if (currNode.getDoWhileCounter() > 0) {
-					Main.log("\t\t<4>");
-					recode(currNode, null); /* [4] */
 				}
 			}
 		}
-		if (currElem instanceof Decision) { /* [5] */
-			Main.log("\t\t<5>");
+		if (currElem instanceof Decision) {
 			Decision currNode = (Decision) currElem;
-			if (!currNode.hasBeenTraversed()) { /* [5-2] */
-				Main.log("\t\t<5-2>");
+			if (!currNode.hasBeenTraversed()) {
 				currNode.traverse();
-				Main.log("\t\t<5-1>");
-				currNode.setNodeCode(currCode); /* [5-1] */
-				Main.log("\t\t<6>");
-				stackOfJudgment.push(currNode); /* [6] */
+				currNode.setNodeCode(currCode);
+				stackOfJudgment.push(currNode);
 
+				/* Get direct convergence and process other children */
 				ArrayList<Convergence> convergenceSons = new ArrayList<>();
-				Main.log("\t\t<7>");
-				for (TwoDimensional son : currNode.getChildren()) { /* [7] */
+				for (TwoDimensional son : currNode.getChildren()) {
 					if (son instanceof Convergence) {
 						convergenceSons.add((Convergence) son);
 						continue;
 					}
 					NodeCode sonCode = currCode.createChild();
-					Main.log("\t\t<7-1>");
-					codeAlgorithm(currNode, (FlowChartElement) son,
-							sonCode); /* [7-1] */
+					codeAlgorithm(currNode, (FlowChartElement) son, sonCode);
 				}
-				for (Convergence convergenceson : convergenceSons) { /* [7-2] */
-					Main.log("\t\t<7-2>");
-					Main.log("\t\t<8>");
-					codeAlgorithm(currNode, convergenceson, null); /* [8] */
+				for (Convergence convergenceson : convergenceSons) {
+					codeAlgorithm(currNode, convergenceson, null);
 				}
-				/*
-				 * loop structures have been recognized, the left is selections
-				 */
+
+				/* loop structures have been recognized, the left is selections */
 				if (currNode.getType() == null) {
 					/*
 					 * according to the condition of judgment, the detailed
@@ -183,28 +158,16 @@ public class GenerateCodeCommand implements ICommand {
 				Convergence conv = currNode.getDirectConvergence();
 				NodeCode sonCode = currCode.createSibling();
 				FlowChartElement sonNode = (FlowChartElement) conv.getFlow().getDstElement();
-				Main.log("\t\t<9>");
-				codeAlgorithm(conv, sonNode, sonCode); /* [9] */
+				codeAlgorithm(conv, sonNode, sonCode);
 			}
-			// been traversed.
-			else {
-				if (currNode.getType() == null) { /* [10] */
-					Main.log("\t\t<10>");
+			else { // been traversed.
+				if (currNode.getType() == null) {
 					currNode.setType(WhileType.get());
-				} else {
-					// and been recognized
-					if (father instanceof Decision && father.getType() == null) { /* [11] */
-						Main.log("\t\t<11>");
+				}
+				else { // and been recognized
+					if (father instanceof Decision && father.getType() == null) {
 						father.setType(DoWhileType.get());
-						currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
 						father.setDoWhileNode(currNode);
-						father.setDoWhileCounter(currNode.getDoWhileCounter());
-						/* used for recode */
-						currNode.setRecodeDoWhileCounter(currNode.getDoWhileCounter());
-					}
-					if (currNode.getDoWhileCounter() > 0) {
-						Main.log("\t\t<12>");
-						recode(currNode, null); /* [12] */
 					}
 				}
 			}
@@ -212,8 +175,7 @@ public class GenerateCodeCommand implements ICommand {
 		if (currElem instanceof Convergence) {
 			Convergence currNode = (Convergence) currElem;
 			/* match a judgment node and a convergence node */
-			if (!currNode.hasBeenTraversed()) { /* [13] */
-				Main.log("\t\t<13>");
+			if (!currNode.hasBeenTraversed()) {
 				currNode.traverse();
 				/*
 				 * as a judgment and a convergence is exist geminate, so the top
@@ -230,161 +192,16 @@ public class GenerateCodeCommand implements ICommand {
 					currNode.setNodeCode(tempDecision.getNodeCode());
 				}
 			} else {
-				Main.log("\t\t<14>");
+				currNode.setNodeCode(currNode.getDirectJudgment().getNodeCode());
 				returnCode();
-				return; /* [14] */
+				return;
 			}
 		}
 		returnCode();
 	}
 
-	/**
-	 * Recode do-while. When first enter, the first parameter is the first node
-	 * in do-while and the second is null.
-	 * 
-	 * @param currNode
-	 * @param currCode
-	 */
-	public void recode(FlowChartElement currNode, NodeCode currCode) {
-		if (currNode instanceof IElement) {
-			 // throw new GenerateCodeException("Stop at recode!");
-		}
-		Main.log("recode (" + (recodeCounter++) + ")");
-		Main.log("    " + currNode);
-		Main.log("    " + currCode);
-
-		if (currCode != null) { /* [R1] ??????? */
-			if (currNode.getType() instanceof LoopType) {
-				Main.log("\t\t<R1>");
-				if (stackOfLoopReturn.isEmpty() || stackOfLoopReturn.peek() != currNode) {
-					Main.log("\t\t<R2>");
-					stackOfLoopReturn.push(currNode); /* [R2] */
-				} else { /* [R3] */
-					Main.log("\t\t<R3>");
-					if (stackOfLoopReturn.isEmpty()) {
-						throw new GenerateCodeException("Empty stackOfLoopReturn.");
-					}
-					stackOfLoopReturn.pop();
-					returnRecode();
-					return;
-				}
-			}
-		}
-		if (currCode != null) {
-			Main.log("\t\t<R4>");
-			currNode.setNodeCode(currCode); /* [R4] */
-		}
-		/*
-		 * Ini coba coba aja sumpah. hapus aja klo salah * else { currCode =
-		 * currNode.getNodeCode().createChild(); } //
-		 */
-		if (currNode.getRecodeDoWhileCounter() > 0) {
-			/* [R5] ??????????? */
-			Main.log("\t\t<R5>");
-			TwoDimensional currElem = (TwoDimensional) currNode;
-			for (TwoDimensional parent : currElem.getParents()) {
-				FlowChartElement father = (FlowChartElement) parent;
-				if (father.getDoWhileCounter() != currNode.getRecodeDoWhileCounter()) {
-					continue;
-				}
-				if (father.getDoWhileNode() != currNode) {
-					continue;
-				}
-				(father).setDoWhileCounter(currNode.getRecodeDoWhileCounter());
-				(father).setDoWhileNode(currNode);
-				currNode.setRecodeDoWhileCounter(currNode.getRecodeDoWhileCounter() - 1);
-				/* Let the code of father be the code of CurrentNode */
-				Main.log("\t\t<R6>");
-				recode(father, currNode.getNodeCode()); /* [R6] */
-			}
-			if (currNode.getRecodeDoWhileCounter() == 0) { /* [R7] */
-				Main.log("\t\t<R7>");
-				currNode.setRecodeDoWhileCounter(currNode.getDoWhileCounter());
-			}
-		}
-		if (currNode.getType() instanceof ProcessType) { /* [R8] */
-			Main.log("\t\t<R8>");
-			if (currCode == null) {
-				// throw new GenerateCodeException("Current code never existed");
-//				Main.log("\t\tCurrent code never existed, hard return");
-//				returnRecode();
-//				return;
-				Main.log("\t\tMaksa pake currNode.getCode");
-				currCode = currNode.getNodeCode();
-			}
-			NodeCode newCode = currCode.createSibling();
-			Main.log("\t\t<R8-1>");
-			TwoDimensional son = ((Process) currNode).getChildren().get(0);
-			recode((FlowChartElement) son, newCode); /* [R8-1] */
-		} else if (currNode.getType() instanceof SelectionType) {
-			Decision specific = (Decision) currNode;
-			Main.log("\t\t<R9>");
-			for (TwoDimensional son : specific.getChildren()) { /* [R9] */
-				if (son instanceof Convergence) {
-					continue;
-				}
-				NodeCode newCode = currCode.createChild();
-				recode((FlowChartElement) son, newCode); // ?????????
-			}
-			IElement convergSon = specific.getDirectConvergence().getFlow().getDstElement();
-			Main.log("\t\t<R10>");
-			recode((FlowChartElement) convergSon, currCode); /* [R10] */
-		} else if (currNode.getType() instanceof LoopType) { /* [R11] */
-			Main.log("\t\t<R11>");
-			Decision specific = (Decision) currNode;
-
-			/* Get son that is not convergence */
-			FlowChartElement notConv = null;
-			for (IElement child : ((TwoDimensional) currNode).getChildren()) {
-				if (!(child instanceof Convergence)) {
-					notConv = (FlowChartElement) child;
-					break;
-				}
-			}
-			if (currCode == null) {
-				// throw new GenerateCodeException("Current code never existed");
-//				Main.log("\t\tCurrent code never existed, hard return");
-//				returnRecode();
-//				return;
-				Main.log("\t\tMaksa pake currNode.getCode");
-				currCode = currNode.getNodeCode();
-			}
-			NodeCode newCode = currCode.createChild();
-			Main.log("\t\t<R11-1>");
-			if (notConv == null) {
-				throw new GenerateCodeException("This decision has no normal child");
-			}
-			recode(notConv, newCode); /* [R11-1] */
-			if (stackOfLoopReturn.isEmpty()) {
-				Main.log("\t\t<R13>");
-				returnRecode();
-				return; // return to codealgorithm /* [R13] */
-			}
-			newCode = currCode.createSibling();
-			Convergence directConv = specific.getDirectConvergence();
-			if (directConv == null) {
-				Main.log("\t\tDirectConvergence is null, hard return");
-				returnRecode();
-				return; /* [--] */
-				// throw new GenerateCodeException("DirectConvergence is null");
-			}
-			IElement convergSon = directConv.getFlow().getDstElement();
-			Main.log("\t\t<R11-2>");
-			recode((FlowChartElement) convergSon, newCode); /* [R11-2] */
-		} else {
-			Main.log("\t\t<R12>");
-			returnRecode();
-			return; /* [R12] */
-		}
-		returnRecode();
-	}
-
 	public void returnCode() {
 		Main.log("return " + --codeCounter);
-	}
-
-	public void returnRecode() {
-		Main.log("return " + --recodeCounter);
 	}
 
 }
