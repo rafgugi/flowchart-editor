@@ -111,12 +111,12 @@ public class GenerateCodeCommand implements ICommand {
 			/* Generate the code for CurrentNode */
 			NodeCode codeOfSon = currCode.createSibling();
 			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) { //!!!
-				String again = '';
+				String again = "";
 				if (currNode.getDoWhileCounter() < doWhileCounter) {
 					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1); //!!!
-					again = ' again';
+					again = " again";
 				}
-				Main.log("\tDecision hasn't been traversed" + again);
+				Main.log("\tProcess hasn't been traversed" + again);
 				currNode.setNodeCode(currCode);
 				currNode.traverse();
 				FlowChartElement son = (FlowChartElement) currNode.getFlow().getDstElement();
@@ -134,19 +134,22 @@ public class GenerateCodeCommand implements ICommand {
 					Main.log("\tProcess father is do-while.");
 					NodeCode thisCode = currNode.getNodeCode();
 					father.setNodeCode(thisCode);
-					currNode.setNodeCode(thisCode.createChild());
 					father.setType(DoWhileType.get());
 					((Decision) father).setDoWhileNode(currNode);
+					// currNode.setNodeCode(thisCode.createChild());
+					doWhileCounter++;
+					father.setDoWhileCounter(father.getDoWhileCounter() + 1);
+					codeAlgorithm(father, currNode, thisCode.createChild());
 				}
 			}
 		}
 		if (currElem instanceof Decision) {
 			Decision currNode = (Decision) currElem;
 			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) { //!!!
-				String again = '';
+				String again = "";
 				if (currNode.getDoWhileCounter() < doWhileCounter) {
 					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1); //!!!
-					again = ' again';
+					again = " again";
 				}
 				Main.log("\tDecision hasn't been traversed" + again);
 				currNode.traverse();
@@ -197,9 +200,12 @@ public class GenerateCodeCommand implements ICommand {
 						Main.log("\tDecision father is do-while.");
 						NodeCode thisCode = currNode.getNodeCode();
 						father.setNodeCode(thisCode);
-						currNode.setNodeCode(thisCode.createChild());
 						father.setType(DoWhileType.get());
 						((Decision) father).setDoWhileNode(currNode);
+						// currNode.setNodeCode(thisCode.createChild());
+						doWhileCounter++;
+						father.setDoWhileCounter(father.getDoWhileCounter() + 1);
+						codeAlgorithm(father, currNode, thisCode.createChild());
 					}
 				}
 			}
@@ -208,10 +214,10 @@ public class GenerateCodeCommand implements ICommand {
 			Convergence currNode = (Convergence) currElem;
 			/* match a judgment node and a convergence node */
 			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) { //!!!
-				String again = '';
+				String again = "";
 				if (currNode.getDoWhileCounter() < doWhileCounter) {
 					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1); //!!!
-					again = ' again';
+					again = " again";
 				}
 				Main.log("\tConvergence hasn't been traversed" + again);
 				currNode.traverse();
