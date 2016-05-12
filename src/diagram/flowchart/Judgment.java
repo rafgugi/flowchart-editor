@@ -4,17 +4,15 @@ import java.util.ArrayList;
 
 import diagram.element.Line;
 import diagram.element.TwoDimensional;
-import interfaces.FlowChartElement;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
 import main.Main;
-import widget.window.property.ProcessProperty;
+import widget.window.property.JudgmentProperty;
 
 public class Judgment extends FlowChartDecorator implements IDiagramElement {
 
 	private ArrayList<FlowLine> flows = new ArrayList<>();
 	private Convergence directConvergence;
-	private FlowChartElement doWhileNode;
 
 	public Judgment() {
 	}
@@ -30,14 +28,13 @@ public class Judgment extends FlowChartDecorator implements IDiagramElement {
 		Main.log("Type: " + getType());
 		Main.log("Node Code:" + getNodeCode());
 		Main.log("DoWhile:" + getDoWhileCounter());
-		Main.log("RecodeDoWhile:" + getRecodeDoWhileCounter());
 		Main.log("Traversed:" + (hasBeenTraversed() ? "true" : "false"));
 		Main.log("Convergence:" + getDirectConvergence());
 	}
 
 	@Override
 	public void action() {
-		ProcessProperty prop = new ProcessProperty(this);
+		JudgmentProperty prop = new JudgmentProperty(this);
 		prop.show();
 	}
 
@@ -54,38 +51,46 @@ public class Judgment extends FlowChartDecorator implements IDiagramElement {
 
 	@Override
 	public void disconnect(IElement element) {
+		if (element instanceof FlowLine) {
+			FlowLine flow = (FlowLine) element;
+			if (flow.checkConnected(this) == Line.CONNECTED_SRC) {
+				flows.remove(element);
+			}
+		}
 		super.disconnect(element);
-		flows.remove(element);
 	}
 
+	/**
+	 * Get flows that go from this element.
+	 * 
+	 * @return flows
+	 */
 	public ArrayList<FlowLine> getFlows() {
 		return flows;
 	}
 
+	/**
+	 * Get convergence pair of this.
+	 * 
+	 * @return directConvergence
+	 */
 	public Convergence getDirectConvergence() {
 		return directConvergence;
 	}
 
+	/**
+	 * Set convergence pair
+	 * 
+	 * @param directConvergence
+	 */
 	public void setDirectConvergence(Convergence directConvergence) {
 		this.directConvergence = directConvergence;
-	}
-
-	/**
-	 * Node where do while child begin.
-	 */
-	public FlowChartElement getDoWhileNode() {
-		return doWhileNode;
-	}
-
-	public void setDoWhileNode(FlowChartElement node) {
-		doWhileNode = node;
 	}
 
 	@Override
 	public void prepare() {
 		super.prepare();
 		setDirectConvergence(null);
-		setDoWhileNode(null);
 	}
 
 }

@@ -12,7 +12,6 @@ public abstract class FlowChartDecorator extends TwoDimensionalDecorator impleme
 	private IType type;
 	private boolean traversed;
 	private int doWhile;
-	private int recodeDoWhile;
 	
 	public FlowChartDecorator() {
 	}
@@ -67,7 +66,6 @@ public abstract class FlowChartDecorator extends TwoDimensionalDecorator impleme
 		setType(null);
 		setNodeCode(null);
 		setDoWhileCounter(0);
-		setRecodeDoWhileCounter(0);
 	}
 
 	@Override
@@ -78,16 +76,6 @@ public abstract class FlowChartDecorator extends TwoDimensionalDecorator impleme
 	@Override
 	public void setDoWhileCounter(int counter) {
 		doWhile = counter;
-	}
-
-	@Override
-	public int getRecodeDoWhileCounter() {
-		return recodeDoWhile;
-	}
-
-	@Override
-	public void setRecodeDoWhileCounter(int counter) {
-		recodeDoWhile = counter;
 	}
 
 	@Override

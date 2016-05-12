@@ -11,7 +11,7 @@ import widget.window.property.TerminatorProperty;
 
 public class Terminator extends FlowChartDecorator implements IDiagramElement {
 
-	private FlowLine flow;
+	private FlowLine flow = null;
 
 	public static String START = "Start";
 	public static String END = "End";
@@ -54,10 +54,20 @@ public class Terminator extends FlowChartDecorator implements IDiagramElement {
 
 	@Override
 	public void disconnect(IElement element) {
+		if (element instanceof FlowLine) {
+			FlowLine flow = (FlowLine) element;
+			if (flow.checkConnected(this) == Line.CONNECTED_SRC) {
+				flow = null;
+			}
+		}
 		super.disconnect(element);
-		flow = null;
 	}
 
+	/**
+	 * Get flow that go from this element.
+	 * 
+	 * @return flow
+	 */
 	public FlowLine getFlow() {
 		return flow;
 	}

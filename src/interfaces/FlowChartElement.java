@@ -36,7 +36,7 @@ public interface FlowChartElement extends IDiagramElement {
 	public void setType(IType type);
 
 	/**
-	 * Check whether the node has been tranversed.
+	 * Check whether the node has been traversed.
 	 * 
 	 * @return boolean
 	 */
@@ -57,10 +57,18 @@ public interface FlowChartElement extends IDiagramElement {
 	 */
 	public void prepare();
 
+	/**
+	 * Get counter of do while that surround this element.
+	 * 
+	 * @return doWhileCounter
+	 */
 	public int getDoWhileCounter();
+
+	/**
+	 * Set counter of do while that surround this element.
+	 * 
+	 * @param doWhileCounter
+	 */
 	public void setDoWhileCounter(int counter);
-	
-	public int getRecodeDoWhileCounter();
-	public void setRecodeDoWhileCounter(int counter);
 
 }

@@ -136,10 +136,10 @@ public class GenerateCodeCommand implements ICommand {
 			Process currNode = (Process) currElem;
 			/* Generate the code for CurrentNode */
 			NodeCode codeOfSon = currCode.createSibling();
-			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) { //!!!
+			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) {
 				String again = "";
 				if (currNode.getDoWhileCounter() < doWhileCounter) {
-					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1); //!!!
+					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
 					again = " again";
 				}
 				Main.log("\tProcess hasn't been traversed" + again);
@@ -153,16 +153,16 @@ public class GenerateCodeCommand implements ICommand {
 				 * Judgment and link it with his Father, include do-while and
 				 * nested do-while
 				 */
-				if (father instanceof Judgment && father.getType() == null || currNode.getDoWhileCounter() < doWhileCounter) {
+				if (father instanceof Judgment && father.getType() == null
+						|| currNode.getDoWhileCounter() < doWhileCounter) {
 					if (currNode.getDoWhileCounter() < doWhileCounter) {
-						currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1); //!!!
+						currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
 					}
 					Main.log("\tProcess father is do-while.");
 					NodeCode thisCode = currNode.getNodeCode();
 					father.setNodeCode(thisCode);
 					father.setType(DoWhileType.get());
-					((Judgment) father).setDoWhileNode(currNode);
-					// currNode.setNodeCode(thisCode.createChild());
+
 					doWhileCounter++;
 					father.setDoWhileCounter(father.getDoWhileCounter() + 1);
 					thisCode.resetChildren();
@@ -173,10 +173,10 @@ public class GenerateCodeCommand implements ICommand {
 		}
 		if (currElem instanceof Judgment) {
 			Judgment currNode = (Judgment) currElem;
-			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) { //!!!
+			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) {
 				String again = "";
 				if (currNode.getDoWhileCounter() < doWhileCounter) {
-					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1); //!!!
+					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
 					again = " again";
 				}
 				if (currNode.getDirectConvergence() == null) {
@@ -230,14 +230,13 @@ public class GenerateCodeCommand implements ICommand {
 					if (father instanceof Judgment && father.getType() == null
 							|| currNode.getDoWhileCounter() < doWhileCounter) {
 						if (currNode.getDoWhileCounter() < doWhileCounter) {
-							currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1); //!!!
+							currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
 						}
 						Main.log("\tJudgment father is do-while.");
 						NodeCode thisCode = currNode.getNodeCode();
 						father.setNodeCode(thisCode);
 						father.setType(DoWhileType.get());
-						((Judgment) father).setDoWhileNode(currNode);
-						// currNode.setNodeCode(thisCode.createChild());
+
 						doWhileCounter++;
 						father.setDoWhileCounter(father.getDoWhileCounter() + 1);
 						thisCode.resetChildren();
@@ -250,10 +249,10 @@ public class GenerateCodeCommand implements ICommand {
 		if (currElem instanceof Convergence) {
 			Convergence currNode = (Convergence) currElem;
 			/* match a judgment node and a convergence node */
-			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) { //!!!
+			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) {
 				String again = "";
 				if (currNode.getDoWhileCounter() < doWhileCounter) {
-					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1); //!!!
+					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
 					again = " again";
 				}
 				Main.log("\tConvergence hasn't been traversed" + again);

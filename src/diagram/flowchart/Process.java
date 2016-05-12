@@ -27,7 +27,6 @@ public class Process extends FlowChartDecorator implements IDiagramElement {
 		Main.log("Type: " + getType());
 		Main.log("Node Code:" + getNodeCode());
 		Main.log("DoWhile:" + getDoWhileCounter());
-		Main.log("RecodeDoWhile:" + getRecodeDoWhileCounter());
 		Main.log("Traversed:" + (hasBeenTraversed() ? "true" : "false"));
 	}
 
@@ -54,10 +53,20 @@ public class Process extends FlowChartDecorator implements IDiagramElement {
 
 	@Override
 	public void disconnect(IElement element) {
+		if (element instanceof FlowLine) {
+			FlowLine flow = (FlowLine) element;
+			if (flow.checkConnected(this) == Line.CONNECTED_SRC) {
+				flow = null;
+			}
+		}
 		super.disconnect(element);
-		flow = null;
 	}
 
+	/**
+	 * Get flow that go from this element.
+	 * 
+	 * @return flow
+	 */
 	public FlowLine getFlow() {
 		return flow;
 	}

@@ -7,7 +7,7 @@ import exception.CreateElementException;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
 import main.Main;
-import widget.window.property.ProcessProperty;
+import widget.window.property.JudgmentProperty;
 
 public class Convergence extends FlowChartDecorator implements IDiagramElement {
 
@@ -32,7 +32,7 @@ public class Convergence extends FlowChartDecorator implements IDiagramElement {
 
 	@Override
 	public void action() {
-		ProcessProperty prop = new ProcessProperty(this);
+		JudgmentProperty prop = new JudgmentProperty(this);
 		prop.show();
 	}
 
@@ -53,10 +53,20 @@ public class Convergence extends FlowChartDecorator implements IDiagramElement {
 
 	@Override
 	public void disconnect(IElement element) {
+		if (element instanceof FlowLine) {
+			FlowLine flow = (FlowLine) element;
+			if (flow.checkConnected(this) == Line.CONNECTED_SRC) {
+				flow = null;
+			}
+		}
 		super.disconnect(element);
-		flow = null;
 	}
 
+	/**
+	 * Get flow that go from this element.
+	 * 
+	 * @return flow
+	 */
 	public FlowLine getFlow() {
 		return flow;
 	}
