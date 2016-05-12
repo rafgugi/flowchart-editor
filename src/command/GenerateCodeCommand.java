@@ -140,6 +140,7 @@ public class GenerateCodeCommand implements ICommand {
 					doWhileCounter++;
 					father.setDoWhileCounter(father.getDoWhileCounter() + 1);
 					codeAlgorithm(father, currNode, thisCode.createChild());
+					doWhileCounter--;
 				}
 			}
 		}
@@ -150,7 +151,9 @@ public class GenerateCodeCommand implements ICommand {
 				if (currNode.getDoWhileCounter() < doWhileCounter) {
 					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1); //!!!
 					again = " again";
-				} else {
+				}
+				if (currNode.getDirectConvergence() == null) {
+					Main.log("\tPush into stackOfJudgment, to find convergence." + again);
 					stackOfJudgment.push(currNode);
 				}
 				Main.log("\tDecision hasn't been traversed" + again);
@@ -210,6 +213,7 @@ public class GenerateCodeCommand implements ICommand {
 						doWhileCounter++;
 						father.setDoWhileCounter(father.getDoWhileCounter() + 1);
 						codeAlgorithm(father, currNode, thisCode.createChild());
+						doWhileCounter--;
 					}
 				}
 			}
