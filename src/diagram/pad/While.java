@@ -1,5 +1,8 @@
 package diagram.pad;
 
+/**
+ * While type loop.
+ */
 public class While extends Loop {
 
 	@Override

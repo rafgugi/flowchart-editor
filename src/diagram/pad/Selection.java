@@ -1,26 +1,51 @@
 package diagram.pad;
 
+/**
+ * Selection type (if-else). Block code for each "yes" and "no" is saved
+ * in the block container.
+ */
 public class Selection extends BlockSingle {
 
 	private BlockContainer yesChild;
 	private BlockContainer noChild;
 
+	/**
+	 * Get "yes" child.
+	 * 
+	 * @return child
+	 */
 	public BlockContainer getYesChild() {
 		return yesChild;
 	}
 
+	/**
+	 * Set "yes" child.
+	 * 
+	 * @param child
+	 */
 	public void setYesChild(BlockContainer child) {
 		yesChild = child;
 	}
 
+	/**
+	 * Get "no" child.
+	 * 
+	 * @return child
+	 */
 	public BlockContainer getNoChild() {
 		return noChild;
 	}
 
+	/**
+	 * Set "no" child.
+	 * 
+	 * @param child
+	 */
 	public void setNoChild(BlockContainer child) {
 		noChild = child;
 	}
 
+	@Override
 	public String generate() {
 		String ans = "if (" + getText() + ") {\n";
 		if (getYesChild() != null) {

@@ -303,20 +303,17 @@ public class GenerateCodeCommand implements ICommand {
 			return;
 		}
 		Main.log("ConvertToPAD enter " + currElem);
-		if (currElem.getType() instanceof TerminatorType) {
-			currCode = currCode.getSibling();
-			convertToPAD(currCode, fatherBlock);
-		}
 		if (currElem.getType() instanceof ProcessType) {
 			Sequence element = new Sequence();
-			currCode = currCode.getSibling();
 			element.setText(currElem.getText());
 			fatherBlock.addElement(element);
-			convertToPAD(currCode, fatherBlock);
 		}
 		if (currElem.getType() instanceof SelectionType) {
 			Selection element = new Selection();
 			element.setText(currElem.getText());
+			
+			/* Create new layer, for each selection children */
+			Main.log("Go to each child flow which is not convergence.");
 			for (FlowLine flow : ((Judgment) currElem).getFlows()) {
 				FlowChartElement nextFlow = (FlowChartElement) flow.getDstElement();
 				if (nextFlow instanceof Convergence) {
@@ -333,7 +330,6 @@ public class GenerateCodeCommand implements ICommand {
 				convertToPAD(nextFlow.getNodeCode(), subBlock);
 			}
 			fatherBlock.addElement(element);
-			convertToPAD(currCode.getSibling(), fatherBlock);
 		}
 		if (currElem.getType() instanceof LoopType) {
 			Loop element;
@@ -348,8 +344,10 @@ public class GenerateCodeCommand implements ICommand {
 			element.setChild(subContainer);
 			fatherBlock.addElement(element);
 			convertToPAD(childCode, subContainer);
-			convertToPAD(currCode.getSibling(), fatherBlock);
 		}
+		/* Go to next code from the same layer */
+		currCode = currCode.getSibling();
+		convertToPAD(currCode, fatherBlock);
 	}
 
 }

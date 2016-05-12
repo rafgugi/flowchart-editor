@@ -1,5 +1,8 @@
 package diagram.pad;
 
+/**
+ * Do-while type loop.
+ */
 public class DoWhile extends Loop {
 
 	@Override
