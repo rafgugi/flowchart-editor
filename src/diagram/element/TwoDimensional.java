@@ -353,4 +353,9 @@ public abstract class TwoDimensional extends AEditable {
 		return parents;
 	}
 
+	@Override
+	public String toString() {
+		return "[" + getText() + "] " + getClass().getName();
+	}
+
 }
