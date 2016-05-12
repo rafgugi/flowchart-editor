@@ -10,10 +10,12 @@ import java.util.Stack;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
+import diagram.element.Line;
 import diagram.element.TwoDimensional;
 import diagram.flowchart.*;
 import diagram.flowchart.Process;
 import diagram.flowchart.type.*;
+import diagram.pad.*;
 import exception.GenerateCodeException;
 import interfaces.FlowChartElement;
 import interfaces.ICommand;
@@ -21,6 +23,15 @@ import interfaces.IElement;
 import main.Main;
 import widget.window.MainWindow;
 
+/**
+ * This command purpose is generating source code from flowchart. There are
+ * some algorithms to process this command:
+ *     1. Validate the flowchart
+ *     2. Generate code for each flowchart node
+ *     3. Convert coded flowchart to PAD
+ *     4. Convert PAD to raw source code
+ *     5. Convert raw source code to source code
+ */
 public class GenerateCodeCommand implements ICommand {
 
 	private Stack<Judgment> stackOfJudgment = new Stack<>();
@@ -74,14 +85,15 @@ public class GenerateCodeCommand implements ICommand {
 			/* CodeAlgorithm Method */
 			Terminator father = (Terminator) currentElem;
 			FlowChartElement son = (FlowChartElement) father.getFlow().getDstElement();
-			NodeCode newNode = new NodeCode();
-			father.setNodeCode(newNode);
+			NodeCode currCode = new NodeCode();
+			father.setNodeCode(currCode);
 			codeCounter = 0;
 			doWhileCounter = 0;
 			codeAlgorithm(father, son, father.getNodeCode().createSibling());
 
 			/* Convert to PAD method */
-
+			BlockContainer fatherBlock = new BlockContainer();
+			convertToPAD(currCode, fatherBlock);
 
 			status = true;
 		} catch (GenerateCodeException ex) {
@@ -266,6 +278,56 @@ public class GenerateCodeCommand implements ICommand {
 
 	public void returnCode() {
 		Main.log("return " + --codeCounter);
+	}
+
+	/**
+	 * Convert the coded flowchart into PAD.
+	 * 
+	 * @param currCode
+	 * @param fatherBlock
+	 */
+	public void convertToPAD(NodeCode currCode, BlockContainer fatherBlock) {
+		if (currCode == null) {
+			return;
+		}
+		FlowChartElement currElem = currCode.getElement();
+		if (currElem.getType() instanceof ProcessType) {
+			currCode = currCode.getSibling();
+			Sequence element = new Sequence();
+			element.setText(currElem.getText());
+			fatherBlock.addElement(element);
+			convertToPAD(currCode, fatherBlock);
+		}
+		if (currElem.getType() instanceof SelectionType) {
+			Selection element = new Selection();
+			element.setText(currElem.getText());
+			for (FlowLine flow : ((Judgment) currElem).getFlows()) {
+				FlowChartElement nextFlow = (FlowChartElement) flow.getDstElement();
+				if (nextFlow instanceof Convergence) {
+					continue;
+				}
+				BlockContainer subBlock = new BlockContainer();
+				if (flow.getText().equals(Line.YES)) {
+					element.setYesChild(subBlock);
+					convertToPAD(nextFlow.getNodeCode(), subBlock);
+				}
+			}
+			fatherBlock.addElement(element);
+		}
+		if (currElem.getType() instanceof LoopType) {
+			Loop element;
+			if (currElem.getType() instanceof WhileType) {
+				element = new While();
+			} else {
+				element = new DoWhile();
+			}
+			element.setText(currElem.getText());
+			BlockContainer subContainer = new BlockContainer();
+			NodeCode childCode = currCode.getChildren().get(0);
+			element.setChild(subContainer);
+			fatherBlock.addElement(element);
+			convertToPAD(childCode, subContainer);
+		}
 	}
 
 }

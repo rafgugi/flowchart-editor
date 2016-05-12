@@ -1,19 +1,26 @@
 package diagram.pad;
 
-import java.util.ArrayList;
-
 import exception.GenerateCodeException;
 
 public class Selection extends BlockSingle {
 
-	private ArrayList<BlockContainer> children = new ArrayList<>();
+	private BlockContainer yesChild;
+	private BlockContainer noChild;
 
-	public ArrayList<BlockContainer> getChildren() {
-		return children;
+	public BlockContainer getYesChild() {
+		return yesChild;
 	}
 
-	public void addChild(BlockContainer child) {
-		children.add(child);
+	public void setYesChild(BlockContainer child) {
+		yesChild = child;
+	}
+
+	public BlockContainer getNoChild() {
+		return noChild;
+	}
+
+	public void setNoChild(BlockContainer child) {
+		noChild = child;
 	}
 
 	public String generate() {

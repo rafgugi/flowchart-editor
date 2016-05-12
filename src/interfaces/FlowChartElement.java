@@ -5,7 +5,7 @@ import diagram.flowchart.NodeCode;
 /**
  * This interface just help generating node code for every FlowChartElement.
  */
-public interface FlowChartElement {
+public interface FlowChartElement extends IDiagramElement {
 
 	/**
 	 * Get the current node code.

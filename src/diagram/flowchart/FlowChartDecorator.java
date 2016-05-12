@@ -3,13 +3,12 @@ package diagram.flowchart;
 import diagram.element.TwoDimensional;
 import diagram.element.TwoDimensionalDecorator;
 import interfaces.FlowChartElement;
-import interfaces.IDiagramElement;
 import interfaces.IType;
 import main.Main;
 
-public abstract class FlowChartDecorator extends TwoDimensionalDecorator implements FlowChartElement, IDiagramElement {
+public abstract class FlowChartDecorator extends TwoDimensionalDecorator implements FlowChartElement {
 
-	private NodeCode nodeCode;
+	protected NodeCode nodeCode;
 	private IType type;
 	private boolean traversed;
 	private int doWhile;
