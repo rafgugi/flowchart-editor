@@ -12,6 +12,7 @@ import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.TabItem;
 
+import diagram.element.Line;
 import diagram.state.EditState;
 import exception.ElementNotFoundException;
 import exception.FlowchartEditorException;
@@ -100,6 +101,9 @@ public class SubEditor extends TabItem
 		for (IElement element : elements) {
 			IElement ans = element.checkBoundary(x, y);
 			if (ans != null) {
+				if (ans instanceof Line && retval != null) {
+					continue;
+				}
 				retval = ans;
 			}
 		}
