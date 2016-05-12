@@ -139,6 +139,7 @@ public class GenerateCodeCommand implements ICommand {
 					// currNode.setNodeCode(thisCode.createChild());
 					doWhileCounter++;
 					father.setDoWhileCounter(father.getDoWhileCounter() + 1);
+					thisCode.resetXStreak();
 					codeAlgorithm(father, currNode, thisCode.createChild());
 					doWhileCounter--;
 				}
@@ -179,9 +180,9 @@ public class GenerateCodeCommand implements ICommand {
 				/* loop structures have been recognized, the left is selections */
 				if (currNode.getType() == null) {
 					/*
-					 * according to the condition of judgment, the detailed
-					 * structures of if-else/if/case can be recognized also.
-					 * Approved by gugik :D
+					 * Kan sebelumnya udah ngakses children nya. Kalau sampe udah
+					 * keluar dari children dan node ini belum ketahuan tipenya,
+					 * berarti ini selection.
 					 */
 					currNode.setType(SelectionType.get());
 				}
@@ -212,6 +213,7 @@ public class GenerateCodeCommand implements ICommand {
 						// currNode.setNodeCode(thisCode.createChild());
 						doWhileCounter++;
 						father.setDoWhileCounter(father.getDoWhileCounter() + 1);
+						thisCode.resetXStreak();
 						codeAlgorithm(father, currNode, thisCode.createChild());
 						doWhileCounter--;
 					}

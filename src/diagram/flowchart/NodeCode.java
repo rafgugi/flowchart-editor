@@ -1,12 +1,11 @@
 package diagram.flowchart;
 
 /**
- * Code of flowchart. The basic unit of coding for every
- * node is a number in the form of [x,y]. x is the coding
- * number of branches judgment node. y is a sequence code
- * which increase one by one in the same layer. The node
- * code of a new layer inherits from the code of its
- * direct judgment node and append code at its tail.
+ * Code of flowchart. The basic unit of coding for every node is a number in the
+ * form of [x,y]. x is the coding number of branches judgment node. y is a
+ * sequence code which increase one by one in the same layer. The node code of a
+ * new layer inherits from the code of its direct judgment node and append code
+ * at its tail.
  * 
  * JOURNAL OF SOFTWARE, VOL. 7, NO. 5, MAY 2012 1111 © 2012 ACADEMY PUBLISHER
  */
@@ -40,9 +39,8 @@ public class NodeCode {
 	}
 
 	/**
-	 * Each node code has own child x streak. Each time
-	 * this node code make another child with increasing
-	 * x, xStreak is increased.
+	 * Each node code has own child x streak. Each time this node code make
+	 * another child with increasing x, xStreak is increased.
 	 * 
 	 * @return xStreak
 	 */
@@ -58,9 +56,15 @@ public class NodeCode {
 	}
 
 	/**
-	 * Each node code has own child y streak. Each time
-	 * this node code make another child with increasing
-	 * y, yxStreak is increased.
+	 * Reset xStreak.
+	 */
+	public void resetXStreak() {
+		xStreak = 0;
+	}
+
+	/**
+	 * Each node code has own child y streak. Each time this node code make
+	 * another child with increasing y, yxStreak is increased.
 	 * 
 	 * @return yStreak
 	 */
@@ -76,8 +80,15 @@ public class NodeCode {
 	}
 
 	/**
-	 * Create node code, the same parent of this, same
-	 * x value, one higher y value of this.
+	 * Reset yStreak.
+	 */
+	public void resetYStreak() {
+		yStreak = 0;
+	}
+
+	/**
+	 * Create node code, the same parent of this, same x value, one higher y
+	 * value of this.
 	 * 
 	 * @return Sibling node code
 	 */
@@ -90,8 +101,8 @@ public class NodeCode {
 	}
 
 	/**
-	 * Create node code, the parent is this node code,
-	 * y value is 0, x value is this xStreak.
+	 * Create node code, the parent is this node code, y value is 0, x value is
+	 * this xStreak.
 	 * 
 	 * @return Child node code
 	 */
