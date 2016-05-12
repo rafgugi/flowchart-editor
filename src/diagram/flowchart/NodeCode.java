@@ -93,6 +93,7 @@ public class NodeCode {
 	 */
 	public NodeCode createChild() {
 		NodeCode child = new NodeCode(this, getXStreak(), 0);
+		children.add(child);
 		incXStreak();
 		return child;
 	}

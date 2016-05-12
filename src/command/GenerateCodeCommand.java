@@ -45,23 +45,6 @@ public class GenerateCodeCommand implements ICommand {
 		if (validator.isError()) {
 			return;
 		}
-		if (validator instanceof IElement) { // always fail
-			FileDialog dialog = new FileDialog(MainWindow.getInstance(), SWT.SAVE);
-			dialog.setFilterNames(new String[] { "*.txt", "*.*" });
-			dialog.setFileName("output.txt");
-			String filepath = dialog.open();
-			Main.log("Save to " + filepath);
-
-			PrintWriter writer;
-			try {
-				writer = new PrintWriter(filepath, "UTF-8");
-				writer.println("The first line");
-				writer.println("The second line");
-				writer.close();
-			} catch (FileNotFoundException | UnsupportedEncodingException e) {
-				e.printStackTrace();
-			}
-		}
 
 		List<IElement> elements;
 		elements = MainWindow.getInstance().getEditor().getActiveSubEditor().getElements();
@@ -81,8 +64,9 @@ public class GenerateCodeCommand implements ICommand {
 
 		/* Begin code flowchartElement, send father, his son, and new code */
 		boolean status = false;
+		String blockcode = "";
 		try {
-			/* CodeAlgorithm Method */
+			/* "Code Algorithm" Method */
 			Terminator father = (Terminator) currentElem;
 			FlowChartElement son = (FlowChartElement) father.getFlow().getDstElement();
 			NodeCode currCode = new NodeCode();
@@ -91,9 +75,15 @@ public class GenerateCodeCommand implements ICommand {
 			doWhileCounter = 0;
 			codeAlgorithm(father, son, father.getNodeCode().createSibling());
 
-			/* Convert to PAD method */
+			/* "Convert to PAD" method */
 			BlockContainer fatherBlock = new BlockContainer();
 			convertToPAD(currCode, fatherBlock);
+
+			/* Convert PAD to source code */
+			blockcode = fatherBlock.generate();
+			Main.log("Start");
+			Main.log(blockcode);
+			Main.log("End");
 
 			status = true;
 		} catch (GenerateCodeException ex) {
@@ -103,6 +93,24 @@ public class GenerateCodeCommand implements ICommand {
 		} finally {
 			if (status) {
 				MainWindow.getInstance().setStatus("Finish generating code.");
+
+				FileDialog dialog = new FileDialog(MainWindow.getInstance(), SWT.SAVE);
+				dialog.setFilterNames(new String[] { "*.txt", "*.*" });
+				dialog.setFileName("output.txt");
+				String filepath = dialog.open();
+				if (filepath == null) {
+					throw new GenerateCodeException("Save canceled.");
+				}
+				Main.log("Save to " + filepath);
+
+				PrintWriter writer;
+				try {
+					writer = new PrintWriter(filepath, "UTF-8");
+					writer.println(blockcode);
+					writer.close();
+				} catch (FileNotFoundException | UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -175,7 +183,7 @@ public class GenerateCodeCommand implements ICommand {
 					Main.log("\tPush into stackOfJudgment, to find convergence." + again);
 					stackOfJudgment.push(currNode);
 				}
-				Main.log("\tDecision hasn't been traversed" + again);
+				Main.log("\tJudgment hasn't been traversed" + again);
 				currNode.traverse();
 				currNode.setNodeCode(currCode);
 
@@ -224,7 +232,7 @@ public class GenerateCodeCommand implements ICommand {
 						if (currNode.getDoWhileCounter() < doWhileCounter) {
 							currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1); //!!!
 						}
-						Main.log("\tDecision father is do-while.");
+						Main.log("\tJudgment father is do-while.");
 						NodeCode thisCode = currNode.getNodeCode();
 						father.setNodeCode(thisCode);
 						father.setType(DoWhileType.get());
@@ -260,9 +268,9 @@ public class GenerateCodeCommand implements ICommand {
 					if (stackOfJudgment.isEmpty()) {
 						throw new GenerateCodeException("Empty stackOfJudgment.");
 					}
-					Judgment tempDecision = stackOfJudgment.pop();
-					currNode.setDirectJudgment(tempDecision);
-					tempDecision.setDirectConvergence(currNode);
+					Judgment tempJudgment = stackOfJudgment.pop();
+					currNode.setDirectJudgment(tempJudgment);
+					tempJudgment.setDirectConvergence(currNode);
 				}
 				/* Set this convergence node code from direct judgment */
 				currNode.setNodeCode(currNode.getDirectJudgment().getNodeCode());
@@ -291,9 +299,17 @@ public class GenerateCodeCommand implements ICommand {
 			return;
 		}
 		FlowChartElement currElem = currCode.getElement();
-		if (currElem.getType() instanceof ProcessType) {
+		if (currElem == null) {
+			return;
+		}
+		Main.log("ConvertToPAD enter " + currElem);
+		if (currElem.getType() instanceof TerminatorType) {
 			currCode = currCode.getSibling();
+			convertToPAD(currCode, fatherBlock);
+		}
+		if (currElem.getType() instanceof ProcessType) {
 			Sequence element = new Sequence();
+			currCode = currCode.getSibling();
 			element.setText(currElem.getText());
 			fatherBlock.addElement(element);
 			convertToPAD(currCode, fatherBlock);
@@ -309,10 +325,15 @@ public class GenerateCodeCommand implements ICommand {
 				BlockContainer subBlock = new BlockContainer();
 				if (flow.getText().equals(Line.YES)) {
 					element.setYesChild(subBlock);
-					convertToPAD(nextFlow.getNodeCode(), subBlock);
+				} else if (flow.getText().equals(Line.NO)) {
+					element.setNoChild(subBlock);
+				} else {
+					throw new GenerateCodeException("Judgment flow type isn't defined.");
 				}
+				convertToPAD(nextFlow.getNodeCode(), subBlock);
 			}
 			fatherBlock.addElement(element);
+			convertToPAD(currCode.getSibling(), fatherBlock);
 		}
 		if (currElem.getType() instanceof LoopType) {
 			Loop element;
@@ -327,6 +348,7 @@ public class GenerateCodeCommand implements ICommand {
 			element.setChild(subContainer);
 			fatherBlock.addElement(element);
 			convertToPAD(childCode, subContainer);
+			convertToPAD(currCode.getSibling(), fatherBlock);
 		}
 	}
 

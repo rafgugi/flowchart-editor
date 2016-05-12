@@ -1,7 +1,5 @@
 package diagram.pad;
 
-import exception.GenerateCodeException;
-
 public class Selection extends BlockSingle {
 
 	private BlockContainer yesChild;
@@ -24,7 +22,16 @@ public class Selection extends BlockSingle {
 	}
 
 	public String generate() {
-		throw new GenerateCodeException("Not implemented yet.");
+		String ans = "if (" + getText() + ") {\n";
+		if (getYesChild() != null) {
+			ans += getYesChild().generate();
+		}
+		ans += "} else {\n";
+		if (getNoChild() != null) {
+			ans += getNoChild().generate();
+		}
+		ans += "}\n";
+		return ans;
 	}
 
 }

@@ -13,17 +13,17 @@ import main.Main;
 import widget.tab.SubEditor;
 import widget.toolbar.ToolStrip;
 
-public class DecisionTool extends ATool {
+public class JudgmentTool extends ATool {
 
 	private boolean isDrag;
 	private MouseEvent downTemp;
 
-	public DecisionTool(ToolStrip parent, String name) {
+	public JudgmentTool(ToolStrip parent, String name) {
 		super(parent, name);
 	}
 
-	public DecisionTool(ToolStrip parent) {
-		super(parent, "Decision tool");
+	public JudgmentTool(ToolStrip parent) {
+		super(parent, "Judgment tool");
 	}
 
 	@Override

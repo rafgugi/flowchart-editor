@@ -35,7 +35,7 @@ public class ToolStrip extends ToolBar implements IToolStrip {
 		addTool(new PointerTool(this));
 		addTool(new TerminatorTool(this));
 		addTool(new ProcessTool(this));
-		addTool(new DecisionTool(this));
+		addTool(new JudgmentTool(this));
 		addTool(new ConvergenceTool(this));
 		// addTool(new LineTool(this));
 		addTool(new PolylineTool(this));
