@@ -150,11 +150,12 @@ public class GenerateCodeCommand implements ICommand {
 				if (currNode.getDoWhileCounter() < doWhileCounter) {
 					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1); //!!!
 					again = " again";
+				} else {
+					stackOfJudgment.push(currNode);
 				}
 				Main.log("\tDecision hasn't been traversed" + again);
 				currNode.traverse();
 				currNode.setNodeCode(currCode);
-				stackOfJudgment.push(currNode);
 
 				/* Get direct convergence and process other children */
 				ArrayList<Convergence> convergenceSons = new ArrayList<>();
@@ -183,6 +184,9 @@ public class GenerateCodeCommand implements ICommand {
 				}
 				/* Continue to process the nodes behind Convergence. */
 				Convergence conv = currNode.getDirectConvergence();
+				if (conv == null) {
+					throw new GenerateCodeException("Direct convergence is null.");
+				}
 				NodeCode sonCode = conv.getNodeCode().createSibling();
 				FlowChartElement sonNode = (FlowChartElement) conv.getFlow().getDstElement();
 				Main.log("\tGo to decision's direct convergence.");
@@ -234,8 +238,9 @@ public class GenerateCodeCommand implements ICommand {
 					Decision tempDecision = stackOfJudgment.pop();
 					currNode.setDirectJudgment(tempDecision);
 					tempDecision.setDirectConvergence(currNode);
-					currNode.setNodeCode(tempDecision.getNodeCode());
 				}
+				/* Set this convergence node code from direct judgment */
+				currNode.setNodeCode(currNode.getDirectJudgment().getNodeCode());
 			} else {
 				Main.log("\tConvergence has been traversed.");
 				currNode.setNodeCode(currNode.getDirectJudgment().getNodeCode());
