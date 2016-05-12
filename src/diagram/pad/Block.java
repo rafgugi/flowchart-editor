@@ -2,17 +2,17 @@ package diagram.pad;
 
 import java.util.ArrayList;
 
-public class ElementContainer extends PadElement {
+public class Block extends PadElement {
 
 	private ArrayList<PadElement> elements;
 	private PadElement parent;
 
-	public ElementContainer(PadElement parent) {
+	public Block(PadElement parent) {
 		this.parent = parent;
 		elements = new ArrayList<>();
 	}
 
-	public ElementContainer() {
+	public Block() {
 		this(null);
 	}
 

@@ -1,5 +1,9 @@
 package diagram.flowchart;
 
+import java.util.ArrayList;
+
+import interfaces.FlowChartElement;
+
 /**
  * Code of flowchart. The basic unit of coding for every node is a number in the
  * form of [x,y]. x is the coding number of branches judgment node. y is a
@@ -11,11 +15,17 @@ package diagram.flowchart;
  */
 public class NodeCode {
 
-	public NodeCode parent;
-	public int x = 0; // current x value
-	public int y = 0; // current y value
+	/* Node code family */
+	private NodeCode parent = null;
+	private NodeCode sibling = null;
+	private ArrayList<NodeCode> children = new ArrayList<>();
+	
+	private int x = 0; // current x value
+	private int y = 0; // current y value
 	private int xStreak = 0; // child highest x value
 	private int yStreak = 0; // child highest y value
+
+	private FlowChartElement element;
 
 	public NodeCode(NodeCode parent, int x, int y) {
 		this.parent = parent;
@@ -23,19 +33,7 @@ public class NodeCode {
 		this.y = y;
 	}
 
-	public NodeCode(NodeCode parent) {
-		this.parent = parent;
-		if (parent != null) {
-			this.x = parent.x;
-			this.y = parent.y;
-			parent.incYStreak();
-		}
-	}
-
 	public NodeCode() {
-		parent = null;
-		xStreak = 0;
-		yStreak = 0;
 	}
 
 	/**
@@ -56,13 +54,6 @@ public class NodeCode {
 	}
 
 	/**
-	 * Reset xStreak.
-	 */
-	public void resetXStreak() {
-		xStreak = 0;
-	}
-
-	/**
 	 * Each node code has own child y streak. Each time this node code make
 	 * another child with increasing y, yxStreak is increased.
 	 * 
@@ -80,13 +71,6 @@ public class NodeCode {
 	}
 
 	/**
-	 * Reset yStreak.
-	 */
-	public void resetYStreak() {
-		yStreak = 0;
-	}
-
-	/**
 	 * Create node code, the same parent of this, same x value, one higher y
 	 * value of this.
 	 * 
@@ -94,6 +78,7 @@ public class NodeCode {
 	 */
 	public NodeCode createSibling() {
 		NodeCode sibling = new NodeCode(parent, x, y + 1);
+		this.sibling = sibling;
 		if (parent != null) {
 			parent.incYStreak();
 		}
@@ -110,6 +95,50 @@ public class NodeCode {
 		NodeCode child = new NodeCode(this, getXStreak(), 0);
 		incXStreak();
 		return child;
+	}
+
+	/**
+	 * Reset this node children, also reset xStreak.
+	 */
+	public void resetChildren() {
+		xStreak = 0;
+		children.clear();
+	}
+
+	/**
+	 * Get sibling of this code
+	 * 
+	 * @return sibling
+	 */
+	public NodeCode getSibling() {
+		return sibling;
+	}
+
+	/**
+	 * Get collection of children of this code
+	 * 
+	 * @return children
+	 */
+	public ArrayList<NodeCode> getChildren() {
+		return children;
+	}
+
+	/**
+	 * Get corresponding element to this node.
+	 * 
+	 * @return element
+	 */
+	public FlowChartElement getElement() {
+		return element;
+	}
+
+	/**
+	 * Set corresponding element.
+	 * 
+	 * @param element
+	 */
+	public void setElement(FlowChartElement element) {
+		this.element = element;
 	}
 
 	@Override

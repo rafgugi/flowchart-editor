@@ -6,7 +6,7 @@ import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
 import diagram.element.Diamond;
-import diagram.flowchart.Decision;
+import diagram.flowchart.Judgment;
 import exception.CreateElementException;
 import interfaces.IElement;
 import main.Main;
@@ -61,7 +61,7 @@ public class DecisionTool extends ATool {
 			}
 			Point src = new Point(downTemp.x, downTemp.y);
 			Point dst = new Point(e.x, e.y);
-			IElement rect = new Decision(new Diamond(src, dst));
+			IElement rect = new Judgment(new Diamond(src, dst));
 			getActiveSubEditor().addElement(rect);
 			rect.select();
 			getActiveSubEditor().draw();

@@ -23,9 +23,7 @@ import widget.window.MainWindow;
 
 public class GenerateCodeCommand implements ICommand {
 
-	private Stack<Decision> stackOfJudgment = new Stack<>();
-	// private Stack<FlowChartElement> stackOfLoopReturn = new Stack<>();
-	// private int recodeCounter;
+	private Stack<Judgment> stackOfJudgment = new Stack<>();
 	private int codeCounter;
 	private int doWhileCounter;
 
@@ -34,7 +32,6 @@ public class GenerateCodeCommand implements ICommand {
 		ValidateDiagramCommand validator = new ValidateDiagramCommand();
 		validator.execute();
 		if (validator.isError()) {
-			Main.log("Masih Error");
 			return;
 		}
 		if (validator instanceof IElement) { // always fail
@@ -63,7 +60,6 @@ public class GenerateCodeCommand implements ICommand {
 		for (IElement e : elements) {
 			if (e instanceof FlowChartElement) {
 				((FlowChartElement) e).prepare();
-				;
 			}
 			if (e instanceof Terminator) {
 				if (((Terminator) e).getText().equals(Terminator.START)) {
@@ -73,20 +69,25 @@ public class GenerateCodeCommand implements ICommand {
 		}
 
 		/* Begin code flowchartElement, send father, his son, and new code */
-		FlowChartElement father = (FlowChartElement) currentElem;
-		FlowChartElement son = (FlowChartElement) ((TwoDimensional) father).getChildren().get(0);
+		boolean status = false;
 		try {
-			father.setNodeCode(new NodeCode());
+			Terminator father = (Terminator) currentElem;
+			FlowChartElement son = (FlowChartElement) father.getFlow().getDstElement();
+			NodeCode newNode = new NodeCode();
+			father.setNodeCode(newNode);
 			codeCounter = 0;
 			doWhileCounter = 0;
-			// recodeCounter = 0;
 			codeAlgorithm(father, son, father.getNodeCode().createSibling());
+			status = true;
 		} catch (GenerateCodeException ex) {
-			Main.log(" Error: ");
+			Main.log("Error: ");
 			Main.log(ex.getMessage());
+			MainWindow.getInstance().setStatus(ex.getMessage());
+		} finally {
+			if (status) {
+				MainWindow.getInstance().setStatus("Finish generating code.");
+			}
 		}
-		MainWindow.getInstance().getEditor().getActiveSubEditor().clearCanvas();
-		MainWindow.getInstance().getEditor().getActiveSubEditor().draw();
 	}
 
 	/**
@@ -127,7 +128,7 @@ public class GenerateCodeCommand implements ICommand {
 				 * Judgment and link it with his Father, include do-while and
 				 * nested do-while
 				 */
-				if (father instanceof Decision && father.getType() == null || currNode.getDoWhileCounter() < doWhileCounter) {
+				if (father instanceof Judgment && father.getType() == null || currNode.getDoWhileCounter() < doWhileCounter) {
 					if (currNode.getDoWhileCounter() < doWhileCounter) {
 						currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1); //!!!
 					}
@@ -135,18 +136,18 @@ public class GenerateCodeCommand implements ICommand {
 					NodeCode thisCode = currNode.getNodeCode();
 					father.setNodeCode(thisCode);
 					father.setType(DoWhileType.get());
-					((Decision) father).setDoWhileNode(currNode);
+					((Judgment) father).setDoWhileNode(currNode);
 					// currNode.setNodeCode(thisCode.createChild());
 					doWhileCounter++;
 					father.setDoWhileCounter(father.getDoWhileCounter() + 1);
-					thisCode.resetXStreak();
+					thisCode.resetChildren();
 					codeAlgorithm(father, currNode, thisCode.createChild());
 					doWhileCounter--;
 				}
 			}
 		}
-		if (currElem instanceof Decision) {
-			Decision currNode = (Decision) currElem;
+		if (currElem instanceof Judgment) {
+			Judgment currNode = (Judgment) currElem;
 			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) { //!!!
 				String again = "";
 				if (currNode.getDoWhileCounter() < doWhileCounter) {
@@ -169,11 +170,11 @@ public class GenerateCodeCommand implements ICommand {
 						continue;
 					}
 					NodeCode sonCode = currCode.createChild();
-					Main.log("\tGo to decision's child.");
+					Main.log("\tGo to judgment's child.");
 					codeAlgorithm(currNode, (FlowChartElement) son, sonCode);
 				}
 				for (Convergence convergenceson : convergenceSons) {
-					Main.log("\tGo to decision's convergence direct child.");
+					Main.log("\tGo to judgment's convergence direct child.");
 					codeAlgorithm(currNode, convergenceson, null);
 				}
 
@@ -193,7 +194,7 @@ public class GenerateCodeCommand implements ICommand {
 				}
 				NodeCode sonCode = conv.getNodeCode().createSibling();
 				FlowChartElement sonNode = (FlowChartElement) conv.getFlow().getDstElement();
-				Main.log("\tGo to decision's direct convergence.");
+				Main.log("\tGo to judgment's direct convergence.");
 				codeAlgorithm(conv, sonNode, sonCode);
 			}
 			else { // been traversed.
@@ -201,7 +202,8 @@ public class GenerateCodeCommand implements ICommand {
 					currNode.setType(WhileType.get());
 				}
 				else { // and been recognized
-					if (father instanceof Decision && father.getType() == null || currNode.getDoWhileCounter() < doWhileCounter) {
+					if (father instanceof Judgment && father.getType() == null
+							|| currNode.getDoWhileCounter() < doWhileCounter) {
 						if (currNode.getDoWhileCounter() < doWhileCounter) {
 							currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1); //!!!
 						}
@@ -209,11 +211,11 @@ public class GenerateCodeCommand implements ICommand {
 						NodeCode thisCode = currNode.getNodeCode();
 						father.setNodeCode(thisCode);
 						father.setType(DoWhileType.get());
-						((Decision) father).setDoWhileNode(currNode);
+						((Judgment) father).setDoWhileNode(currNode);
 						// currNode.setNodeCode(thisCode.createChild());
 						doWhileCounter++;
 						father.setDoWhileCounter(father.getDoWhileCounter() + 1);
-						thisCode.resetXStreak();
+						thisCode.resetChildren();
 						codeAlgorithm(father, currNode, thisCode.createChild());
 						doWhileCounter--;
 					}
@@ -237,11 +239,11 @@ public class GenerateCodeCommand implements ICommand {
 				 * convergence
 				 */
 				if (currNode.getDirectJudgment() == null) {
-					Main.log("\tConnect convergence with decision.");
+					Main.log("\tConnect convergence with judgment.");
 					if (stackOfJudgment.isEmpty()) {
 						throw new GenerateCodeException("Empty stackOfJudgment.");
 					}
-					Decision tempDecision = stackOfJudgment.pop();
+					Judgment tempDecision = stackOfJudgment.pop();
 					currNode.setDirectJudgment(tempDecision);
 					tempDecision.setDirectConvergence(currNode);
 				}

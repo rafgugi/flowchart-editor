@@ -12,7 +12,7 @@ import widget.window.property.ProcessProperty;
 public class Convergence extends FlowChartDecorator implements IDiagramElement {
 
 	private FlowLine flow;
-	private Decision directJudgment;
+	private Judgment directJudgment;
 
 	public Convergence() {
 	}
@@ -66,7 +66,7 @@ public class Convergence extends FlowChartDecorator implements IDiagramElement {
 	 * 
 	 * @return judgment
 	 */
-	public Decision getDirectJudgment() {
+	public Judgment getDirectJudgment() {
 		return directJudgment;
 	}
 
@@ -75,7 +75,7 @@ public class Convergence extends FlowChartDecorator implements IDiagramElement {
 	 * 
 	 * @param judgment
 	 */
-	public void setDirectJudgment(Decision directJudgment) {
+	public void setDirectJudgment(Judgment directJudgment) {
 		this.directJudgment = directJudgment;
 	}
 

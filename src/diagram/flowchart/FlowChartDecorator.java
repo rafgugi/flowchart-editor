@@ -30,6 +30,9 @@ public abstract class FlowChartDecorator extends TwoDimensionalDecorator impleme
 	@Override
 	public void setNodeCode(NodeCode code) {
 		this.nodeCode = code;
+		if (code != null) {
+			code.setElement(this);
+		}
 		Main.log("\tSet code of " + this + ": " + code);
 	}
 

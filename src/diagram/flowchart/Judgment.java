@@ -10,16 +10,16 @@ import interfaces.IElement;
 import main.Main;
 import widget.window.property.ProcessProperty;
 
-public class Decision extends FlowChartDecorator implements IDiagramElement {
+public class Judgment extends FlowChartDecorator implements IDiagramElement {
 
 	private ArrayList<FlowLine> flows = new ArrayList<>();
 	private Convergence directConvergence;
 	private FlowChartElement doWhileNode;
 
-	public Decision() {
+	public Judgment() {
 	}
 
-	public Decision(TwoDimensional component) {
+	public Judgment(TwoDimensional component) {
 		super(component);
 	}
 
