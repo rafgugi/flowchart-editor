@@ -1,6 +1,6 @@
 package diagram.pad;
 
-public class Sequence extends PadElement {
+public class Sequence extends BlockSingle {
 
 	@Override
 	public String generate() {

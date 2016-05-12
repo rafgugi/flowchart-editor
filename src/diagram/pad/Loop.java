@@ -1,14 +1,14 @@
 package diagram.pad;
 
-public abstract class Loop extends PadElement {
+public abstract class Loop extends BlockSingle {
 
-	private Block child;
+	private BlockContainer child;
 
-	public Block getChild() {
+	public BlockContainer getChild() {
 		return child;
 	}
 
-	public void setChild(Block child) {
+	public void setChild(BlockContainer child) {
 		this.child = child;
 	}
 

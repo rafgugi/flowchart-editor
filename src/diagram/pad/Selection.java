@@ -1,5 +1,23 @@
 package diagram.pad;
 
-public class Selection {
+import java.util.ArrayList;
+
+import exception.GenerateCodeException;
+
+public class Selection extends BlockSingle {
+
+	private ArrayList<BlockContainer> children = new ArrayList<>();
+
+	public ArrayList<BlockContainer> getChildren() {
+		return children;
+	}
+
+	public void addChild(BlockContainer child) {
+		children.add(child);
+	}
+
+	public String generate() {
+		throw new GenerateCodeException("Not implemented yet.");
+	}
 
 }

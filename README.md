@@ -6,9 +6,9 @@ User can make flowchart, then user convert flowchart into sourcecode using Probl
 | Flowchart Editor | Ok
 | Data persistence (Save & Open) | Ok
 | Flowchart validation | Progress
-| Generate a code for every node | Progress
-| Convert coded flowchart into PAD | Not yet
-| Convert PAD into raw sourcecode | Not yet
+| Generate a code for every node | Ok
+| Convert coded flowchart into PAD | Progress
+| Convert PAD into raw sourcecode | Progress
 | Convert raw sourcecode into compilable code  | Not yet
 
 ## Preparing

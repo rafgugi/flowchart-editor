@@ -71,6 +71,7 @@ public class GenerateCodeCommand implements ICommand {
 		/* Begin code flowchartElement, send father, his son, and new code */
 		boolean status = false;
 		try {
+			/* CodeAlgorithm Method */
 			Terminator father = (Terminator) currentElem;
 			FlowChartElement son = (FlowChartElement) father.getFlow().getDstElement();
 			NodeCode newNode = new NodeCode();
@@ -78,6 +79,10 @@ public class GenerateCodeCommand implements ICommand {
 			codeCounter = 0;
 			doWhileCounter = 0;
 			codeAlgorithm(father, son, father.getNodeCode().createSibling());
+
+			/* Convert to PAD method */
+
+
 			status = true;
 		} catch (GenerateCodeException ex) {
 			Main.log("Error: ");

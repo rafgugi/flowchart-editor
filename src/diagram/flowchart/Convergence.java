@@ -80,6 +80,12 @@ public class Convergence extends FlowChartDecorator implements IDiagramElement {
 	}
 
 	@Override
+	public void setNodeCode(NodeCode code) {
+		this.nodeCode = code;
+		Main.log("\tSet code of " + this + ": " + code);
+	}
+
+	@Override
 	public void prepare() {
 		super.prepare();
 		setDirectJudgment(null);

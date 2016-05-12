@@ -2,10 +2,9 @@ package diagram.pad;
 
 public abstract class PadElement {
 
-	private String text;
+	private String text = "";
 
 	public PadElement() {
-		text = "";
 	}
 
 	public String getText() {
