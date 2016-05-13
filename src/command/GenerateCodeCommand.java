@@ -139,6 +139,7 @@ public class GenerateCodeCommand implements ICommand {
 			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) {
 				String again = "";
 				if (currNode.getDoWhileCounter() < doWhileCounter) {
+					/* This process is still surrounded by do-while */
 					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
 					again = " again";
 				}
@@ -156,18 +157,20 @@ public class GenerateCodeCommand implements ICommand {
 				if (father instanceof Judgment && father.getType() == null
 						|| currNode.getDoWhileCounter() < doWhileCounter) {
 					if (currNode.getDoWhileCounter() < doWhileCounter) {
+						/* This process is still surrounded by do-while */
 						currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
 					}
 					Main.log("\tProcess father is do-while.");
-					NodeCode thisCode = currNode.getNodeCode();
-					father.setNodeCode(thisCode);
 					father.setType(DoWhileType.get());
+					NodeCode thisCode = currNode.getNodeCode();
+					father.setNodeCode(thisCode); // do-while take over child code
+					thisCode.resetChildren(); // and reset the child of the code
 
-					doWhileCounter++;
+					Main.log("\tBegining to recode do-while child.");
+					doWhileCounter++; // increase do-while stack
 					father.setDoWhileCounter(father.getDoWhileCounter() + 1);
-					thisCode.resetChildren();
 					codeAlgorithm(father, currNode, thisCode.createChild());
-					doWhileCounter--;
+					doWhileCounter--; // reset do-while stack after finish recode
 				}
 			}
 		}
@@ -176,6 +179,7 @@ public class GenerateCodeCommand implements ICommand {
 			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) {
 				String again = "";
 				if (currNode.getDoWhileCounter() < doWhileCounter) {
+					/* This process is still surrounded by do-while */
 					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
 					again = " again";
 				}
@@ -198,6 +202,8 @@ public class GenerateCodeCommand implements ICommand {
 					Main.log("\tGo to judgment's child.");
 					codeAlgorithm(currNode, (FlowChartElement) son, sonCode);
 				}
+
+				/* Process direct convergence, judgment and convergence will be connected */
 				for (Convergence convergenceson : convergenceSons) {
 					Main.log("\tGo to judgment's convergence direct child.");
 					codeAlgorithm(currNode, convergenceson, null);
@@ -212,6 +218,7 @@ public class GenerateCodeCommand implements ICommand {
 					 */
 					currNode.setType(SelectionType.get());
 				}
+
 				/* Continue to process the nodes behind Convergence. */
 				Convergence conv = currNode.getDirectConvergence();
 				if (conv == null) {
@@ -230,18 +237,20 @@ public class GenerateCodeCommand implements ICommand {
 					if (father instanceof Judgment && father.getType() == null
 							|| currNode.getDoWhileCounter() < doWhileCounter) {
 						if (currNode.getDoWhileCounter() < doWhileCounter) {
+							/* This process is still surrounded by do-while */
 							currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
 						}
 						Main.log("\tJudgment father is do-while.");
-						NodeCode thisCode = currNode.getNodeCode();
-						father.setNodeCode(thisCode);
 						father.setType(DoWhileType.get());
+						NodeCode thisCode = currNode.getNodeCode();
+						father.setNodeCode(thisCode); // do-while take over child code
+						thisCode.resetChildren(); // and reset the child of the code
 
-						doWhileCounter++;
+						Main.log("\tBegining to recode do-while child.");
+						doWhileCounter++; // increase do-while stack
 						father.setDoWhileCounter(father.getDoWhileCounter() + 1);
-						thisCode.resetChildren();
 						codeAlgorithm(father, currNode, thisCode.createChild());
-						doWhileCounter--;
+						doWhileCounter--; // reset do-while stack after finish recode
 					}
 				}
 			}
@@ -252,6 +261,7 @@ public class GenerateCodeCommand implements ICommand {
 			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) {
 				String again = "";
 				if (currNode.getDoWhileCounter() < doWhileCounter) {
+					/* This process is still surrounded by do-while */
 					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
 					again = " again";
 				}
