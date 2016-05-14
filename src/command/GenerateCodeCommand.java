@@ -80,7 +80,9 @@ public class GenerateCodeCommand implements ICommand {
 			convertToPAD(currCode, fatherBlock);
 
 			/* Convert PAD to source code */
-			blockcode = fatherBlock.generate();
+			blockcode += "void main() {\n";
+			blockcode += fatherBlock.generate();
+			blockcode += "}\n";
 			Main.log("Start");
 			Main.log(blockcode);
 			Main.log("End");
