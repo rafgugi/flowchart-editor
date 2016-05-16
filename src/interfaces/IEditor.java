@@ -24,6 +24,13 @@ public interface IEditor extends IWidget {
 	public void newSubEditor(String title);
 
 	/**
+	 * Create a default tab.
+	 *
+	 * @param tab name
+	 */
+	public void newSubEditor(String title, IDiagram diagram);
+
+	/**
 	 * Get currently active tab
 	 *
 	 * @return ISubEditor active tab

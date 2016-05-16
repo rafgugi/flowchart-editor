@@ -13,6 +13,7 @@ import diagram.element.PolyLine;
 import diagram.element.TwoDimensional;
 import diagram.flowchart.FlowLine;
 import exception.CreateElementException;
+import exception.EmptySubEditorException;
 import interfaces.IElement;
 import widget.tab.SubEditor;
 import widget.toolbar.ToolStrip;
@@ -116,7 +117,10 @@ public class PolylineTool extends ATool {
 		dstElement = null;
 		elbows.clear();
 		firstPoint = null;
-		getActiveSubEditor().draw();
+		try {
+			getActiveSubEditor().draw();
+		} catch (EmptySubEditorException e) {
+		}
 	}
 
 	@Override

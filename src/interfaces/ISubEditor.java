@@ -91,4 +91,7 @@ public interface ISubEditor extends IWidget {
 	 * @return Collection of elected elements
 	 */
 	public List<IElement> getSelectedElements();
+	
+	public void setDiagram(IDiagram diagram);
+	public IDiagram getDiagram();
 }

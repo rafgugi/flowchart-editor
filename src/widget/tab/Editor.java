@@ -8,7 +8,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
 
+import diagram.Flowchart;
 import exception.EmptySubEditorException;
+import interfaces.IDiagram;
 import interfaces.IEditor;
 import interfaces.ISubEditor;
 import interfaces.ITool;
@@ -41,8 +43,6 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 		gridData.minimumWidth = 480;
 		super.setLayoutData(gridData);
 
-		newSubEditor();
-
 		ITool tool;
 		try {
 			tool = ((MainWindow) super.getParent()).getToolStrip().getTools().get(0);
@@ -67,8 +67,14 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 
 	@Override
 	public void newSubEditor(String title) {
+		newSubEditor(title, Flowchart.get());
+	}
+
+	@Override
+	public void newSubEditor(String title, IDiagram diagram) {
 		ISubEditor subEditor = new SubEditor(this);
 		subEditor.setTitle(title);
+		subEditor.setDiagram(diagram);
 		addSubEditor(subEditor);
 	}
 
@@ -79,6 +85,9 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 			throw new EmptySubEditorException();
 		}
 		ISubEditor ans = subEditors.get(index);
+		if (ans.getDiagram() == null) {
+			throw new EmptySubEditorException("Diagram type not specified");
+		}
 		return ans;
 	}
 

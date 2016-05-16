@@ -1,7 +1,6 @@
 package widget.menu;
 
-import widget.menu.menuitem.DeleteMenuItem;
-import widget.menu.menuitem.SelectAllMenuItem;
+import widget.menu.menuitem.*;
 
 public class EditMenu extends AMenu {
 

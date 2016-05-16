@@ -16,6 +16,7 @@ import diagram.element.Line;
 import diagram.state.EditState;
 import exception.ElementNotFoundException;
 import exception.FlowchartEditorException;
+import interfaces.IDiagram;
 import interfaces.IElement;
 import interfaces.ISubEditor;
 import main.Main;
@@ -33,6 +34,7 @@ public class SubEditor extends TabItem
 	private String title;
 	private Canvas canvas;
 	private List<IElement> elements = new ArrayList<>();
+	private IDiagram diagram;
 
 	public SubEditor(Editor parent, int style) {
 		super(parent, style);
@@ -220,6 +222,16 @@ public class SubEditor extends TabItem
 	@Override
 	public IElement getElement(String id) {
 		return getElement(UUID.fromString(id));
+	}
+
+	@Override
+	public void setDiagram(IDiagram diagram) {
+		this.diagram = diagram;
+	}
+
+	@Override
+	public IDiagram getDiagram() {
+		return diagram;
 	}
 
 }

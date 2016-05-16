@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import diagram.Flowchart;
 import exception.PersistenceException;
 import interfaces.ICommand;
 import interfaces.IElement;
@@ -66,6 +67,7 @@ public class OpenCommand implements ICommand {
 		JSONArray elements = obj.getJSONArray("elements");
 		MainWindow.getInstance().getEditor().newSubEditor(filename);
 		ISubEditor editor = MainWindow.getInstance().getEditor().getActiveSubEditor();
+		editor.setDiagram(Flowchart.get());
 		for (int i = 0; i < elements.length(); i++) {
 			JSONObject item = elements.getJSONObject(i);
 			String className = item.getString("class");

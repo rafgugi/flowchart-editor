@@ -1,9 +1,6 @@
 package widget.menu;
 
-import widget.menu.menuitem.GenerateCodeMenuItem;
-import widget.menu.menuitem.PackMenuItem;
-import widget.menu.menuitem.PropertiesMenuItem;
-import widget.menu.menuitem.ValidateMenuItem;
+import widget.menu.menuitem.*;
 
 public class DiagramMenu extends AMenu {
 
@@ -18,6 +15,7 @@ public class DiagramMenu extends AMenu {
 		addItem(new PackMenuItem(this));
 		addItem(new ValidateMenuItem(this));
 		addItem(new GenerateCodeMenuItem(this));
+		addItem(new ShowPADMenuItem(this));
 	}
 
 }
