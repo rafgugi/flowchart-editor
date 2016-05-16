@@ -4,9 +4,10 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
 import interfaces.IElement;
+import interfaces.IPropertyWindow;
 import widget.window.AWindow;
 
-public abstract class APropertyWindow extends AWindow implements Listener {
+public abstract class APropertyWindow extends AWindow implements IPropertyWindow, Listener {
 
 	private IElement element;
 
@@ -14,27 +15,17 @@ public abstract class APropertyWindow extends AWindow implements Listener {
 		setElement(element);
 	}
 
-	/**
-	 * Get element for this property window.
-	 * 
-	 * @return element
-	 */
+	@Override
 	public IElement getElement() {
 		return element;
 	}
 
-	/**
-	 * Set element for this property window.
-	 * 
-	 * @param element
-	 */
+	@Override
 	public void setElement(IElement element) {
 		this.element = element;
 	}
 
-	/**
-	 * Apply changes from this property window.
-	 */
+	@Override
 	public abstract void execute();
 
 	@Override
