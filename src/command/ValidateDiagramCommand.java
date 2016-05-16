@@ -25,6 +25,7 @@ public class ValidateDiagramCommand implements ICommand {
 		rules.add(new MoreThanOneTerminatorRule());
 		rules.add(new NotConnectedElementRule());
 		rules.add(new InvalidExpressionRule());
+		rules.add(new BadCodeRule());
 	}
 
 	@Override
