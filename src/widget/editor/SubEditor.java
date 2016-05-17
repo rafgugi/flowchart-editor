@@ -113,16 +113,22 @@ public class SubEditor extends TabItem
 
 	@Override
 	public void mouseDoubleClick(MouseEvent e) {
+		e.x -= getCanvas().getTranslateX();
+		e.y -= getCanvas().getTranslateY();
 		((MouseListener) MainWindow.getInstance().getEditor().getActiveTool()).mouseDoubleClick(e);
 	}
 
 	@Override
 	public void mouseDown(MouseEvent e) {
+		e.x -= getCanvas().getTranslateX();
+		e.y -= getCanvas().getTranslateY();
 		((MouseListener) MainWindow.getInstance().getEditor().getActiveTool()).mouseDown(e);
 	}
 
 	@Override
 	public void mouseUp(MouseEvent e) {
+		e.x -= getCanvas().getTranslateX();
+		e.y -= getCanvas().getTranslateY();
 		((MouseListener) MainWindow.getInstance().getEditor().getActiveTool()).mouseUp(e);
 	}
 
@@ -133,6 +139,8 @@ public class SubEditor extends TabItem
 
 	@Override
 	public void mouseMove(MouseEvent e) {
+		e.x -= getCanvas().getTranslateX();
+		e.y -= getCanvas().getTranslateY();
 		((MouseMoveListener) MainWindow.getInstance().getEditor().getActiveTool()).mouseMove(e);
 	}
 

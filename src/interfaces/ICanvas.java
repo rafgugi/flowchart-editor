@@ -15,4 +15,6 @@ public interface ICanvas {
 	public void fillRoundRectangle(int x, int y, int w, int h, int radX, int radY);
 	public void drawText(String text, int x, int y);
 	public int[] stringExtent(String text);
+	public int getTranslateX();
+	public int getTranslateY();
 }

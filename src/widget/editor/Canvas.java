@@ -96,20 +96,22 @@ public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas {
 	@Override
 	public void drawPolygon(int[] points) {
 		GC gc = getGC();
+		int[] newPoints = new int[points.length];
 		for (int i = 0; i < points.length; i++) {
-			points[i] = points[i] + (i % 2 == 0 ? getTranslateX() : getTranslateY());
+			newPoints[i] = points[i] + (i % 2 == 0 ? getTranslateX() : getTranslateY());
 		}
-		gc.drawPolygon(points);
+		gc.drawPolygon(newPoints);
 		gc.dispose();
 	}
 
 	@Override
 	public void fillPolygon(int[] points) {
 		GC gc = getGC();
+		int[] newPoints = new int[points.length];
 		for (int i = 0; i < points.length; i++) {
-			points[i] = points[i] + (i % 2 == 0 ? getTranslateX() : getTranslateY());
+			newPoints[i] = points[i] + (i % 2 == 0 ? getTranslateX() : getTranslateY());
 		}
-		gc.fillPolygon(points);
+		gc.fillPolygon(newPoints);
 		gc.dispose();
 	}
 
@@ -154,10 +156,12 @@ public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas {
 		return new int[] { p.x, p.y };
 	}
 
+	@Override
 	public int getTranslateX() {
 		return hBar.getTranslate();
 	}
 
+	@Override
 	public int getTranslateY() {
 		return vBar.getTranslate();
 	}
