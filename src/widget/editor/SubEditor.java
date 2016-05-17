@@ -9,7 +9,6 @@ import org.eclipse.swt.events.DragDetectEvent;
 import org.eclipse.swt.events.DragDetectListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TabItem;
 
 import diagram.element.Line;
@@ -34,7 +33,6 @@ public class SubEditor extends TabItem
 	private Canvas canvas;
 	private List<IElement> elements = new ArrayList<>();
 	private IDiagram diagram;
-	private Composite composite;
 
 	public SubEditor(Editor parent, int style) {
 		super(parent, style);
@@ -47,14 +45,8 @@ public class SubEditor extends TabItem
 
 	@Override
 	public void initialize() {
-		composite = new Composite(this.getParent(), SWT.NONE);
-		composite.setBackground(getDisplay().getSystemColor(SWT.COLOR_BLUE));
-		super.setControl(composite);
 		canvas = new Canvas(this);
-	}
-
-	public Composite getComposite() {
-		return composite;
+		super.setControl(canvas);
 	}
 
 	@Override

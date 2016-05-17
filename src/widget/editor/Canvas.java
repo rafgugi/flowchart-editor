@@ -3,16 +3,14 @@ package widget.editor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.ScrollBar;
 
 import interfaces.ICanvas;
 
 public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas {
 
 	/* Widgets */
-	private ScrollBar hBar;
-	private ScrollBar vBar;
+	private Scroller hBar;
+	private Scroller vBar;
 	private SubEditor parent;
 	private GC gc;
 
@@ -20,25 +18,15 @@ public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas {
 	private Color fgColor = new Color(0, 0, 0);
 	private Color bgColor = new Color(255, 255, 255);
 
-	/* Translation for every drawing element */
-	private int translateX = 0;
-	private int translateY = 0;
-
 	public Canvas(SubEditor parent) {
-		super(parent.getComposite(), SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
+		super(parent.getParent(), SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL);
 		this.parent = parent;
 		initialize();
 	}
 
 	public void initialize() {
-//		super.setSize(500, 500);
-		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
-		gridData.minimumHeight = 320;
-		gridData.minimumWidth = 480;
-//		super.setLayoutData(gridData);
-
-		hBar = super.getHorizontalBar();
-		vBar = super.getVerticalBar();
+		hBar = new Scroller(this, super.getHorizontalBar());
+		vBar = new Scroller(this, super.getVerticalBar());
 
 		super.addMouseListener(parent);
 		super.addMouseMoveListener(parent);
@@ -87,21 +75,21 @@ public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas {
 	@Override
 	public void drawLine(int srcx, int srcy, int dstx, int dsty) {
 		GC gc = getGC();
-		gc.drawLine(srcx + translateX, srcy + translateY, dstx + translateX, dsty + translateY);
+		gc.drawLine(srcx + getTranslateX(), srcy + getTranslateY(), dstx + getTranslateX(), dsty + getTranslateY());
 		gc.dispose();
 	}
 
 	@Override
 	public void drawOval(int x, int y, int w, int h) {
 		GC gc = getGC();
-		gc.drawOval(x + translateX, y + translateY, w, h);
+		gc.drawOval(x + getTranslateX(), y + getTranslateY(), w, h);
 		gc.dispose();
 	}
 
 	@Override
 	public void fillOval(int x, int y, int w, int h) {
 		GC gc = getGC();
-		gc.fillOval(x + translateX, y + translateY, w, h);
+		gc.fillOval(x + getTranslateX(), y + getTranslateY(), w, h);
 		gc.dispose();
 	}
 
@@ -109,7 +97,7 @@ public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas {
 	public void drawPolygon(int[] points) {
 		GC gc = getGC();
 		for (int i = 0; i < points.length; i++) {
-			points[i] = points[i] + (i % 2 == 0 ? translateX : translateY);
+			points[i] = points[i] + (i % 2 == 0 ? getTranslateX() : getTranslateY());
 		}
 		gc.drawPolygon(points);
 		gc.dispose();
@@ -119,7 +107,7 @@ public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas {
 	public void fillPolygon(int[] points) {
 		GC gc = getGC();
 		for (int i = 0; i < points.length; i++) {
-			points[i] = points[i] + (i % 2 == 0 ? translateX : translateY);
+			points[i] = points[i] + (i % 2 == 0 ? getTranslateX() : getTranslateY());
 		}
 		gc.fillPolygon(points);
 		gc.dispose();
@@ -128,35 +116,35 @@ public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas {
 	@Override
 	public void drawRectangle(int x, int y, int w, int h) {
 		GC gc = getGC();
-		gc.drawRectangle(x + translateX, y + translateY, w, h);
+		gc.drawRectangle(x + getTranslateX(), y + getTranslateY(), w, h);
 		gc.dispose();
 	}
 
 	@Override
 	public void fillRectangle(int x, int y, int w, int h) {
 		GC gc = getGC();
-		gc.fillRectangle(x + translateX, y + translateY, w, h);
+		gc.fillRectangle(x + getTranslateX(), y + getTranslateY(), w, h);
 		gc.dispose();
 	}
 
 	@Override
 	public void drawRoundRectangle(int x, int y, int w, int h, int radX, int radY) {
 		GC gc = getGC();
-		gc.drawRoundRectangle(x + translateX, y + translateY, w, h, radX, radY);
+		gc.drawRoundRectangle(x + getTranslateX(), y + getTranslateY(), w, h, radX, radY);
 		gc.dispose();
 	}
 
 	@Override
 	public void fillRoundRectangle(int x, int y, int w, int h, int radX, int radY) {
 		GC gc = getGC();
-		gc.fillRoundRectangle(x + translateX, y + translateY, w, h, radX, radY);
+		gc.fillRoundRectangle(x + getTranslateX(), y + getTranslateY(), w, h, radX, radY);
 		gc.dispose();
 	}
 
 	@Override
 	public void drawText(String text, int x, int y) {
 		GC gc = getGC();
-		gc.drawText(text, x + translateX, y);
+		gc.drawText(text, x + getTranslateX(), y + getTranslateY());
 		gc.dispose();
 	}
 
@@ -164,6 +152,14 @@ public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas {
 	public int[] stringExtent(String text) {
 		Point p = getGC().stringExtent(text);
 		return new int[] { p.x, p.y };
+	}
+
+	public int getTranslateX() {
+		return hBar.getTranslate();
+	}
+
+	public int getTranslateY() {
+		return vBar.getTranslate();
 	}
 
 }

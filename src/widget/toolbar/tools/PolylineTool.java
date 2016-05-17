@@ -12,7 +12,6 @@ import diagram.flowchart.FlowLine;
 import exception.CreateElementException;
 import exception.EmptySubEditorException;
 import interfaces.IElement;
-import widget.editor.SubEditor;
 import widget.toolbar.ToolStrip;
 import widget.window.MainWindow;
 
