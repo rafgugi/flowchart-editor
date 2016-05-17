@@ -1,7 +1,6 @@
 package widget.toolbar.tools;
 
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
 import diagram.element.Rectangle;
@@ -9,7 +8,6 @@ import diagram.flowchart.Process;
 import exception.CreateElementException;
 import interfaces.IElement;
 import main.Main;
-import widget.tab.SubEditor;
 import widget.toolbar.ToolStrip;
 
 public class ProcessTool extends ATool {
@@ -42,13 +40,11 @@ public class ProcessTool extends ATool {
 		if (!isDrag) {
 			return;
 		}
-		GC gc = ((SubEditor) getActiveSubEditor()).getGC();
 		
 		getActiveSubEditor().draw();
 
-		Rectangle.draw(gc, Math.min(downTemp.x, e.x), Math.min(downTemp.y, e.y), 
+		Rectangle.draw(Math.min(downTemp.x, e.x), Math.min(downTemp.y, e.y), 
 				Math.abs(downTemp.x - e.x), Math.abs(downTemp.y - e.y));
-		gc.dispose();
 	}
 
 	@Override

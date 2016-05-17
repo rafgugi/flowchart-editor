@@ -3,8 +3,6 @@ package widget.toolbar.tools;
 import java.util.ArrayList;
 
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
 import diagram.element.Line;
@@ -14,7 +12,7 @@ import diagram.flowchart.FlowLine;
 import exception.CreateElementException;
 import exception.EmptySubEditorException;
 import interfaces.IElement;
-import widget.tab.SubEditor;
+import widget.editor.SubEditor;
 import widget.toolbar.ToolStrip;
 import widget.window.MainWindow;
 
@@ -56,15 +54,9 @@ public class PolylineTool extends ATool {
 			MainWindow.getInstance().setStatus(ex.getMessage());
 		}
 		if (firstPoint != null) {
-			SubEditor s = (SubEditor) getActiveSubEditor();
-			GC gc = s.getGC();
-			Color black = new Color(gc.getDevice(), 0, 0, 0);
-			gc.setForeground(black);
-			gc.setBackground(black);
-
 			Point temp = firstPoint;
 			for (Point elbow : elbows) {
-				Line.draw(gc, temp.x, temp.y, elbow.x, elbow.y, false);
+				Line.draw(temp.x, temp.y, elbow.x, elbow.y, false);
 				temp = elbow;
 			}
 		}
@@ -82,18 +74,16 @@ public class PolylineTool extends ATool {
 			} else {
 				lastPoint = elbows.get(elbows.size() - 1);
 			}
-			GC gc = ((SubEditor) getActiveSubEditor()).getGC();
 			
 			getActiveSubEditor().draw();
 
 			Point temp = firstPoint;
 			for (Point elbow : elbows) {
-				Line.draw(gc, temp.x, temp.y, elbow.x, elbow.y, false);
+				Line.draw(temp.x, temp.y, elbow.x, elbow.y, false);
 				temp = elbow;
 			}
 
-			Line.draw(gc, lastPoint.x, lastPoint.y, e.x, e.y, false);
-			gc.dispose();
+			Line.draw(lastPoint.x, lastPoint.y, e.x, e.y, false);
 		}
 	}
 

@@ -1,4 +1,4 @@
-package widget.tab;
+package widget.editor;
 
 import java.util.List;
 import java.util.UUID;
@@ -9,13 +9,14 @@ import org.eclipse.swt.events.DragDetectEvent;
 import org.eclipse.swt.events.DragDetectListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.TabItem;
 
 import diagram.element.Line;
 import diagram.state.EditState;
 import exception.ElementNotFoundException;
 import exception.FlowchartEditorException;
+import interfaces.ICanvas;
 import interfaces.IDiagram;
 import interfaces.IElement;
 import interfaces.ISubEditor;
@@ -25,8 +26,6 @@ import widget.window.MainWindow;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.GC;
 
 public class SubEditor extends TabItem
 		implements ISubEditor, PaintListener, MouseListener, DragDetectListener, MouseMoveListener {
@@ -35,6 +34,7 @@ public class SubEditor extends TabItem
 	private Canvas canvas;
 	private List<IElement> elements = new ArrayList<>();
 	private IDiagram diagram;
+	private Composite composite;
 
 	public SubEditor(Editor parent, int style) {
 		super(parent, style);
@@ -47,13 +47,14 @@ public class SubEditor extends TabItem
 
 	@Override
 	public void initialize() {
-		canvas = new Canvas(this.getParent(), SWT.BORDER);
-		super.setControl(getCanvas());
+		composite = new Composite(this.getParent(), SWT.NONE);
+		composite.setBackground(getDisplay().getSystemColor(SWT.COLOR_BLUE));
+		super.setControl(composite);
+		canvas = new Canvas(this);
+	}
 
-		getCanvas().addMouseListener(this);
-		getCanvas().addMouseMoveListener(this);
-		getCanvas().addDragDetectListener(this);
-		getCanvas().addPaintListener(this);
+	public Composite getComposite() {
+		return composite;
 	}
 
 	@Override
@@ -153,10 +154,7 @@ public class SubEditor extends TabItem
 
 	@Override
 	public void clearCanvas() {
-		GC gc = new GC(getCanvas());
-		gc.setBackground(new Color(gc.getDevice(), 255, 255, 255));
-		gc.fillRectangle(0, 0, getCanvas().getSize().x, getCanvas().getSize().y);
-		gc.dispose();
+		getCanvas().clear();
 	}
 
 	@Override
@@ -191,21 +189,8 @@ public class SubEditor extends TabItem
 		return ans;
 	}
 
-	/**
-	 * Get GC for drawing.
-	 * 
-	 * @return GC
-	 */
-	public GC getGC() {
-		return new GC(getCanvas());
-	}
-
-	/**
-	 * Get canvas for drawing.
-	 * 
-	 * @return canvas
-	 */
-	public Canvas getCanvas() {
+	@Override
+	public ICanvas getCanvas() {
 		return canvas;
 	}
 

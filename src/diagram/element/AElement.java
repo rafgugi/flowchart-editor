@@ -1,17 +1,18 @@
 package diagram.element;
 
-import org.eclipse.swt.widgets.Canvas;
+import java.util.ArrayList;
+import java.util.UUID;
+
 import org.json.JSONObject;
 
-import diagram.state.*;
+import diagram.state.EditState;
+import diagram.state.NormalState;
+import interfaces.ICanvas;
 import interfaces.IDrawingState;
 import interfaces.IElement;
 import main.Main;
-import widget.tab.SubEditor;
+import widget.editor.SubEditor;
 import widget.window.MainWindow;
-
-import java.util.ArrayList;
-import java.util.UUID;
 
 public abstract class AElement implements IElement {
 	
@@ -24,7 +25,7 @@ public abstract class AElement implements IElement {
 		id = UUID.randomUUID();
 	}
 
-	protected Canvas getCanvas() {
+	protected static ICanvas getCanvas() {
 		SubEditor s = (SubEditor) MainWindow.getInstance().getEditor().getActiveSubEditor(); 
 		return s.getCanvas();
 	}

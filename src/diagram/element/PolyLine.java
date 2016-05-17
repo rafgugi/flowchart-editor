@@ -2,8 +2,6 @@ package diagram.element;
 
 import java.util.ArrayList;
 
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -22,49 +20,45 @@ public class PolyLine extends Line {
 		setDstElement(dst);
 	}
 
-	public static void draw(GC gc, int srcx, int srcy, int dstx, int dsty, ArrayList<Point> elbows) {
+	public static void draw(int srcx, int srcy, int dstx, int dsty, ArrayList<Point> elbows) {
 		Point temp;
 		temp = new Point(srcx, srcy);
 		for (Point elbow : elbows) {
-			Line.draw(gc, temp.x, temp.y, elbow.x, elbow.y, false);
+			Line.draw(temp.x, temp.y, elbow.x, elbow.y, false);
 			temp = elbow;
 		}
-		Line.draw(gc, temp.x, temp.y, dstx, dsty, true);
+		Line.draw(temp.x, temp.y, dstx, dsty, true);
 	}
 
 	@Override
 	public void renderNormal() {
-		GC gc = new GC(getCanvas());
-		Color black = new Color(gc.getDevice(), 0, 0, 0);
-		Color white = new Color(gc.getDevice(), 255, 255, 255);
-		gc.setForeground(black);
-		gc.setBackground(black);
+		getCanvas().setFgColor(0, 0, 0);
+		getCanvas().setBgColor(255, 255, 255);
 
 		generateSrcDstPoints();
-		draw(gc, getSrcx(), getSrcy(), getDstx(), getDsty(), elbows);
+		draw(getSrcx(), getSrcy(), getDstx(), getDsty(), elbows);
 
 		/* Determine max text width from each line */
 		String text = getText();
 		String[] lines = text.split("\r\n|\r|\n");
 		int textWidth = -1;
 		for (String line : lines) {
-			if (gc.stringExtent(line).x > textWidth)
-				textWidth = gc.stringExtent(line).x;
+			int[] extent = getCanvas().stringExtent(line);
+			if (extent[0] > textWidth)
+				textWidth = extent[0];
 		}
 
 		/* Determine text height of lines */
-		int textHeight = gc.stringExtent(text).y * lines.length;
+		int textHeight = getCanvas().stringExtent(text)[1] * lines.length;
 
-		gc.setBackground(white);
+		getCanvas().setBgColor(255, 255, 255);
 		String temp = text;
 		if (!temp.equals("")) {
 			temp = " " + temp + " ";
 		}
 		int middlex = (getSrcx() + getDstx()) / 2;
 		int middley = (getSrcy() + getDsty()) / 2;
-		gc.drawText(temp, middlex - textWidth / 2, middley - textHeight / 2);
-
-		gc.dispose();
+		getCanvas().drawText(temp, middlex - textWidth / 2, middley - textHeight / 2);
 	}
 
 	@Override

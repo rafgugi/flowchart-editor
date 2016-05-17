@@ -94,4 +94,11 @@ public interface ISubEditor extends IWidget {
 	
 	public void setDiagram(IDiagram diagram);
 	public IDiagram getDiagram();
+
+	/**
+	 * Get canvas for drawing.
+	 * 
+	 * @return canvas
+	 */
+	public ICanvas getCanvas();
 }

@@ -1,7 +1,6 @@
 package widget.toolbar.tools;
 
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.graphics.GC;
 
 import diagram.element.Line;
 import diagram.element.TwoDimensional;
@@ -9,7 +8,6 @@ import diagram.flowchart.FlowLine;
 import exception.CreateElementException;
 import exception.FlowchartEditorException;
 import interfaces.IElement;
-import widget.tab.SubEditor;
 import widget.toolbar.ToolStrip;
 import widget.window.MainWindow;
 
@@ -52,14 +50,10 @@ public class LineTool extends ATool {
 		if (!isDrag) {
 			return;
 		}
-		SubEditor s;
-		s = (SubEditor) getActiveSubEditor();
-		GC gc = s.getGC();
 
 		getActiveSubEditor().draw();
 
-		Line.draw(gc, downTemp.x, downTemp.y, e.x, e.y, true);
-		gc.dispose();
+		Line.draw(downTemp.x, downTemp.y, e.x, e.y, true);
 	}
 
 	@Override
