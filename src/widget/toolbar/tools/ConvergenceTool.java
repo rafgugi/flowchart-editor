@@ -1,6 +1,5 @@
 package widget.toolbar.tools;
 
-import org.eclipse.swt.events.DragDetectEvent;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
@@ -15,7 +14,6 @@ import widget.toolbar.ToolStrip;
 
 public class ConvergenceTool extends ATool {
 
-	private boolean isDrag;
 	private MouseEvent downTemp;
 
 	public ConvergenceTool(ToolStrip parent, String name) {
@@ -70,11 +68,6 @@ public class ConvergenceTool extends ATool {
 		}
 		isDrag = false;
 		downTemp = null;
-	}
-
-	@Override
-	public void dragDetected(DragDetectEvent e) {
-		isDrag = true;
 	}
 
 }

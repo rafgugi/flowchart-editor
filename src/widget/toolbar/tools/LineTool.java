@@ -1,6 +1,5 @@
 package widget.toolbar.tools;
 
-import org.eclipse.swt.events.DragDetectEvent;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.GC;
 
@@ -16,7 +15,6 @@ import widget.window.MainWindow;
 
 public class LineTool extends ATool {
 
-	private boolean isDrag;
 	private TwoDimensional srcElement;
 	private TwoDimensional dstElement;
 	private MouseEvent downTemp;
@@ -110,11 +108,6 @@ public class LineTool extends ATool {
 		getActiveSubEditor().draw();
 		isDrag = false;
 		downTemp = null;
-	}
-
-	@Override
-	public void dragDetected(DragDetectEvent e) {
-		isDrag = true;
 	}
 
 }

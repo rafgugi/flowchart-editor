@@ -2,7 +2,6 @@ package widget.toolbar.tools;
 
 import java.util.ArrayList;
 
-import org.eclipse.swt.events.DragDetectEvent;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
@@ -49,15 +48,8 @@ public class PolylineTool extends ATool {
 					srcElement = (TwoDimensional) src;
 					firstPoint = new Point(e.x, e.y);
 					getActiveSubEditor().deselectAll();
-					getActiveSubEditor().draw();
 				} else {
-					throw new CreateElementException("Klik titik titik pembentuk garis.");
-				}
-			} else {
-				if (src != null && src instanceof TwoDimensional) {
-					dstElement = (TwoDimensional) src;
-				} else { // jika klik sembarang area, bikin elbow!
-					elbows.add(new Point(e.x, e.y));
+					throw new CreateElementException("Klik element yang akan disambungkan");
 				}
 			}
 		} catch (CreateElementException ex) {
@@ -69,7 +61,7 @@ public class PolylineTool extends ATool {
 			Color black = new Color(gc.getDevice(), 0, 0, 0);
 			gc.setForeground(black);
 			gc.setBackground(black);
-			
+
 			Point temp = firstPoint;
 			for (Point elbow : elbows) {
 				Line.draw(gc, temp.x, temp.y, elbow.x, elbow.y, false);
@@ -79,29 +71,63 @@ public class PolylineTool extends ATool {
 	}
 
 	@Override
+	public void mouseMove(MouseEvent e) {
+		if (!isDrag) {
+			return;
+		}
+		if (srcElement != null) {
+			Point lastPoint;
+			if (elbows.isEmpty()) {
+				lastPoint = firstPoint;
+			} else {
+				lastPoint = elbows.get(elbows.size() - 1);
+			}
+			GC gc = ((SubEditor) getActiveSubEditor()).getGC();
+			
+			getActiveSubEditor().draw();
+
+			Point temp = firstPoint;
+			for (Point elbow : elbows) {
+				Line.draw(gc, temp.x, temp.y, elbow.x, elbow.y, false);
+				temp = elbow;
+			}
+
+			Line.draw(gc, lastPoint.x, lastPoint.y, e.x, e.y, false);
+			gc.dispose();
+		}
+	}
+
+	@Override
 	public void mouseUp(MouseEvent e) {
 		try {
-			if (srcElement != null && dstElement != null) {
-				/* Cek apakeh element udah tersambung */
-				boolean alredy = false;
-				for (IElement element : getActiveSubEditor().getElements()) {
-					if (element instanceof Line) {
-						Line flow = (Line) element;
-						int isSrc = flow.checkConnected(srcElement);
-						int isDst = flow.checkConnected(dstElement);
-						alredy = isSrc == Line.CONNECTED_SRC && isDst == Line.CONNECTED_DST;
+			if (srcElement != null) {
+				IElement src = getActiveSubEditor().getElement(e.x, e.y);
+				if (src != null && src instanceof TwoDimensional) {
+					dstElement = (TwoDimensional) src;
+					/* Cek apakeh element udah tersambung */
+					boolean alredy = false;
+					for (IElement element : getActiveSubEditor().getElements()) {
+						if (element instanceof Line) {
+							Line flow = (Line) element;
+							int isSrc = flow.checkConnected(srcElement);
+							int isDst = flow.checkConnected(dstElement);
+							alredy = isSrc == Line.CONNECTED_SRC && isDst == Line.CONNECTED_DST;
+						}
 					}
+					if (alredy) {
+						throw new CreateElementException("Object alredy connected.");
+					}
+					
+					PolyLine line = new FlowLine(srcElement, dstElement);
+					for (Point elbow : elbows) {
+						line.addElbow(elbow);
+					}
+					line.select();
+					getActiveSubEditor().addElement(line);
+				} else {
+					/* tambahin elbow nya */
+					elbows.add(new Point(e.x, e.y));
 				}
-				if (alredy) {
-					throw new CreateElementException("Object alredy connected.");
-				}
-				
-				PolyLine line = new FlowLine(srcElement, dstElement);
-				for (Point elbow : elbows) {
-					line.addElbow(elbow);
-				}
-				line.select();
-				getActiveSubEditor().addElement(line);
 			}
 		} catch (CreateElementException ex) {
 			MainWindow.getInstance().setStatus(ex.getMessage());
@@ -121,10 +147,6 @@ public class PolylineTool extends ATool {
 			getActiveSubEditor().draw();
 		} catch (EmptySubEditorException e) {
 		}
-	}
-
-	@Override
-	public void dragDetected(DragDetectEvent e) {
 	}
 
 	@Override

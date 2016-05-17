@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import diagram.element.TwoDimensional;
 import diagram.flowchart.*;
 import diagram.flowchart.Process;
 import diagram.flowchart.type.*;
@@ -127,14 +126,15 @@ public class CodeAlgorithmCommand implements ICommand {
 
 				/* Get direct convergence and process other children */
 				ArrayList<Convergence> convergenceSons = new ArrayList<>();
-				for (TwoDimensional son : currNode.getChildren()) {
+				for (FlowLine fl : currNode.getFlows()) {
+					FlowChartElement son = (FlowChartElement) fl.getDstElement();
 					if (son instanceof Convergence) {
 						convergenceSons.add((Convergence) son);
 						continue;
 					}
 					NodeCode sonCode = currCode.createChild();
 					Main.log("\tGo to judgment's child.");
-					codeAlgorithm(currNode, (FlowChartElement) son, sonCode);
+					codeAlgorithm(currNode, son, sonCode);
 				}
 
 				/* Process direct convergence, judgment and convergence will be connected */

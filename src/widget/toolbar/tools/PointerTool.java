@@ -1,6 +1,5 @@
 package widget.toolbar.tools;
 
-import org.eclipse.swt.events.DragDetectEvent;
 import org.eclipse.swt.events.MouseEvent;
 
 import command.ElementPropertiesCommand;
@@ -11,7 +10,6 @@ import widget.toolbar.ToolStrip;
 
 public class PointerTool extends ATool {
 
-	private boolean isDrag;
 	private MouseEvent downTemp;
 	private IElement clickedElement;
 
@@ -93,11 +91,6 @@ public class PointerTool extends ATool {
 	@Override
 	public void mouseDoubleClick(MouseEvent e) {
 		new ElementPropertiesCommand().execute();
-	}
-
-	@Override
-	public void dragDetected(DragDetectEvent e) {
-		isDrag = true;
 	}
 
 	@Override
