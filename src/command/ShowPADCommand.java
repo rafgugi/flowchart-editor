@@ -27,6 +27,17 @@ public class ShowPADCommand implements ICommand {
 			
 			BlockContainer fatherBlock = toPAD.getFatherBlock();
 
+			/*
+			How to draw PAD element
+
+			BlockContainer
+				define x point and top y point
+				iterate through all element
+					define y point for each element based on text length
+					save highest x length from 
+			*/
+
+
 			status = true;
 		} catch (GenerateCodeException ex) {
 			Main.log("Error: ");
