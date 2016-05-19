@@ -51,11 +51,8 @@ public class Judgment extends FlowChartDecorator implements IDiagramElement {
 
 	@Override
 	public void disconnect(IElement element) {
-		if (element instanceof FlowLine) {
-			FlowLine flow = (FlowLine) element;
-			if (flow.checkConnected(this) == Line.CONNECTED_SRC) {
-				flows.remove(element);
-			}
+		if (flows.contains(element)) {
+			flows.remove(element);
 		}
 		super.disconnect(element);
 	}

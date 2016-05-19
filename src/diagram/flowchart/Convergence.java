@@ -53,11 +53,8 @@ public class Convergence extends FlowChartDecorator implements IDiagramElement {
 
 	@Override
 	public void disconnect(IElement element) {
-		if (element instanceof FlowLine) {
-			FlowLine flow = (FlowLine) element;
-			if (flow.checkConnected(this) == Line.CONNECTED_SRC) {
-				flow = null;
-			}
+		if (element == flow) {
+			flow = null;
 		}
 		super.disconnect(element);
 	}

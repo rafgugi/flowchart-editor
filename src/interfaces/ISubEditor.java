@@ -91,7 +91,25 @@ public interface ISubEditor extends IWidget {
 	 * @return Collection of elected elements
 	 */
 	public List<IElement> getSelectedElements();
-	
-	public void setDiagram(IDiagram diagram);
+
+	/**
+	 * Get diagram type of this editor.
+	 *
+	 * @return diagram type
+	 */
 	public IDiagram getDiagram();
+
+	/**
+	 * Set diagram type of this editor.
+	 *
+	 * @param diagram type
+	 */
+	public void setDiagram(IDiagram diagram);
+
+	/**
+	 * Get canvas for drawing.
+	 * 
+	 * @return canvas
+	 */
+	public ICanvas getCanvas();
 }

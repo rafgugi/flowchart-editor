@@ -24,6 +24,7 @@ public abstract class ATool extends ToolItem
 	private String iconName;
 	private String iconFolder = "/resources/icons/";
 	private String toolName;
+	protected boolean isDrag;
 
 	public ATool(ToolStrip parent, int style) {
 		super(parent, style);
@@ -151,6 +152,7 @@ public abstract class ATool extends ToolItem
 
 	@Override
 	public void dragDetected(DragDetectEvent e) {
+		isDrag = true;
 	}
 
 	@Override

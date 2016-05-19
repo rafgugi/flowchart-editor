@@ -2,7 +2,6 @@ package diagram.element;
 
 import java.util.ArrayList;
 
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.json.JSONObject;
 
@@ -32,7 +31,7 @@ public abstract class TwoDimensional extends AEditable {
 		this(Math.min(src.x, dst.x), Math.min(src.y, dst.y), Math.abs(src.x - dst.x), Math.abs(src.y - dst.y));
 	}
 
-	public static void drawText(GC gc, String text, TwoDimensional element) {
+	public static void drawText(String text, TwoDimensional element) {
 		String intext = element.getText();
 		int inx = element.getX();
 		int iny = element.getY();
@@ -43,13 +42,14 @@ public abstract class TwoDimensional extends AEditable {
 		String[] lines = intext.split("\r\n|\r|\n");
 		int textWidth = -1;
 		for (String line : lines) {
-			if (gc.stringExtent(line).x > textWidth) {
-				textWidth = gc.stringExtent(line).x;
+			int[] extent = getCanvas().stringExtent(line);
+			if (extent[0] > textWidth) {
+				textWidth = extent[0];
 			}
 		}
 
 		/* Determine text height of lines */
-		int textHeight = gc.stringExtent(intext).y * lines.length;
+		int textHeight = getCanvas().stringExtent(intext)[1] * lines.length;
 
 		/* Auto enlarge the element */
 		boolean changed = false;
@@ -68,7 +68,7 @@ public abstract class TwoDimensional extends AEditable {
 			return;
 		}
 
-		gc.drawText(intext, inx + inw / 2 - textWidth / 2, iny + inh / 2 - textHeight / 2);
+		getCanvas().drawText(intext, inx + inw / 2 - textWidth / 2, iny + inh / 2 - textHeight / 2);
 	}
 
 	@Override

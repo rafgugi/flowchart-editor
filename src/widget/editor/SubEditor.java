@@ -1,4 +1,4 @@
-package widget.tab;
+package widget.editor;
 
 import java.util.List;
 import java.util.UUID;
@@ -9,13 +9,13 @@ import org.eclipse.swt.events.DragDetectEvent;
 import org.eclipse.swt.events.DragDetectListener;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.TabItem;
 
 import diagram.element.Line;
 import diagram.state.EditState;
 import exception.ElementNotFoundException;
 import exception.FlowchartEditorException;
+import interfaces.ICanvas;
 import interfaces.IDiagram;
 import interfaces.IElement;
 import interfaces.ISubEditor;
@@ -25,8 +25,6 @@ import widget.window.MainWindow;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.GC;
 
 public class SubEditor extends TabItem
 		implements ISubEditor, PaintListener, MouseListener, DragDetectListener, MouseMoveListener {
@@ -47,13 +45,8 @@ public class SubEditor extends TabItem
 
 	@Override
 	public void initialize() {
-		canvas = new Canvas(this.getParent(), SWT.BORDER);
-		super.setControl(getCanvas());
-
-		getCanvas().addMouseListener(this);
-		getCanvas().addMouseMoveListener(this);
-		getCanvas().addDragDetectListener(this);
-		getCanvas().addPaintListener(this);
+		canvas = new Canvas(this);
+		super.setControl(canvas);
 	}
 
 	@Override
@@ -120,16 +113,22 @@ public class SubEditor extends TabItem
 
 	@Override
 	public void mouseDoubleClick(MouseEvent e) {
+		e.x -= getCanvas().getTranslateX();
+		e.y -= getCanvas().getTranslateY();
 		((MouseListener) MainWindow.getInstance().getEditor().getActiveTool()).mouseDoubleClick(e);
 	}
 
 	@Override
 	public void mouseDown(MouseEvent e) {
+		e.x -= getCanvas().getTranslateX();
+		e.y -= getCanvas().getTranslateY();
 		((MouseListener) MainWindow.getInstance().getEditor().getActiveTool()).mouseDown(e);
 	}
 
 	@Override
 	public void mouseUp(MouseEvent e) {
+		e.x -= getCanvas().getTranslateX();
+		e.y -= getCanvas().getTranslateY();
 		((MouseListener) MainWindow.getInstance().getEditor().getActiveTool()).mouseUp(e);
 	}
 
@@ -140,6 +139,8 @@ public class SubEditor extends TabItem
 
 	@Override
 	public void mouseMove(MouseEvent e) {
+		e.x -= getCanvas().getTranslateX();
+		e.y -= getCanvas().getTranslateY();
 		((MouseMoveListener) MainWindow.getInstance().getEditor().getActiveTool()).mouseMove(e);
 	}
 
@@ -153,10 +154,7 @@ public class SubEditor extends TabItem
 
 	@Override
 	public void clearCanvas() {
-		GC gc = new GC(getCanvas());
-		gc.setBackground(new Color(gc.getDevice(), 255, 255, 255));
-		gc.fillRectangle(0, 0, getCanvas().getSize().x, getCanvas().getSize().y);
-		gc.dispose();
+		getCanvas().clear();
 	}
 
 	@Override
@@ -191,21 +189,8 @@ public class SubEditor extends TabItem
 		return ans;
 	}
 
-	/**
-	 * Get GC for drawing.
-	 * 
-	 * @return GC
-	 */
-	public GC getGC() {
-		return new GC(getCanvas());
-	}
-
-	/**
-	 * Get canvas for drawing.
-	 * 
-	 * @return canvas
-	 */
-	public Canvas getCanvas() {
+	@Override
+	public ICanvas getCanvas() {
 		return canvas;
 	}
 

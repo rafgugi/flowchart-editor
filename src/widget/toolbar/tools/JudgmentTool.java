@@ -1,8 +1,6 @@
 package widget.toolbar.tools;
 
-import org.eclipse.swt.events.DragDetectEvent;
 import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 
 import diagram.element.Diamond;
@@ -10,12 +8,10 @@ import diagram.flowchart.Judgment;
 import exception.CreateElementException;
 import interfaces.IElement;
 import main.Main;
-import widget.tab.SubEditor;
 import widget.toolbar.ToolStrip;
 
 public class JudgmentTool extends ATool {
 
-	private boolean isDrag;
 	private MouseEvent downTemp;
 
 	public JudgmentTool(ToolStrip parent, String name) {
@@ -44,13 +40,11 @@ public class JudgmentTool extends ATool {
 		if (!isDrag) {
 			return;
 		}
-		GC gc = ((SubEditor) getActiveSubEditor()).getGC();
 		
 		getActiveSubEditor().draw();
 
-		Diamond.draw(gc, Math.min(downTemp.x, e.x), Math.min(downTemp.y, e.y), 
+		Diamond.draw(Math.min(downTemp.x, e.x), Math.min(downTemp.y, e.y), 
 				Math.abs(downTemp.x - e.x), Math.abs(downTemp.y - e.y));
-		gc.dispose();
 	}
 
 	@Override
@@ -70,11 +64,6 @@ public class JudgmentTool extends ATool {
 		}
 		isDrag = false;
 		downTemp = null;
-	}
-
-	@Override
-	public void dragDetected(DragDetectEvent e) {
-		isDrag = true;
 	}
 
 }

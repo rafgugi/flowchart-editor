@@ -1,7 +1,5 @@
 package diagram.element;
 
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.GC;
 import org.json.JSONObject;
 
 import interfaces.IElement;
@@ -107,17 +105,13 @@ public class EditPoint extends AElement {
 
 	@Override
 	public void renderEdit() {
-		GC gc = new GC(getCanvas());
-		Color black = new Color(gc.getDevice(), 0, 0, 0);
-		Color white = new Color(gc.getDevice(), 255, 255, 255);
-		gc.setForeground(black);
-		gc.setBackground(white);
+		getCanvas().setFgColor(0, 0, 0);
+		getCanvas().setBgColor(255, 255, 255);
 		int x, y;
 		x = this.x - 2;
 		y = this.y - 2;
-		gc.drawRectangle(x, y, LENGTH, LENGTH);
-		gc.fillRectangle(x + 1, y + 1, LENGTH - 1, LENGTH - 1);
-		gc.dispose();
+		getCanvas().drawRectangle(x, y, LENGTH, LENGTH);
+		getCanvas().fillRectangle(x + 1, y + 1, LENGTH - 1, LENGTH - 1);
 	}
 
 	@Override

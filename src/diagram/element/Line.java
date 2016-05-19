@@ -2,8 +2,6 @@ package diagram.element;
 
 import java.util.ArrayList;
 
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.json.JSONObject;
 
@@ -42,10 +40,11 @@ public class Line extends AEditable {
 		setDstElement(dst);
 	}
 
-	public static void draw(GC gc, int srcx, int srcy, int dstx, int dsty, boolean pointed) {
-		gc.drawLine(srcx, srcy, dstx, dsty);
+	public static void draw(int srcx, int srcy, int dstx, int dsty, boolean pointed) {
+		getCanvas().drawLine(srcx, srcy, dstx, dsty);
 
 		if (pointed) {
+			getCanvas().setBgColor(0, 0, 0);
 			int n = 10;
 			double angle = Math.atan2(dsty - srcy, dstx - srcx);
 			int x1 = (int) (dstx - n * Math.cos(angle - Math.PI / 6));
@@ -54,8 +53,8 @@ public class Line extends AEditable {
 			int y2 = (int) (dsty - n * Math.sin(angle + Math.PI / 6));
 
 			int[] points = { dstx, dsty, x1, y1, x2, y2 };
-			gc.fillPolygon(points);
-			gc.drawPolygon(points);
+			getCanvas().fillPolygon(points);
+			getCanvas().drawPolygon(points);
 		}
 	}
 
@@ -112,36 +111,33 @@ public class Line extends AEditable {
 
 	@Override
 	public void renderNormal() {
-		GC gc = new GC(getCanvas());
-		Color black = new Color(gc.getDevice(), 0, 0, 0);
-		Color white = new Color(gc.getDevice(), 255, 255, 255);
-		gc.setForeground(black);
-		gc.setBackground(black);
+		getCanvas().setFgColor(0, 0, 0);
+		getCanvas().setBgColor(0, 0, 0);
 
 		generateSrcDstPoints();
-		draw(gc, getSrcx(), getSrcy(), getDstx(), getDsty(), true);
+		draw(getSrcx(), getSrcy(), getDstx(), getDsty(), true);
 
 		/* Determine max text width from each line */
+		String text = getText();
 		String[] lines = text.split("\r\n|\r|\n");
 		int textWidth = -1;
 		for (String line : lines) {
-			if (gc.stringExtent(line).x > textWidth)
-				textWidth = gc.stringExtent(line).x;
+			int[] extent = getCanvas().stringExtent(line);
+			if (extent[0] > textWidth)
+				textWidth = extent[0];
 		}
 
 		/* Determine text height of lines */
-		int textHeight = gc.stringExtent(text).y * lines.length;
+		int textHeight = getCanvas().stringExtent(text)[1] * lines.length;
 
-		gc.setBackground(white);
+		getCanvas().setBgColor(255, 255, 255);
 		String temp = text;
 		if (!temp.equals("")) {
 			temp = " " + temp + " ";
 		}
 		int middlex = (getSrcx() + getDstx()) / 2;
 		int middley = (getSrcy() + getDsty()) / 2;
-		gc.drawText(temp, middlex - textWidth / 2, middley - textHeight / 2);
-
-		gc.dispose();
+		getCanvas().drawText(temp, middlex - textWidth / 2, middley - textHeight / 2);
 	}
 
 	@Override

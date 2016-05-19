@@ -12,8 +12,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Label;
 
+import widget.editor.Editor;
 import widget.menu.MenuBar;
-import widget.tab.Editor;
 import widget.toolbar.ToolStrip;
 import widget.validation.ValidationList;
 
