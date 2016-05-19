@@ -81,6 +81,12 @@ public class ConvertToPADCommand implements ICommand {
 			} else {
 				element = new DoWhile();
 			}
+			for (FlowLine flow : ((Judgment) currElem).getFlows()) {
+				FlowChartElement nextFlow = (FlowChartElement) flow.getDstElement();
+				if (nextFlow instanceof Convergence) {
+					element.setFlowType(flow.getText().equals(Line.NO));
+				}
+			}
 			element.setText(currElem.getText());
 			BlockContainer subContainer = new BlockContainer();
 			NodeCode childCode = currCode.getChildren().get(0);

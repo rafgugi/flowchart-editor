@@ -3,10 +3,16 @@ package widget.editor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 
 import interfaces.ICanvas;
+import main.Main;
 
-public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas {
+public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas, Listener {
+
+	public final static int MAX_SIZE_X = 2000;
+	public final static int MAX_SIZE_Y = 2000;
 
 	/* Widgets */
 	private Scroller hBar;
@@ -32,6 +38,7 @@ public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas {
 		super.addMouseMoveListener(parent);
 		super.addDragDetectListener(parent);
 		super.addPaintListener(parent);
+		super.addListener(SWT.Resize, this);
 	}
 
 	@Override
@@ -41,12 +48,12 @@ public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas {
 	private GC getGC() {
 		if (gc == null || gc.isDisposed()) {
 			gc = new GC(this);
-			org.eclipse.swt.graphics.Color temp;
-			temp = new org.eclipse.swt.graphics.Color(gc.getDevice(), fgColor.r, fgColor.g, fgColor.b);
-			gc.setForeground(temp);
-			temp = new org.eclipse.swt.graphics.Color(gc.getDevice(), bgColor.r, bgColor.g, bgColor.b);
-			gc.setBackground(temp);
 		}
+		org.eclipse.swt.graphics.Color temp;
+		temp = new org.eclipse.swt.graphics.Color(gc.getDevice(), fgColor.r, fgColor.g, fgColor.b);
+		gc.setForeground(temp);
+		temp = new org.eclipse.swt.graphics.Color(gc.getDevice(), bgColor.r, bgColor.g, bgColor.b);
+		gc.setBackground(temp);
 		return gc;
 	}
 
@@ -164,6 +171,12 @@ public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas {
 	@Override
 	public int getTranslateY() {
 		return vBar.getTranslate();
+	}
+
+	@Override
+	public void handleEvent(Event arg0) {
+		Main.log(super.getSize() + "");
+		Main.log(super.getBounds() + "");
 	}
 
 }

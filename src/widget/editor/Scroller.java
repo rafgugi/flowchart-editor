@@ -18,11 +18,20 @@ public class Scroller implements Listener {
 		scroll.addListener(SWT.Selection, this);
 	}
 
+	public boolean isVertical() {
+		return SWT.VERTICAL == (scroll.getStyle() & SWT.VERTICAL);
+	}
+
 	@Override
 	public void handleEvent(Event arg0) {
-		int selection = scroll.getSelection();
-		int dest = -selection - translate;
 		Point size = canvas.getSize();
+		int selection = scroll.getSelection();
+		if (isVertical()) {
+			selection = selection * Canvas.MAX_SIZE_X / size.x;
+		} else {
+			selection = selection * Canvas.MAX_SIZE_Y / size.y;
+		}
+		int dest = -selection - translate;
 		canvas.scroll(dest, 0, 0, 0, size.x, size.y, false);
 		translate = -selection;
 	}

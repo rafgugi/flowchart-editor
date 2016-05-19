@@ -10,4 +10,8 @@ public class Color {
 		this.b = b;
 	}
 
+	@Override
+	public String toString() {
+		return "(" + r + ", " + g + ", " + b + ")";
+	}
 }
