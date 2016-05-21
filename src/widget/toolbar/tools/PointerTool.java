@@ -3,15 +3,22 @@ package widget.toolbar.tools;
 import org.eclipse.swt.events.MouseEvent;
 
 import command.ElementPropertiesCommand;
+import interfaces.IEditableElement;
 import interfaces.IElement;
 
-import java.util.ArrayList;
 import widget.toolbar.ToolStrip;
 
 public class PointerTool extends ATool {
 
 	private MouseEvent downTemp;
 	private IElement clickedElement;
+
+	private static final int DRAG_SINGLE = 1;
+	private static final int DRAG_MULTIPLE = 2;
+	private static final int DRAG_CONTROL_POINT = 3;
+	private static final int SELECT_MULTIPLE = 4;
+
+	private int state;
 
 	public PointerTool(ToolStrip parent, String name) {
 		super(parent, name);
@@ -31,56 +38,59 @@ public class PointerTool extends ATool {
 		isDrag = false;
 		downTemp = e;
 		clickedElement = null;
-//		getActiveSubEditor().deselectAll();
+		state = 0;
 
-		IElement element = getActiveSubEditor().getElement(e.x, e.y);
-		if (element != null) {
-			/* select an element which previously no selected elements */
-			clickedElement = element;
-//			element.select();
-			getActiveSubEditor().draw();
+		IElement dapetElement = getActiveSubEditor().getElement(e.x, e.y);
+		if (getActiveSubEditor().getSelectedElements().isEmpty()) {
+			if (dapetElement != null) {
+				dapetElement.select();
+				clickedElement = dapetElement;
+				state = DRAG_SINGLE;
+			} else {
+				state = SELECT_MULTIPLE;
+			}
 		} else {
-			/* select some elements */
+			if (dapetElement != null) {
+				clickedElement = dapetElement;
+				if (dapetElement.isActive()) {
+					if (dapetElement instanceof IEditableElement) {
+						state = DRAG_MULTIPLE;
+					} else {
+						state = DRAG_CONTROL_POINT;
+					}
+				} else {
+					state = DRAG_SINGLE;
+				}
+			} else {
+				getActiveSubEditor().deselectAll();
+				state = SELECT_MULTIPLE;
+			}
 		}
-
 	}
 
 	@Override
 	public void mouseUp(MouseEvent e) {
-		/*
-		 * Jika nggak didrag maka select 1 elemen
-		 */
-		if (!isDrag) {
-			/* Select an element */
-			getActiveSubEditor().deselectAll();
-			if (clickedElement != null) {
-				clickedElement.select();
-			}
-		}
-		/*
-		 * Jika didrag maka pilihannya select banyak elemen ngedrag elemen. Nah
-		 * ini elemennya dibatasi satu saja.
-		 */
-		else {
-			/* Select some elements */
-			if (clickedElement == null) {
-				ArrayList<IElement> temp = new ArrayList<>();
+		if (isDrag) {
+			switch (state) {
+			case DRAG_MULTIPLE:
+				for (IElement element : getActiveSubEditor().getSelectedElements()) {
+					element.drag(downTemp.x, downTemp.y, e.x, e.y);
+				}
+				break;
+			case DRAG_SINGLE:
+			case DRAG_CONTROL_POINT:
+				clickedElement.drag(downTemp.x, downTemp.y, e.x, e.y);
+				break;
+			case SELECT_MULTIPLE:
 				for (IElement element : getActiveSubEditor().getElements()) {
-					if (element.checkBoundary(e.x, e.y, downTemp.x, downTemp.y) != null) {
-						temp.add(element);
+					if (element.checkBoundary(downTemp.x, downTemp.y, e.x, e.y) != null) {
+						element.select();
 					}
 				}
-				
-				for (IElement element : temp) {
-					element.select();
-				}
-			} else {
-				/*
-				 * Move selected elements. Could this be more general? You can't
-				 * move a line
-				 */
-				clickedElement.drag(downTemp.x, downTemp.y, e.x, e.y);
-				getActiveSubEditor().deselectAll();
+			}
+		} else {
+			getActiveSubEditor().deselectAll();
+			if (clickedElement != null) {
 				clickedElement.select();
 			}
 		}
@@ -94,13 +104,6 @@ public class PointerTool extends ATool {
 
 	@Override
 	public void mouseMove(MouseEvent e) {
-		if (isDrag) {
-			if (getActiveSubEditor().getSelectedElements().isEmpty()) {
-				// select some items
-			} else {
-				// move selected items
-			}
-		}
 	}
 
 }
