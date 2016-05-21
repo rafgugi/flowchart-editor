@@ -110,7 +110,7 @@ public class NodeCode {
 		if (parent != null) {
 			retval = parent.toString();
 		}
-		return retval + "[" + x + "," + y + "]";
+		return retval + "(" + x + "," + y + ")";
 	}
 
 }

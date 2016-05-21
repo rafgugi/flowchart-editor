@@ -355,7 +355,11 @@ public abstract class TwoDimensional extends AEditable {
 
 	@Override
 	public String toString() {
-		return "[" + getText() + "] " + getClass().getName();
+		String ans = getClass().getSimpleName();
+		if (!getText().equals("")) {
+			ans += "[" + getText() + "]";
+		}
+		return ans;
 	}
 
 }
