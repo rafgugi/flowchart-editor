@@ -9,12 +9,14 @@ User can make flowchart, then user convert flowchart into sourcecode using Probl
 | Generate a code for every node | Ok
 | Convert coded flowchart into PAD | Ok
 | Convert PAD into raw sourcecode | Ok
-| Convert raw sourcecode into compilable code  | Not yet
+| View PAD | Ok
+| Convert raw sourcecode into compilable code  | No
 
 ## Preparing
 - [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 - [Eclipse for Java developers](https://eclipse.org/downloads)
-- Make sure [java.eclipse.swt](https://www.eclipse.org/swt/eclipse.php) included into this project
+- Make sure additional jar files included into this project
+  - [java.eclipse.swt](https://www.eclipse.org/swt)
 
 ## Another nice way to clone this project
 - Open Eclipse
