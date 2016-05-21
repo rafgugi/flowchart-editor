@@ -1,5 +1,7 @@
 package widget.toolbar.tools;
 
+import java.util.ArrayList;
+
 import org.eclipse.swt.events.MouseEvent;
 
 import command.ElementPropertiesCommand;
@@ -73,13 +75,21 @@ public class PointerTool extends ATool {
 		if (isDrag) {
 			switch (state) {
 			case DRAG_MULTIPLE:
+				ArrayList<IElement> temp = new ArrayList<>();
 				for (IElement element : getActiveSubEditor().getSelectedElements()) {
 					element.drag(downTemp.x, downTemp.y, e.x, e.y);
+					temp.add(element);
+				}
+				getActiveSubEditor().deselectAll();
+				for (IElement element : temp) {
+					element.select();
 				}
 				break;
 			case DRAG_SINGLE:
 			case DRAG_CONTROL_POINT:
 				clickedElement.drag(downTemp.x, downTemp.y, e.x, e.y);
+				getActiveSubEditor().deselectAll();
+				clickedElement.select();
 				break;
 			case SELECT_MULTIPLE:
 				for (IElement element : getActiveSubEditor().getElements()) {
