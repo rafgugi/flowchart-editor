@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * List of validation fails. You can click the item then it automatically select
  * the fails elements. Generated when ValidateCommand is executed.
  */
-public interface IValidationList extends IWidget {
+public interface IValidationList {
 
 	/**
 	 * Add an item into the list.

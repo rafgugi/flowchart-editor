@@ -8,8 +8,7 @@ public class DiagramMenu extends AMenu {
 		super(parent);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setTitle("Diagram");
 		addItem(new PropertiesMenuItem(this));
 		addItem(new PackMenuItem(this));

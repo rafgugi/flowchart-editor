@@ -24,8 +24,7 @@ public class MenuBar extends Menu implements IMenuBar {
 		this(parent, SWT.BAR);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		addMenu(new FileMenu(this));
 		addMenu(new EditMenu(this));
 		addMenu(new DiagramMenu(this));

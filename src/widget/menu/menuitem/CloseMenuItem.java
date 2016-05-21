@@ -9,8 +9,7 @@ public class CloseMenuItem extends AMenuItem {
 		super(parent);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setTitle("Close\t\tCtrl+W");
 		super.setShortcut('W');
 	}

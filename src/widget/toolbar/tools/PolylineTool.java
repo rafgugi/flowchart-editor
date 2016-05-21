@@ -30,8 +30,7 @@ public class PolylineTool extends ATool {
 		super(parent, "Polyline tool");
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setIconName("polyarrow.png");
 		super.initialize();
 	}

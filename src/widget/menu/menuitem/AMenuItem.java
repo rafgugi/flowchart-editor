@@ -24,6 +24,8 @@ public abstract class AMenuItem extends MenuItem implements IMenuItem, Listener 
 		this(parent, SWT.PUSH);
 	}
 
+	protected abstract void initialize();
+
 	@Override
 	public String getTitle() {
 		return name;

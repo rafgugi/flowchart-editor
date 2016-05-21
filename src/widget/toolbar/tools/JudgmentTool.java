@@ -22,8 +22,7 @@ public class JudgmentTool extends ATool {
 		super(parent, "Judgment tool");
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setIconName("diamond.png");
 		super.initialize();
 	}

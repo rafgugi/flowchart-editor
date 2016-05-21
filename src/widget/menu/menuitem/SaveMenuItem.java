@@ -9,8 +9,7 @@ public class SaveMenuItem extends AMenuItem {
 		super(parent);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setTitle("Save\t\tCtrl+S");
 		super.setShortcut('S');
 	}

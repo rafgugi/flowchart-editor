@@ -15,8 +15,7 @@ public abstract class AWindow extends Shell implements IWindow {
 		this(Display.getDefault());
 	}
 
-	@Override
-	public abstract void initialize();
+	protected abstract void initialize();
 
 	@Override
 	public void show() {

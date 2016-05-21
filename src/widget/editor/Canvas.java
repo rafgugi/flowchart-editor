@@ -30,7 +30,7 @@ public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas, L
 		initialize();
 	}
 
-	public void initialize() {
+	protected void initialize() {
 		hBar = new Scroller(this, super.getHorizontalBar());
 		vBar = new Scroller(this, super.getVerticalBar());
 

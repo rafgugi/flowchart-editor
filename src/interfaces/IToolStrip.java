@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Tool container.
  */
-public interface IToolStrip extends IWidget {
+public interface IToolStrip {
 
 	/**
 	 * Get collection of tools.

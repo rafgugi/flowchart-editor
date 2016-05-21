@@ -43,8 +43,7 @@ public class SubEditor extends TabItem
 		this(parent, SWT.NONE);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		canvas = new Canvas(this);
 		super.setControl(canvas);
 	}

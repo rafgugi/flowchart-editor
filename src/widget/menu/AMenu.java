@@ -27,8 +27,7 @@ public abstract class AMenu extends Menu implements IMenu {
 		this(parent, SWT.CASCADE);
 	}
 
-	@Override
-	public abstract void initialize();
+	protected abstract void initialize();
 
 	@Override
 	public void addItem(IMenuItem item) {

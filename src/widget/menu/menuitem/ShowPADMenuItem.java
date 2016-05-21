@@ -9,8 +9,7 @@ public class ShowPADMenuItem extends AMenuItem {
 		super(parent);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setTitle("Show PA&D\tCtrl+D");
 		super.setShortcut('D');
 	}

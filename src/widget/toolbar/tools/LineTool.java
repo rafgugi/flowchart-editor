@@ -25,8 +25,7 @@ public class LineTool extends ATool {
 		super(parent, "Line tool");
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setIconName("arrow.png");
 		super.initialize();
 		isDrag = false;

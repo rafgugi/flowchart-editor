@@ -1,17 +1,16 @@
 package widget.window;
 
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Menu;
+
 import interfaces.IEditor;
 import interfaces.IMainWindow;
 import interfaces.IMenuBar;
 import interfaces.IToolStrip;
 import interfaces.IValidationList;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Label;
-
 import widget.editor.Editor;
 import widget.menu.MenuBar;
 import widget.toolbar.ToolStrip;
@@ -36,8 +35,7 @@ public class MainWindow extends AWindow implements IMainWindow {
 		return instance;
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setTitle("Window.java");
 
 		setBar(new MenuBar(this));

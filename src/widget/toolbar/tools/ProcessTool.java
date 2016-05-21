@@ -22,8 +22,7 @@ public class ProcessTool extends ATool {
 		super(parent, "Process tool");
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setIconName("process.png");
 		super.initialize();
 	}

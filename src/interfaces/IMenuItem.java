@@ -3,7 +3,7 @@ package interfaces;
 /**
  * MenuItem is single item of Menu. It will execute command when clicked.
  */
-public interface IMenuItem extends IWidget {
+public interface IMenuItem {
 
 	/**
 	 * Get the menu title (or name).

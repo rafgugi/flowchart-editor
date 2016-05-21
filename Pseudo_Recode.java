@@ -10,7 +10,9 @@ Recode(Node CurrentNode, String CurrentCode)
     {
         if(CurrentNode.type is loop)
         {
-            if (LoopReturnStack.top!= currentNode) Push currentNode into LoopReturnStack; [R2]
+            if (LoopReturnStack.top!= currentNode){
+                Push currentNode into LoopReturnStack; [R2]
+            }
             else [R3]
             {
                 LoopReturnStack.pop;
@@ -26,30 +28,35 @@ Recode(Node CurrentNode, String CurrentCode)
         (tfather.doWhileCounter= doWhileRecodeCounter
             and tfather.doWhileNode=CurrentNode);
         CurrentNode.doWhileRecodeCounter--;
-        Recode(tfather, CurrentNode.Code); /*Let the code of tfather be the code of CurrentNode*/ [R6]
+        /*Let the code of tfather be the code of CurrentNode*/ [R6]
+        Recode(tfather, CurrentNode.Code); 
         if(CurrentNode.doWhileRecodeCounter==0) [R7]
             CurrentNode.doWhileRecodeCounter= CurrentNode.doWhileCounter;
     }
     if(CurrentNode.type is Process) [R8]
     {
-        CurrentCode = CurrentCode.YY+1; /*the sequence part of code increase one*/
-        Recode(CurrentNode.son, CurrentCode,); [R8-1]
+         /*the sequence part of code increase one*/
+        CurrentCode = Increase y of CurrentCode by one
+        Recode(CurrentNode.son, CurrentCode); [R8-1]
     }
     else if(CurrentNode.type is selection)
     {
-        for every son j of CurrentNode (except for convergence) do /*j starts from 0*/ [R9]
+        /*j starts from 0*/ [R9]
+        for every son j of CurrentNode (except for convergence) do
         {
-            CurrentCode = currentCode+0j00； /*nex layer*/
+            CurrentCode = currentCode+(j, 0)； /*nex layer*/
             Recode(son, CurrentCode);
         }
         Recode(CurrentNode.directJudgmentConvergence.son, CurrentCode); [R10]
     }
     else if(CurrentNode.type is loop) [R11]
     {
-        CurrentCode = currentCode+0000; /*nex layer*/
-        Recode(CurrentNode.son, CurrentCode); /* CurrentNode.son is not the convergence */ [R11-1]
-        if(LoopReturnStack.top==null) return; /*return to CodeAlgorithm*/ [R13]
-        CurrentCode = CurrentCode.YY+1;
+        CurrentCode = CurrentCode+(0, 0); /*nex layer*/
+        /* CurrentNode.son is not the convergence */ [R11-1]
+        Recode(CurrentNode.son, CurrentCode); 
+        /*return to CodeAlgorithm*/ [R13]
+        if(LoopReturnStack.top==null) return;
+        CurrentCode = Increase y of CurrentCode by one;
         Recode(CurrentNode.directJudgmentConvergence.son, CurrentCode); [R11-2]
     }
     else return; [R12]

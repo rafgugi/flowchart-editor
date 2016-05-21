@@ -9,8 +9,7 @@ public class ValidateMenuItem extends AMenuItem {
 		super(parent);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setTitle("Validate\t\tCtrl+H");
 		super.setShortcut('H');
 	}

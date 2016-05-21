@@ -22,8 +22,7 @@ public class ConvergenceTool extends ATool {
 		super(parent, "Convergence tool");
 	}
 	
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setIconName("ellipse.png");
 		super.initialize();
 	}

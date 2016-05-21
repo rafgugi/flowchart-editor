@@ -21,8 +21,7 @@ public class PointerTool extends ATool {
 		super(parent, "Pointer tool");
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setIconName("pointerx.png");
 		super.initialize();
 	}

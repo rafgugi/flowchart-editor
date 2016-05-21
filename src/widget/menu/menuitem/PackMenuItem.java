@@ -9,8 +9,7 @@ public class PackMenuItem extends AMenuItem {
 		super(parent);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setTitle("&Pack\t\tCtrl+P");
 		super.setShortcut('P');
 	}

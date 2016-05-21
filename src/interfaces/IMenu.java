@@ -6,7 +6,7 @@ import java.util.List;
  * Menu is single item of MenuBar that always shown. When menu is clicked, it
  * will collapse menu items.
  */
-public interface IMenu extends IWidget {
+public interface IMenu {
 
 	/**
 	 * Get the menu title (or name).
