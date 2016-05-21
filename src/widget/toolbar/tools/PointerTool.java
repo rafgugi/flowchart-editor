@@ -77,7 +77,7 @@ public class PointerTool extends ATool {
 			case DRAG_MULTIPLE:
 				ArrayList<IElement> temp = new ArrayList<>();
 				for (IElement element : getActiveSubEditor().getSelectedElements()) {
-					element.drag(downTemp.x, downTemp.y, e.x, e.y);
+					element.drag(e.x - downTemp.x, e.y - downTemp.y);
 					temp.add(element);
 				}
 				getActiveSubEditor().deselectAll();
@@ -87,7 +87,7 @@ public class PointerTool extends ATool {
 				break;
 			case DRAG_SINGLE:
 			case DRAG_CONTROL_POINT:
-				clickedElement.drag(downTemp.x, downTemp.y, e.x, e.y);
+				clickedElement.drag(e.x - downTemp.x, e.y - downTemp.y);
 				getActiveSubEditor().deselectAll();
 				clickedElement.select();
 				break;

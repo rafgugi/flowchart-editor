@@ -64,7 +64,7 @@ public abstract class AElement implements IElement {
 	}
 
 	@Override
-	public void drag(int x1, int y1, int x2, int y2) {
+	public void drag(int x, int y) {
 		deselect();
 		select();
 	}

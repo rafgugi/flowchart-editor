@@ -60,12 +60,30 @@ public class EditPoint extends AElement {
 	}
 
 	/**
+	 * Get x value
+	 * 
+	 * @return x
+	 */
+	public int getX() {
+		return x;
+	}
+
+	/**
 	 * Set x value.
 	 * 
 	 * @param x
 	 */
 	public void setX(int x) {
 		this.x = x;
+	}
+
+	/**
+	 * Get y value
+	 * 
+	 * @return y
+	 */
+	public int getY() {
+		return y;
 	}
 
 	/**
@@ -133,9 +151,9 @@ public class EditPoint extends AElement {
 	}
 
 	@Override
-	public void drag(int x1, int y1, int x2, int y2) {
+	public void drag(int x, int y) {
 		Main.log("Drag by editpoint [" + getCode() + "]");
-		element.drag(x1, y1, x2, y2, this);
+		element.drag(x, y, this);
 	}
 
 	@Override
