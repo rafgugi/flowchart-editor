@@ -124,13 +124,13 @@ public abstract class TwoDimensionalDecorator extends TwoDimensional {
 	}
 
 	@Override
-	public void drag(int x1, int y1, int x2, int y2) {
-		component.drag(x1, y1, x2, y2);
+	public void drag(int x, int y) {
+		component.drag(x, y);
 	}
 
 	@Override
-	public void drag(int x1, int y1, int x2, int y2, IElement e) {
-		component.drag(x1, y1, x2, y2, e);
+	public void drag(int x, int y, IElement e) {
+		component.drag(x, y, e);
 	}
 
 	@Override

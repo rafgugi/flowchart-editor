@@ -53,7 +53,7 @@ public abstract class AEditable extends AElement implements IEditableElement {
 	}
 
 	@Override
-	public void drag(int x1, int y1, int x2, int y2, IElement e) {
+	public void drag(int x, int y, IElement e) {
 		deselect();
 		select();
 	}

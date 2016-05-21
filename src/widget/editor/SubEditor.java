@@ -12,7 +12,7 @@ import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.widgets.TabItem;
 
 import diagram.element.Line;
-import diagram.state.EditState;
+import diagram.state.NormalState;
 import exception.ElementNotFoundException;
 import exception.FlowchartEditorException;
 import interfaces.ICanvas;
@@ -181,7 +181,7 @@ public class SubEditor extends TabItem
 	public List<IElement> getSelectedElements() {
 		ArrayList<IElement> ans = new ArrayList<>();
 		for (IElement element : getElements()) {
-			if (element.getState().equals(EditState.getInstance())) {
+			if (!element.getState().equals(NormalState.getInstance())) {
 				ans.add(element);
 			}
 		}

@@ -76,12 +76,10 @@ public interface IElement extends JSONAble {
 	/**
 	 * Triggered when the element is dragged.
 	 *
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
+	 * @param x
+	 * @param y
 	 */
-	public void drag(int x1, int y1, int x2, int y2);
+	public void drag(int x, int y);
 
 	/**
 	 * Get elements that connected to this element.
