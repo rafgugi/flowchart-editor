@@ -56,8 +56,14 @@ public class PolyLine extends Line {
 		if (!temp.equals("")) {
 			temp = " " + temp + " ";
 		}
-		int middlex = (getSrcx() + getDstx()) / 2;
-		int middley = (getSrcy() + getDsty()) / 2;
+		int middlex = getSrcx() + getDstx();
+		int middley = getSrcy() + getDsty();
+		for (Point elbow : elbows) {
+			middlex += elbow.x;
+			middley += elbow.y;
+		}
+		middlex /= (2 + elbows.size());
+		middley /= (2 + elbows.size());
 		getCanvas().drawText(temp, middlex - textWidth / 2, middley - textHeight / 2);
 	}
 

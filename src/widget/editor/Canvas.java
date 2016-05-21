@@ -73,31 +73,27 @@ public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas, L
 
 	@Override
 	public void clear() {
-		gc = getGC();
+		GC gc = getGC();
 		setBgColor(255, 255, 255);
 		gc.fillRectangle(0, 0, super.getSize().x, super.getSize().y);
-		gc.dispose();
 	}
 
 	@Override
 	public void drawLine(int srcx, int srcy, int dstx, int dsty) {
 		GC gc = getGC();
 		gc.drawLine(srcx + getTranslateX(), srcy + getTranslateY(), dstx + getTranslateX(), dsty + getTranslateY());
-		gc.dispose();
 	}
 
 	@Override
 	public void drawOval(int x, int y, int w, int h) {
 		GC gc = getGC();
 		gc.drawOval(x + getTranslateX(), y + getTranslateY(), w, h);
-		gc.dispose();
 	}
 
 	@Override
 	public void fillOval(int x, int y, int w, int h) {
 		GC gc = getGC();
 		gc.fillOval(x + getTranslateX(), y + getTranslateY(), w, h);
-		gc.dispose();
 	}
 
 	@Override
@@ -108,7 +104,6 @@ public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas, L
 			newPoints[i] = points[i] + (i % 2 == 0 ? getTranslateX() : getTranslateY());
 		}
 		gc.drawPolygon(newPoints);
-		gc.dispose();
 	}
 
 	@Override
@@ -119,42 +114,36 @@ public class Canvas extends org.eclipse.swt.widgets.Canvas implements ICanvas, L
 			newPoints[i] = points[i] + (i % 2 == 0 ? getTranslateX() : getTranslateY());
 		}
 		gc.fillPolygon(newPoints);
-		gc.dispose();
 	}
 
 	@Override
 	public void drawRectangle(int x, int y, int w, int h) {
 		GC gc = getGC();
 		gc.drawRectangle(x + getTranslateX(), y + getTranslateY(), w, h);
-		gc.dispose();
 	}
 
 	@Override
 	public void fillRectangle(int x, int y, int w, int h) {
 		GC gc = getGC();
 		gc.fillRectangle(x + getTranslateX(), y + getTranslateY(), w, h);
-		gc.dispose();
 	}
 
 	@Override
 	public void drawRoundRectangle(int x, int y, int w, int h, int radX, int radY) {
 		GC gc = getGC();
 		gc.drawRoundRectangle(x + getTranslateX(), y + getTranslateY(), w, h, radX, radY);
-		gc.dispose();
 	}
 
 	@Override
 	public void fillRoundRectangle(int x, int y, int w, int h, int radX, int radY) {
 		GC gc = getGC();
 		gc.fillRoundRectangle(x + getTranslateX(), y + getTranslateY(), w, h, radX, radY);
-		gc.dispose();
 	}
 
 	@Override
 	public void drawText(String text, int x, int y) {
 		GC gc = getGC();
 		gc.drawText(text, x + getTranslateX(), y + getTranslateY());
-		gc.dispose();
 	}
 
 	@Override
