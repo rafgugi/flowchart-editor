@@ -3,6 +3,7 @@ package diagram.flowchart;
 import java.util.ArrayList;
 
 import interfaces.FlowChartElement;
+import main.Main;
 
 /**
  * Code of flowchart. The basic unit of coding for every node is a number in the
@@ -44,6 +45,7 @@ public class NodeCode {
 	public NodeCode createSibling() {
 		NodeCode sibling = new NodeCode(parent, x, y + 1);
 		this.sibling = sibling;
+		Main.log("\tcreate sibling: " + sibling);
 		return sibling;
 	}
 
@@ -57,6 +59,7 @@ public class NodeCode {
 		NodeCode child = new NodeCode(this, xStreak, 0);
 		children.add(child);
 		xStreak++;
+		Main.log("\tcreate child: " + child);
 		return child;
 	}
 
