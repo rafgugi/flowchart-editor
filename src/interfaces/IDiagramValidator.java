@@ -1,5 +1,5 @@
 package interfaces;
 
-public interface IDiagramValidator extends ICommand{
+public interface IDiagramValidator extends ICommand {
 
 }

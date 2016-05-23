@@ -6,11 +6,11 @@ import diagram.flowchart.Terminator;
 import interfaces.IElement;
 import widget.validation.ValidationItem;
 
+/**
+ * 1. Terminator start end doesn't exist.
+ * 2. Terminator start or end is more than one.
+ */
 public class TerminatorValidator extends AValidator {
-
-	public String getDescription() {
-		return "Terminator tidak lengkap";
-	}
 
 	@Override
 	public void execute() {
@@ -49,7 +49,7 @@ public class TerminatorValidator extends AValidator {
 		for (Terminator element : overTerminator) {
 			ValidationItem item = new ValidationItem();
 			item.setTitle("Terminator " + element.getText() + " lebih dari satu");
-			item.addProblems(element);
+			item.addProblem(element);
 			addValidationItem(item);
 		}
 	}

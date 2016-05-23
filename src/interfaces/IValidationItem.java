@@ -52,5 +52,5 @@ public interface IValidationItem {
 	 * 
 	 * @param element
 	 */
-	public void addProblems(IElement element);
+	public void addProblem(IElement element);
 }

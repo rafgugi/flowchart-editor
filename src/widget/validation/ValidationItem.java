@@ -49,7 +49,7 @@ public class ValidationItem implements IValidationItem {
 	}
 
 	@Override
-	public void addProblems(IElement element) {
+	public void addProblem(IElement element) {
 		problems.add(element);
 	}
 
