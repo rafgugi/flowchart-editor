@@ -17,8 +17,9 @@ User can make flowchart, then user convert flowchart into sourcecode using Probl
 - [Eclipse for Java developers](https://eclipse.org/downloads)
 - Make sure additional jar files included into this project
   - [java.eclipse.swt](https://www.eclipse.org/swt)
+  - [antlr v4](http://www.antlr.org/download.html)
 
-## Another nice way to clone this project
+## Another nice way to clone this project (sometimes doesn't work idk why)
 - Open Eclipse
 - File -> import
 - Choose Git, then Next
