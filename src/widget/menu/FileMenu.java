@@ -8,8 +8,7 @@ public class FileMenu extends AMenu {
 		super(parent);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setTitle("File");
 		addItem(new NewMenuItem(this));
 		addItem(new OpenMenuItem(this));

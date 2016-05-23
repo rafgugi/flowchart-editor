@@ -3,7 +3,7 @@ package interfaces;
 /**
  * Window or shell.
  */
-public interface IWindow extends IWidget {
+public interface IWindow {
 
 	/**
 	 * Get window title.

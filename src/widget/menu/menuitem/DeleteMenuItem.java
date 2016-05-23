@@ -11,8 +11,7 @@ public class DeleteMenuItem extends AMenuItem {
 		super(parent);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setTitle("&Delete\tdel");
 		super.setShortcut((int) SWT.DEL);
 	}

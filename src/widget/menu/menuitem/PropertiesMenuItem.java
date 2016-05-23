@@ -9,8 +9,7 @@ public class PropertiesMenuItem extends AMenuItem {
 		super(parent);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setTitle("Properties\t\tCtrl+L");
 		super.setShortcut('L');
 	}

@@ -24,8 +24,7 @@ public class FlowLineProperty extends APropertyWindow {
 		super(element);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setText("Property");
 
 		GridLayout layout = new GridLayout();

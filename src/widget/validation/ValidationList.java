@@ -22,8 +22,7 @@ public class ValidationList extends List implements IValidationList, SelectionLi
 		initialize();
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		GridData gridData = new GridData(SWT.FILL, SWT.FILL, false, false);
 		gridData.widthHint = 180;
 		super.setLayoutData(gridData);

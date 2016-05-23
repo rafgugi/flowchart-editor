@@ -12,8 +12,7 @@ public class DialogWindow extends AWindow {
 	private Text input;
 	private Label label;
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setText("DialogWindow.java");
 
 		GridLayout layout = new GridLayout();

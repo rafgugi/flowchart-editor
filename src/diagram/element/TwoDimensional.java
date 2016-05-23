@@ -241,46 +241,49 @@ public abstract class TwoDimensional extends AEditable {
 	}
 
 	@Override
-	public void drag(int x1, int y1, int x2, int y2) {
-		int x = getX() + x2 - x1;
-		int y = getY() + y2 - y1;
-		setLocation(x, y);
-		super.drag(x1, y1, x2, y2);
+	public void drag(int x, int y) {
+		int nx = getX() + x;
+		int ny = getY() + y;
+		setLocation(nx, ny);
+		super.drag(x, y);
 	}
 
 	@Override
-	public void drag(int x1, int y1, int x2, int y2, IElement e) {
+	public void drag(int x, int y, IElement e) {
 		if (e instanceof EditPoint) {
-			switch (((EditPoint) e).getCode()) {
+			EditPoint ep = (EditPoint) e;
+			int dx = ep.getX() + x;
+			int dy = ep.getY() + y;
+			switch (ep.getCode()) {
 			case EditPoint.TOP_LEFT:
-				setBoundary(x2, y2, getX() + getWidth(), getY() + getHeight());
+				setBoundary(dx, dy, getX() + getWidth(), getY() + getHeight());
 				break;
 			case EditPoint.TOP_MIDDLE:
-				setBoundary(getX(), y2, getX() + getWidth(), getY() + getHeight());
+				setBoundary(getX(), dy, getX() + getWidth(), getY() + getHeight());
 				break;
 			case EditPoint.TOP_RIGHT:
-				setBoundary(x2, y2, getX(), getY() + getHeight());
+				setBoundary(dx, dy, getX(), getY() + getHeight());
 				break;
 			case EditPoint.MIDDLE_RIGHT:
-				setBoundary(x2, getY() + getHeight(), getX(), getY());
+				setBoundary(dx, getY() + getHeight(), getX(), getY());
 				break;
 			case EditPoint.BOTTOM_RIGHT:
-				setBoundary(x2, y2, getX(), getY());
+				setBoundary(dx, dy, getX(), getY());
 				break;
 			case EditPoint.BOTTOM_MIDDLE:
-				setBoundary(getX() + getWidth(), y2, getX(), getY());
+				setBoundary(getX() + getWidth(), dy, getX(), getY());
 				break;
 			case EditPoint.BOTTOM_LEFT:
-				setBoundary(x2, y2, getX() + getWidth(), getY());
+				setBoundary(dx, dy, getX() + getWidth(), getY());
 				break;
 			case EditPoint.MIDDLE_LEFT:
-				setBoundary(x2, getY(), getX() + getWidth(), getY() + getHeight());
+				setBoundary(dx, getY(), getX() + getWidth(), getY() + getHeight());
 				break;
 			default:
 				throw new FlowchartEditorException("Unexpected EditPoint constant.");
 			}
 		}
-		super.drag(x1, y1, x2, y2, e);
+		super.drag(x, y, e);
 	}
 
 	@Override
@@ -355,7 +358,11 @@ public abstract class TwoDimensional extends AEditable {
 
 	@Override
 	public String toString() {
-		return "[" + getText() + "] " + getClass().getName();
+		String ans = getClass().getSimpleName();
+		if (!getText().equals("")) {
+			ans += "[" + getText() + "]";
+		}
+		return ans;
 	}
 
 }

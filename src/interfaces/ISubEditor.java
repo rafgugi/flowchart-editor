@@ -3,7 +3,7 @@ package interfaces;
 import java.util.List;
 import java.util.UUID;
 
-public interface ISubEditor extends IWidget {
+public interface ISubEditor {
 
 	/**
 	 * Get the tab title (or name).

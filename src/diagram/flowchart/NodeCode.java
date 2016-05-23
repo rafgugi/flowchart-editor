@@ -3,6 +3,7 @@ package diagram.flowchart;
 import java.util.ArrayList;
 
 import interfaces.FlowChartElement;
+import main.Main;
 
 /**
  * Code of flowchart. The basic unit of coding for every node is a number in the
@@ -23,7 +24,6 @@ public class NodeCode {
 	private int x = 0; // current x value
 	private int y = 0; // current y value
 	private int xStreak = 0; // child highest x value
-	private int yStreak = 0; // child highest y value
 
 	private FlowChartElement element;
 
@@ -37,40 +37,6 @@ public class NodeCode {
 	}
 
 	/**
-	 * Each node code has own child x streak. Each time this node code make
-	 * another child with increasing x, xStreak is increased.
-	 * 
-	 * @return xStreak
-	 */
-	public int getXStreak() {
-		return xStreak;
-	}
-
-	/**
-	 * Increase xStreak.
-	 */
-	public void incXStreak() {
-		xStreak++;
-	}
-
-	/**
-	 * Each node code has own child y streak. Each time this node code make
-	 * another child with increasing y, yxStreak is increased.
-	 * 
-	 * @return yStreak
-	 */
-	public int getYStreak() {
-		return yStreak;
-	}
-
-	/**
-	 * Increase yStreak.
-	 */
-	public void incYStreak() {
-		yStreak++;
-	}
-
-	/**
 	 * Create node code, the same parent of this, same x value, one higher y
 	 * value of this.
 	 * 
@@ -79,9 +45,7 @@ public class NodeCode {
 	public NodeCode createSibling() {
 		NodeCode sibling = new NodeCode(parent, x, y + 1);
 		this.sibling = sibling;
-		if (parent != null) {
-			parent.incYStreak();
-		}
+		Main.log("\tcreate sibling: " + sibling);
 		return sibling;
 	}
 
@@ -92,9 +56,10 @@ public class NodeCode {
 	 * @return Child node code
 	 */
 	public NodeCode createChild() {
-		NodeCode child = new NodeCode(this, getXStreak(), 0);
+		NodeCode child = new NodeCode(this, xStreak, 0);
 		children.add(child);
-		incXStreak();
+		xStreak++;
+		Main.log("\tcreate child: " + child);
 		return child;
 	}
 
@@ -148,7 +113,7 @@ public class NodeCode {
 		if (parent != null) {
 			retval = parent.toString();
 		}
-		return retval + "[" + x + "," + y + "]";
+		return retval + "(" + x + "," + y + ")";
 	}
 
 }

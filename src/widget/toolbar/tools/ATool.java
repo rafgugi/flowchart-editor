@@ -41,8 +41,7 @@ public abstract class ATool extends ToolItem
 		setToolName(toolName);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		generateIcon();
 	}
 

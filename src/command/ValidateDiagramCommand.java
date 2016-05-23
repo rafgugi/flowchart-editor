@@ -2,18 +2,16 @@ package command;
 
 import java.util.ArrayList;
 
-import diagram.rules.*;
+import command.validator.*;
 import interfaces.ICommand;
-import interfaces.IDiagramRule;
-import interfaces.IElement;
+import interfaces.IDiagramValidator;
 import interfaces.IValidationList;
 import main.Main;
-import widget.validation.ValidationItem;
 import widget.window.MainWindow;
 
 public class ValidateDiagramCommand implements ICommand {
 
-	private ArrayList<IDiagramRule> rules = new ArrayList<>();
+	private ArrayList<IDiagramValidator> validators = new ArrayList<>();
 
 	private IValidationList validationList;
 
@@ -21,27 +19,17 @@ public class ValidateDiagramCommand implements ICommand {
 		validationList = MainWindow.getInstance().getValidationList();
 		validationList.reset();
 
-		rules.add(new IncompleteTerminatorRule());
-		rules.add(new MoreThanOneTerminatorRule());
-		rules.add(new NotConnectedElementRule());
-		rules.add(new InvalidExpressionRule());
-		rules.add(new BadCodeRule());
+		validators.add(new TerminatorValidator());
+		validators.add(new ElementsConnectionValidator());
+		validators.add(new InvalidExpressionRule());
+		validators.add(new BadCodeRule());
 	}
 
 	@Override
 	public void execute() {
 		Main.log("Begin validation");
-		for (IDiagramRule rule : rules) {
-			ArrayList<IElement> invalid = rule.validate();
-			if (invalid != null) {
-				Main.log("Validation error: " + rule.getDescription());
-				ValidationItem item = new ValidationItem();
-				item.setTitle(rule.getDescription());
-				for (IElement element : invalid) {
-					item.addProblems(element);
-				}
-				validationList.addItem(item);
-			}
+		for (IDiagramValidator validator : validators) {
+			validator.execute();
 		}
 	}
 

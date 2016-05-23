@@ -3,7 +3,7 @@ package interfaces;
 /**
  * Tool in the toolbar to manage the elements.
  */
-public interface ITool extends IWidget {
+public interface ITool {
 
 	/**
 	 * Get the tool name.

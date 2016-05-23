@@ -22,8 +22,7 @@ public class TerminatorTool extends ATool {
 		super(parent, "Terminator tool");
 	}
 	
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setIconName("terminator.png");
 		super.initialize();
 	}

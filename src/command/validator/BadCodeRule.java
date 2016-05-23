@@ -1,4 +1,4 @@
-package diagram.rules;
+package command.validator;
 
 import java.util.ArrayList;
 
@@ -8,15 +8,14 @@ import diagram.flowchart.Judgment;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
 
-public class BadCodeRule extends ARule {
+public class BadCodeRule extends AValidator {
 
-	@Override
 	public String getDescription() {
 		return "Sintaks kode salah";
 	}
 
 	@Override
-	public ArrayList<IElement> validate() {
+	public void execute() {
 		for (IElement element : getAllElements()) {
 			if (element instanceof Judgment || element instanceof Process) {
 				IDiagramElement node = (IDiagramElement) element;
@@ -25,7 +24,7 @@ public class BadCodeRule extends ARule {
 				validator.execute();
 			}
 		}
-		return null;
+//		return null;
 	}
 
 }

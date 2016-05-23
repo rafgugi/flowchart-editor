@@ -43,7 +43,7 @@ public class CodeAlgorithmCommand implements ICommand {
 		FlowChartElement son = (FlowChartElement) father.getFlow().getDstElement();
 		newCode = new NodeCode();
 		father.setNodeCode(newCode);
-		codeCounter = 0;
+		codeCounter = 1;
 		doWhileCounter = 0;
 		codeAlgorithm(father, son, father.getNodeCode().createSibling());
 	}
@@ -160,7 +160,7 @@ public class CodeAlgorithmCommand implements ICommand {
 				}
 				NodeCode sonCode = conv.getNodeCode().createSibling();
 				FlowChartElement sonNode = (FlowChartElement) conv.getFlow().getDstElement();
-				Main.log("\tGo to judgment's direct convergence.");
+				Main.log("\tGo to judgment's direct convergence's child.");
 				codeAlgorithm(conv, sonNode, sonCode);
 			}
 			else { // been traversed.

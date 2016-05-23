@@ -8,8 +8,7 @@ public class EditMenu extends AMenu {
 		super(parent);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setTitle("Edit");
 		addItem(new SelectAllMenuItem(this));
 		addItem(new DeleteMenuItem(this));

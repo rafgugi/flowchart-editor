@@ -3,55 +3,63 @@ Function: Convert the coded flowchart into PAD.
 Input: Six hashtables, the coded flowchart.
 Output: A PAD.
 *************************************************************/
-Define currentCode as string;
-Node GetFromHashTable(currentCode) /*Get the node from hashtable by GetNode() method*/
-Put the nodes(except for end and convergnece nodes) into HashTable according to their code length;
 Block beginBlock;
 beginBlock.NodeType=Begin;
-ConvertToPAD(0001, beginBlock); /*the code of Begin is 0000, so original code is 0001*/
-ConvertToPAD(currentCode, Blcok fatherBlock)
+/*the code of Begin is (0,0), so original code is (0,1)*/
+ConvertToPAD(0001, beginBlock);
+ConvertToPAD(currentCode, Container fatherBlock)
 {
     CurrentNode= GetFromHashTable(currentCode);
     If (CurrentNode is null)) return; /* recursion return condition*/
     Block newBlock;
     If (CurrentNode is Process)
     {
-        currentCode←currentCode.YY+1; /*the sequence part of code increase one*/
+        /*the sequence part of code increase one*/
+        currentCode=Increase y of CurrentCode by one;
         newBlock.NodeType=Process;
         newBlock.codeblock=currentNode.Codeblock;
         newBlock.SubNodeList= null;
-        fatherBlock. SubNodeList.append(newBlock);
-        ConvertToPAD(currentCode, fatherBlock); /*as in the same layer, so the fatherBlock is the same*/
+        fatherBlock.SubNodeList.append(newBlock);
+        /*as in the same layer, so the fatherBlock is the same*/
+        ConvertToPAD(currentCode, fatherBlock);
     }
     Else If (CurrentNode is Judgment)
     {
         If(CurrentNode.type is selection)
         {
-            i←the sum of sons of CurrentNode;
-            newBlock.NodeType= selectionType; /*here selectionType represents the types of selection*/
+            i=the sum of sons of CurrentNode;
+            /*here selectionType represents the types of selection*/
+            newBlock.NodeType= selectionType;
             newBlock.codeblock=currentNode.Codeblock;
             fatherBlock.SubNodeList.append(newBlock);
             for(j=0;j<i;j++)
             {
-                Block selectionHeadPtr; /*every branch has its owe one*/
+                /*every branch has its owe one*/
+                Container selectionHeadPtr;
                 selectionHeadPtr.NodeType=HeadPtr;
                 newBlock.SubNodeList.append(selectionHeadPtr);
-                TempCode =currentCode+0j00； /*nex layer*/
+                TempCode =currentCode+(j, 0)； /*nex layer*/
                 /*begin a new layer, so the fatherBlock is newBlock */
                 ConvertToPAD(currentCode, selectionHeadPtr);
             }
-            /*as all the sub-nodes have been coded, so process the nodes at the same level */
-            currentCode←currentCode.YY+1;
+            /* as all the sub-nodes have been coded, so process 
+             * the nodes at the same level */
+            currentCode=Increase y of CurrentCode by one;
             ConvertToPAD(currentCode, fatherBlock);
         }
         If(CurrentNode.type is loop)
         {
-            currentCode =currentCode+0000；/* into next layer */
-            newBlock.NodeType= loopType; /* here loopType represents the types of selection */
+            currentCode =currentCode+(0,0)；/* into next layer */
+            /* here loopType represents the types of selection */
+            newBlock.NodeType= loopType;
             newBlock.codeblock=currentNode.Codeblock;
-            ConvertToPAD(currentCode, newBlock); /* begin a new layer, so the fatherBlock is newBlock */
-            /* as all the sub-nodes have been coded, so process the nodes at the same level */
-            currentCode←currentCode.YY+1;
+            Container newContainer;
+            newBlock.append(newContainer);
+            /* begin a new layer, so the fatherBlock is newBlock */
+            ConvertToPAD(currentCode, newContainer);
+            /* as all the sub-nodes have been coded, so process 
+             * the nodes at the same level */
+            currentCode=Increase y of CurrentCode by one;
             ConvertToPAD(currentCode, fatherBlock);
         }
     }

@@ -9,8 +9,7 @@ public class GenerateCodeMenuItem extends AMenuItem {
 		super(parent);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setTitle("&Generate Code\t\tCtrl+G");
 		super.setShortcut('G');
 	}

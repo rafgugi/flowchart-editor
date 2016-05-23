@@ -1,20 +1,18 @@
-package diagram.rules;
+package command.validator;
 
 import java.util.ArrayList;
 
 import interfaces.IElement;
 
-public class InvalidExpressionRule extends ARule {
+public class InvalidExpressionRule extends AValidator {
 
-	@Override
 	public String getDescription() {
 		return "Kode salah";
 	}
 
 	@Override
-	public ArrayList<IElement> validate() {
+	public void execute() {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

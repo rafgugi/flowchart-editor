@@ -56,8 +56,14 @@ public class PolyLine extends Line {
 		if (!temp.equals("")) {
 			temp = " " + temp + " ";
 		}
-		int middlex = (getSrcx() + getDstx()) / 2;
-		int middley = (getSrcy() + getDsty()) / 2;
+		int middlex = (getSrcx() * 5 + getDstx() * 2) / 7 * 2;
+		int middley = (getSrcy() * 5 + getDsty() * 2) / 7 * 2;
+		for (Point elbow : elbows) {
+			middlex += elbow.x;
+			middley += elbow.y;
+		}
+		middlex /= (2 + elbows.size());
+		middley /= (2 + elbows.size());
 		getCanvas().drawText(temp, middlex - textWidth / 2, middley - textHeight / 2);
 	}
 
@@ -197,9 +203,12 @@ public class PolyLine extends Line {
 	}
 
 	@Override
-	public void drag(int x1, int y1, int x2, int y2, IElement e) {
+	public void drag(int x, int y, IElement e) {
 		if (e instanceof EditPoint) {
-			int code = ((EditPoint) e).getCode();
+			EditPoint ep = (EditPoint) e;
+			int dx = ep.getX() + x;
+			int dy = ep.getY() + y;
+			int code = ep.getCode();
 			if (code == EditPoint.BEGIN) {
 				// src edit point
 			} else if (code == EditPoint.END) {
@@ -207,23 +216,21 @@ public class PolyLine extends Line {
 			} else {
 				code = code - 2;
 				Point p = getElbows().get(code);
-				p.x = x2;
-				p.y = y2;
+				p.x = dx;
+				p.y = dy;
 			}
 		}
-		super.drag(x1, y1, x2, y2, e);
+		super.drag(x, y, e);
 	}
 
 	@Override
-	public void drag(int x1, int y1, int x2, int y2) {
+	public void drag(int x, int y) {
 		if (getElbows().isEmpty()) {
 			return;
 		}
-		int dx = x2 - x1;
-		int dy = y2 - y1;
 		for (Point elbow : getElbows()) {
-			elbow.x = elbow.x + dx;
-			elbow.y = elbow.y + dy;
+			elbow.x = elbow.x + x;
+			elbow.y = elbow.y + y;
 		}
 	}
 

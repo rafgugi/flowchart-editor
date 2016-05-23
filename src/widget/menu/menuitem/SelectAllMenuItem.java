@@ -9,8 +9,7 @@ public class SelectAllMenuItem extends AMenuItem {
 		super(parent);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setTitle("Select &All\tCtrl+A");
 		super.setShortcut('A');
 	}

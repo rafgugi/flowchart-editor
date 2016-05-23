@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * MenuBar is menu container bar on the top of MainWindow
  */
-public interface IMenuBar extends IWidget {
+public interface IMenuBar {
 
 	/**
 	 * Add a menu.

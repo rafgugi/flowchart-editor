@@ -19,7 +19,7 @@ public abstract class AEditable extends AElement implements IEditableElement {
 	public void select() {
 		if (!isActive()) {
 			super.select();
-			createEditPoints();	
+			createEditPoints();
 		}
 	}
 
@@ -32,7 +32,7 @@ public abstract class AEditable extends AElement implements IEditableElement {
 		editPoints.clear();
 		super.deselect();
 	}
-	
+
 	@Override
 	public IElement checkBoundary(int x, int y) {
 		for (IElement e : editPoints) {
@@ -53,7 +53,7 @@ public abstract class AEditable extends AElement implements IEditableElement {
 	}
 
 	@Override
-	public void drag(int x1, int y1, int x2, int y2, IElement e) {
+	public void drag(int x, int y, IElement e) {
 		deselect();
 		select();
 	}
@@ -73,6 +73,7 @@ public abstract class AEditable extends AElement implements IEditableElement {
 	 * @param points
 	 */
 	public void createEditPoints(ArrayList<Point> points) {
+		editPoints.clear();
 		for (int i = 0; i < points.size(); i++) {
 			Point point = points.get(i);
 			EditPoint ep = new EditPoint(this, point.x, point.y, i);

@@ -26,8 +26,7 @@ public class ToolStrip extends ToolBar implements IToolStrip {
 		this(parent, SWT.BORDER | SWT.VERTICAL);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		GridData gridData = new GridData();
 		gridData.verticalAlignment = SWT.FILL;
 		super.setLayoutData(gridData);

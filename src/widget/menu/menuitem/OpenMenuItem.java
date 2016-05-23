@@ -9,8 +9,7 @@ public class OpenMenuItem extends AMenuItem {
 		super(parent);
 	}
 
-	@Override
-	public void initialize() {
+	protected void initialize() {
 		setTitle("&Open\t\tCtrl+O");
 		super.setShortcut('O');
 	}

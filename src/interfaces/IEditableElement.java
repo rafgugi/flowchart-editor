@@ -13,12 +13,10 @@ public interface IEditableElement extends IElement {
 	 * usually an EditPoint. This element perform drag depends on which
 	 * EditPoint is dragged.
 	 * 
-	 * @param x1
-	 * @param y1
-	 * @param x2
-	 * @param y2
+	 * @param x
+	 * @param y
 	 * @param element
 	 */
-	public void drag(int x1, int y1, int x2, int y2, IElement e);
+	public void drag(int x, int y, IElement e);
 
 }
