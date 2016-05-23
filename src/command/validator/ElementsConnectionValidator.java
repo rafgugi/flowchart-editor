@@ -8,6 +8,9 @@ import interfaces.IElement;
 import main.Main;
 import widget.validation.ValidationItem;
 
+/**
+ * 1. Not connected elements
+ */
 public class ElementsConnectionValidator extends AValidator {
 
 	public String getDescription() {
@@ -56,7 +59,7 @@ public class ElementsConnectionValidator extends AValidator {
 		for (IElement element : getAllElements()) {
 			if (!highest.contains(element)) {
 				ValidationItem item = new ValidationItem();
-				item.addProblems(element);
+				item.addProblem(element);
 				String nama = null;
 				if (element instanceof IDiagramElement) {
 					IDiagramElement d = (IDiagramElement) element;
@@ -72,7 +75,6 @@ public class ElementsConnectionValidator extends AValidator {
 				addValidationItem(item);
 			}
 		}
-		// return null;
 	}
 
 }
