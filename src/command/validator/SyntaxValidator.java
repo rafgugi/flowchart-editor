@@ -1,14 +1,17 @@
 package command.validator;
 
-import java.util.ArrayList;
-
 import command.SourceCodeTreeCommand;
 import diagram.flowchart.Process;
+import exception.SyntaxErrorException;
 import diagram.flowchart.Judgment;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
+import widget.validation.ValidationItem;
 
-public class BadCodeRule extends AValidator {
+/**
+ * 1. Syntax error.
+ */
+public class SyntaxValidator extends AValidator {
 
 	public String getDescription() {
 		return "Sintaks kode salah";
@@ -21,10 +24,17 @@ public class BadCodeRule extends AValidator {
 				IDiagramElement node = (IDiagramElement) element;
 				String text = node.getText() + ";";
 				SourceCodeTreeCommand validator = new SourceCodeTreeCommand(text);
-				validator.execute();
+				try {
+					validator.execute();
+				} catch (SyntaxErrorException e) {
+					ValidationItem item = new ValidationItem();
+					item.addProblem(element);
+					item.setTitle("Syntax error: " + text);
+					item.setDescription(e.getMessage());
+					addValidationItem(item);
+				}
 			}
 		}
-//		return null;
 	}
 
 }
