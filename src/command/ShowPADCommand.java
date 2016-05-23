@@ -1,5 +1,7 @@
 package command;
 
+import command.codegenerator.CodeAlgorithmCommand;
+import command.codegenerator.ConvertToPADCommand;
 import diagram.pad.BlockContainer;
 import exception.GenerateCodeException;
 import interfaces.ICommand;
@@ -26,6 +28,7 @@ public class ShowPADCommand implements ICommand {
 			toPAD.execute();
 			
 			BlockContainer fatherBlock = toPAD.getFatherBlock();
+			fatherBlock.getParent(); // ?
 
 			/*
 			How to draw PAD element

@@ -1,4 +1,4 @@
-package command;
+package command.codegenerator;
 
 import diagram.element.Line;
 import diagram.flowchart.Convergence;

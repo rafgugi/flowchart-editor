@@ -1,6 +1,5 @@
-package command;
+package command.codegenerator;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
@@ -16,8 +15,8 @@ import widget.window.MainWindow;
 
 public class CodeAlgorithmCommand implements ICommand {
 
-	private Stack<Judgment> stackOfJudgment = new Stack<>();
 	private int codeCounter;
+	private Stack<Judgment> stackOfJudgment;
 	private int doWhileCounter;
 	private NodeCode newCode;
 
@@ -44,6 +43,7 @@ public class CodeAlgorithmCommand implements ICommand {
 		newCode = new NodeCode();
 		father.setNodeCode(newCode);
 		codeCounter = 1;
+		stackOfJudgment = new Stack<>();
 		doWhileCounter = 0;
 		codeAlgorithm(father, son, father.getNodeCode().createSibling());
 	}
@@ -70,15 +70,14 @@ public class CodeAlgorithmCommand implements ICommand {
 			/* Generate the code for CurrentNode */
 			NodeCode codeOfSon = currCode.createSibling();
 			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) {
-				String again = "";
 				if (currNode.getDoWhileCounter() < doWhileCounter) {
 					/* This process is still surrounded by do-while */
 					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
-					again = " again";
+				} else {
+					Main.log("\tProcess hasn't been traversed");
+					currNode.traverse();
 				}
-				Main.log("\tProcess hasn't been traversed" + again);
 				currNode.setNodeCode(currCode);
-				currNode.traverse();
 				FlowChartElement son = (FlowChartElement) currNode.getFlow().getDstElement();
 				codeAlgorithm(currNode, son, codeOfSon);
 			} else {
@@ -93,13 +92,13 @@ public class CodeAlgorithmCommand implements ICommand {
 						/* This process is still surrounded by do-while */
 						currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
 					}
-					Main.log("\tProcess father is do-while.");
+					Main.log("\tProcess father is do-while");
 					father.setType(DoWhileType.get());
 					NodeCode thisCode = currNode.getNodeCode();
 					father.setNodeCode(thisCode); // do-while take over child code
 					thisCode.resetChildren(); // and reset the child of the code
 
-					Main.log("\tBegining to recode do-while child.");
+					Main.log("\tBegining to recode do-while child");
 					doWhileCounter++; // increase do-while stack
 					father.setDoWhileCounter(father.getDoWhileCounter() + 1);
 					codeAlgorithm(father, currNode, thisCode.createChild());
@@ -110,37 +109,37 @@ public class CodeAlgorithmCommand implements ICommand {
 		if (currElem instanceof Judgment) {
 			Judgment currNode = (Judgment) currElem;
 			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) {
-				String again = "";
 				if (currNode.getDoWhileCounter() < doWhileCounter) {
 					/* This process is still surrounded by do-while */
 					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
-					again = " again";
+				} else {
+					Main.log("\tJudgment hasn't been traversed");
+					currNode.traverse();
 				}
-				if (currNode.getDirectConvergence() == null) {
-					Main.log("\tPush into stackOfJudgment, to find convergence." + again);
-					stackOfJudgment.push(currNode);
-				}
-				Main.log("\tJudgment hasn't been traversed" + again);
-				currNode.traverse();
 				currNode.setNodeCode(currCode);
 
+				if (currNode.getDirectConvergence() == null) {
+					Main.log("\tPush into stackOfJudgment, to find convergence");
+					stackOfJudgment.push(currNode);
+				}
+
 				/* Get direct convergence and process other children */
-				ArrayList<Convergence> convergenceSons = new ArrayList<>();
+				Convergence convergenceSon = null;
 				for (FlowLine fl : currNode.getFlows()) {
 					FlowChartElement son = (FlowChartElement) fl.getDstElement();
 					if (son instanceof Convergence) {
-						convergenceSons.add((Convergence) son);
+						convergenceSon = (Convergence) son;
 						continue;
 					}
 					NodeCode sonCode = currCode.createChild();
-					Main.log("\tGo to judgment's child.");
+					Main.log("\tGo to judgment's child");
 					codeAlgorithm(currNode, son, sonCode);
 				}
 
 				/* Process direct convergence, judgment and convergence will be connected */
-				for (Convergence convergenceson : convergenceSons) {
-					Main.log("\tGo to judgment's convergence direct child.");
-					codeAlgorithm(currNode, convergenceson, null);
+				if (convergenceSon != null) {
+					Main.log("\tGo to judgment's convergence direct child");
+					codeAlgorithm(currNode, convergenceSon, null);
 				}
 
 				/* loop structures have been recognized, the left is selections */
@@ -156,11 +155,11 @@ public class CodeAlgorithmCommand implements ICommand {
 				/* Continue to process the nodes behind Convergence. */
 				Convergence conv = currNode.getDirectConvergence();
 				if (conv == null) {
-					throw new GenerateCodeException("Direct convergence is null.");
+					throw new GenerateCodeException("Direct convergence is null");
 				}
 				NodeCode sonCode = conv.getNodeCode().createSibling();
 				FlowChartElement sonNode = (FlowChartElement) conv.getFlow().getDstElement();
-				Main.log("\tGo to judgment's direct convergence's child.");
+				Main.log("\tGo to judgment's direct convergence's child");
 				codeAlgorithm(conv, sonNode, sonCode);
 			}
 			else { // been traversed.
@@ -174,13 +173,13 @@ public class CodeAlgorithmCommand implements ICommand {
 							/* This process is still surrounded by do-while */
 							currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
 						}
-						Main.log("\tJudgment father is do-while.");
+						Main.log("\tJudgment father is do-while");
 						father.setType(DoWhileType.get());
 						NodeCode thisCode = currNode.getNodeCode();
 						father.setNodeCode(thisCode); // do-while take over child code
 						thisCode.resetChildren(); // and reset the child of the code
 
-						Main.log("\tBegining to recode do-while child.");
+						Main.log("\tBegining to recode do-while child");
 						doWhileCounter++; // increase do-while stack
 						father.setDoWhileCounter(father.getDoWhileCounter() + 1);
 						codeAlgorithm(father, currNode, thisCode.createChild());
@@ -193,32 +192,31 @@ public class CodeAlgorithmCommand implements ICommand {
 			Convergence currNode = (Convergence) currElem;
 			/* match a judgment node and a convergence node */
 			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) {
-				String again = "";
 				if (currNode.getDoWhileCounter() < doWhileCounter) {
 					/* This process is still surrounded by do-while */
 					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
-					again = " again";
+				} else {
+					Main.log("\tConvergence hasn't been traversed");
+					currNode.traverse();
 				}
-				Main.log("\tConvergence hasn't been traversed" + again);
-				currNode.traverse();
 				/*
 				 * as a judgment and a convergence is exist geminate, so the top
 				 * judgment in stack must be able to match the current
 				 * convergence
 				 */
 				if (currNode.getDirectJudgment() == null) {
-					Main.log("\tConnect convergence with judgment.");
+					Main.log("\tConnect convergence with judgment");
 					if (stackOfJudgment.isEmpty()) {
-						throw new GenerateCodeException("Empty stackOfJudgment.");
+						throw new GenerateCodeException("Empty stackOfJudgment");
 					}
-					Judgment tempJudgment = stackOfJudgment.pop();
-					currNode.setDirectJudgment(tempJudgment);
-					tempJudgment.setDirectConvergence(currNode);
+					Judgment judgment = stackOfJudgment.pop();
+					currNode.setDirectJudgment(judgment);
+					judgment.setDirectConvergence(currNode);
 				}
 				/* Set this convergence node code from direct judgment */
 				currNode.setNodeCode(currNode.getDirectJudgment().getNodeCode());
 			} else {
-				Main.log("\tConvergence has been traversed.");
+				Main.log("\tConvergence has been traversed");
 				currNode.setNodeCode(currNode.getDirectJudgment().getNodeCode());
 				returnCode();
 				return;

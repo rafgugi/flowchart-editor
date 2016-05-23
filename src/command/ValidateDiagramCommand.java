@@ -42,7 +42,7 @@ public class ValidateDiagramCommand implements ICommand {
 	}
 
 	public boolean isError() {
-		return false;
+		return !MainWindow.getInstance().getValidationList().getValidationItems().isEmpty();
 	}
 
 }

@@ -1,6 +1,6 @@
 package widget.menu.menuitem;
 
-import command.GenerateCodeCommand;
+import command.codegenerator.GenerateCodeCommand;
 import widget.menu.AMenu;
 
 public class GenerateCodeMenuItem extends AMenuItem {

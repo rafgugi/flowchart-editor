@@ -1,4 +1,4 @@
-package command;
+package command.codegenerator;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
+import command.ValidateDiagramCommand;
 import exception.GenerateCodeException;
 import interfaces.ICommand;
 import main.Main;

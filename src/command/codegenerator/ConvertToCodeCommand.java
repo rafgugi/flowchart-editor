@@ -1,4 +1,4 @@
-package command;
+package command.codegenerator;
 
 import diagram.pad.BlockContainer;
 import interfaces.ICommand;
