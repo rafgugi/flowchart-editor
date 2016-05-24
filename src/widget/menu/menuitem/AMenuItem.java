@@ -14,14 +14,10 @@ public abstract class AMenuItem extends MenuItem implements IMenuItem, Listener 
 
 	private String name;
 
-	public AMenuItem(AMenu parent, int style) {
-		super(parent, style);
+	public AMenuItem(AMenu parent) {
+		super(parent, SWT.PUSH);
 		initialize();
 		super.addListener(SWT.Selection, this);
-	}
-
-	public AMenuItem(AMenu parent) {
-		this(parent, SWT.PUSH);
 	}
 
 	protected abstract void initialize();

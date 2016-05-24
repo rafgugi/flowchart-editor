@@ -15,16 +15,12 @@ public abstract class AMenu extends Menu implements IMenu {
 	private List<IMenuItem> menuItems = new ArrayList<>();
 	private MenuItem menu;
 
-	public AMenu(MenuBar parent, int style) {
+	public AMenu(MenuBar parent) {
 		super(parent.getShell(), SWT.DROP_DOWN);
 
-		menu = new MenuItem(parent, style);
+		menu = new MenuItem(parent, SWT.CASCADE);
 		menu.setMenu(this);
 		initialize();
-	}
-
-	public AMenu(MenuBar parent) {
-		this(parent, SWT.CASCADE);
 	}
 
 	protected abstract void initialize();

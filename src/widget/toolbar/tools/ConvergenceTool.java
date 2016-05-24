@@ -14,10 +14,6 @@ public class ConvergenceTool extends ATool {
 
 	private MouseEvent downTemp;
 
-	public ConvergenceTool(ToolStrip parent, String name) {
-		super(parent, name);
-	}
-
 	public ConvergenceTool(ToolStrip parent) {
 		super(parent, "Convergence tool");
 	}

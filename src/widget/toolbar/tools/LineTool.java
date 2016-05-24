@@ -17,10 +17,6 @@ public class LineTool extends ATool {
 	private TwoDimensional dstElement;
 	private MouseEvent downTemp;
 
-	public LineTool(ToolStrip parent, String name) {
-		super(parent, name);
-	}
-
 	public LineTool(ToolStrip parent) {
 		super(parent, "Line tool");
 	}

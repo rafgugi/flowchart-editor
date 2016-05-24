@@ -23,13 +23,9 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 	private List<ISubEditor> subEditors = new ArrayList<>();
 	private ITool tool;
 
-	public Editor(MainWindow parent, int style) {
-		super(parent, style);
-		initialize();
-	}
-
 	public Editor(MainWindow parent) {
-		this(parent, SWT.NONE);
+		super(parent, SWT.NONE);
+		initialize();
 	}
 
 	@Override

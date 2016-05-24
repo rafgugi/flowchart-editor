@@ -22,10 +22,6 @@ public class PointerTool extends ATool {
 
 	private int state;
 
-	public PointerTool(ToolStrip parent, String name) {
-		super(parent, name);
-	}
-
 	public PointerTool(ToolStrip parent) {
 		super(parent, "Pointer tool");
 	}

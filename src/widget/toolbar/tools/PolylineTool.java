@@ -22,10 +22,6 @@ public class PolylineTool extends ATool {
 	private Point firstPoint;
 	private ArrayList<Point> elbows = new ArrayList<>();
 
-	public PolylineTool(ToolStrip parent, String name) {
-		super(parent, name);
-	}
-
 	public PolylineTool(ToolStrip parent) {
 		super(parent, "Polyline tool");
 	}

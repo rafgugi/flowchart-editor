@@ -14,10 +14,6 @@ public class ProcessTool extends ATool {
 
 	private MouseEvent downTemp;
 
-	public ProcessTool(ToolStrip parent, String name) {
-		super(parent, name);
-	}
-
 	public ProcessTool(ToolStrip parent) {
 		super(parent, "Process tool");
 	}

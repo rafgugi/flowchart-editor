@@ -17,13 +17,9 @@ public class ToolStrip extends ToolBar implements IToolStrip {
 
 	private List<ITool> tools = new ArrayList<>();
 
-	public ToolStrip(MainWindow parent, int style) {
-		super(parent, style);
-		initialize();
-	}
-
 	public ToolStrip(MainWindow parent) {
-		this(parent, SWT.BORDER | SWT.VERTICAL);
+		super(parent, SWT.BORDER | SWT.VERTICAL);
+		initialize();
 	}
 
 	protected void initialize() {

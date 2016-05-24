@@ -26,18 +26,14 @@ public abstract class ATool extends ToolItem
 	private String toolName;
 	protected boolean isDrag;
 
-	public ATool(ToolStrip parent, int style) {
-		super(parent, style);
+	public ATool(ToolStrip parent) {
+		super(parent, SWT.RADIO);
 		initialize();
 		super.addListener(SWT.Selection, this);
 	}
 
-	public ATool(ToolStrip parent) {
-		this(parent, SWT.RADIO);
-	}
-
 	public ATool(ToolStrip parent, String toolName) {
-		this(parent, SWT.RADIO);
+		this(parent);
 		setToolName(toolName);
 	}
 

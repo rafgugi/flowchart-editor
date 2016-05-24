@@ -14,10 +14,6 @@ public class TerminatorTool extends ATool {
 
 	private MouseEvent downTemp;
 
-	public TerminatorTool(ToolStrip parent, String name) {
-		super(parent, name);
-	}
-
 	public TerminatorTool(ToolStrip parent) {
 		super(parent, "Terminator tool");
 	}

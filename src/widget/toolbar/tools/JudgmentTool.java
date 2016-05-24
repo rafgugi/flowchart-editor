@@ -14,10 +14,6 @@ public class JudgmentTool extends ATool {
 
 	private MouseEvent downTemp;
 
-	public JudgmentTool(ToolStrip parent, String name) {
-		super(parent, name);
-	}
-
 	public JudgmentTool(ToolStrip parent) {
 		super(parent, "Judgment tool");
 	}

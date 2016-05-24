@@ -6,7 +6,6 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Menu;
 
-import interfaces.IMainWindow;
 import interfaces.IMenu;
 import interfaces.IMenuBar;
 import widget.window.MainWindow;
@@ -15,13 +14,9 @@ public class MenuBar extends Menu implements IMenuBar {
 
 	private List<IMenu> menus = new ArrayList<IMenu>();
 
-	public MenuBar(IMainWindow parent, int style) {
-		super((MainWindow) parent, style);
+	public MenuBar(MainWindow parent) {
+		super(parent, SWT.BAR);
 		initialize();
-	}
-
-	public MenuBar(IMainWindow parent) {
-		this(parent, SWT.BAR);
 	}
 
 	protected void initialize() {

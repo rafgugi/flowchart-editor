@@ -34,13 +34,9 @@ public class SubEditor extends TabItem
 	private List<IElement> elements = new ArrayList<>();
 	private IDiagram diagram;
 
-	public SubEditor(Editor parent, int style) {
-		super(parent, style);
-		initialize();
-	}
-
 	public SubEditor(Editor parent) {
-		this(parent, SWT.NONE);
+		super(parent, SWT.NONE);
+		initialize();
 	}
 
 	protected void initialize() {
