@@ -2,6 +2,7 @@ package diagram.flowchart;
 
 import java.util.ArrayList;
 
+import diagram.element.Line;
 import interfaces.FlowChartElement;
 import main.Main;
 
@@ -23,7 +24,6 @@ public class NodeCode {
 	
 	private int x = 0; // current x value
 	private int y = 0; // current y value
-	private int xStreak = 0; // child highest x value
 
 	private FlowChartElement element;
 
@@ -50,15 +50,22 @@ public class NodeCode {
 	}
 
 	/**
-	 * Create node code, the parent is this node code, y value is 0, x value is
-	 * this xStreak.
+	 * Create node code, the parent is this node code and y value is 0.
+	 * If flow is Y, then x will be 1. If flow is N, then x will be 2.
+	 * Else x will be 0.
 	 * 
+	 * @param flow
 	 * @return Child node code
 	 */
-	public NodeCode createChild() {
-		NodeCode child = new NodeCode(this, xStreak, 0);
+	public NodeCode createChild(String flow) {
+		int x = 0;
+		if (flow.equals(Line.YES)) {
+			x = 1;
+		} else if (flow.equals(Line.NO)) {
+			x = 2;
+		}
+		NodeCode child = new NodeCode(this, x, 0);
 		children.add(child);
-		xStreak++;
 		Main.log("\tcreate child: " + child);
 		return child;
 	}
@@ -67,7 +74,6 @@ public class NodeCode {
 	 * Reset this node children, also reset xStreak.
 	 */
 	public void resetChildren() {
-		xStreak = 0;
 		children.clear();
 	}
 

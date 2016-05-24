@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import diagram.element.Line;
 import diagram.element.TwoDimensional;
+import interfaces.FlowChartElement;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
 import main.Main;
@@ -64,6 +65,21 @@ public class Judgment extends FlowChartDecorator implements IDiagramElement {
 	 */
 	public ArrayList<FlowLine> getFlows() {
 		return flows;
+	}
+
+	/**
+	 * Get flow that connect to element.
+	 * 
+	 * @param element
+	 * @return flow
+	 */
+	public FlowLine getFlow(FlowChartElement element) {
+		for (FlowLine flow : getFlows()) {
+			if (flow.getDstElement() == element) {
+				return flow;
+			}
+		}
+		return null;
 	}
 
 	/**

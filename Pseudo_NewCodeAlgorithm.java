@@ -52,7 +52,8 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
                 /* Begining to recode do-while child */
                 doWhileStack.push(father); // push doWhile to stack
                 father.increaseDoWhileCounter();
-                codeAlgorithm(father, currElem, thisCode.createChild());
+                childCode = thisCode.createChild();
+                codeAlgorithm(father, currElem, childCode);
                 doWhileStack.pop(); // pop doWhile after finish recode
             }
         }
@@ -117,7 +118,8 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
                     /* Begining to recode do-while child */
                     doWhileStack.push(father); // push doWhile to stack
                     father.increaseDoWhileCounter();
-                    codeAlgorithm(father, currElem, thisCode.createChild());
+                    childCode = thisCode.createChild();
+                    codeAlgorithm(father, currElem, childCode);
                     doWhileStack.pop(); // pop doWhile after finish recode
                 }
             }
