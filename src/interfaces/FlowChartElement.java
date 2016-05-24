@@ -62,13 +62,13 @@ public interface FlowChartElement extends IDiagramElement {
 	 * 
 	 * @return doWhileCounter
 	 */
-	public int getDoWhileCounter();
+	public FlowChartElement getDoWhileNode();
 
 	/**
 	 * Set counter of do while that surround this element.
 	 * 
 	 * @param doWhileCounter
 	 */
-	public void setDoWhileCounter(int counter);
+	public void setDoWhileNode(FlowChartElement doWhile);
 
 }

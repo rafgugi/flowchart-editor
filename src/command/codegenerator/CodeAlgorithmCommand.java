@@ -17,7 +17,7 @@ public class CodeAlgorithmCommand implements ICommand {
 
 	private int codeCounter;
 	private Stack<Judgment> stackOfJudgment;
-	private int doWhileCounter;
+	private Stack<FlowChartElement> doWhileStack;
 	private NodeCode newCode;
 
 	@Override
@@ -44,7 +44,7 @@ public class CodeAlgorithmCommand implements ICommand {
 		father.setNodeCode(newCode);
 		codeCounter = 1;
 		stackOfJudgment = new Stack<>();
-		doWhileCounter = 0;
+		doWhileStack = new Stack<>();
 		codeAlgorithm(father, son, father.getNodeCode().createSibling());
 	}
 
@@ -65,18 +65,19 @@ public class CodeAlgorithmCommand implements ICommand {
 			returnCode();
 			return; // exit point of recursion
 		}
+		if (!doWhileStack.empty() && currElem.getDoWhileNode() != doWhileStack.peek()) {
+			/* This process is still surrounded by do-while */
+			Main.log("\tReset traversed");
+			currElem.resetTraversed();
+			currElem.setDoWhileNode(doWhileStack.peek());
+		}
 		if (currElem instanceof Process) {
 			Process currNode = (Process) currElem;
 			/* Generate the code for CurrentNode */
 			NodeCode codeOfSon = currCode.createSibling();
-			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) {
-				if (currNode.getDoWhileCounter() < doWhileCounter) {
-					/* This process is still surrounded by do-while */
-					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
-				} else {
-					Main.log("\tProcess hasn't been traversed");
-					currNode.traverse();
-				}
+			if (!currNode.hasBeenTraversed()) {
+				Main.log("\tProcess hasn't been traversed");
+				currNode.traverse();
 				currNode.setNodeCode(currCode);
 				FlowChartElement son = (FlowChartElement) currNode.getFlow().getDstElement();
 				codeAlgorithm(currNode, son, codeOfSon);
@@ -86,12 +87,7 @@ public class CodeAlgorithmCommand implements ICommand {
 				 * Judgment and link it with his Father, include do-while and
 				 * nested do-while
 				 */
-				if (father instanceof Judgment && father.getType() == null
-						|| currNode.getDoWhileCounter() < doWhileCounter) {
-					if (currNode.getDoWhileCounter() < doWhileCounter) {
-						/* This process is still surrounded by do-while */
-						currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
-					}
+				if (father instanceof Judgment && father.getType() == null || father.getType() == DoWhileType.get()) {
 					Main.log("\tProcess father is do-while");
 					father.setType(DoWhileType.get());
 					NodeCode thisCode = currNode.getNodeCode();
@@ -99,23 +95,18 @@ public class CodeAlgorithmCommand implements ICommand {
 					thisCode.resetChildren(); // and reset the child of the code
 
 					Main.log("\tBegining to recode do-while child");
-					doWhileCounter++; // increase do-while stack
-					father.setDoWhileCounter(father.getDoWhileCounter() + 1);
+					doWhileStack.push(father); // increase do-while stack
+					father.setDoWhileNode(doWhileStack.peek());
 					codeAlgorithm(father, currNode, thisCode.createChild());
-					doWhileCounter--; // reset do-while stack after finish recode
+					doWhileStack.pop(); // reset do-while stack after finish recode
 				}
 			}
 		}
 		if (currElem instanceof Judgment) {
 			Judgment currNode = (Judgment) currElem;
-			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) {
-				if (currNode.getDoWhileCounter() < doWhileCounter) {
-					/* This process is still surrounded by do-while */
-					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
-				} else {
-					Main.log("\tJudgment hasn't been traversed");
-					currNode.traverse();
-				}
+			if (!currNode.hasBeenTraversed()) {
+				Main.log("\tJudgment hasn't been traversed");
+				currNode.traverse();
 				currNode.setNodeCode(currCode);
 
 				if (currNode.getDirectConvergence() == null) {
@@ -167,12 +158,7 @@ public class CodeAlgorithmCommand implements ICommand {
 					currNode.setType(WhileType.get());
 				}
 				else { // and been recognized
-					if (father instanceof Judgment && father.getType() == null
-							|| currNode.getDoWhileCounter() < doWhileCounter) {
-						if (currNode.getDoWhileCounter() < doWhileCounter) {
-							/* This process is still surrounded by do-while */
-							currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
-						}
+					if (father instanceof Judgment && father.getType() == null || father.getType() == DoWhileType.get()) {
 						Main.log("\tJudgment father is do-while");
 						father.setType(DoWhileType.get());
 						NodeCode thisCode = currNode.getNodeCode();
@@ -180,10 +166,10 @@ public class CodeAlgorithmCommand implements ICommand {
 						thisCode.resetChildren(); // and reset the child of the code
 
 						Main.log("\tBegining to recode do-while child");
-						doWhileCounter++; // increase do-while stack
-						father.setDoWhileCounter(father.getDoWhileCounter() + 1);
+						doWhileStack.push(father); // increase do-while stack
+						father.setDoWhileNode(doWhileStack.peek());
 						codeAlgorithm(father, currNode, thisCode.createChild());
-						doWhileCounter--; // reset do-while stack after finish recode
+						doWhileStack.pop(); // reset do-while stack after finish recode
 					}
 				}
 			}
@@ -191,14 +177,9 @@ public class CodeAlgorithmCommand implements ICommand {
 		if (currElem instanceof Convergence) {
 			Convergence currNode = (Convergence) currElem;
 			/* match a judgment node and a convergence node */
-			if (!currNode.hasBeenTraversed() || currNode.getDoWhileCounter() < doWhileCounter) {
-				if (currNode.getDoWhileCounter() < doWhileCounter) {
-					/* This process is still surrounded by do-while */
-					currNode.setDoWhileCounter(currNode.getDoWhileCounter() + 1);
-				} else {
-					Main.log("\tConvergence hasn't been traversed");
-					currNode.traverse();
-				}
+			if (!currNode.hasBeenTraversed()) {
+				Main.log("\tConvergence hasn't been traversed");
+				currNode.traverse();
 				/*
 				 * as a judgment and a convergence is exist geminate, so the top
 				 * judgment in stack must be able to match the current

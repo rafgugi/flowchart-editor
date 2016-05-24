@@ -20,15 +20,16 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
     if (currElem is Terminator) {
         return; // exit point of recursion
     }
+
+    if (currElem.hasBeenTraversed() && currElem.getDoWhileCounter() < doWhileCounter) {
+        /* This process is still surrounded by do-while, reset traversed */
+        currElem.resetTraversed();
+        currElem.setDoWhileCounter(currElem.getDoWhileCounter() + 1);
+    }
     if (currElem is Process) {
-        if (currElem.hasntBeenTraversed() || currElem.getDoWhileCounter() < doWhileCounter) {
-            if (currElem.getDoWhileCounter() < doWhileCounter) {
-                /* This process is still surrounded by do-while */
-                currElem.increaseDoWhileCounter();
-            } else {
-                /* Process hasn't been traversed */
-                currElem.traverse();
-            }
+        if (currElem.hasntBeenTraversed()) {
+            /* Process hasn't been traversed */
+            currElem.traverse();
             currElem.setNodeCode(currCode);
             son = currElem.getSon();
 
@@ -41,12 +42,7 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
              * Judgment and link it with his Father, include do-while and
              * nested do-while
              */
-            if (father is Judgment && father.getType() == null
-                    || currElem.getDoWhileCounter() < doWhileCounter) {
-                if (currElem.getDoWhileCounter() < doWhileCounter) {
-                    /* This process is still surrounded by do-while */
-                    currElem.increaseDoWhileCounter();
-                }
+            if (father is Judgment && father.getType() == null) {
                 /* Process's father is do-while */
                 father.setType("DoWhile");
                 thisCode = currElem.getNodeCode();
@@ -62,14 +58,9 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
         }
     }
     if (currElem is Judgment) {
-        if (currElem.hasntBeenTraversed() || currElem.getDoWhileCounter() < doWhileCounter) {
-            if (currElem.getDoWhileCounter() < doWhileCounter) {
-                /* This judgment is still surrounded by do-while */
-                currElem.increaseDoWhileCounter();
-            } else {
-                 /* Judgment hasn't been traversed */
-                currElem.traverse();
-            }
+        if (currElem.hasntBeenTraversed()) {
+             /* Judgment hasn't been traversed */
+            currElem.traverse();
             currElem.setNodeCode(currCode);
 
             if (currElem.getDirectConvergence() == null) {
@@ -116,12 +107,7 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
                 currElem.setType("While");
             }
             else { // and been recognized
-                if (father is Judgment && father.getType() == null
-                        || currElem.getDoWhileCounter() < doWhileCounter) {
-                    if (currElem.getDoWhileCounter() < doWhileCounter) {
-                        /* This process is still surrounded by do-while */
-                        currElem.increaseDoWhileCounter();
-                    }
+                if (father is Judgment && father.getType() == null) {
                     /* Judgment father is do-while */
                     father.setType("DoWhile");
                     thisCode = currElem.getNodeCode();
@@ -139,14 +125,9 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
     }
     if (currElem is Convergence) {
         /* match a judgment node and a convergence node */
-        if (currElem.hasntBeenTraversed() || currElem.getDoWhileCounter() < doWhileCounter) {
-            if (currElem.getDoWhileCounter() < doWhileCounter) {
-                /* This process is still surrounded by do-while */
-                currElem.increaseDoWhileCounter();
-            } else {
-                /* Convergence hasn't been traversed */
-                currElem.traverse();
-            }
+        if (currElem.hasntBeenTraversed()) {
+            /* Convergence hasn't been traversed */
+            currElem.traverse();
 
             /* as a judgment and a convergence is exist geminate, so the top
              * judgment in stack must be able to match the current

@@ -26,7 +26,7 @@ public class Process extends FlowChartDecorator implements IDiagramElement {
 		Main.log("Select " + this);
 		Main.log("Type: " + getType());
 		Main.log("Node Code:" + getNodeCode());
-		Main.log("DoWhile:" + getDoWhileCounter());
+		Main.log("DoWhile:" + getDoWhileNode());
 		Main.log("Traversed:" + (hasBeenTraversed() ? "true" : "false"));
 	}
 
