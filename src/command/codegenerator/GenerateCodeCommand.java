@@ -38,10 +38,9 @@ public class GenerateCodeCommand implements ICommand {
 			CodeAlgorithmCommand codeAlgorithm = new CodeAlgorithmCommand();
 			codeAlgorithm.execute();
 
-			ConvertToPADCommand toPAD = new ConvertToPADCommand();
-			toPAD.setFirstCode(codeAlgorithm.getFirstCode());
+			ConvertToPADCommand toPAD = new ConvertToPADCommand(codeAlgorithm.getFirstCode());
 			toPAD.execute();
-			
+
 			ConvertToCodeCommand toCode = new ConvertToCodeCommand();
 			toCode.setFatherBlock(toPAD.getFatherBlock());
 			toCode.execute();

@@ -1,21 +1,9 @@
 package command.codegenerator;
 
 import diagram.element.Line;
-import diagram.flowchart.Convergence;
-import diagram.flowchart.FlowLine;
-import diagram.flowchart.Judgment;
-import diagram.flowchart.NodeCode;
-import diagram.flowchart.type.LoopType;
-import diagram.flowchart.type.ProcessType;
-import diagram.flowchart.type.SelectionType;
-import diagram.flowchart.type.WhileType;
-import diagram.pad.BlockContainer;
-import diagram.pad.DoWhile;
-import diagram.pad.Loop;
-import diagram.pad.Selection;
-import diagram.pad.Sequence;
-import diagram.pad.While;
-import exception.GenerateCodeException;
+import diagram.flowchart.*;
+import diagram.flowchart.type.*;
+import diagram.pad.*;
 import interfaces.FlowChartElement;
 import interfaces.ICommand;
 import main.Main;
@@ -24,6 +12,13 @@ public class ConvertToPADCommand implements ICommand {
 
 	private NodeCode firstCode;
 	private BlockContainer fatherBlock;
+
+	public ConvertToPADCommand(NodeCode firstCode) {
+		this.firstCode = firstCode;
+		Main.log("Start check the code");
+		Main.log(firstCode.printTrace());
+		Main.log("Finish check the code");
+	}
 
 	@Override
 	public void execute() {
@@ -45,7 +40,7 @@ public class ConvertToPADCommand implements ICommand {
 		if (currElem == null) {
 			return;
 		}
-		Main.log("ConvertToPAD enter " + currElem);
+		Main.log("ConvertToPAD enter " + currCode + " " + currElem);
 		if (currElem.getType() instanceof ProcessType) {
 			Sequence element = new Sequence();
 			element.setText(currElem.getText());
@@ -54,9 +49,9 @@ public class ConvertToPADCommand implements ICommand {
 		if (currElem.getType() instanceof SelectionType) {
 			Selection element = new Selection();
 			element.setText(currElem.getText());
-			
+
 			/* Create new layer, for each selection children */
-			Main.log("Go to each child flow which is not convergence.");
+			Main.log("Traverse each child flow which is not convergence.");
 			for (FlowLine flow : ((Judgment) currElem).getFlows()) {
 				FlowChartElement nextFlow = (FlowChartElement) flow.getDstElement();
 				if (nextFlow instanceof Convergence) {
@@ -67,12 +62,11 @@ public class ConvertToPADCommand implements ICommand {
 					element.setYesChild(subBlock);
 				} else if (flow.getText().equals(Line.NO)) {
 					element.setNoChild(subBlock);
-				} else {
-					throw new GenerateCodeException("Judgment flow type isn't defined.");
 				}
 				convertToPAD(nextFlow.getNodeCode(), subBlock);
 			}
 			fatherBlock.addElement(element);
+			Main.log("Finish traverse each child flow.");
 		}
 		if (currElem.getType() instanceof LoopType) {
 			Loop element;
@@ -97,10 +91,6 @@ public class ConvertToPADCommand implements ICommand {
 		/* Go to next code from the same layer */
 		currCode = currCode.getSibling();
 		convertToPAD(currCode, fatherBlock);
-	}
-	
-	public void setFirstCode(NodeCode code) {
-		firstCode = code;
 	}
 	
 	public BlockContainer getFatherBlock() {

@@ -107,6 +107,25 @@ public class NodeCode {
 		this.element = element;
 	}
 
+	public String printTrace() {
+		if (getElement() == null) {
+			return "";
+		}
+		String ans = this.toString() + getElement();
+		if (!children.isEmpty()) {
+			for (NodeCode child : children) {
+				ans += " {\n";
+				ans += child.printTrace();
+				ans += "}";
+			}
+		}
+		ans += "\n";
+		if (getSibling() != null) {
+			ans += getSibling().printTrace();
+		}
+		return ans;
+	}
+
 	@Override
 	public String toString() {
 		String retval = "";

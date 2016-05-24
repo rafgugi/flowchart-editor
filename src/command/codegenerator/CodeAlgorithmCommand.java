@@ -87,7 +87,7 @@ public class CodeAlgorithmCommand implements ICommand {
 				 * Judgment and link it with his Father, include do-while and
 				 * nested do-while
 				 */
-				if (father instanceof Judgment && father.getType() == null || father.getType() == DoWhileType.get()) {
+				if ((father instanceof Judgment && father.getType() == null) || father.getType() == DoWhileType.get()) {
 					Main.log("\tProcess father is do-while");
 					father.setType(DoWhileType.get());
 					NodeCode thisCode = currNode.getNodeCode();
@@ -143,7 +143,7 @@ public class CodeAlgorithmCommand implements ICommand {
 					currNode.setType(SelectionType.get());
 				}
 
-				/* Continue to process the nodes behind Convergence. */
+				/* Continue to process the nodes behind Convergence */
 				Convergence conv = currNode.getDirectConvergence();
 				if (conv == null) {
 					throw new GenerateCodeException("Direct convergence is null");
@@ -158,7 +158,7 @@ public class CodeAlgorithmCommand implements ICommand {
 					currNode.setType(WhileType.get());
 				}
 				else { // and been recognized
-					if (father instanceof Judgment && father.getType() == null || father.getType() == DoWhileType.get()) {
+					if ((father instanceof Judgment && father.getType() == null) || father.getType() == DoWhileType.get()) {
 						Main.log("\tJudgment father is do-while");
 						father.setType(DoWhileType.get());
 						NodeCode thisCode = currNode.getNodeCode();

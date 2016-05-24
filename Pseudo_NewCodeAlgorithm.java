@@ -6,7 +6,7 @@ newCode = new NodeCode(); // (0,0)
 father.setNodeCode(newCode);
 codeCounter = 1;
 stackOfJudgment = new Stack<>();
-doWhileCounter = 0;
+doWhileStack = new Stack<>();
 codeAlgorithm(father, son, father.getNodeCode().createSibling());
 
 /**
@@ -21,7 +21,7 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
         return; // exit point of recursion
     }
 
-    if (currElem.hasBeenTraversed() && currElem.getDoWhileCounter() < doWhileCounter) {
+    if (!doWhileStack.empty() && currElem.getDoWhileCounter() < doWhileStack.peek()) {
         /* This process is still surrounded by do-while, reset traversed */
         currElem.resetTraversed();
         currElem.setDoWhileCounter(currElem.getDoWhileCounter() + 1);
@@ -50,10 +50,10 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
                 thisCode.resetChildren(); // and reset the child of the code
 
                 /* Begining to recode do-while child */
-                doWhileCounter++; // increase do-while stack
+                doWhileStack.push(father); // push doWhile to stack
                 father.increaseDoWhileCounter();
                 codeAlgorithm(father, currElem, thisCode.createChild());
-                doWhileCounter--; // reset do-while stack after finish recode
+                doWhileStack.pop(); // pop doWhile after finish recode
             }
         }
     }
@@ -95,7 +95,7 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
                 currElem.setType("Selection");
             }
 
-            /* Go to the elements behind Convergence. */
+            /* Go to the elements behind Convergence */
             convergence = currElem.getDirectConvergence();
             sonCode = convergence.getNodeCode().createSibling();
             sonNode = convergence.getSon();
@@ -115,10 +115,10 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
                     thisCode.resetChildren(); // and reset the child of the code
 
                     /* Begining to recode do-while child */
-                    doWhileCounter++; // increase do-while stack
+                    doWhileStack.push(father); // push doWhile to stack
                     father.increaseDoWhileCounter();
                     codeAlgorithm(father, currElem, thisCode.createChild());
-                    doWhileCounter--; // reset do-while stack after finish recode
+                    doWhileStack.pop(); // pop doWhile after finish recode
                 }
             }
         }

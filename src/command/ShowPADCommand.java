@@ -23,8 +23,7 @@ public class ShowPADCommand implements ICommand {
 			CodeAlgorithmCommand codeAlgorithm = new CodeAlgorithmCommand();
 			codeAlgorithm.execute();
 
-			ConvertToPADCommand toPAD = new ConvertToPADCommand();
-			toPAD.setFirstCode(codeAlgorithm.getFirstCode());
+			ConvertToPADCommand toPAD = new ConvertToPADCommand(codeAlgorithm.getFirstCode());
 			toPAD.execute();
 			
 			BlockContainer fatherBlock = toPAD.getFatherBlock();
