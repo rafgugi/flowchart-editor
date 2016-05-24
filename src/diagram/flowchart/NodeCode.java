@@ -132,6 +132,24 @@ public class NodeCode {
 		return ans;
 	}
 
+	/**
+	 * Get x.
+	 * 
+	 * @return x
+	 */
+	public int getX() {
+		return x;
+	}
+
+	/**
+	 * Get y.
+	 * 
+	 * @return y
+	 */
+	public int getY() {
+		return y;
+	}
+
 	@Override
 	public String toString() {
 		String retval = "";

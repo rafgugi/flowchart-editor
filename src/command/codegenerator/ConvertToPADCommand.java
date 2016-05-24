@@ -1,6 +1,5 @@
 package command.codegenerator;
 
-import diagram.element.Line;
 import diagram.flowchart.*;
 import diagram.flowchart.type.*;
 import diagram.pad.*;
@@ -52,15 +51,15 @@ public class ConvertToPADCommand implements ICommand {
 
 			/* Create new layer, for each selection children */
 			Main.log("Traverse each child flow which is not convergence.");
-			for (FlowLine flow : ((Judgment) currElem).getFlows()) {
-				FlowChartElement nextFlow = (FlowChartElement) flow.getDstElement();
+			for (NodeCode child : currCode.getChildren()) {
+				FlowChartElement nextFlow = child.getElement();
 				if (nextFlow instanceof Convergence) {
 					continue;
 				}
 				BlockContainer subBlock = new BlockContainer();
-				if (flow.getText().equals(Line.YES)) {
+				if (child.getX() == 1) {
 					element.setYesChild(subBlock);
-				} else if (flow.getText().equals(Line.NO)) {
+				} else if (child.getX() == 2) {
 					element.setNoChild(subBlock);
 				}
 				convertToPAD(nextFlow.getNodeCode(), subBlock);
@@ -75,15 +74,10 @@ public class ConvertToPADCommand implements ICommand {
 			} else {
 				element = new DoWhile();
 			}
-			for (FlowLine flow : ((Judgment) currElem).getFlows()) {
-				FlowChartElement nextFlow = (FlowChartElement) flow.getDstElement();
-				if (nextFlow instanceof Convergence) {
-					element.setFlowType(flow.getText().equals(Line.NO));
-				}
-			}
 			element.setText(currElem.getText());
 			BlockContainer subContainer = new BlockContainer();
 			NodeCode childCode = currCode.getChildren().get(0);
+			element.setFlowType(childCode.getX() == 1);
 			element.setChild(subContainer);
 			fatherBlock.addElement(element);
 			convertToPAD(childCode, subContainer);
