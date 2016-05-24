@@ -26,18 +26,22 @@ public class Main {
 			prepareLog();
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			System.out.println("Can not create log file.");
-			return;
+			writer = null;
 		}
 		MainWindow window = MainWindow.getInstance();
 		window.pack();
 		window.show();
 
-		writer.close();
+		if (writer != null) {
+			writer.close();
+		}
 	}
 
 	public static void log(String message) {
 		System.out.println(message);
-		writer.println(message);
+		if (writer != null) {
+			writer.println(message);
+		}
 	}
 
 }
