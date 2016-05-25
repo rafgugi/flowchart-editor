@@ -21,6 +21,7 @@ public class ValidationItem implements IValidationItem {
 			e.select();
 		}
 		subEditor.draw();
+		MainWindow.getInstance().setStatus(getTitle());
 	}
 
 	@Override

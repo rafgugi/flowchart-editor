@@ -3,6 +3,7 @@ package command.codegenerator;
 import diagram.flowchart.*;
 import diagram.flowchart.type.*;
 import diagram.pad.*;
+import exception.GenerateCodeException;
 import interfaces.FlowChartElement;
 import interfaces.ICommand;
 import main.Main;
@@ -60,6 +61,9 @@ public class ConvertToPADCommand implements ICommand {
 					element.setYesChild(subBlock);
 				} else if (child.getX() == 2) {
 					element.setNoChild(subBlock);
+				}
+				if (nextFlow == null) {
+					throw new GenerateCodeException("nexFlow null");
 				}
 				convertToPAD(nextFlow.getNodeCode(), subBlock);
 			}

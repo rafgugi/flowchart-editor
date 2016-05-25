@@ -22,22 +22,23 @@ public class ValidateDiagramCommand implements ICommand {
 		validators.add(new TerminatorValidator());
 		validators.add(new ElementsConnectionValidator());
 		validators.add(new JudgmentValidator());
+		validators.add(new ConvergenceValidator());
 		validators.add(new SyntaxValidator());
 	}
 
 	@Override
 	public void execute() {
+		MainWindow.getInstance().setStatus("Begin validation");
 		Main.log("Begin validation");
 		for (IDiagramValidator validator : validators) {
 			validator.execute();
 		}
-	}
-
-	public void showMessage() {
 		if (validationList.getValidationItems().isEmpty()) {
 			MainWindow.getInstance().setStatus("Validation success");
+			Main.log("Validation success");
 		} else {
 			MainWindow.getInstance().setStatus("Validation fail");
+			Main.log("Validation fail");
 		}
 	}
 

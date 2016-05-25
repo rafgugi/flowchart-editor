@@ -22,16 +22,23 @@ public class SyntaxValidator extends AValidator {
 		for (IElement element : getAllElements()) {
 			if (element instanceof Judgment || element instanceof Process) {
 				IDiagramElement node = (IDiagramElement) element;
-				String text = node.getText() + ";";
-				SourceCodeTreeCommand validator = new SourceCodeTreeCommand(text);
-				try {
-					validator.execute();
-				} catch (SyntaxErrorException e) {
+				if (node.getText().trim().equals("")) {
 					ValidationItem item = new ValidationItem();
 					item.addProblem(element);
-					item.setTitle("Syntax error: " + text);
-					item.setDescription(e.getMessage());
+					item.setTitle(node + " belum terisi");
 					addValidationItem(item);
+				} else {
+					String text = node.getText() + ";";
+					SourceCodeTreeCommand validator = new SourceCodeTreeCommand(text);
+					try {
+						validator.execute();
+					} catch (SyntaxErrorException e) {
+						ValidationItem item = new ValidationItem();
+						item.addProblem(element);
+						item.setTitle("Syntax error: " + text);
+						item.setDescription(e.getMessage());
+						addValidationItem(item);
+					}
 				}
 			}
 		}
