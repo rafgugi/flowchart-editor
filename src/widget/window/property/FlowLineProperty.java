@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Label;
 
-import diagram.element.Line;
+import diagram.flowchart.FlowLine;
 import interfaces.IElement;
 import widget.window.MainWindow;
 
@@ -18,7 +18,7 @@ public class FlowLineProperty extends APropertyWindow {
 	private Combo input;
 	private Label label;
 	protected Button okButton;
-	private static String[] choices = new String[] { Line.NONE, Line.YES, Line.NO };
+	private static String[] choices = new String[] { FlowLine.NONE, FlowLine.YES, FlowLine.NO };
 
 	public FlowLineProperty(IElement element) {
 		super(element);
@@ -52,7 +52,8 @@ public class FlowLineProperty extends APropertyWindow {
 		gridData.grabExcessVerticalSpace = true;
 		input.setLayoutData(gridData);
 		/* Select current item */
-		input.select(Arrays.asList(choices).indexOf(((Line) getElement()).getText()));
+		int index = Arrays.asList(choices).indexOf(((FlowLine) getElement()).getText());
+		input.select(index);
 
 		okButton = new Button(this, SWT.PUSH);
 		okButton.setText("     OK     ");
@@ -66,7 +67,7 @@ public class FlowLineProperty extends APropertyWindow {
 
 	@Override
 	public void execute() {
-		Line element = (Line) super.getElement();
+		FlowLine element = (FlowLine) super.getElement();
 		String text = input.getText();
 		element.setText(text);
 		MainWindow.getInstance().getEditor().getActiveSubEditor().draw();

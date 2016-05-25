@@ -25,10 +25,6 @@ public class Line extends AEditable {
 	public static final int CONNECTED_DST = 2;
 	public static final int CONNECTED_BOTH = 3;
 
-	public static final String NONE = "";
-	public static final String YES = "Y";
-	public static final String NO = "N";
-
 	public static final int BOUNDARY = 6;
 
 	public Line() {

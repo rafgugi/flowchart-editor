@@ -2,7 +2,6 @@ package diagram.flowchart;
 
 import java.util.ArrayList;
 
-import diagram.element.Line;
 import interfaces.FlowChartElement;
 import main.Main;
 
@@ -57,13 +56,7 @@ public class NodeCode {
 	 * @param flow
 	 * @return Child node code
 	 */
-	public NodeCode createChild(String flow) {
-		int x = 0;
-		if (flow.equals(Line.YES)) {
-			x = 1;
-		} else if (flow.equals(Line.NO)) {
-			x = 2;
-		}
+	public NodeCode createChild(int x) {
 		NodeCode child = new NodeCode(this, x, 0);
 		children.add(child);
 		Main.log("\tcreate child: " + child);
@@ -111,25 +104,6 @@ public class NodeCode {
 	 */
 	public void setElement(FlowChartElement element) {
 		this.element = element;
-	}
-
-	public String printTrace() {
-		if (getElement() == null) {
-			return "";
-		}
-		String ans = this.toString() + getElement();
-		if (!children.isEmpty()) {
-			for (NodeCode child : children) {
-				ans += " {\n";
-				ans += child.printTrace();
-				ans += "}";
-			}
-		}
-		ans += "\n";
-		if (getSibling() != null) {
-			ans += getSibling().printTrace();
-		}
-		return ans;
 	}
 
 	/**

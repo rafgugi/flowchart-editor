@@ -15,7 +15,6 @@ public class ConvertToPADCommand implements ICommand {
 	public ConvertToPADCommand(NodeCode firstCode) {
 		this.firstCode = firstCode;
 		Main.log("Start check the code");
-		Main.log(firstCode.printTrace());
 		Main.log("Finish check the code");
 	}
 

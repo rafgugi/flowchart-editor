@@ -9,11 +9,11 @@ public class PackDiagramCommand implements ICommand {
 	@Override
 	public void execute() {
 		NodeCode code1 = new NodeCode();
-		NodeCode code2 = code1.createChild("1");
+		NodeCode code2 = code1.createChild(1);
 		NodeCode code3 = code2.createSibling();
 		NodeCode code4 = code1.createSibling();
-		NodeCode code5 = code1.createChild("2");
-		NodeCode code6 = code2.createChild("1");
+		NodeCode code5 = code1.createChild(2);
+		NodeCode code6 = code2.createChild(1);
 
 		System.out.print("code1 new NodeCode(): ");
 		Main.log(code1 + "");

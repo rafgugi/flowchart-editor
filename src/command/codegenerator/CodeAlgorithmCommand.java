@@ -98,7 +98,7 @@ public class CodeAlgorithmCommand implements ICommand {
 					doWhileStack.push(father); // increase do-while stack
 					father.setDoWhileNode(doWhileStack.peek());
 					FlowLine flow = ((Judgment) father).getFlow(currNode);
-					NodeCode childCode = thisCode.createChild(flow.getText());
+					NodeCode childCode = thisCode.createChild(flow.getCode());
 					codeAlgorithm(father, currNode, childCode);
 					doWhileStack.pop(); // reset do-while stack after finish recode
 				}
@@ -124,7 +124,7 @@ public class CodeAlgorithmCommand implements ICommand {
 						convergenceSon = (Convergence) son;
 						continue;
 					}
-					NodeCode sonCode = currCode.createChild(fl.getText());
+					NodeCode sonCode = currCode.createChild(fl.getCode());
 					Main.log("\tGo to judgment's child");
 					codeAlgorithm(currNode, son, sonCode);
 				}
@@ -171,7 +171,7 @@ public class CodeAlgorithmCommand implements ICommand {
 						doWhileStack.push(father); // increase do-while stack
 						father.setDoWhileNode(doWhileStack.peek());
 						FlowLine flow = ((Judgment) father).getFlow(currNode);
-						NodeCode childCode = thisCode.createChild(flow.getText());
+						NodeCode childCode = thisCode.createChild(flow.getCode());
 						codeAlgorithm(father, currNode, childCode);
 						doWhileStack.pop(); // reset do-while stack after finish recode
 					}

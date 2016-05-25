@@ -52,7 +52,8 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
                 /* Begining to recode do-while child */
                 doWhileStack.push(father); // push doWhile to stack
                 father.increaseDoWhileCounter();
-                childCode = thisCode.createChild();
+                flowCode = father.getFlow(currElem).getCode();
+                childCode = thisCode.createChild(flowCode);
                 codeAlgorithm(father, currElem, childCode);
                 doWhileStack.pop(); // pop doWhile after finish recode
             }
@@ -77,7 +78,8 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
                     continue;
                 }
                 /* Go to judgment's child that is not convergence */
-                sonCode = currCode.createChild();
+                flowCode = currElem.getFlow(son);
+                sonCode = currCode.createChild(flowCode);
                 codeAlgorithm(currElem, son, sonCode);
             }
 
@@ -118,7 +120,8 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
                     /* Begining to recode do-while child */
                     doWhileStack.push(father); // push doWhile to stack
                     father.increaseDoWhileCounter();
-                    childCode = thisCode.createChild();
+                    flowCode = father.getFlow(currElem).getCode();
+                    childCode = thisCode.createChild(flowCode);
                     codeAlgorithm(father, currElem, childCode);
                     doWhileStack.pop(); // pop doWhile after finish recode
                 }
