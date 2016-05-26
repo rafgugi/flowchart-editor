@@ -1,7 +1,5 @@
 package diagram.element;
 
-import org.json.JSONObject;
-
 import interfaces.IElement;
 import main.Main;
 
@@ -154,11 +152,6 @@ public class EditPoint extends AElement {
 	public void drag(int x, int y) {
 		Main.log("Drag by editpoint [" + getCode() + "]");
 		element.drag(x, y, this);
-	}
-
-	@Override
-	public void jsonDecode(JSONObject obj) {
-		super.jsonDecode(obj);
 	}
 
 }

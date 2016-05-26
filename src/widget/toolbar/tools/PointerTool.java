@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.eclipse.swt.events.MouseEvent;
 
 import command.ElementPropertiesCommand;
-import interfaces.IEditableElement;
+import diagram.element.AEditable;
 import interfaces.IElement;
 
 import widget.toolbar.ToolStrip;
@@ -51,7 +51,7 @@ public class PointerTool extends ATool {
 			if (dapetElement != null) {
 				clickedElement = dapetElement;
 				if (dapetElement.isActive()) {
-					if (dapetElement instanceof IEditableElement) {
+					if (dapetElement instanceof AEditable) {
 						state = DRAG_MULTIPLE;
 					} else {
 						state = DRAG_CONTROL_POINT;

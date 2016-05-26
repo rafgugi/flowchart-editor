@@ -4,10 +4,9 @@ import java.util.ArrayList;
 
 import org.eclipse.swt.graphics.Point;
 
-import interfaces.IEditableElement;
 import interfaces.IElement;
 
-public abstract class AEditable extends AElement implements IEditableElement {
+public abstract class AEditable extends AElement {
 
 	private ArrayList<EditPoint> editPoints;
 	
@@ -52,7 +51,22 @@ public abstract class AEditable extends AElement implements IEditableElement {
 		}
 	}
 
-	@Override
+	/**
+	 * Create edit points on the 8 points of element, then put edit points in
+	 * private variable editPoints
+	 */
+	public abstract void createEditPoints();
+
+
+	/**
+	 * Triggered when the element is dragged by another element. Parameter e is
+	 * usually an EditPoint. This element perform drag depends on which
+	 * EditPoint is dragged.
+	 * 
+	 * @param x
+	 * @param y
+	 * @param element
+	 */
 	public void drag(int x, int y, IElement e) {
 		deselect();
 		select();
