@@ -64,9 +64,9 @@ public class NodeCode {
 	}
 
 	/**
-	 * Reset this node children, also reset xStreak.
+	 * Clear this node children.
 	 */
-	public void resetChildren() {
+	public void clearChildren() {
 		children.clear();
 	}
 

@@ -29,7 +29,7 @@ public class Judgment extends FlowChartDecorator implements IDiagramElement {
 		Main.log("Type: " + getType());
 		Main.log("Node Code:" + getNodeCode());
 		Main.log("DoWhile:" + getDoWhileNode());
-		Main.log("Traversed:" + (hasBeenTraversed() ? "true" : "false"));
+		Main.log("Traversed:" + (isTraversed() ? "true" : "false"));
 		Main.log("Convergence:" + getDirectConvergence());
 	}
 
@@ -75,7 +75,7 @@ public class Judgment extends FlowChartDecorator implements IDiagramElement {
 	 */
 	public FlowLine getFlow(FlowChartElement element) {
 		for (FlowLine flow : getFlows()) {
-			if (flow.getDstElement() == element) {
+			if (flow.getSon() == element) {
 				return flow;
 			}
 		}

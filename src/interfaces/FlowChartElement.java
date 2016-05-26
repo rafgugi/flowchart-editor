@@ -40,7 +40,7 @@ public interface FlowChartElement extends IDiagramElement {
 	 * 
 	 * @return boolean
 	 */
-	public boolean hasBeenTraversed();
+	public boolean isTraversed();
 
 	/**
 	 * Reset traversed flag to false.

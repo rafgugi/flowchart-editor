@@ -46,7 +46,7 @@ public abstract class FlowChartDecorator extends TwoDimensionalDecorator impleme
 	}
 
 	@Override
-	public boolean hasBeenTraversed() {
+	public boolean isTraversed() {
 		return traversed;
 	}
 

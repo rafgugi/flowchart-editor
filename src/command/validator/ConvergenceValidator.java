@@ -43,7 +43,7 @@ public class ConvergenceValidator extends AValidator {
 		 * stack.pop error, brarti convergence kbanyakan. Jika sampe
 		 * akhir masih ada isi stack, brarti kurang convergence.
 		 */
-		FlowChartElement son = (FlowChartElement) start.getFlow().getDstElement();
+		FlowChartElement son = start.getFlow().getSon();
 		judgmentStack = new Stack<>();
 		maxloop = getAllElements().size() * 2;
 		try {
@@ -72,24 +72,24 @@ public class ConvergenceValidator extends AValidator {
 			maxloop++;
 			return; // exit point of recursion
 		}
-		if (currElem.hasBeenTraversed()) {
+		if (currElem.isTraversed()) {
 			maxloop++;
 			return;
 		}
 		currElem.traverse();
 		if (currElem instanceof Process) {
 			Process currNode = (Process) currElem;
-			check(currNode, (FlowChartElement) currNode.getFlow().getDstElement());
+			check(currNode, currNode.getFlow().getSon());
 		}
 		if (currElem instanceof Judgment) {
 			Judgment currNode = (Judgment) currElem;
 			judgmentStack.push(currNode);
 			for (FlowLine f : currNode.getFlows()) {
-				check(currNode, (FlowChartElement) f.getDstElement());
+				check(currNode, f.getSon());
 			}
 			if (currNode.getDirectConvergence() != null) {
 				Convergence conv = currNode.getDirectConvergence();
-				FlowChartElement son = (FlowChartElement) conv.getFlow().getDstElement();
+				FlowChartElement son = conv.getFlow().getSon();
 				check(conv, son);
 			}
 		}

@@ -2,6 +2,7 @@ package diagram.flowchart;
 
 import diagram.element.PolyLine;
 import diagram.element.TwoDimensional;
+import interfaces.FlowChartElement;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
 import main.Main;
@@ -44,4 +45,29 @@ public class FlowLine extends PolyLine implements IDiagramElement {
 		}
 	}
 
+	/**
+	 * Get destination flowchart element from this flow.
+	 *
+	 * @return son
+	 */
+	public FlowChartElement getSon() {
+		IElement e = getDstElement();
+		if (e instanceof FlowChartElement) {
+			return (FlowChartElement) e;
+		}
+		return null;
+	}
+
+	/**
+	 * Get source flowchart element from this flow.
+	 *
+	 * @return father
+	 */
+	public FlowChartElement getFather() {
+		IElement e = getSrcElement();
+		if (e instanceof FlowChartElement) {
+			return (FlowChartElement) e;
+		}
+		return null;
+	}
 }
