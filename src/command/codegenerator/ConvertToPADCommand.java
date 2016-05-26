@@ -79,7 +79,10 @@ public class ConvertToPADCommand implements ICommand {
 			}
 			element.setText(currElem.getText());
 			BlockContainer subContainer = new BlockContainer();
+
+			/* Loop element always have only 1 children */
 			NodeCode childCode = currCode.getChildren().get(0);
+			/* Set flowType from code's x value */
 			element.setFlowType(childCode.getX() == 1);
 			element.setChild(subContainer);
 			fatherBlock.addElement(element);
