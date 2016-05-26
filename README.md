@@ -9,7 +9,7 @@ User can make flowchart, then user convert flowchart into sourcecode using Probl
 | Generate a code for every node | Ok
 | Convert coded flowchart into PAD | Ok
 | Convert PAD into raw sourcecode | Ok
-| View PAD | Ok
+| View PAD | No
 | Convert raw sourcecode into compilable code  | No
 
 ## Preparing
