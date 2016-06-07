@@ -38,9 +38,8 @@ public class ProcessProperty extends APropertyWindow {
 		label.setLayoutData(gridData);
 		label.setText("Text:  ");
 
-		input = new Text(this, SWT.BORDER | SWT.WRAP | SWT.MULTI);
+		input = new Text(this, SWT.BORDER);
 		gridData = new GridData();
-		gridData.heightHint = 50;
 		gridData.widthHint = 200;
 		gridData.horizontalAlignment = SWT.FILL;
 		gridData.grabExcessHorizontalSpace = true;

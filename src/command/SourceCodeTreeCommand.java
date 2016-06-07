@@ -37,7 +37,14 @@ public class SourceCodeTreeCommand implements ICommand {
 				throw new SyntaxErrorException(msg, line, row);
 			}
 		});
-		tree = parser.compilationUnit();
+		ParseTree tree = null;
+//		Main.log("abstractDeclarator");
+//		tree = parser.abstractDeclarator();
+//		Main.log("compoundStatement");
+//		tree = parser.compoundStatement();
+//		Main.log("compilationUnit");
+//		tree = parser.compilationUnit();
+		this.tree = tree;
 	}
 
 	public String getString() {
