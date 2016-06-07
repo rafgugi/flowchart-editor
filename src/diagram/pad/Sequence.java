@@ -7,7 +7,7 @@ public class Sequence extends BlockSingle {
 
 	@Override
 	public String generate() {
-		return getText() + ";\n";
+		return createTabIndent() + getText() + ";\n";
 	}
 
 }

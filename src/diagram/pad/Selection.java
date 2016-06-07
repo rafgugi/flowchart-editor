@@ -25,6 +25,7 @@ public class Selection extends BlockSingle {
 	 */
 	public void setYesChild(BlockContainer child) {
 		yesChild = child;
+		child.setParent(this);
 	}
 
 	/**
@@ -43,19 +44,20 @@ public class Selection extends BlockSingle {
 	 */
 	public void setNoChild(BlockContainer child) {
 		noChild = child;
+		child.setParent(this);
 	}
 
 	@Override
 	public String generate() {
-		String ans = "if (" + getText() + ") {\n";
+		String ans = createTabIndent() + "if (" + getText() + ") {\n";
 		if (getYesChild() != null) {
 			ans += getYesChild().generate();
 		}
-		ans += "} else {\n";
+		ans += createTabIndent() + "} else {\n";
 		if (getNoChild() != null) {
 			ans += getNoChild().generate();
 		}
-		ans += "}\n";
+		ans += createTabIndent() + "}\n";
 		return ans;
 	}
 

@@ -7,9 +7,9 @@ public class While extends Loop {
 
 	@Override
 	public String generate() {
-		String ans = "while (" + getText() + ") {\n";
+		String ans = createTabIndent() + "while (" + getText() + ") {\n";
 		ans += getChild().generate();
-		ans += "}\n";
+		ans += createTabIndent() + "}\n";
 		return ans;
 	}
 

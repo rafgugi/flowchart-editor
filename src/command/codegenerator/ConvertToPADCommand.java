@@ -15,8 +15,6 @@ public class ConvertToPADCommand implements ICommand {
 
 	public ConvertToPADCommand(NodeCode firstCode) {
 		this.firstCode = firstCode;
-		Main.log("Start check the code");
-		Main.log("Finish check the code");
 	}
 
 	@Override
@@ -92,7 +90,7 @@ public class ConvertToPADCommand implements ICommand {
 		currCode = currCode.getSibling();
 		convertToPAD(currCode, fatherBlock);
 	}
-	
+
 	public BlockContainer getFatherBlock() {
 		return fatherBlock;
 	}

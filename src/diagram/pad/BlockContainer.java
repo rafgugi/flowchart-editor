@@ -3,6 +3,7 @@ package diagram.pad;
 import java.util.ArrayList;
 
 import interfaces.PadElement;
+import main.Main;
 
 /**
  * Block container element that contains another single block of PAD
@@ -37,6 +38,7 @@ public class BlockContainer implements PadElement {
 	 * @param element
 	 */
 	public void addElement(BlockSingle element) {
+		element.setParent(this);
 		elements.add(element);
 	}
 
@@ -56,6 +58,7 @@ public class BlockContainer implements PadElement {
 	 */
 	public void setParent(BlockSingle parent) {
 		this.parent = parent;
+		Main.log("Set parent from " + parent);
 	}
 
 	@Override
@@ -67,4 +70,11 @@ public class BlockContainer implements PadElement {
 		return ans;
 	}
 
+	@Override
+	public int getTabIndent() {
+		if (parent != null) {
+			return parent.getTabIndent() + 1;
+		}
+		return PadElement.INITIAL_INDENT;
+	}
 }

@@ -7,9 +7,9 @@ public class DoWhile extends Loop {
 
 	@Override
 	public String generate() {
-		String ans = "do {\n";
+		String ans = createTabIndent() + "do {\n";
 		ans += getChild().generate();
-		ans += "} while (" + getText() + ");\n";
+		ans += createTabIndent() + "} while (" + getText() + ");\n";
 		return ans;
 	}
 

@@ -11,9 +11,12 @@ public class ConvertToCodeCommand implements ICommand {
 	@Override
 	public void execute() {
 		generated = "";
+
+		/* Template for C */
+		generated += "#include <stdio.h>\n\n";
 		generated += "void main() {\n";
 		generated += fatherBlock.generate();
-		generated += "}\n";
+		generated += "}";
 	}
 
 	public String getGeneratedCode() {

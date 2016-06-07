@@ -26,6 +26,7 @@ public abstract class Loop extends BlockSingle {
 	 */
 	public void setChild(BlockContainer child) {
 		this.child = child;
+		child.setParent(this);
 	}
 
 	/**
