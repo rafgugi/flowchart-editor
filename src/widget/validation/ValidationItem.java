@@ -21,7 +21,7 @@ public class ValidationItem implements IValidationItem {
 			e.select();
 		}
 		subEditor.draw();
-		MainWindow.getInstance().setStatus(getTitle());
+		MainWindow.getInstance().setStatus(getDescription());
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class ValidationItem implements IValidationItem {
 
 	@Override
 	public String getDescription() {
-		return description;
+		return description.trim().equals("") ? getTitle() : description;
 	}
 
 	@Override

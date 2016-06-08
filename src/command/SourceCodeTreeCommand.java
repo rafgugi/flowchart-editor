@@ -38,12 +38,8 @@ public class SourceCodeTreeCommand implements ICommand {
 			}
 		});
 		ParseTree tree = null;
-//		Main.log("abstractDeclarator");
-//		tree = parser.abstractDeclarator();
-//		Main.log("compoundStatement");
-//		tree = parser.compoundStatement();
-//		Main.log("compilationUnit");
-//		tree = parser.compilationUnit();
+		System.out.println("compilationUnit");
+		tree = parser.compilationUnit();
 		this.tree = tree;
 	}
 

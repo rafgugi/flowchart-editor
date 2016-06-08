@@ -28,14 +28,15 @@ public class SyntaxValidator extends AValidator {
 					item.setTitle(node + " belum terisi");
 					addValidationItem(item);
 				} else {
-					String text = node.getText() + ";";
+					String orig = node.getText();
+					String text = "void main() { " + orig + "; }";
 					SourceCodeTreeCommand validator = new SourceCodeTreeCommand(text);
 					try {
 						validator.execute();
 					} catch (SyntaxErrorException e) {
 						ValidationItem item = new ValidationItem();
 						item.addProblem(element);
-						item.setTitle("Syntax error: " + text);
+						item.setTitle("Syntax error: " + orig);
 						item.setDescription(e.getMessage());
 						addValidationItem(item);
 					}
