@@ -44,4 +44,7 @@ public class Main {
 		}
 	}
 
+	public static void log(Object object) {
+		log(object.toString());
+	}
 }

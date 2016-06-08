@@ -57,7 +57,8 @@ public class GenerateCodeCommand implements ICommand {
 
 				FileDialog dialog = new FileDialog(MainWindow.getInstance(), SWT.SAVE);
 				dialog.setFilterExtensions(new String[] { "*.c", "*.*" });
-				dialog.setFileName("output.c");
+				String title = MainWindow.getInstance().getEditor().getActiveSubEditor().getTitle();
+				dialog.setFileName(title + ".c");
 				String filepath = dialog.open();
 				if (filepath == null) {
 					throw new GenerateCodeException("Save canceled.");

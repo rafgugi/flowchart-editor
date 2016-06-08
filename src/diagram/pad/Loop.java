@@ -26,7 +26,6 @@ public abstract class Loop extends BlockSingle {
 	 */
 	public void setChild(BlockContainer child) {
 		this.child = child;
-		child.setParent(this);
 	}
 
 	/**
@@ -54,6 +53,13 @@ public abstract class Loop extends BlockSingle {
 		} else {
 			return "!(" + super.getText() + ")";
 		}
+	}
+
+	@Override
+	public String toString() {
+		String ans = super.toString();
+		ans += createTabIndent() + "  Child:\n" + child;
+		return ans;
 	}
 
 }

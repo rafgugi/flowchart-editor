@@ -51,15 +51,26 @@ public abstract class BlockSingle implements PadElement {
 
 	@Override
 	public int getTabIndent() {
+		if (getParent() == null) {
+			Main.log("why null? " + getClass().getSimpleName());
+			return PadElement.INITIAL_INDENT;
+		}
 		return getParent().getTabIndent();
 	}
 	
 	protected String createTabIndent() {
 		String ans = "";
-		Main.log(getTabIndent() + " tab(s).");
+		Main.log(getClass().getSimpleName() + " " + getTabIndent() + " tab(s).");
 		for (int i = 0; i < getTabIndent(); i++) {
 			ans += PadElement.TAB_CHAR;
 		}
+		return ans;
+	}
+
+	@Override
+	public String toString() {
+		String ans = createTabIndent();
+		ans += "[" + getClass().getSimpleName() + "] " + getText() + "\n";
 		return ans;
 	}
 }

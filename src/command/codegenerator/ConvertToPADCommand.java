@@ -54,7 +54,7 @@ public class ConvertToPADCommand implements ICommand {
 				if (nextFlow instanceof Convergence) {
 					continue;
 				}
-				BlockContainer subBlock = new BlockContainer();
+				BlockContainer subBlock = new BlockContainer(element);
 				if (child.getX() == 1) {
 					element.setYesChild(subBlock);
 				} else if (child.getX() == 2) {
@@ -76,7 +76,7 @@ public class ConvertToPADCommand implements ICommand {
 				element = new DoWhile();
 			}
 			element.setText(currElem.getText());
-			BlockContainer subContainer = new BlockContainer();
+			BlockContainer subContainer = new BlockContainer(element);
 
 			/* Loop element always have only 1 children */
 			NodeCode childCode = currCode.getChildren().get(0);

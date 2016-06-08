@@ -3,7 +3,7 @@ package interfaces;
 public interface PadElement {
 
 	public static final int INITIAL_INDENT = 1;
-	public static final String TAB_CHAR = "\t";
+	public static final String TAB_CHAR = "    ";
 
 	/**
 	 * Generate raw block of code from this PAD element

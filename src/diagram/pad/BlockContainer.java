@@ -58,7 +58,6 @@ public class BlockContainer implements PadElement {
 	 */
 	public void setParent(BlockSingle parent) {
 		this.parent = parent;
-		Main.log("Set parent from " + parent);
 	}
 
 	@Override
@@ -76,5 +75,28 @@ public class BlockContainer implements PadElement {
 			return parent.getTabIndent() + 1;
 		}
 		return PadElement.INITIAL_INDENT;
+	}
+	
+	protected String createTabIndent() {
+		Main.log(getClass().getSimpleName() + " " + getTabIndent() + " tab(s).");
+		return createTabIndent(getTabIndent());
+	}
+	
+	protected String createTabIndent(int tabIndent) {
+		String ans = "";
+		for (int i = 0; i < tabIndent; i++) {
+			ans += PadElement.TAB_CHAR;
+		}
+		return ans;
+	}
+
+	@Override
+	public String toString() {
+		String ans = createTabIndent(getTabIndent() - 1);
+		ans += "  [" + this.getClass().getSimpleName() + "]\n";
+		for (BlockSingle child : getElements()) {
+			ans += child;
+		}
+		return ans;
 	}
 }
