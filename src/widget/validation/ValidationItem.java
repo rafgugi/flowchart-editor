@@ -8,14 +8,14 @@ import interfaces.IValidationItem;
 import widget.window.MainWindow;
 
 public class ValidationItem implements IValidationItem {
-	
+
 	private String title;
 	private String description;
 	private ArrayList<IElement> problems = new ArrayList<>();
 
 	@Override
 	public void action() {
-		ISubEditor subEditor = MainWindow.getInstance().getEditor().getActiveSubEditor(); 
+		ISubEditor subEditor = MainWindow.getInstance().getEditor().getActiveSubEditor();
 		subEditor.deselectAll();
 		for (IElement e : problems) {
 			e.select();
@@ -36,7 +36,7 @@ public class ValidationItem implements IValidationItem {
 
 	@Override
 	public String getDescription() {
-		return description.trim().equals("") ? getTitle() : description;
+		return description == null || description.trim().equals("") ? getTitle() : description;
 	}
 
 	@Override

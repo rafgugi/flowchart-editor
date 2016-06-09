@@ -35,7 +35,7 @@ public class ShowPADCommand implements ICommand {
 			toPAD.execute();
 			
 			BlockContainer fatherBlock = toPAD.getFatherBlock();
-			padtext = fatherBlock.toString();
+			padtext = "[Start]\n" + fatherBlock.toString() + "[End]";
 			Main.log(padtext);
 
 			/*

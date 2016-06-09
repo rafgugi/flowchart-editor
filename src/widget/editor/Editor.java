@@ -71,6 +71,7 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 		subEditor.setTitle(title);
 		subEditor.setDiagram(diagram);
 		addSubEditor(subEditor);
+		MainWindow.getInstance().getValidationList().reset();
 	}
 
 	@Override
@@ -118,6 +119,7 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 
 	@Override
 	public void widgetDefaultSelected(SelectionEvent e) {
+		widgetSelected(e);
 	}
 
 }
