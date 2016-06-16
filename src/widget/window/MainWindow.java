@@ -22,8 +22,9 @@ public class MainWindow extends AWindow implements IMainWindow {
 	private IEditor editor;
 	private IToolStrip toolstrip;
 	private IValidationList validationList;
-	private static MainWindow instance;
 	private Label status;
+
+	private static MainWindow instance;
 
 	private MainWindow() {
 	}
@@ -38,16 +39,17 @@ public class MainWindow extends AWindow implements IMainWindow {
 	protected void initialize() {
 		setTitle("Window.java");
 
-		setBar(new MenuBar(this));
-
 		GridLayout layout = new GridLayout();
 		layout.numColumns = 3;
 		super.setLayout(layout);
 
+		/* Create menu bar */
+		setBar(new MenuBar(this));
+
+		/* Create main window's components */
 		setToolStrip(new ToolStrip(this));
 		setEditor(new Editor(this));
-		
-		validationList = new ValidationList(this, SWT.BORDER);
+		setValidationList(new ValidationList(this));
 
 		status = new Label(this, SWT.NONE);
 		GridData gridData = new GridData();
@@ -55,7 +57,7 @@ public class MainWindow extends AWindow implements IMainWindow {
 		gridData.horizontalAlignment = SWT.FILL;
 		status.setLayoutData(gridData);
 		setStatus("No diagram yet.");
-		
+
 		super.pack();
 	}
 
@@ -86,7 +88,7 @@ public class MainWindow extends AWindow implements IMainWindow {
 	private void setToolStrip(IToolStrip toolstrip) {
 		this.toolstrip = toolstrip;
 	}
-	
+
 	public void setStatus(String status) {
 		this.status.setText(status);
 	}
@@ -94,5 +96,9 @@ public class MainWindow extends AWindow implements IMainWindow {
 	@Override
 	public IValidationList getValidationList() {
 		return validationList;
+	}
+
+	private void setValidationList(ValidationList validationList) {
+		this.validationList = validationList;
 	}
 }

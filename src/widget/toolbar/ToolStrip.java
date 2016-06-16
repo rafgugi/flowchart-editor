@@ -26,7 +26,7 @@ public class ToolStrip extends ToolBar implements IToolStrip {
 		GridData gridData = new GridData();
 		gridData.verticalAlignment = SWT.FILL;
 		super.setLayoutData(gridData);
-		
+
 		addTool(new PointerTool(this));
 		addTool(new TerminatorTool(this));
 		addTool(new ProcessTool(this));
@@ -34,7 +34,7 @@ public class ToolStrip extends ToolBar implements IToolStrip {
 		addTool(new ConvergenceTool(this));
 		// addTool(new LineTool(this));
 		addTool(new PolylineTool(this));
-		
+
 		tools.get(0);
 
 		super.pack();

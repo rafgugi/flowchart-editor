@@ -6,44 +6,55 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.List;
 
 import interfaces.IValidationItem;
 import interfaces.IValidationList;
 import main.Main;
 
-public class ValidationList extends List implements IValidationList, SelectionListener {
+public class ValidationList extends Group implements IValidationList, SelectionListener {
 
 	private ArrayList<IValidationItem> validationItems = new ArrayList<>();
+	private List list;
 
-	public ValidationList(Composite parent, int style) {
-		super(parent, style);
+	public ValidationList(Composite parent) {
+		super(parent, SWT.SHADOW_ETCHED_IN);
 		initialize();
 	}
 
 	protected void initialize() {
-		GridData gridData = new GridData(SWT.FILL, SWT.FILL, false, false);
-		gridData.widthHint = 180;
-		super.setLayoutData(gridData);
-		super.setLayoutData(gridData);
+		super.setText("Validation List");
 
-		super.addSelectionListener(this);
+		GridData gridGroup = new GridData(SWT.FILL, SWT.FILL, false, false);
+		gridGroup.widthHint = 190;
+		super.setLayoutData(gridGroup);
+
+		GridLayout groupLayout = new GridLayout();
+		groupLayout.numColumns = 1;
+		super.setLayout(groupLayout);
+
+		list = new List(this, SWT.NONE);
+		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
+		list.setLayoutData(gridData);
+		list.addSelectionListener(this);
 	}
 
 	@Override
 	public void addItem(IValidationItem item) {
 		validationItems.add(item);
-		super.add(item.getTitle());
+		list.add(item.getTitle());
 	}
 
 	@Override
 	public void removeItem(IValidationItem item) {
 		int index = validationItems.indexOf(item);
-		super.remove(index);
+		list.remove(index);
 		validationItems.remove(item);
 	}
-	
+
 	@Override
 	public int getIndex(IValidationItem item) {
 		return validationItems.indexOf(item);
@@ -74,14 +85,13 @@ public class ValidationList extends List implements IValidationList, SelectionLi
 
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-		int i = super.getSelectionIndex();
+		int i = list.getSelectionIndex();
 		if (i == -1) {
 			return;
 		}
 		IValidationItem item = validationItems.get(i);
 		Main.log(item.getTitle());
 		item.action();
-		// this.removeItem(item);
 	}
 
 	@Override

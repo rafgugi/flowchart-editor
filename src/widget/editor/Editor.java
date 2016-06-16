@@ -28,10 +28,6 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 		initialize();
 	}
 
-	@Override
-	public void checkSubclass() {
-	}
-
 	protected void initialize() {
 		GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
 		gridData.minimumHeight = 320;
@@ -47,6 +43,10 @@ public class Editor extends TabFolder implements IEditor, SelectionListener {
 		}
 
 		super.addSelectionListener(this);
+	}
+
+	@Override
+	public void checkSubclass() {
 	}
 
 	@Override
