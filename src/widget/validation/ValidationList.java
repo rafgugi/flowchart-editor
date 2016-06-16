@@ -7,20 +7,20 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.List;
 
 import interfaces.IValidationItem;
 import interfaces.IValidationList;
 import main.Main;
+import widget.window.MainWindow;
 
 public class ValidationList extends Group implements IValidationList, SelectionListener {
 
 	private ArrayList<IValidationItem> validationItems = new ArrayList<>();
 	private List list;
 
-	public ValidationList(Composite parent) {
+	public ValidationList(MainWindow parent) {
 		super(parent, SWT.SHADOW_ETCHED_IN);
 		initialize();
 	}
