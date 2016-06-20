@@ -3,6 +3,7 @@ package widget.menu.menuitem;
 import command.PackDiagramCommand;
 import widget.menu.AMenu;
 
+@Deprecated
 public class PackMenuItem extends AMenuItem {
 
 	public PackMenuItem(AMenu parent) {

@@ -62,8 +62,10 @@ public class Selection extends BlockSingle {
 	@Override
 	public String toString() {
 		String ans = super.toString();
-		ans += createTabIndent() + "  Child Yes:\n" + getYesChild();
-		ans += createTabIndent() + "  Child No:\n" + getNoChild();
+		if (getYesChild() != null)
+			ans += createTabIndent() + "  Child Yes:\n" + getYesChild();
+		if (getNoChild() != null)
+			ans += createTabIndent() + "  Child No:\n" + getNoChild();
 		return ans;
 	}
 

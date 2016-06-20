@@ -33,6 +33,7 @@ public class PolylineTool extends ATool {
 
 	@Override
 	public void mouseDown(MouseEvent e) {
+		isDrag = false;
 		try {
 			IElement src = getActiveSubEditor().getElement(e.x, e.y);
 			if (srcElement == null) { // jika blom ada elemen awal
@@ -88,6 +89,9 @@ public class PolylineTool extends ATool {
 				IElement src = getActiveSubEditor().getElement(e.x, e.y);
 				if (src != null && src instanceof TwoDimensional) {
 					dstElement = (TwoDimensional) src;
+					if (srcElement == dstElement && elbows.isEmpty()) {
+						throw new CreateElementException("Drag to connect object(s).");
+					}
 					/* Cek apakeh element udah tersambung */
 					boolean alredy = false;
 					for (IElement element : getActiveSubEditor().getElements()) {

@@ -4,6 +4,7 @@ import diagram.flowchart.NodeCode;
 import interfaces.ICommand;
 import main.Main;
 
+@Deprecated
 public class PackDiagramCommand implements ICommand {
 
 	@Override

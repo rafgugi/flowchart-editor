@@ -11,6 +11,7 @@ import interfaces.IElement;
 import widget.toolbar.ToolStrip;
 import widget.window.MainWindow;
 
+@Deprecated
 public class LineTool extends ATool {
 
 	private TwoDimensional srcElement;
