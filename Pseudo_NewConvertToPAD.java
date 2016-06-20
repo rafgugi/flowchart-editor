@@ -46,7 +46,7 @@ public void convertToPAD(NodeCode currCode, BlockContainer fatherBlock) {
     }
     fatherBlock.addElement(element);
   }
-  if (currElem.getType() is "Loop" OR "While") {
+  if (currElem.getType() is "DoWhile" OR "While") {
     if (currElem.getType() is "While") {
       element = new While();
     } else {

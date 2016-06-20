@@ -4,7 +4,6 @@ father = terminator start;
 son = father.getFlow().getSon();
 newCode = new NodeCode(); // (0,0)
 father.setNodeCode(newCode);
-codeCounter = 1;
 stackOfJudgment = new Stack<>();
 doWhileStack = new Stack<>();
 codeAlgorithm(father, son, father.getNodeCode().createSibling());
