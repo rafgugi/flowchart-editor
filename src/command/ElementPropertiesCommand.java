@@ -2,6 +2,7 @@ package command;
 
 import java.util.List;
 
+import exception.ElementNotFoundException;
 import interfaces.ICommand;
 import interfaces.IDiagramElement;
 import interfaces.IElement;
@@ -18,6 +19,8 @@ public class ElementPropertiesCommand implements ICommand {
 		if (elements.size() == 1) {
 			IDiagramElement element = (IDiagramElement) elements.get(0);
 			element.action();
+		} else {
+			throw new ElementNotFoundException("No element selected.");
 		}
 	}
 

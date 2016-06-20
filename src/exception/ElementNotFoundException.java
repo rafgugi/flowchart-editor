@@ -12,4 +12,8 @@ public class ElementNotFoundException extends FlowchartEditorException {
 		super(message);
 	}
 
+	public ElementNotFoundException() {
+		super("Element not found.");
+	}
+
 }

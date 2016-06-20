@@ -8,12 +8,15 @@ import diagram.flowchart.Terminator;
 import exception.ValidationException;
 import interfaces.FlowChartElement;
 import interfaces.IElement;
+import main.Main;
 import widget.validation.ValidationItem;
 import widget.window.MainWindow;
 
 /**
  * 1. Judgment doesn't have convergence
  * 2. Too much convergence
+ * 3. Flow Validator
+ * 4. Stack Overflow
  */
 public class ConvergenceValidator extends AValidator {
 
@@ -72,16 +75,34 @@ public class ConvergenceValidator extends AValidator {
 			maxloop++;
 			return; // exit point of recursion
 		}
-		if (currElem.isTraversed()) {
-			maxloop++;
-			return;
-		}
-		currElem.traverse();
+
 		if (currElem instanceof Process) {
+			if (!currElem.isTraversed()) {
+				currElem.traverse();
+			} else {
+				if (parent instanceof Process) {
+					ValidationItem item = new ValidationItem();
+					item.addProblem(currElem);
+					item.addProblem(parent);
+					item.setTitle("Perulangan harus dimulai atau diakhiri \"Judgment\".");
+					addValidationItem(item);
+				}
+			}
 			Process currNode = (Process) currElem;
-			check(currNode, currNode.getFlow().getSon());
+			try {
+				check(currNode, currNode.getFlow().getSon());
+			} catch (NullPointerException ex) {
+				Main.log("Null pointer ex: " + ex.getMessage());
+			}
 		}
 		if (currElem instanceof Judgment) {
+			if (currElem.isTraversed()) {
+				maxloop++;
+				return;
+			}
+			if (!currElem.isTraversed()) {
+				currElem.traverse();
+			}
 			Judgment currNode = (Judgment) currElem;
 			judgmentStack.push(currNode);
 			for (FlowLine f : currNode.getFlows()) {
@@ -94,6 +115,13 @@ public class ConvergenceValidator extends AValidator {
 			}
 		}
 		if (currElem instanceof Convergence) {
+			if (currElem.isTraversed()) {
+				maxloop++;
+				return;
+			}
+			if (!currElem.isTraversed()) {
+				currElem.traverse();
+			}
 			Convergence currNode = (Convergence) currElem;
 			if (judgmentStack.isEmpty()) {
 				ValidationItem item = new ValidationItem();

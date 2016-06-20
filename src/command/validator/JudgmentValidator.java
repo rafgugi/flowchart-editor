@@ -28,13 +28,24 @@ public class JudgmentValidator extends AValidator {
 					item.addProblem(element);
 					addValidationItem(item);
 				}
+				boolean yes = false;
+				boolean no = false;
 				for (FlowLine flow : judgment.getFlows()) {
 					if (flow.getText().equals(FlowLine.NONE)) {
 						ValidationItem item = new ValidationItem();
 						item.setTitle("Tipe Flowline belum terdefinisi");
 						item.addProblem(flow);
 						addValidationItem(item);
+					} else if (flow.getText().equals(FlowLine.YES)) {
+						yes = true;
+					} else if (flow.getText().equals(FlowLine.NO)) {
+						yes = true;
 					}
+				}
+				if (!(yes && no)) {
+					ValidationItem item = new ValidationItem();
+					item.setTitle("Tipe Flowline harus berbeda");
+					item.addProblem(judgment);
 				}
 			}
 		}
