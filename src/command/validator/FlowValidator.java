@@ -15,10 +15,10 @@ import widget.window.MainWindow;
 /**
  * 1. Judgment doesn't have convergence
  * 2. Too much convergence
- * 3. Flow Validator
+ * 3. Invalid flow
  * 4. Stack Overflow
  */
-public class ConvergenceValidator extends AValidator {
+public class FlowValidator extends AValidator {
 
 	private Stack<Judgment> judgmentStack;
 	private int maxloop;

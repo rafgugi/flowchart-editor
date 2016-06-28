@@ -13,10 +13,6 @@ import widget.validation.ValidationItem;
  */
 public class ElementsConnectionValidator extends AValidator {
 
-	public String getDescription() {
-		return "Ada elemen yang tidak terkoneksi";
-	}
-
 	@Override
 	public void execute() {
 		if (getAllElements().size() == 0) {

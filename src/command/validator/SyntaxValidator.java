@@ -13,10 +13,6 @@ import widget.validation.ValidationItem;
  */
 public class SyntaxValidator extends AValidator {
 
-	public String getDescription() {
-		return "Sintaks kode salah";
-	}
-
 	@Override
 	public void execute() {
 		for (IElement element : getAllElements()) {
