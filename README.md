@@ -5,7 +5,7 @@ User can make flowchart, then user convert flowchart into sourcecode using Probl
 |---|---
 | Flowchart Editor | Ok
 | Data persistence (Save & Open) | Ok
-| Flowchart validation | Progress
+| Flowchart validation | Ok
 | Generate a code for every node | Ok
 | Convert coded flowchart into PAD | Ok
 | Convert PAD into raw sourcecode | Ok
@@ -14,7 +14,7 @@ User can make flowchart, then user convert flowchart into sourcecode using Probl
 
 ## Preparing
 - [Java JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-- [Eclipse for Java developers](https://eclipse.org/downloads)
+- [Eclipse for Java developers](https://eclipse.org/downloads) or [Netbeans (Java SE)](https://netbeans.org/downloads/)
 - Make sure additional jar files included into this project
   - [java.eclipse.swt](https://www.eclipse.org/swt)
   - [antlr v4](http://www.antlr.org/download.html)
