@@ -12,7 +12,7 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
     return; // exit point of recursion
   }
 
-  if (currElem.getDoWhileNode() != doWhileStack.peek()) {
+  if (currElem.getDoWhileNode() != doWhileStack.peek) {
     reset traversed of currElem // masih butuh recode
   }
   if (currElem is Process) {
@@ -41,7 +41,7 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
 
         /* Begining to recode do-while child */
         doWhileStack.push(father); // push doWhile to stack
-        father.setDoWhileNode(doWhileStack.peek());
+        father.setDoWhileNode(doWhileStack);
         childCode = create child of thisCode;
         codeAlgorithm(father, currElem, childCode);
         doWhileStack.pop; // pop doWhile after finish recode
@@ -76,8 +76,7 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
         codeAlgorithm(currElem, convergenceson, null);
       }
 
-      /* loop structures have been recognized, the left is selections */
-      if (currElem.getType() == null) {
+      if (currElem.getType == null) {
         set type of father with Selection
       }
 
@@ -88,11 +87,11 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
       codeAlgorithm(convergence, sonNode, sonCode);
     }
     else { // been traversed.
-      if (currElem.getType() == null) {
+      if (currElem.getType == null) {
         set type of father with While
       }
       else { // and been recognized
-        if (father is Judgment && father.getType() == null) {
+        if (father is Judgment && father.getType == null) {
           /* Judgment father is do-while */
           set type of father with DoWhile
           thisCode = node code of currElem
@@ -103,7 +102,7 @@ public void codeAlgorithm(FlowChartElement father, FlowChartElement currElem, No
 
           /* Begining to recode do-while child */
           doWhileStack.push(father); // push doWhile to stack
-          father.setDoWhileNode(doWhileStack.peek());
+          father.setDoWhileNode(doWhileStack);
           childCode = create child of thisCode;
           codeAlgorithm(father, currElem, childCode);
           doWhileStack.pop; // pop doWhile after finish recode

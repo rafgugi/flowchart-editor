@@ -25,15 +25,28 @@ public class FlowValidator extends AValidator {
 
 	@Override
 	public void execute() {
-		/* we can validate if flowchart is not complete */
-		if (!MainWindow.getInstance().getValidationList().getValidationItems().isEmpty()) {
-			return;
-		}
-
 		Terminator start = null;
 		for (IElement e : getAllElements()) {
 			if (e instanceof FlowChartElement) {
 				((FlowChartElement) e).prepare();
+				
+				/* Cek apkah elemen2 ini harus punya next */
+				FlowChartElement problem = null;
+				if (e instanceof Process) {
+					if (((Process) e).getFlow() == null) {
+						problem = (FlowChartElement) e;
+					}
+				} else if (e instanceof Convergence) {
+					if (((Convergence) e).getFlow() == null) {
+						problem = (FlowChartElement) e;
+					}
+				}
+				if (problem != null) {
+					ValidationItem item = new ValidationItem();
+					item.addProblem(problem);
+					item.setTitle(problem + " tidak memiliki tujuan");
+					addValidationItem(item);
+				}
 			}
 			if (e instanceof Terminator) {
 				if (((Terminator) e).getText().equals(Terminator.START)) {
@@ -41,6 +54,12 @@ public class FlowValidator extends AValidator {
 				}
 			}
 		}
+
+		/* we can validate if flowchart is not complete */
+		if (!MainWindow.getInstance().getValidationList().getValidationItems().isEmpty()) {
+			return;
+		}
+
 		/* Dari atas, klo ketemu judgment masukin ke stack.
 		 * klo ketemu convergence, pasangkan stack.pop. Jika
 		 * stack.pop error, brarti convergence kbanyakan. Jika sampe

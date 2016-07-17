@@ -14,7 +14,6 @@ import exception.PersistenceException;
 import interfaces.ICommand;
 import interfaces.IElement;
 import interfaces.ISubEditor;
-import main.Main;
 import widget.window.MainWindow;
 
 public class SaveCommand implements ICommand {
@@ -38,8 +37,6 @@ public class SaveCommand implements ICommand {
 				AEditable elem = (AEditable) i;
 				JSONObject obj = elem.jsonEncode();
 				retval.append("elements", obj);
-
-				Main.log(obj + "");
 			}
 
 			MainWindow.getInstance().setStatus("Save file " + filename);
