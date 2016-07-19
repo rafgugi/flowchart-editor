@@ -51,8 +51,8 @@ public class Selection extends BlockSingle {
 		if (getYesChild() != null) {
 			ans += getYesChild().generate();
 		}
-		ans += createTabIndent() + "} else {\n";
 		if (getNoChild() != null) {
+			ans += createTabIndent() + "} else {\n";
 			ans += getNoChild().generate();
 		}
 		ans += createTabIndent() + "}\n";

@@ -80,7 +80,7 @@ public class FlowValidator extends AValidator {
 			Judgment j = judgmentStack.pop();
 			ValidationItem item = new ValidationItem();
 			item.addProblem(j);
-			item.setTitle(j + " tidak punya pasangan");
+			item.setTitle(j + " tidak punya pasangan \"Convergence\"");
 			addValidationItem(item);
 		}
 	}
@@ -103,7 +103,7 @@ public class FlowValidator extends AValidator {
 					ValidationItem item = new ValidationItem();
 					item.addProblem(currElem);
 					item.addProblem(parent);
-					item.setTitle("Perulangan harus dimulai atau diakhiri \"Judgment\".");
+					item.setTitle("Perulangan harus dimulai atau diakhiri \"Judgment\"");
 					addValidationItem(item);
 				}
 			}
@@ -145,7 +145,7 @@ public class FlowValidator extends AValidator {
 			if (judgmentStack.isEmpty()) {
 				ValidationItem item = new ValidationItem();
 				item.addProblem(currNode);
-				item.setTitle(currNode + " tidak punya pasangan");
+				item.setTitle(currNode + " tidak punya pasangan \"Judgment\"");
 				addValidationItem(item);
 			} else {
 				Judgment j = judgmentStack.pop();
